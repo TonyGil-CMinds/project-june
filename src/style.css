@@ -800,11 +800,21 @@ html.lenis, html.lenis body { height: auto; }
   color: var(--text-secondary);
   transition: all 0.4s var(--ease-out);
 }
+.social-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transition: filter 0.4s var(--ease-out), opacity 0.4s var(--ease-out);
+}
 .social-icon:hover, .social-icon.css-glass:hover {
   color: var(--bg-primary);
   background: var(--accent);
   transform: translateY(-3px);
   box-shadow: 0 8px 24px var(--accent-glow);
+}
+.social-icon:hover img {
+  filter: brightness(0) saturate(100%) invert(5%) sepia(7%) saturate(1285%) hue-rotate(68deg) brightness(96%) contrast(92%);
+  opacity: 1;
 }
 .footer-nav { display: flex; flex-direction: column; gap: 16px; align-items: flex-end; text-align: right; }
 .footer-link {
