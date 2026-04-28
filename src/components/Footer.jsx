@@ -25,8 +25,7 @@ export default function Footer() {
             <img src="/assets/images/logo.svg" alt="NaturaTech LAC" width="46" height="42" />
           </div>
           <p className="footer-description">
-            At NaturaTech LAC we are driven by a commitment to discover and explore de roots
-            that emerge from the territories their stories, and above all, their innovation.
+            En NaturaTech LAC nos impulsa el compromiso de descubrir y explorar las raíces que emergen de los territorios: sus historias y, sobre todo, su innovación.
           </p>
           <div className="footer-socials">
             {social.map((s) => (
