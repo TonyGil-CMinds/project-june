@@ -234,13 +234,13 @@ export default function Ceiba() {
             <p className="ceiba-description">
               Nuevas economías se esss están tejiendo desde las selvas, costas, ecosistemas y comunidades juntos hicimos esas visiones realidad.
             </p>
-            <a href="https://www.youtube.com/watch?v=gFI3zUEc1fo" target="_blank" rel="noreferrer" className="btn-glass">
+            <a href="https://www.youtube.com/watch?v=gFI3zUEc1fo" target="_blank" rel="noreferrer" className="btn-glass hero-cta-button">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
               Ver Recap 2025
             </a>
           </div>
 
-          <div className="ceiba-bottom-right">
+          <div className="ceiba-bottom-center">
             <div className="hero-scroll-indicator">
               <span>DESLIZAR</span>
               <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L8 20M8 20L2 14M8 20L14 14" /></svg>

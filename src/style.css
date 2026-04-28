@@ -163,6 +163,14 @@ html.lenis, html.lenis body { height: auto; }
 .hero-cta-icon-sparkle {
   display: none;
 }
+.home-page .hero-cta-icon-play {
+  display: none;
+}
+.home-page .hero-cta-icon-sparkle {
+  display: block;
+  color: var(--accent);
+  flex: 0 0 auto;
+}
 
 /* ══════════════════════════════════════════
    ANIMATED OLIVE GRADIENT VIEWPORT FRAME
@@ -442,6 +450,30 @@ html.lenis, html.lenis body { height: auto; }
 .btn-glass:hover { background: var(--accent-soft); transform: translateY(-2px); box-shadow: 0 10px 32px var(--accent-glow); }
 .btn-glass:hover::before { transform: translateX(150%); }
 .btn-glass-sm { padding: 11px 22px; font-size: 0.78rem; }
+.hero-cta-button {
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  background: rgba(54, 75, 36, 0.35);
+  color: var(--text-primary);
+  box-shadow: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.hero-cta-button::before {
+  display: none;
+}
+.hero-cta-button:hover {
+  background: rgba(54, 75, 36, 0.48);
+  color: var(--text-primary);
+  box-shadow: none;
+}
+.hero-cta-button svg {
+  color: var(--accent);
+}
+.hero-cta-button svg[fill="#101511"],
+.hero-cta-button svg [fill="#101511"] {
+  fill: var(--accent);
+}
 
 .btn-glass-outline {
   display: inline-flex;
@@ -2317,30 +2349,8 @@ html.lenis, html.lenis body { height: auto; }
     align-self: center;
     min-width: min(256px, calc(100vw - 92px));
     justify-content: center;
-    padding: 13px 28px;
-    border: 1px solid rgba(255, 255, 255, 0.58);
-    background: rgba(54, 75, 36, 0.35);
-    color: var(--text-primary);
-    box-shadow: none;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     font-size: 1.18rem;
     font-weight: 600;
-  }
-  .home-page #hero-cta::before {
-    display: none;
-  }
-  .home-page #hero-cta:hover {
-    background: rgba(54, 75, 36, 0.48);
-    box-shadow: none;
-  }
-  .home-page .hero-cta-icon-play {
-    display: none;
-  }
-  .home-page .hero-cta-icon-sparkle {
-    display: block;
-    color: var(--accent);
-    flex: 0 0 auto;
   }
   .home-page .hero-bottom-left {
     left: 0;
