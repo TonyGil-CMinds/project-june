@@ -94,6 +94,16 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 100;
   padding: 30px 40px 0;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.32s var(--ease-out);
+}
+.glass-nav.is-footer-visible {
+  opacity: 0;
+  pointer-events: none;
+}
+.glass-nav.is-footer-visible .nav-logo-cell,
+.glass-nav.is-footer-visible .nav-pill-cell {
+  pointer-events: none;
 }
 .nav-inner {
   max-width: 512px;
@@ -139,6 +149,7 @@ html.lenis, html.lenis body { height: auto; }
   min-height: 56px;
   border: 1px solid rgba(50, 51, 41, 0.062);
   border-radius: var(--radius-pill);
+  position: relative;
   background:
     linear-gradient(180deg, rgba(250, 250, 250, 0.253), rgba(255, 255, 255, 0.012)),
     rgba(73, 101, 47, 0.30);
@@ -150,8 +161,18 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-backdrop-filter: blur(22px) saturate(135%);
   overflow: hidden;
 }
+.nav-pill-glass::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02) 44%, transparent);
+}
 
 .nav-pill {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -618,17 +639,17 @@ html.lenis, html.lenis body { height: auto; }
   }
   .nav-pill-glass {
     width: 100%;
-    filter: blur(0.5px);
     min-height: 98px;
-    border-color: rgba(114, 114, 114, 0.192);
+    border-color: rgba(255, 255, 255, 0.20);
     background:
-      linear-gradient(180deg, rgba(235, 255, 87, 0.075), rgba(12, 11, 11, 0.012)),
-      rgba(73, 73, 72, 0.534);
+      linear-gradient(180deg, rgba(235, 255, 87, 0.08), rgba(255, 255, 255, 0.018)),
+      rgba(54, 76, 38, 0.42);
     box-shadow:
-      inset 0 1px 0 rgba(221, 221, 221, 0.11),
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
       inset 0 -22px 32px rgba(17, 31, 12, 0.16),
       0 16px 40px rgba(15, 33, 12, 0.30);
-      
+    backdrop-filter: blur(24px) saturate(160%) brightness(1.04);
+    -webkit-backdrop-filter: blur(24px) saturate(160%) brightness(1.04);
   }
   .nav-pill {
     width: 100%;

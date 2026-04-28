@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 const links = [
   {
@@ -19,7 +19,9 @@ const links = [
 ];
 
 export default function Nav() {
+  const location = useLocation();
   const [hideMobilePill, setHideMobilePill] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
   const lastScrollYRef = useRef(0);
   const scrollIdleRef = useRef(null);
 
@@ -72,8 +74,50 @@ export default function Nav() {
     };
   }, []);
 
+  useEffect(() => {
+    setFooterVisible(false);
+
+    let observer;
+    let cancelled = false;
+    let retryId;
+
+    const observeFooter = () => {
+      if (cancelled) return;
+
+      const footer = document.querySelector('.footer-section');
+      if (!footer) {
+        retryId = window.setTimeout(observeFooter, 120);
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => setFooterVisible(entry.isIntersecting),
+        {
+          root: null,
+          threshold: 0.08,
+          rootMargin: '0px 0px -8% 0px',
+        }
+      );
+      observer.observe(footer);
+    };
+
+    observeFooter();
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(retryId);
+      if (observer) observer.disconnect();
+    };
+  }, [location.pathname]);
+
   return (
-    <nav className={'glass-nav' + (hideMobilePill ? ' is-hidden-mobile' : '')}>
+    <nav
+      className={
+        'glass-nav' +
+        (hideMobilePill ? ' is-hidden-mobile' : '') +
+        (footerVisible ? ' is-footer-visible' : '')
+      }
+    >
       <div className="nav-inner">
         <NavLink to="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home">
           <div className="nav-logo-glass">
