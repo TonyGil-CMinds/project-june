@@ -155,7 +155,7 @@ export default function Home({ appReady }) {
         </div>
 
         <div className="hero-bird-wrapper">
-          <img src="/assets/images/colibri.png" alt="Colibrí verde iridiscente" className="hero-bird" />
+          <img src="/assets/images/colibri.webp" alt="Colibrí verde iridiscente" className="hero-bird" />
         </div>
 
         <div className="hero-overlay" aria-hidden="true" />
@@ -173,7 +173,7 @@ export default function Home({ appReady }) {
                   <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" />
                     <span className="stories-badge-desktop">Destacado</span>
-                    <span className="stories-badge-mobile">Historias</span>
+                    <span className="stories-badge-mobile">Destacado</span>
                   </span>
                   <svg
                     width="16" height="16" viewBox="0 0 24 24"
