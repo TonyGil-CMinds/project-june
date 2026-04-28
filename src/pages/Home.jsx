@@ -125,17 +125,21 @@ export default function Home({ appReady }) {
     if (!storiesCollapsed) return;
     const list = storiesListRef.current;
     if (!list) return;
-    const itemH = 88 + 20;
+    const getItemHeight = () => {
+      const firstItem = list.querySelector('.stories-content');
+      const gap = parseFloat(window.getComputedStyle(list).rowGap || '0');
+      return (firstItem?.offsetHeight || 88) + gap;
+    };
     let i = 0;
     const id = setInterval(() => {
       i = (i + 1) % stories.length;
-      list.scrollTo({ top: i * itemH, behavior: 'smooth' });
+      list.scrollTo({ top: i * getItemHeight(), behavior: 'smooth' });
     }, 3500);
     return () => clearInterval(id);
   }, [storiesCollapsed]);
 
   return (
-    <div ref={rootRef}>
+    <div ref={rootRef} className="home-page">
       {/* HERO */}
       <section id="hero" className="hero-section">
         <div className="hero-bg-wrapper">
@@ -168,7 +172,8 @@ export default function Home({ appReady }) {
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" />
-                    Destacado
+                    <span className="stories-badge-desktop">Destacado</span>
+                    <span className="stories-badge-mobile">Historias</span>
                   </span>
                   <svg
                     width="16" height="16" viewBox="0 0 24 24"
@@ -216,7 +221,10 @@ export default function Home({ appReady }) {
                 </span>
               </h1>
               <a href="#" className="btn-glass" id="hero-cta">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="#101511"><polygon points="5,3 19,12 5,21"/></svg>
+                <svg className="hero-cta-icon hero-cta-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="#101511"><polygon points="5,3 19,12 5,21"/></svg>
+                <svg className="hero-cta-icon hero-cta-icon-sparkle" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2.8 14.45 9.55 21.2 12 14.45 14.45 12 21.2 9.55 14.45 2.8 12 9.55 9.55 12 2.8Z" fill="currentColor" />
+                </svg>
                 Ver Video
               </a>
             </div>
