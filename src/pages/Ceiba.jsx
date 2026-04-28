@@ -130,7 +130,7 @@ export default function Ceiba() {
       }
 
       /* ─── GALLERY parallax (slight rise as you scroll past) ─── */
-      gsap.fromTo('.ceiba-gallery',
+      gsap.fromTo('.ceiba-gallery-parallax',
         { y: 60 },
         {
           y: -40, ease: 'none',
@@ -269,13 +269,15 @@ export default function Ceiba() {
 
       {/* ════════════ INFINITE GALLERY CAROUSEL ════════════ */}
       <section className="ceiba-gallery">
-        <div className="ceiba-gallery-track">
-          {/* Double the images for seamless loop */}
-          {[...galleryImages, ...galleryImages].map((src, i) => (
-            <div key={i} className="ceiba-gallery-item">
-              <img src={src} alt={`Galería CEIBA ${(i % galleryImages.length) + 1}`} loading="lazy" />
-            </div>
-          ))}
+        <div className="ceiba-gallery-parallax">
+          <div className="ceiba-gallery-track">
+            {/* Double the images for seamless loop */}
+            {[...galleryImages, ...galleryImages].map((src, i) => (
+              <div key={i} className="ceiba-gallery-item">
+                <img src={src} alt={`Galería CEIBA ${(i % galleryImages.length) + 1}`} loading="lazy" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

@@ -1294,8 +1294,10 @@ html.lenis, html.lenis body { height: auto; }
   position: relative;
   overflow: hidden;
   padding: 40px 0 70px;
-  background: #101511;
+  background: rgb(244, 240, 190);
   margin: 0;
+}
+.ceiba-gallery-parallax {
   will-change: transform;
 }
 .ceiba-gallery-track {
