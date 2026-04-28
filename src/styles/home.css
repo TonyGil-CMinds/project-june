@@ -177,7 +177,7 @@
 
 .hero-heading {
   font-family: var(--font-body);
-  text-align: right;
+  text-align: left;
   line-height: 0.98;
   letter-spacing: -0.025em;
 }
