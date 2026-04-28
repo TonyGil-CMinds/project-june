@@ -1551,11 +1551,20 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 1;
   transform: translateY(0);
 }
+.ceiba-social-btn img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  transition: transform 0.35s var(--ease-out);
+}
 .ceiba-social-btn:hover {
   background: #0a1505;
   color: #EBFF57;
   transform: translateY(-5px);
   box-shadow: 0 12px 28px rgba(20, 38, 12, 0.35);
+}
+.ceiba-social-btn:hover img {
+  transform: scale(1.08);
 }
 
 /* ── CEIBA RESPONSIVE ── */
