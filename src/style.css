@@ -2367,17 +2367,7 @@ html.lenis, html.lenis body { height: auto; }
     text-transform: none;
     cursor: pointer;
   }
-  .home-page .stories-badge::after {
-    content: "";
-    flex: 1 1 auto;
-    height: 4px;
-    margin-left: 18px;
-    border-radius: var(--radius-pill);
-    background: linear-gradient(90deg,
-      var(--accent) 0 34%,
-      transparent 34% 48%,
-      rgba(255, 255, 255, 0.78) 48% 100%);
-  }
+  
   .home-page .stories-badge > svg {
     display: none;
   }
