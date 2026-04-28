@@ -1,4 +1,5 @@
 import SafeLiquidGlass from '../components/SafeLiquidGlass.jsx';
+import '../styles/placeholder.css';
 
 export default function Ecos() {
   return (

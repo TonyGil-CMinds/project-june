@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,11 +9,11 @@ import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
 import ViewportFrame from './components/ViewportFrame.jsx';
 
-import Home from './pages/Home.jsx';
-import Emprendimientos from './pages/Emprendimientos.jsx';
-import Ceiba from './pages/Ceiba.jsx';
-import Studio from './pages/Studio.jsx';
-import Ecos from './pages/Ecos.jsx';
+const Home = lazy(() => import('./pages/Home.jsx'));
+const Emprendimientos = lazy(() => import('./pages/Emprendimientos.jsx'));
+const Ceiba = lazy(() => import('./pages/Ceiba.jsx'));
+const Studio = lazy(() => import('./pages/Studio.jsx'));
+const Ecos = lazy(() => import('./pages/Ecos.jsx'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,17 +115,19 @@ export default function App() {
           exit="exit"
           transition={pageTransition}
         >
-          <Routes location={location}>
-            <Route path="/" element={<Home appReady={appReady} />} />
-            <Route
-              path="/emprendimientos"
-              element={<Emprendimientos onFrameToggle={setFrameVisible} />}
-            />
-            <Route path="/ceiba" element={<Ceiba />} />
-            <Route path="/studio" element={<Studio />} />
-            <Route path="/ecos" element={<Ecos />} />
-            <Route path="*" element={<Home appReady={appReady} />} />
-          </Routes>
+          <Suspense fallback={<div className="route-loading" aria-hidden="true" />}>
+            <Routes location={location}>
+              <Route path="/" element={<Home appReady={appReady} />} />
+              <Route
+                path="/emprendimientos"
+                element={<Emprendimientos onFrameToggle={setFrameVisible} />}
+              />
+              <Route path="/ceiba" element={<Ceiba />} />
+              <Route path="/studio" element={<Studio />} />
+              <Route path="/ecos" element={<Ecos />} />
+              <Route path="*" element={<Home appReady={appReady} />} />
+            </Routes>
+          </Suspense>
           <Footer />
         </motion.div>
       </AnimatePresence>

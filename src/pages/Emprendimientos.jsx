@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GlassFrame from '../components/GlassFrame.jsx';
+import '../styles/emprendimientos.css';
 
 const REGENERA_VIDEO_SRC = import.meta.env.VITE_REGENERA_VIDEO_URL?.trim() || 'https://pub-c9d9bba411f444e5a7d61a43c6e28f11.r2.dev/emprendimiento/video/regenera.mp4';
 

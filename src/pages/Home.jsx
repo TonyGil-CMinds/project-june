@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
 import GlassFrame from '../components/GlassFrame.jsx';
+import '../styles/home.css';
 
 const stories = [
   { title: 'Lola Cabnal en',     subtitle: 'Somos Raíces',        img: '/assets/historias/historia-one.webp',    href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s',                                          cta: 'Ver Video',           play: true },
