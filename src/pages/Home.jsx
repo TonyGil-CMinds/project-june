@@ -6,7 +6,7 @@ import GlassFrame from '../components/GlassFrame.jsx';
 
 const stories = [
   { title: 'Lola Cabnal en',     subtitle: 'Somos Raíces',        img: '/assets/historias/historia-one.webp',    href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s',                                          cta: 'Ver Video',           play: true },
-  { title: 'Conoce más de',      subtitle: 'Natura 500',          img: '/assets/historias/historia-dos.webp',    href: '#natura500',                                                                                  cta: 'Ir a Natura 500' },
+  { title: 'Conoce más de',      subtitle: 'Natura 500',          img: '/assets/historias/historia-dos.webp',    href: '/emprendimientos',                                                                                  cta: 'Ir a Natura 500' },
   { title: 'Accede a nuestro',   subtitle: 'Canal de Whatsapp',   img: '/assets/historias/historia-tres.webp',   href: 'https://whatsapp.com/channel/0029Vb7HsgN3mFXwkZzeW71V',                                       cta: 'Ir a Canal' },
   { title: 'Escucha el Soundtrack', subtitle: 'de CEIBA',         img: '/assets/historias/historia-cuatro.webp', href: 'https://open.spotify.com/intl-es/album/0lg3EDWiGdTLW565zGKvuO?si=D1-PT4T9Sz-o9vn9a5Jtvw',     cta: 'Escuchar en Spotify' },
 ];
