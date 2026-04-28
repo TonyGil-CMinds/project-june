@@ -160,7 +160,7 @@ export default function Emprendimientos({ onFrameToggle }) {
             </a>
           </div>
 
-          <div className="regen-bottom-right">
+          <div className="regen-bottom-center">
             <div className="hero-scroll-indicator">
               <span>DESLIZAR</span>
               <svg width="15" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L8 20M8 20L2 14M8 20L14 14"/></svg>
