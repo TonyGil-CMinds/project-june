@@ -9,7 +9,7 @@ const links = [
   },
   {
     to: '/emprendimientos',
-    label: 'Startups',
+    label: 'Empresas',
     desktopLabel: 'Empresas',
     icon: '/assets/icons/Navbar/startups.svg',
   },

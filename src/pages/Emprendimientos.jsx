@@ -146,17 +146,19 @@ export default function Emprendimientos({ onFrameToggle }) {
           <div className="regen-content-inner">
             <div className="regen-header-label">
               <img src="/assets/shapes/double-d.svg" alt="" width="18" height="18" />
-              Natura 500
+              NATURA500
             </div>
             <h1 className="regen-heading">
               <span className="regen-heading-line">Emprende</span>
               <span className="regen-heading-line regen-heading-accent"><span className="amp">&amp;</span> Regenera</span>
             </h1>
             <p className="regen-description">
-              Accede a herramientas de IA, conecta con nuevas oportunidades de financiamiento y sé parte de una red global.
+              <span className="regen-mobile-line">Accede a herramientas de IA, conecta con</span>{' '}
+              <span className="regen-mobile-line">nuevas oportunidades de financiamiento y</span>{' '}
+              <span className="regen-mobile-line">sé parte de una red global.</span>
             </p>
             <a href="https://500.naturatech.org" target="_blank" rel="noreferrer" className="btn-glass hero-cta-button">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
               Acceder a Natura 500
             </a>
           </div>
