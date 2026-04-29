@@ -15,11 +15,14 @@ const stories = [
 export default function Home({ appReady }) {
   const rootRef = useRef(null);
   const [storiesCollapsed, setStoriesCollapsed] = useState(true);
+  const [storiesElevated, setStoriesElevated] = useState(false);
   const storiesListRef = useRef(null);
+  const storiesLayerTimeoutRef = useRef(null);
 
   useEffect(() => {
     if (!rootRef.current || !appReady) return;
     const ctx = gsap.context(() => {
+      const isMobileHero = window.matchMedia('(max-width: 768px)').matches;
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
       tl.from('.hero-bg',          { scale: 1.15, duration: 2.4, ease: 'power2.out' }, 0)
         .from('.hero-bird',        { scale: 1.06, y: 30, opacity: 0, duration: 1.4 }, 0.1)
@@ -30,7 +33,17 @@ export default function Home({ appReady }) {
         .from('.hero-heading-line', { y: 60, opacity: 0, duration: 0.9, stagger: 0.16 }, 0.55)
         .fromTo('#hero-cta',     { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.85)
         .fromTo('#hero-scroll',  { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.95)
-        .from('#hero-stories-card', { x: -60, opacity: 0, duration: 0.95 }, 0.75);
+        .from(
+          '#hero-stories-card',
+          {
+            x: isMobileHero ? 0 : -60,
+            y: isMobileHero ? 22 : 0,
+            opacity: 0,
+            duration: 0.95,
+            clearProps: 'transform,opacity',
+          },
+          0.75
+        );
 
       gsap.to('.hero-bird', { y: '-=8', yoyo: true, repeat: -1, duration: 4.2, ease: 'sine.inOut' });
 
@@ -139,8 +152,38 @@ export default function Home({ appReady }) {
     return () => clearInterval(id);
   }, [storiesCollapsed]);
 
+  useEffect(() => () => {
+    window.clearTimeout(storiesLayerTimeoutRef.current);
+    document.documentElement.classList.remove('stories-card-is-elevated');
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('stories-card-is-elevated', storiesElevated);
+    return () => {
+      document.documentElement.classList.remove('stories-card-is-elevated');
+    };
+  }, [storiesElevated]);
+
+  const toggleStories = () => {
+    window.clearTimeout(storiesLayerTimeoutRef.current);
+
+    if (storiesCollapsed) {
+      setStoriesElevated(true);
+      setStoriesCollapsed(false);
+      return;
+    }
+
+    setStoriesCollapsed(true);
+    storiesLayerTimeoutRef.current = window.setTimeout(() => {
+      setStoriesElevated(false);
+    }, 620);
+  };
+
   return (
-    <div ref={rootRef} className="home-page">
+    <div
+      ref={rootRef}
+      className={'home-page' + (storiesElevated ? ' stories-is-elevated' : '')}
+    >
       {/* HERO */}
       <section id="hero" className="hero-section">
         <div className="hero-bg-wrapper">
@@ -166,12 +209,27 @@ export default function Home({ appReady }) {
         <div className="hero-content">
           <div className="hero-bottom-grid">
 
-            <div className="hero-bottom-left">
-              <div className="hero-stories-card css-glass" id="hero-stories-card">
+            <div
+              className={
+                'hero-bottom-left' +
+                (storiesElevated ? ' is-stories-elevated' : '') +
+                (!storiesCollapsed ? ' is-stories-expanded' : '')
+              }
+            >
+              <div
+                className={
+                  'hero-stories-card css-glass' +
+                  (!storiesCollapsed ? ' is-expanded' : '') +
+                  (storiesElevated ? ' is-elevated' : '')
+                }
+                id="hero-stories-card"
+              >
                 <button
                   className="stories-badge"
-                  onClick={() => setStoriesCollapsed((v) => !v)}
+                  onClick={toggleStories}
                   type="button"
+                  aria-expanded={!storiesCollapsed}
+                  aria-controls="hero-stories-list"
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" />
@@ -179,15 +237,19 @@ export default function Home({ appReady }) {
                     <span className="stories-badge-mobile">Destacado</span>
                   </span>
                   <svg
+                    className="stories-badge-chevron"
                     width="16" height="16" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" strokeWidth="2"
                     strokeLinecap="round" strokeLinejoin="round"
-                    style={{ transition: 'transform 0.4s', transform: storiesCollapsed ? 'rotate(180deg)' : 'rotate(0deg)', color: 'var(--accent)' }}
                   >
                     <polyline points="18 15 12 9 6 15" />
                   </svg>
                 </button>
-                <div className={'stories-list' + (storiesCollapsed ? ' is-collapsed' : '')} ref={storiesListRef}>
+                <div
+                  id="hero-stories-list"
+                  className={'stories-list' + (storiesCollapsed ? ' is-collapsed' : '')}
+                  ref={storiesListRef}
+                >
                   {stories.map((s, i) => (
                     <div className="stories-content" key={i}>
                       <div className="stories-thumb"><img src={s.img} alt={s.subtitle} /></div>
