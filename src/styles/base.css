@@ -174,7 +174,9 @@ html.lenis, html.lenis body { height: auto; }
   padding: 30px 40px 0;
   pointer-events: none;
   opacity: 1;
-  transition: opacity 0.32s var(--ease-out);
+  transition:
+    opacity 0.32s var(--ease-out),
+    transform 0.58s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-nav.is-footer-visible {
   opacity: 0;
@@ -202,6 +204,7 @@ html.lenis, html.lenis body { height: auto; }
 .nav-logo-cell {
   pointer-events: auto;
   flex: 0 0 auto;
+  transition: transform 0.58s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-logo-glass {
   width: 56px;
@@ -725,6 +728,21 @@ html.lenis, html.lenis body { height: auto; }
     width: min(100%, 424px);
     flex: 0 1 424px;
     will-change: transform, opacity;
+    transition:
+      transform 0.58s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.32s var(--ease-out);
+  }
+  html.stories-card-is-open .glass-nav {
+    transform: none;
+  }
+  html.stories-card-is-open .nav-logo-cell {
+    transform: translate(-50%, 10px);
+  }
+  html.stories-card-is-open .nav-pill-cell,
+  html.stories-card-is-open .glass-nav.is-hidden-mobile .nav-pill-cell {
+    transform: translateY(18px);
+    opacity: 1;
+    pointer-events: auto;
   }
   .glass-nav.is-hidden-mobile .nav-pill-cell {
     transform: translateY(calc(100% + 28px));

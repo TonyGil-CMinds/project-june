@@ -16,7 +16,10 @@ export default function Home({ appReady }) {
   const rootRef = useRef(null);
   const [storiesCollapsed, setStoriesCollapsed] = useState(true);
   const [storiesElevated, setStoriesElevated] = useState(false);
+  const [storiesMinimized, setStoriesMinimized] = useState(false);
+  const storiesBadgeRef = useRef(null);
   const storiesListRef = useRef(null);
+  const storiesRestoreRef = useRef(null);
   const storiesLayerTimeoutRef = useRef(null);
 
   useEffect(() => {
@@ -136,7 +139,7 @@ export default function Home({ appReady }) {
 
   // Stories auto-rotate when collapsed
   useEffect(() => {
-    if (!storiesCollapsed) return;
+    if (!storiesCollapsed || storiesMinimized) return;
     const list = storiesListRef.current;
     if (!list) return;
     const getItemHeight = () => {
@@ -150,11 +153,12 @@ export default function Home({ appReady }) {
       list.scrollTo({ top: i * getItemHeight(), behavior: 'smooth' });
     }, 3500);
     return () => clearInterval(id);
-  }, [storiesCollapsed]);
+  }, [storiesCollapsed, storiesMinimized]);
 
   useEffect(() => () => {
     window.clearTimeout(storiesLayerTimeoutRef.current);
     document.documentElement.classList.remove('stories-card-is-elevated');
+    document.documentElement.classList.remove('stories-card-is-open');
   }, []);
 
   useEffect(() => {
@@ -164,10 +168,18 @@ export default function Home({ appReady }) {
     };
   }, [storiesElevated]);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle('stories-card-is-open', !storiesCollapsed);
+    return () => {
+      document.documentElement.classList.remove('stories-card-is-open');
+    };
+  }, [storiesCollapsed]);
+
   const toggleStories = () => {
     window.clearTimeout(storiesLayerTimeoutRef.current);
 
     if (storiesCollapsed) {
+      setStoriesMinimized(false);
       setStoriesElevated(true);
       setStoriesCollapsed(false);
       return;
@@ -179,10 +191,35 @@ export default function Home({ appReady }) {
     }, 620);
   };
 
+  const minimizeStories = (event) => {
+    event.stopPropagation();
+    window.clearTimeout(storiesLayerTimeoutRef.current);
+    setStoriesCollapsed(true);
+    setStoriesElevated(false);
+    setStoriesMinimized(true);
+    window.setTimeout(() => {
+      storiesRestoreRef.current?.focus({ preventScroll: true });
+    }, 180);
+  };
+
+  const restoreStories = () => {
+    window.clearTimeout(storiesLayerTimeoutRef.current);
+    setStoriesMinimized(false);
+    setStoriesCollapsed(true);
+    setStoriesElevated(false);
+    window.setTimeout(() => {
+      storiesBadgeRef.current?.focus({ preventScroll: true });
+    }, 260);
+  };
+
   return (
     <div
       ref={rootRef}
-      className={'home-page' + (storiesElevated ? ' stories-is-elevated' : '')}
+      className={
+        'home-page' +
+        (storiesElevated ? ' stories-is-elevated' : '') +
+        (storiesMinimized ? ' stories-is-minimized' : '')
+      }
     >
       {/* HERO */}
       <section id="hero" className="hero-section">
@@ -213,23 +250,29 @@ export default function Home({ appReady }) {
               className={
                 'hero-bottom-left' +
                 (storiesElevated ? ' is-stories-elevated' : '') +
-                (!storiesCollapsed ? ' is-stories-expanded' : '')
+                (!storiesCollapsed ? ' is-stories-expanded' : '') +
+                (storiesMinimized ? ' is-stories-minimized' : '')
               }
             >
               <div
                 className={
                   'hero-stories-card css-glass' +
                   (!storiesCollapsed ? ' is-expanded' : '') +
-                  (storiesElevated ? ' is-elevated' : '')
+                  (storiesElevated ? ' is-elevated' : '') +
+                  (storiesMinimized ? ' is-minimized' : '')
                 }
                 id="hero-stories-card"
+                aria-hidden={storiesMinimized}
               >
                 <button
                   className="stories-badge"
+                  ref={storiesBadgeRef}
                   onClick={toggleStories}
                   type="button"
                   aria-expanded={!storiesCollapsed}
                   aria-controls="hero-stories-list"
+                  aria-label={storiesCollapsed ? 'Abrir historias destacadas' : 'Cerrar historias destacadas'}
+                  tabIndex={storiesMinimized ? -1 : 0}
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" />
@@ -245,6 +288,17 @@ export default function Home({ appReady }) {
                     <polyline points="18 15 12 9 6 15" />
                   </svg>
                 </button>
+                <button
+                  className="stories-minimize-button"
+                  onClick={minimizeStories}
+                  type="button"
+                  aria-label="Minimizar historias destacadas"
+                  tabIndex={storiesMinimized ? -1 : 0}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                  </svg>
+                </button>
                 <div
                   id="hero-stories-list"
                   className={'stories-list' + (storiesCollapsed ? ' is-collapsed' : '')}
@@ -256,7 +310,13 @@ export default function Home({ appReady }) {
                       <div className="stories-info">
                         <span className="stories-title">{s.title}</span>
                         <span className="stories-subtitle">{s.subtitle}</span>
-                        <a href={s.href} target="_blank" rel="noreferrer" className="stories-link">
+                        <a
+                          href={s.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="stories-link"
+                          tabIndex={storiesMinimized ? -1 : 0}
+                        >
                           {s.play ? (
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="#C8E632"><polygon points="5,3 19,12 5,21"/></svg>
                           ) : (
@@ -269,6 +329,20 @@ export default function Home({ appReady }) {
                   ))}
                 </div>
               </div>
+              <button
+                className={'stories-restore-button' + (storiesMinimized ? ' is-visible' : '')}
+                ref={storiesRestoreRef}
+                onClick={restoreStories}
+                type="button"
+                aria-label="Mostrar historias destacadas"
+                aria-expanded={!storiesMinimized}
+                aria-controls="hero-stories-card"
+                tabIndex={storiesMinimized ? 0 : -1}
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="6 15 12 9 18 15" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </div>
 
             <div className="hero-bottom-center">

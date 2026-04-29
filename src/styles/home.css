@@ -1,4 +1,6 @@
 .stories-badge-mobile,
+.stories-minimize-button,
+.stories-restore-button,
 .hero-cta-icon-sparkle {
   display: none;
 }
@@ -17,7 +19,11 @@
 }
 
 html.stories-card-is-elevated .page-shell {
-  z-index: 180;
+  z-index: 90;
+}
+
+html.stories-card-is-open .glass-nav {
+  transform: translateY(18px);
 }
 
 /* ══════════════════════════════════════════
@@ -204,6 +210,13 @@ html.stories-card-is-elevated .page-shell {
   transition: color 0.3s, gap 0.3s;
 }
 .stories-link:hover { color: var(--accent); gap: 9px; }
+.stories-badge:focus-visible,
+.stories-link:focus-visible,
+.stories-minimize-button:focus-visible,
+.stories-restore-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
 
 .hero-heading {
   font-family: var(--font-body);
@@ -640,22 +653,32 @@ html.stories-card-is-elevated .page-shell {
   .home-page .hero-bottom-left {
     left: 50%;
     right: auto;
+    top: auto;
     bottom: calc(92px + env(safe-area-inset-bottom));
     z-index: 2;
     width: min(280px, calc(100vw - 66px));
     transform: translateX(-50%);
     transition:
+      top 0.58s var(--stories-close-ease),
       bottom 0.58s var(--stories-close-ease),
+      transform 0.58s var(--stories-close-ease),
       width 0.58s var(--stories-close-ease);
-    will-change: bottom, width;
+    will-change: top, bottom, transform, width;
   }
   .home-page .hero-bottom-left.is-stories-elevated {
     z-index: 260;
   }
   .home-page .hero-bottom-left.is-stories-expanded {
-    bottom: calc(20px + env(safe-area-inset-bottom));
+    top: 50%;
+    bottom: auto;
     width: min(344px, calc(100vw - 24px));
+    transform: translate(-50%, -50%);
     transition-timing-function: var(--stories-open-ease);
+  }
+  .home-page .hero-bottom-left.is-stories-minimized {
+    bottom: calc(90px + env(safe-area-inset-bottom));
+    width: 64px;
+    pointer-events: none;
   }
   .home-page .hero-stories-card {
     width: 100%;
@@ -665,6 +688,19 @@ html.stories-card-is-elevated .page-shell {
     background: rgba(45, 68, 31, 0.52);
     transform: translateY(0) scale(1);
     transform-origin: 50% 100%;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+      width 0.58s var(--stories-close-ease),
+      max-width 0.58s var(--stories-close-ease),
+      padding 0.58s var(--stories-close-ease),
+      background-color 0.58s var(--stories-close-ease),
+      border-color 0.58s var(--stories-close-ease),
+      box-shadow 0.58s var(--stories-close-ease),
+      opacity 0.34s var(--ease-out),
+      visibility 0s linear 0s,
+      transform 0.58s var(--stories-close-ease);
   }
   .home-page .hero-stories-card.is-elevated {
     z-index: 2;
@@ -678,6 +714,22 @@ html.stories-card-is-elevated .page-shell {
     background: rgba(45, 68, 31, 0.74);
     transform: translateY(-2px) scale(1.01);
     transition-timing-function: var(--stories-open-ease);
+  }
+  .home-page .hero-stories-card.is-minimized {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(22px) scale(0.94);
+    transition:
+      width 0.58s var(--stories-close-ease),
+      max-width 0.58s var(--stories-close-ease),
+      padding 0.58s var(--stories-close-ease),
+      background-color 0.58s var(--stories-close-ease),
+      border-color 0.58s var(--stories-close-ease),
+      box-shadow 0.58s var(--stories-close-ease),
+      opacity 0.24s var(--stories-close-ease),
+      visibility 0s linear 0.34s,
+      transform 0.42s var(--stories-close-ease);
   }
   .home-page .stories-badge {
     margin-bottom: 16px;
@@ -693,6 +745,65 @@ html.stories-card-is-elevated .page-shell {
     text-transform: uppercase;
     cursor: pointer;
     justify-content: flex-start;
+    padding-right: 34px;
+  }
+  .home-page .stories-minimize-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: rgba(255, 255, 255, 0.92);
+    border: 0;
+    border-radius: 50%;
+    background: rgba(10, 20, 10, 0);
+    cursor: pointer;
+    transition:
+      color 0.24s var(--ease-out),
+      transform 0.24s var(--ease-out),
+      background-color 0.24s var(--ease-out);
+  }
+  .home-page .stories-minimize-button:hover {
+    color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.05);
+  }
+  .home-page .stories-restore-button {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 38px;
+    color: var(--accent);
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 22px) scale(0.72);
+    cursor: pointer;
+    filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.24));
+    transition:
+      opacity 0.28s var(--ease-out),
+      transform 0.42s var(--stories-open-ease),
+      color 0.24s var(--ease-out);
+  }
+  .home-page .stories-restore-button.is-visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0) scale(1);
+  }
+  .home-page .stories-restore-button:hover {
+    color: rgba(235, 255, 87, 0.98);
+    transform: translate(-50%, -3px) scale(1.05);
   }
   .home-page .stories-badge-chevron {
     transition:
