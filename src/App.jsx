@@ -4,6 +4,7 @@ import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SpeedInsights } from "@vercel/speed-insights/react"
+import { Analytics } from "@vercel/analytics/react"
 
 import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
@@ -110,7 +111,11 @@ export default function App() {
         </Suspense>
         <Footer />
       </main>
+
+
+
       <SpeedInsights />
+      <Analytics />
     </>
   );
 }
