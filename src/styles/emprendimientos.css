@@ -131,15 +131,22 @@
 .regen-video-section {
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  height: 300vh;
   background: var(--bg-primary);
 }
+.regen-video-sticky {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
 .regen-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   object-fit: cover;
   opacity: 0;
   transition: opacity 0.8s var(--ease-out);
