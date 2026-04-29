@@ -249,10 +249,10 @@
   aspect-ratio: 1 / 1;
   overflow: hidden;
 }
-.ceiba-shape-item:nth-child(1) { background: #DDE82A; }
-.ceiba-shape-item:nth-child(2) { background: #C8E632; }
-.ceiba-shape-item:nth-child(3) { background: #EBFF57; }
-.ceiba-shape-item:nth-child(4) { background: #11200a; }
+.ceiba-shape-item:nth-child(1) { background: #192C0A; }
+.ceiba-shape-item:nth-child(2) { background: #BCD42A; }
+.ceiba-shape-item:nth-child(3) { background: #FFE636; }
+.ceiba-shape-item:nth-child(4) { background: #192C0A; }
 .ceiba-shape-item img {
   width: 50%;
   height: 50%;
