@@ -131,13 +131,15 @@ export default function Studio() {
             </div>
             <h1 className="studio-heading">
               <span className="studio-heading-line">Acciona</span>
-              <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> Co-crea</span>
+              <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> Demuestra</span>
             </h1>
             <p className="studio-description">
-              Acompañamos a empresas que validan, demuestran cómo hacer negocios con empresarios y solucionadores desde los territorios.
+              Acompa&ntilde;amos a 14 proyectos que est&aacute;n demostrando c&oacute;mo el nexo entre tecnolog&iacute;a con prop&oacute;sito y sabidur&iacute;a ancestral echa ra&iacute;ces.
             </p>
             <a href="#portfolio" className="btn-glass hero-cta-button">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.5L14.58 9.42L21.5 12L14.58 14.58L12 21.5L9.42 14.58L2.5 12L9.42 9.42L12 2.5Z" />
+              </svg>
               Ver Portafolio
             </a>
           </div>
