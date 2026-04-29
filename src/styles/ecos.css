@@ -73,7 +73,7 @@
   height: min(76vh, 650px);
   max-width: none;
   object-fit: contain;
-  transform: translateX(-55%);
+  translate: -50% 0;
   filter: drop-shadow(0 28px 52px rgba(0, 0, 0, 0.42));
   will-change: transform;
 }
@@ -194,7 +194,7 @@
   }
 
   .ecos-subject {
-    transform: translateX(-50%);
+    translate: -50% 0;
     height: min(64vh, 560px);
   }
 
@@ -228,10 +228,10 @@
   }
 
   .ecos-subject {
-    left: 53%;
+    left: 50%;
     bottom: clamp(-16px, -1dvh, 8px);
     height: clamp(312px, 49dvh, 370px);
-    transform: translateX(-42%);
+    translate: -50% 0;
   }
 
   .ecos-overlay {
