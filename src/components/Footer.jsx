@@ -10,7 +10,7 @@ const social = [
 
 const footerLinks = [
   { to: '/',                label: 'INICIO' },
-  { to: '/emprendimientos', label: 'EMPRENDIMIENTOS' },
+  { to: '/emprendimientos', label: 'EMPRESAS' },
   { to: '/ceiba',           label: 'CEIBA' },
   { to: '/studio',          label: 'PORTAFOLIO' },
   { to: '/ecos',            label: 'PUBLICACIONES' },
