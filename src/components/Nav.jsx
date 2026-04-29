@@ -78,35 +78,60 @@ export default function Nav() {
     setFooterVisible(false);
 
     let observer;
+    let mutationObserver;
     let cancelled = false;
     let retryId;
+    const footerVisibility = new Map();
 
-    const observeFooter = () => {
+    const updateFooterVisible = () => {
+      setFooterVisible(Array.from(footerVisibility.values()).some(Boolean));
+    };
+
+    const observeFooters = () => {
       if (cancelled) return;
 
-      const footer = document.querySelector('.footer-section');
-      if (!footer) {
-        retryId = window.setTimeout(observeFooter, 120);
+      if (observer) observer.disconnect();
+      footerVisibility.clear();
+
+      const footers = Array.from(document.querySelectorAll('.footer-section'));
+      if (!footers.length) {
+        setFooterVisible(false);
+        retryId = window.setTimeout(observeFooters, 120);
         return;
       }
 
       observer = new IntersectionObserver(
-        ([entry]) => setFooterVisible(entry.isIntersecting),
+        (entries) => {
+          entries.forEach((entry) => {
+            footerVisibility.set(entry.target, entry.isIntersecting);
+          });
+          updateFooterVisible();
+        },
         {
           root: null,
           threshold: 0.08,
           rootMargin: '0px 0px -8% 0px',
         }
       );
-      observer.observe(footer);
+
+      footers.forEach((footer) => observer.observe(footer));
     };
 
-    observeFooter();
+    const scheduleObserveFooters = () => {
+      window.clearTimeout(retryId);
+      retryId = window.setTimeout(observeFooters, 80);
+    };
+
+    observeFooters();
+
+    mutationObserver = new MutationObserver(scheduleObserveFooters);
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       cancelled = true;
       window.clearTimeout(retryId);
       if (observer) observer.disconnect();
+      if (mutationObserver) mutationObserver.disconnect();
     };
   }, [location.pathname]);
 
