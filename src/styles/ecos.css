@@ -1,0 +1,328 @@
+/* ECOS PAGE */
+
+.ecos-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 620px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 60px 54px 94px;
+  background: #10170b;
+  margin: 0;
+}
+
+.ecos-bg-wrapper {
+  position: absolute;
+  inset: -8% 0 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.ecos-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  object-fit: cover;
+  object-position: center center;
+  will-change: transform;
+}
+
+.ecos-giant-text {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.ecos-giant-word {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(6.8rem, 11.7vw, 12.2rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: transparent;
+  background: linear-gradient(180deg, #ebff57 0%, rgba(210, 240, 25, 0.52) 52%, rgba(63, 66, 57, 0.04) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ecos-subject-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ecos-subject {
+  position: absolute;
+  left: 50%;
+  bottom: -22px;
+  width: auto;
+  height: min(76vh, 650px);
+  max-width: none;
+  object-fit: contain;
+  transform: translateX(-55%);
+  filter: drop-shadow(0 28px 52px rgba(0, 0, 0, 0.42));
+  will-change: transform;
+}
+
+.ecos-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      rgba(8, 14, 7, 0.68) 0%,
+      rgba(8, 14, 7, 0.35) 28%,
+      rgba(8, 14, 7, 0.08) 58%,
+      rgba(8, 14, 7, 0.20) 100%),
+    linear-gradient(180deg,
+      rgba(8, 14, 7, 0.06) 0%,
+      rgba(8, 14, 7, 0.00) 40%,
+      rgba(8, 14, 7, 0.78) 100%);
+}
+
+.ecos-content {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+}
+
+.ecos-content-inner {
+  max-width: 520px;
+}
+
+.ecos-header-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 18px;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.ecos-header-label img {
+  width: 15px;
+  height: 16px;
+  filter: brightness(0) saturate(100%) invert(88%) sepia(88%) saturate(672%) hue-rotate(18deg) brightness(102%) contrast(103%);
+}
+
+.ecos-heading {
+  margin-bottom: 17px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.ecos-heading-line {
+  display: block;
+  font-family: var(--font-body);
+  font-size: clamp(2.65rem, 3.35vw, 3.55rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--text-primary);
+  letter-spacing: 0;
+}
+
+.ecos-heading-accent {
+  white-space: nowrap;
+}
+
+.ecos-heading-accent .amp {
+  display: inline-block;
+  margin-right: 0.12em;
+  color: var(--accent);
+  text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.ecos-description {
+  max-width: 390px;
+  margin-bottom: 32px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.42;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.ecos-cta-button {
+  width: 270px;
+  min-height: 47px;
+  justify-content: center;
+  padding: 0 28px;
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(25, 24, 14, 0.38);
+  font-size: 0.95rem;
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 14px 36px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+.ecos-cta-button:hover {
+  background: rgba(37, 37, 19, 0.50);
+}
+
+.ecos-cta-button svg {
+  color: var(--accent);
+  flex: 0 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .ecos-hero {
+    padding: 48px 42px 96px;
+  }
+
+  .ecos-subject {
+    transform: translateX(-50%);
+    height: min(64vh, 560px);
+  }
+
+  .ecos-content-inner {
+    max-width: 470px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ecos-hero {
+    height: auto;
+    min-height: 690px;
+    min-height: max(100dvh, 690px);
+    display: block;
+    padding: 0;
+  }
+
+  .ecos-bg-wrapper {
+    inset: -7% 0 0;
+  }
+
+  .ecos-bg {
+    left: 0;
+    width: 100%;
+    height: 112%;
+    object-position: 31% center;
+  }
+
+  .ecos-giant-text {
+    display: none;
+  }
+
+  .ecos-subject {
+    left: 53%;
+    bottom: clamp(-16px, -1dvh, 8px);
+    height: clamp(312px, 49dvh, 370px);
+    transform: translateX(-42%);
+  }
+
+  .ecos-overlay {
+    background:
+      linear-gradient(90deg,
+        rgba(8, 14, 7, 0.58) 0%,
+        rgba(8, 14, 7, 0.24) 55%,
+        rgba(8, 14, 7, 0.20) 100%),
+      linear-gradient(180deg,
+        rgba(8, 14, 7, 0.03) 0%,
+        rgba(8, 14, 7, 0.08) 52%,
+        rgba(8, 14, 7, 0.50) 100%);
+  }
+
+  .ecos-content {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .ecos-content-inner {
+    position: absolute;
+    top: clamp(104px, 15.2dvh, 118px);
+    left: 0;
+    right: 0;
+    max-width: none;
+    padding: 0 26px;
+  }
+
+  .ecos-header-label {
+    gap: 7px;
+    margin-bottom: 11px;
+    font-size: 0.76rem;
+    letter-spacing: 0;
+  }
+
+  .ecos-header-label img {
+    width: 13px;
+    height: 14px;
+  }
+
+  .ecos-heading {
+    margin-bottom: 38px;
+  }
+
+  .ecos-heading-line {
+    font-size: 2.28rem;
+    line-height: 1.02;
+    white-space: nowrap;
+  }
+
+  .ecos-heading-accent {
+    padding-left: 32px;
+  }
+
+  .ecos-description {
+    max-width: 286px;
+    margin: 0 auto 36px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.32;
+    text-align: center;
+  }
+
+  .ecos-cta-button {
+    display: flex;
+    width: 252px;
+    min-height: 44px;
+    margin: 0 auto;
+    padding: 0 22px;
+    border-radius: 11px;
+    gap: 10px;
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .ecos-content-inner {
+    padding: 0 24px;
+  }
+
+  .ecos-heading-line {
+    font-size: 2.28rem;
+  }
+
+  .ecos-heading-accent {
+    padding-left: 32px;
+  }
+
+  .ecos-description {
+    max-width: 286px;
+    font-size: 0.82rem;
+  }
+}

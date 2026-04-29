@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@barba/core": "^2.10.3",
     "@fontsource-variable/host-grotesk": "^5.1.0",
     "@fontsource-variable/unbounded": "^5.1.0",
     "framer-motion": "^11.18.2",

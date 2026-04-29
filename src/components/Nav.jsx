@@ -22,6 +22,8 @@ export default function Nav() {
   const location = useLocation();
   const [hideMobilePill, setHideMobilePill] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
+  const [routeSettling, setRouteSettling] = useState(false);
+  const firstRouteRef = useRef(true);
   const lastScrollYRef = useRef(0);
   const scrollIdleRef = useRef(null);
 
@@ -135,12 +137,24 @@ export default function Nav() {
     };
   }, [location.pathname]);
 
+  useEffect(() => {
+    if (firstRouteRef.current) {
+      firstRouteRef.current = false;
+      return;
+    }
+
+    setRouteSettling(true);
+    const id = window.setTimeout(() => setRouteSettling(false), 360);
+    return () => window.clearTimeout(id);
+  }, [location.pathname]);
+
   return (
     <nav
       className={
         'glass-nav' +
         (hideMobilePill ? ' is-hidden-mobile' : '') +
-        (footerVisible ? ' is-footer-visible' : '')
+        (footerVisible ? ' is-footer-visible' : '') +
+        (routeSettling ? ' is-route-settling' : '')
       }
     >
       <div className="nav-inner">

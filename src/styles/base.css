@@ -101,8 +101,15 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 0;
   pointer-events: none;
 }
+.glass-nav.is-route-settling {
+  opacity: 0;
+}
 .glass-nav.is-footer-visible .nav-logo-cell,
 .glass-nav.is-footer-visible .nav-pill-cell {
+  pointer-events: none;
+}
+.glass-nav.is-route-settling .nav-logo-cell,
+.glass-nav.is-route-settling .nav-pill-cell {
   pointer-events: none;
 }
 .nav-inner {
