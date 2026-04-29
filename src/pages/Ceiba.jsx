@@ -233,11 +233,13 @@ export default function Ceiba() {
               <span className="ceiba-heading-line ceiba-heading-accent"><span className="amp">&amp;</span> Co-Crea</span>
             </h1>
             <p className="ceiba-description">
-              Nuevas economías se esss están tejiendo desde las selvas, costas, ecosistemas y comunidades juntos hicimos esas visiones realidad.
+              <span className="ceiba-mobile-line">Accede a herramientas de IA, conecta con</span>{' '}
+              <span className="ceiba-mobile-line">nuevas oportunidades de financiamiento y</span>{' '}
+              <span className="ceiba-mobile-line">sé parte de una red global.</span>
             </p>
             <a href="https://www.youtube.com/watch?v=gFI3zUEc1fo" target="_blank" rel="noreferrer" className="btn-glass hero-cta-button">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
-              Ver Recap 2025
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
+              Ver Recap de 2025
             </a>
           </div>
 

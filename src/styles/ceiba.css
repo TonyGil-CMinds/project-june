@@ -66,7 +66,7 @@
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
+  translate: -50% 0;
   width: auto;
   height: 85%;
   object-fit: contain;
@@ -132,6 +132,7 @@
   margin-bottom: 30px;
   max-width: 380px;
 }
+.ceiba-mobile-line { display: inline; }
 
 /* ── CEIBA GALLERY CAROUSEL ── */
 .ceiba-gallery {
@@ -411,8 +412,115 @@
   .ceiba-podcast { padding: 80px 30px 100px; }
 }
 @media (max-width: 768px) {
-  .ceiba-hero { padding: 28px 20px 60px; min-height: 620px; }
-  .ceiba-giant-text { top: 18%; }
+  .ceiba-hero {
+    height: auto;
+    min-height: 840px;
+    min-height: max(100dvh, 840px);
+    padding: 0;
+    display: block;
+  }
+  .ceiba-bg-wrapper {
+    top: -8%;
+  }
+  .ceiba-bg {
+    height: 110%;
+    object-position: center top;
+  }
+  .ceiba-giant-text {
+    display: none;
+  }
+  .ceiba-subject {
+    height: 63%;
+    max-width: none;
+    left: 52%;
+    bottom: -90px;
+    translate: -50% 0;
+  }
+  .ceiba-overlay {
+    background:
+      linear-gradient(180deg,
+        rgba(26, 41, 18, 0) 0%,
+        rgba(26, 41, 18, 0.02) 34%,
+        rgba(26, 41, 18, 0.10) 54%,
+        rgba(26, 41, 18, 0.28) 82%,
+        rgba(26, 41, 18, 0.38) 100%);
+  }
+  .ceiba-content {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+  .ceiba-content-inner {
+    position: absolute;
+    top: 136px;
+    left: 0;
+    right: 0;
+    max-width: none;
+    padding: 0 40px;
+  }
+  .ceiba-header-label {
+    gap: 9px;
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.78);
+  }
+  .ceiba-header-label img {
+    width: 23px;
+    height: 23px;
+  }
+  .ceiba-heading {
+    margin-bottom: 27px;
+  }
+  .ceiba-heading-line {
+    font-size: 2.88rem;
+    line-height: 1.07;
+    letter-spacing: 0;
+  }
+  .ceiba-heading-accent {
+    padding-left: 48px;
+  }
+  .ceiba-description {
+    max-width: 316px;
+    margin: 0 auto 28px;
+    font-size: 0.97rem;
+    font-weight: 600;
+    line-height: 1.42;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  .ceiba-mobile-line {
+    display: block;
+  }
+  .ceiba-content-inner .hero-cta-button {
+    display: flex;
+    width: 284px;
+    min-height: 52px;
+    margin: 0 auto;
+    padding: 0 24px;
+    border-radius: 16px;
+    gap: 11px;
+    font-size: 1rem;
+    font-weight: 700;
+    background: rgba(74, 74, 32, 0.34);
+  }
+  .ceiba-bottom-center {
+    position: absolute;
+    left: 50%;
+    bottom: 108px;
+    transform: translateX(-50%);
+  }
+  .ceiba-hero .hero-scroll-indicator {
+    gap: 9px;
+    font-size: 0.86rem;
+    letter-spacing: 0;
+    color: #ffffff;
+  }
+  .ceiba-hero .hero-scroll-indicator svg {
+    width: 30px;
+    height: 44px;
+    stroke-width: 1.8;
+  }
   .ceiba-gallery { padding: 40px 0 50px; }
   .ceiba-gallery-item { width: 160px; height: 120px; }
   .ceiba-info { padding: 60px 22px; }
@@ -428,19 +536,12 @@
 }
 
 @media (max-width: 768px) {
-  .ceiba-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
   .ceiba-bottom-right {
     position: relative;
     right: auto;
     bottom: auto;
     margin-top: 28px;
   }
-  .ceiba-content-inner { max-width: min(420px, 100%); }
-  .ceiba-subject { height: 78%; }
   .ceiba-info-sub { overflow-wrap: anywhere; }
   .ceiba-shapes-track { grid-template-columns: repeat(2, 1fr); }
 }
