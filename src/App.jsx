@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
@@ -109,6 +110,7 @@ export default function App() {
         </Suspense>
         <Footer />
       </main>
+      <SpeedInsights />
     </>
   );
 }
