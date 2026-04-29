@@ -11,7 +11,7 @@
     html, body { margin: 0; background: #101511; }
     #boot-loader {
       position: fixed; inset: 0; z-index: 99999;
-      background: radial-gradient(circle at center, rgba(160, 200, 40, 0.12) 0%, #101511 70%);
+      background: #101511;
       display: flex; align-items: center; justify-content: center;
       opacity: 1;
       transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -21,8 +21,16 @@
       pointer-events: none;
       visibility: hidden;
     }
-    #boot-loader .ring-wrap { position: relative; width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; }
-    #boot-loader img { width: 48px; height: 44px; }
+    #boot-loader .ring-wrap {
+      position: relative;
+      width: clamp(92px, 10vw, 128px);
+      height: clamp(92px, 10vw, 128px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.34));
+    }
+    #boot-loader img { width: 48%; height: auto; position: relative; z-index: 1; }
     #boot-loader svg { position: absolute; inset: 0; transform: rotate(-90deg); }
     #boot-loader circle { fill: none; stroke-width: 2; stroke-linecap: round; }
     #boot-loader .ring-bg { stroke: rgba(255,255,255,0.08); }
@@ -46,6 +54,9 @@
     </div>
   </div>
   <div id="root"></div>
+  <div class="barba-router-sentinel" data-barba="wrapper" aria-hidden="true">
+    <main data-barba="container" data-barba-namespace="spa"></main>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

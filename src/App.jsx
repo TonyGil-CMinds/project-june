@@ -1,5 +1,4 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
@@ -8,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
 import ViewportFrame from './components/ViewportFrame.jsx';
+import BarbaTransition from './components/BarbaTransition.jsx';
 
 const Home = lazy(() => import('./pages/Home.jsx'));
 const Emprendimientos = lazy(() => import('./pages/Emprendimientos.jsx'));
@@ -16,19 +16,6 @@ const Studio = lazy(() => import('./pages/Studio.jsx'));
 const Ecos = lazy(() => import('./pages/Ecos.jsx'));
 
 gsap.registerPlugin(ScrollTrigger);
-
-/* Seamless, elegant page transition with slight blur and smooth easing */
-const pageVariants = {
-  initial: { opacity: 0, y: 15, filter: 'blur(4px)' },
-  animate: { 
-    opacity: 1, 
-    y: 0, 
-    filter: 'blur(0px)',
-    transitionEnd: { transform: 'none', filter: 'none' } 
-  },
-  exit:    { opacity: 0, y: -10, filter: 'blur(3px)' },
-};
-const pageTransition = { duration: 0.65, ease: [0.22, 1, 0.36, 1] };
 
 export default function App() {
   const location = useLocation();
@@ -104,33 +91,24 @@ export default function App() {
     <>
       <Nav />
       <ViewportFrame visible={frameVisible} />
+      <BarbaTransition />
 
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={location.pathname}
-          className="page-shell"
-          variants={pageVariants}
-          initial="initial"
-          animate={appReady ? "animate" : "initial"}
-          exit="exit"
-          transition={pageTransition}
-        >
-          <Suspense fallback={<div className="route-loading" aria-hidden="true" />}>
-            <Routes location={location}>
-              <Route path="/" element={<Home appReady={appReady} />} />
-              <Route
-                path="/emprendimientos"
-                element={<Emprendimientos onFrameToggle={setFrameVisible} />}
-              />
-              <Route path="/ceiba" element={<Ceiba />} />
-              <Route path="/studio" element={<Studio />} />
-              <Route path="/ecos" element={<Ecos />} />
-              <Route path="*" element={<Home appReady={appReady} />} />
-            </Routes>
-          </Suspense>
-          <Footer />
-        </motion.div>
-      </AnimatePresence>
+      <main className="page-shell">
+        <Suspense fallback={<div className="route-loading" aria-hidden="true" />}>
+          <Routes location={location}>
+            <Route path="/" element={<Home appReady={appReady} />} />
+            <Route
+              path="/emprendimientos"
+              element={<Emprendimientos onFrameToggle={setFrameVisible} />}
+            />
+            <Route path="/ceiba" element={<Ceiba />} />
+            <Route path="/studio" element={<Studio />} />
+            <Route path="/ecos" element={<Ecos />} />
+            <Route path="*" element={<Home appReady={appReady} />} />
+          </Routes>
+        </Suspense>
+        <Footer />
+      </main>
     </>
   );
 }

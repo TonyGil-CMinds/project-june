@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const social = [
   { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/naturatechlac/', icon: '/assets/icons/footer/ig-icon.svg' },
@@ -27,6 +27,8 @@ const partnerLogos = [
 ];
 
 export default function Footer() {
+  const location = useLocation();
+
   return (
     <footer className="footer-section">
       <section className="footer-partners" aria-label="Socios y aliados">
@@ -75,14 +77,14 @@ export default function Footer() {
         <div className="footer-right">
           <nav className="footer-nav">
             {footerLinks.map((l) => (
-              <NavLink 
+              <a
                 key={l.to} 
-                to={l.to} 
-                className={({ isActive }) => `footer-link ${isActive ? 'active' : ''}`}
-                end={l.to === '/'}
+                href={l.to}
+                className={`footer-link ${location.pathname === l.to ? 'active' : ''}`}
+                aria-current={location.pathname === l.to ? 'page' : undefined}
               >
                 {l.label}
-              </NavLink>
+              </a>
             ))}
           </nav>
         </div>

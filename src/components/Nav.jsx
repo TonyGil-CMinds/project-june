@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const links = [
   {
@@ -158,35 +158,28 @@ export default function Nav() {
       }
     >
       <div className="nav-inner">
-        <NavLink to="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home">
+        <a href="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home">
           <div className="nav-logo-glass">
             <img src="/assets/images/logo.svg" alt="" width="30" height="27" />
           </div>
-        </NavLink>
+        </a>
 
         <div className="nav-pill-cell">
           <div className="nav-pill-glass">
             <div className="nav-pill">
               {links.map((l) => (
-                <NavLink
+                <a
                   key={l.to}
-                  to={l.to}
-                  end={l.to === '/'}
-                  className={({ isActive }) => 'nav-link' + (isActive ? ' active' : '')}
+                  href={l.to}
+                  className={'nav-link' + (location.pathname === l.to ? ' active' : '')}
+                  aria-current={location.pathname === l.to ? 'page' : undefined}
                 >
-                  {({ isActive }) => (
-                    <>
-                      <span
-                        className="nav-icon"
-                        aria-hidden="true"
-                      >
-                        <img src={l.icon} alt="" />
-                      </span>
-                      <span className="nav-text nav-label-mobile">{l.label}</span>
-                      <span className="nav-text nav-label-desktop">{l.desktopLabel || l.label}</span>
-                    </>
-                  )}
-                </NavLink>
+                  <span className="nav-icon" aria-hidden="true">
+                    <img src={l.icon} alt="" />
+                  </span>
+                  <span className="nav-text nav-label-mobile">{l.label}</span>
+                  <span className="nav-text nav-label-desktop">{l.desktopLabel || l.label}</span>
+                </a>
               ))}
             </div>
           </div>

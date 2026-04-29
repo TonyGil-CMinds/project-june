@@ -611,7 +611,7 @@
     font-weight: 600;
   }
   .home-page .hero-bottom-left {
-    left: 12px;
+    /* left: 12px; */
     right: auto;
     bottom: calc(92px + env(safe-area-inset-bottom));
   }
