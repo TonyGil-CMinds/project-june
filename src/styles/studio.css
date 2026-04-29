@@ -81,7 +81,7 @@
     transparent 0%,
     transparent 40%,
     rgba(13, 20, 9, 0.6) 75%,
-    #0d1409 100%);
+    #101511 100%);
   pointer-events: none;
 }
 .studio-content { position: relative; z-index: 4; width: 100%; }
