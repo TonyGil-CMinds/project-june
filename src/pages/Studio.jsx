@@ -118,7 +118,9 @@ export default function Studio() {
         </div>
 
         <div className="studio-subject-wrapper">
-          <img src="/assets/Studio/subject-studio.png" alt="Studio Subject" className="studio-subject" />
+          <div className="studio-subject-anchor">
+            <img src="/assets/Studio/subject-studio.png" alt="Studio Subject" className="studio-subject" />
+          </div>
         </div>
 
         <div className="studio-overlay" aria-hidden="true" />

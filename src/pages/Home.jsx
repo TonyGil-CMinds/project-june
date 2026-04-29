@@ -156,7 +156,9 @@ export default function Home({ appReady }) {
         </div>
 
         <div className="hero-bird-wrapper">
-          <img src="/assets/images/colibri.webp" alt="Colibrí verde iridiscente" className="hero-bird" />
+          <div className="hero-bird-anchor">
+            <img src="/assets/images/colibri.webp" alt="Colibrí verde iridiscente" className="hero-bird" />
+          </div>
         </div>
 
         <div className="hero-overlay" aria-hidden="true" />

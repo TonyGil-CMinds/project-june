@@ -62,14 +62,22 @@
   overflow: hidden;
   pointer-events: none;
 }
-.ceiba-subject {
+.ceiba-subject-anchor {
   position: absolute;
   bottom: 0;
   left: 50%;
-  translate: -50% 0;
-  width: auto;
   height: 85%;
+  width: max-content;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+}
+.ceiba-subject {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: none;
   object-fit: contain;
+  transform-origin: center bottom;
   will-change: transform;
   filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.55));
 }
@@ -429,12 +437,10 @@
   .ceiba-giant-text {
     display: none;
   }
-  .ceiba-subject {
+  .ceiba-subject-anchor {
     height: 63%;
-    max-width: none;
     left: 50%;
     bottom: -90px;
-    translate: -50% 0;
   }
   .ceiba-overlay {
     background:

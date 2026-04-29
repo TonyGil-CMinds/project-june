@@ -137,7 +137,9 @@ export default function Emprendimientos({ onFrameToggle }) {
         </div>
 
         <div className="regen-people-wrapper">
-          <img src="/assets/regenera/people-regen.png" alt="Emprendedores regenerativos" className="regen-people" />
+          <div className="regen-people-anchor">
+            <img src="/assets/regenera/people-regen.png" alt="Emprendedores regenerativos" className="regen-people" />
+          </div>
         </div>
 
         <div className="regen-overlay" aria-hidden="true" />

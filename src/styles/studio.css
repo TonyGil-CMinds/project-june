@@ -62,14 +62,22 @@
   overflow: hidden;
   pointer-events: none;
 }
-.studio-subject {
+.studio-subject-anchor {
   position: absolute;
   bottom: 0;
   left: 50%;
-  translate: -50% 0;
-  width: auto;
   height: 85%;
+  width: max-content;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+}
+.studio-subject {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: none;
   object-fit: contain;
+  transform-origin: center bottom;
   will-change: transform;
   filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.55));
 }
@@ -370,12 +378,10 @@
   .studio-giant-text {
     display: none;
   }
-  .studio-subject {
+  .studio-subject-anchor {
     height: clamp(380px, 55dvh, 470px);
-    max-width: none;
     left: 50%;
     bottom: clamp(42px, 8dvh, 68px);
-    translate: -50% 0;
   }
   .studio-overlay {
     background:

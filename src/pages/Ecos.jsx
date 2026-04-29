@@ -67,11 +67,13 @@ export default function Ecos() {
         </div>
 
         <div className="ecos-subject-wrapper">
-          <img
-            src="/assets/Ecos/subject-ecos.png"
-            alt="Mujer lideresa mirando hacia el bosque"
-            className="ecos-subject"
-          />
+          <div className="ecos-subject-anchor">
+            <img
+              src="/assets/Ecos/subject-ecos.png"
+              alt="Mujer lideresa mirando hacia el bosque"
+              className="ecos-subject"
+            />
+          </div>
         </div>
 
         <div className="ecos-overlay" aria-hidden="true" />

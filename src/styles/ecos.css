@@ -65,15 +65,23 @@
   pointer-events: none;
 }
 
-.ecos-subject {
+.ecos-subject-anchor {
   position: absolute;
   left: 50%;
   bottom: -22px;
-  width: auto;
   height: min(76vh, 650px);
+  width: max-content;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+}
+
+.ecos-subject {
+  display: block;
+  width: auto;
+  height: 100%;
   max-width: none;
   object-fit: contain;
-  translate: -50% 0;
+  transform-origin: center bottom;
   filter: drop-shadow(0 28px 52px rgba(0, 0, 0, 0.42));
   will-change: transform;
 }
@@ -193,8 +201,7 @@
     padding: 48px 42px 96px;
   }
 
-  .ecos-subject {
-    translate: -50% 0;
+  .ecos-subject-anchor {
     height: min(64vh, 560px);
   }
 
@@ -227,11 +234,10 @@
     display: none;
   }
 
-  .ecos-subject {
+  .ecos-subject-anchor {
     left: 50%;
     bottom: clamp(-16px, -1dvh, 8px);
     height: clamp(312px, 49dvh, 370px);
-    translate: -50% 0;
   }
 
   .ecos-overlay {

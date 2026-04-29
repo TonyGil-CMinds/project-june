@@ -217,7 +217,9 @@ export default function Ceiba() {
         </div>
 
         <div className="ceiba-subject-wrapper">
-          <img src="/assets/CEIBA/lina-subject.png" alt="Speaker CEIBA" className="ceiba-subject" />
+          <div className="ceiba-subject-anchor">
+            <img src="/assets/CEIBA/lina-subject.png" alt="Speaker CEIBA" className="ceiba-subject" />
+          </div>
         </div>
 
         <div className="ceiba-overlay" aria-hidden="true" />
