@@ -12,8 +12,8 @@ const footerLinks = [
   { to: '/',                label: 'INICIO' },
   { to: '/emprendimientos', label: 'EMPRESAS' },
   { to: '/ceiba',           label: 'CEIBA' },
-  { to: '/studio',          label: 'PORTAFOLIO' },
-  { to: '/ecos',            label: 'PUBLICACIONES' },
+  { to: '/studio',          label: 'STUDIO' },
+  { to: '/ecos',            label: 'ECOS' },
 ];
 
 const partnerLogos = [
