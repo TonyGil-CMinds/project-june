@@ -479,5 +479,6 @@
 }
 
 @media (max-width: 420px) {
+  .regen-section { min-height: max(100dvh, 100vh); }
   .btn-sparkle { max-width: 100%; }
 }

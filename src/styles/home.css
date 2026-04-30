@@ -894,6 +894,7 @@ html.stories-card-is-open .glass-nav {
 }
 
 @media (max-width: 420px) {
+  .home-hero { min-height: max(100dvh, 100vh); }
   .home-page .giant-letter { font-size: 4rem; }
   .home-page .hero-bottom-left {
     width: min(280px, calc(100vw - 40px));

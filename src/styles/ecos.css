@@ -264,7 +264,7 @@
     left: 0;
     right: 0;
     max-width: none;
-    padding: 0 26px;
+    padding: 0 40px;
   }
 
   .ecos-header-label {
@@ -296,7 +296,7 @@
   .ecos-description {
     max-width: 286px;
     margin: 0 auto 36px;
-    font-size: 0.82rem;
+    font-size: 0.97rem;
     font-weight: 700;
     line-height: 1.32;
     text-align: center;
@@ -330,5 +330,9 @@
   .ecos-description {
     max-width: 286px;
     font-size: 0.82rem;
+  }
+
+  .ecos-content-inner {
+    padding: 0 40px;
   }
 }

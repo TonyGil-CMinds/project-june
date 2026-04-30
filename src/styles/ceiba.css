@@ -462,7 +462,7 @@
     left: 0;
     right: 0;
     max-width: none;
-    padding: 0 40px;
+    padding: 0 35px;
   }
   .ceiba-header-label {
     gap: 9px;
@@ -542,6 +542,7 @@
 }
 
 @media (max-width: 768px) {
+  .ceiba-hero { min-height: max(100dvh, 100vh); }
   .ceiba-bottom-right {
     position: relative;
     right: auto;
