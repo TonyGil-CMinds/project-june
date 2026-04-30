@@ -525,7 +525,7 @@ export default function Home({ appReady }) {
             <MediaThemeSutro
               ref={videoMediaRef}
               className="home-video-media"
-              style={{ '--media-accent-color': '#bbff00' }}
+              style={{ '--media-accent-color': '#C2D836' }}
             >
               <video
                 slot="media"
