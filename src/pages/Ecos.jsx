@@ -63,7 +63,7 @@ export default function Ecos() {
         </div>
 
         <div className="ecos-giant-text" aria-hidden="true">
-          <span className="ecos-giant-word">LIDERA</span>
+          <span className="ecos-giant-word">DECIDE</span>
         </div>
 
         <div className="ecos-subject-wrapper">
