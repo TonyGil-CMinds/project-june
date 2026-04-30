@@ -690,15 +690,15 @@ export default function Home({ appReady }) {
                     <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" /> DESTACADO
                   </span>
                   <h3 className="program-title">{p.title}</h3>
-                  <a href=""  className="btn-glass btn-glass-sm program-cta">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#101511"><polygon points="5,3 19,12 5,21"/></svg>
-                    Ver Video
+                  <a href={p.url}  className="btn-glass btn-glass-sm program-cta">
+                    
+                    {p.link}
                   </a>
                 </GlassFrame>
 
                 <div className="program-bottom-bar">
                   <div className="program-desc">{p.desc}</div>
-                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="program-link">{p.link}</a>
+                  
                 </div>
               </div>
             ))}
