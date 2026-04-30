@@ -18,6 +18,16 @@
   --stories-close-ease: cubic-bezier(0.68, 0, 0.32, 1);
 }
 
+html.home-video-is-open {
+  overflow: hidden;
+}
+
+html.home-video-is-open .glass-nav {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-18px);
+}
+
 html.stories-card-is-elevated .page-shell {
   z-index: 90;
 }
@@ -239,6 +249,66 @@ html.stories-card-is-open .glass-nav {
   margin-right: 0.12em;
   text-shadow: 0 0 14px var(--accent-glow);
   display: inline-block;
+}
+
+.home-video-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  opacity: 0;
+  visibility: hidden;
+  background: rgba(8, 11, 9, 0);
+  cursor: zoom-out;
+}
+.home-video-panel {
+  position: fixed;
+  z-index: 501;
+  overflow: hidden;
+  background: #050706;
+  box-shadow: 0 26px 90px rgba(0, 0, 0, 0.48);
+  transform: translateZ(0);
+  will-change: top, left, width, height, border-radius;
+  cursor: default;
+}
+.home-video-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #050706;
+}
+.home-video-close {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(18px, env(safe-area-inset-right));
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 50%;
+  color: var(--text-primary);
+  background: rgba(8, 11, 9, 0.48);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition:
+    color 0.24s var(--ease-out),
+    border-color 0.24s var(--ease-out),
+    background-color 0.24s var(--ease-out),
+    transform 0.24s var(--ease-out);
+}
+.home-video-close:hover {
+  color: var(--accent);
+  border-color: rgba(200, 230, 50, 0.56);
+  background: rgba(8, 11, 9, 0.68);
+  transform: scale(1.05);
+}
+.home-video-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
 
 /* Gallery */
@@ -649,6 +719,23 @@ html.stories-card-is-open .glass-nav {
     justify-content: center;
     font-size: 0.95rem;
     font-weight: 600;
+  }
+  .home-video-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .home-video-panel {
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.5);
+  }
+  .home-video-media {
+    object-fit: contain;
+  }
+  .home-video-close {
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
   }
   .home-page .hero-bottom-left {
     left: 50%;

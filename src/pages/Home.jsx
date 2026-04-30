@@ -14,6 +14,13 @@ const stories = [
 
 export default function Home({ appReady }) {
   const rootRef = useRef(null);
+  const heroCtaRef = useRef(null);
+  const videoOverlayRef = useRef(null);
+  const videoPanelRef = useRef(null);
+  const videoMediaRef = useRef(null);
+  const videoOriginRef = useRef(null);
+  const [videoMounted, setVideoMounted] = useState(false);
+  const [videoClosing, setVideoClosing] = useState(false);
   const [storiesCollapsed, setStoriesCollapsed] = useState(true);
   const [storiesElevated, setStoriesElevated] = useState(false);
   const [storiesMinimized, setStoriesMinimized] = useState(false);
@@ -136,6 +143,138 @@ export default function Home({ appReady }) {
 
     return () => ctx.revert();
   }, [appReady]);
+
+  useEffect(() => {
+    if (!videoMounted) return undefined;
+
+    const overlay = videoOverlayRef.current;
+    const panel = videoPanelRef.current;
+    const media = videoMediaRef.current;
+    const origin = videoOriginRef.current || heroCtaRef.current?.getBoundingClientRect();
+    if (!overlay || !panel || !origin) return undefined;
+
+    const getTargetRect = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const isPortraitMobile = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+
+      if (!isPortraitMobile) {
+        return { top: 0, left: 0, width: vw, height: vh, radius: 0 };
+      }
+
+      const gutter = 20;
+      const maxWidth = vw - gutter * 2;
+      const maxHeight = Math.min(vh - 128, maxWidth * 9 / 16);
+      let width = Math.min(maxWidth, maxHeight * 16 / 9);
+      let height = width * 9 / 16;
+
+      if (height > maxHeight) {
+        height = maxHeight;
+        width = height * 16 / 9;
+      }
+
+      return {
+        top: (vh - height) / 2,
+        left: (vw - width) / 2,
+        width,
+        height,
+        radius: 20,
+      };
+    };
+
+    const target = getTargetRect();
+    document.documentElement.classList.add('home-video-is-open');
+
+    gsap.set(overlay, { autoAlpha: 1 });
+    gsap.set(panel, {
+      top: origin.top,
+      left: origin.left,
+      width: origin.width,
+      height: origin.height,
+      borderRadius: 999,
+    });
+    gsap.set(media, { autoAlpha: 0, scale: 1.04 });
+
+    const tl = gsap.timeline({ defaults: { ease: 'power4.inOut' } });
+    tl.fromTo(overlay, { backgroundColor: 'rgba(8, 11, 9, 0)' }, { backgroundColor: 'rgba(8, 11, 9, 0.82)', duration: 0.55 }, 0)
+      .to(panel, {
+        top: target.top,
+        left: target.left,
+        width: target.width,
+        height: target.height,
+        borderRadius: target.radius,
+        duration: 0.86,
+      }, 0)
+      .to(media, { autoAlpha: 1, scale: 1, duration: 0.34, ease: 'power2.out' }, 0.5);
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') closeHeroVideo();
+    };
+    const onResize = () => {
+      const nextTarget = getTargetRect();
+      gsap.to(panel, {
+        top: nextTarget.top,
+        left: nextTarget.left,
+        width: nextTarget.width,
+        height: nextTarget.height,
+        borderRadius: nextTarget.radius,
+        duration: 0.42,
+        ease: 'power3.out',
+      });
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('resize', onResize);
+    return () => {
+      tl.kill();
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('resize', onResize);
+      document.documentElement.classList.remove('home-video-is-open');
+    };
+  }, [videoMounted]);
+
+  const openHeroVideo = (event) => {
+    event.preventDefault();
+    if (videoMounted) return;
+    videoOriginRef.current = heroCtaRef.current?.getBoundingClientRect();
+    setVideoClosing(false);
+    setVideoMounted(true);
+  };
+
+  const closeHeroVideo = () => {
+    if (!videoMounted || videoClosing) return;
+
+    const overlay = videoOverlayRef.current;
+    const panel = videoPanelRef.current;
+    const media = videoMediaRef.current;
+    const origin = videoOriginRef.current || heroCtaRef.current?.getBoundingClientRect();
+
+    if (!overlay || !panel || !origin) {
+      setVideoMounted(false);
+      return;
+    }
+
+    setVideoClosing(true);
+    media?.pause();
+
+    gsap.timeline({
+      defaults: { ease: 'power3.inOut' },
+      onComplete: () => {
+        setVideoMounted(false);
+        setVideoClosing(false);
+      },
+    })
+      .to(media, { autoAlpha: 0, scale: 1.02, duration: 0.22, ease: 'power2.out' }, 0)
+      .to(panel, {
+        top: origin.top,
+        left: origin.left,
+        width: origin.width,
+        height: origin.height,
+        borderRadius: 999,
+        duration: 0.62,
+      }, 0)
+      .to(overlay, { backgroundColor: 'rgba(8, 11, 9, 0)', duration: 0.5 }, 0.08);
+  };
 
   // Stories auto-rotate when collapsed
   useEffect(() => {
@@ -359,7 +498,7 @@ export default function Home({ appReady }) {
                   <span className="amp">&amp;</span> Naturaleza
                 </span>
               </h1>
-              <a href="#" className="btn-glass hero-cta-button" id="hero-cta">
+              <a href="#" className="btn-glass hero-cta-button" id="hero-cta" ref={heroCtaRef} onClick={openHeroVideo}>
                 <svg className="hero-cta-icon hero-cta-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="#101511"><polygon points="5,3 19,12 5,21"/></svg>
                 <svg className="hero-cta-icon hero-cta-icon-sparkle" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 2.8 14.45 9.55 21.2 12 14.45 14.45 12 21.2 9.55 14.45 2.8 12 9.55 9.55 12 2.8Z" fill="currentColor" />
@@ -371,6 +510,33 @@ export default function Home({ appReady }) {
           </div>
         </div>
       </section>
+
+      {videoMounted && (
+        <div
+          className="home-video-overlay"
+          ref={videoOverlayRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video de Enraiza"
+          onClick={closeHeroVideo}
+        >
+          <div className="home-video-panel" ref={videoPanelRef} onClick={(event) => event.stopPropagation()}>
+            <video
+              ref={videoMediaRef}
+              className="home-video-media"
+              src="https://video.wixstatic.com/video/fd7443_c1ce3883b1e64f3f932416fbe030dd4f/1080p/mp4/file.mp4"
+              autoPlay
+              controls
+              playsInline
+            />
+            <button className="home-video-close" type="button" onClick={closeHeroVideo} aria-label="Cerrar video">
+              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* GALLERY */}
       <section className="gallery-section">
