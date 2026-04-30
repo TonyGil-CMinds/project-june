@@ -20,6 +20,69 @@ function syncReactRouter() {
   );
 }
 
+function playCoverTransition(overlay, mark, reduceMotion, onCovered) {
+  if (reduceMotion) {
+    gsap.set(overlay, { xPercent: 0, autoAlpha: 1, pointerEvents: 'auto' });
+    gsap.set(mark, { autoAlpha: 1, scale: 1 });
+    onCovered?.();
+    return waitForReactPaint().then(() => {
+      gsap.set(overlay, { xPercent: -100, autoAlpha: 0, pointerEvents: 'none' });
+      gsap.set(mark, { autoAlpha: 0, scale: 0.94 });
+    });
+  }
+
+  document.documentElement.classList.add('is-page-transitioning');
+
+  return gsap
+    .timeline()
+    .set(overlay, {
+      xPercent: -100,
+      autoAlpha: 1,
+      pointerEvents: 'auto',
+    })
+    .set(mark, { autoAlpha: 0, scale: 0.94 })
+    .to(overlay, {
+      xPercent: 0,
+      duration: 0.62,
+      ease: 'power4.inOut',
+    })
+    .to(
+      mark,
+      {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.34,
+        ease: 'power3.out',
+      },
+      '<0.2'
+    )
+    .add(onCovered || (() => {}))
+    .to({}, { duration: 0.14 })
+    .to(overlay, {
+      xPercent: 100,
+      duration: 0.68,
+      delay: 0.08,
+      ease: 'power4.inOut',
+    })
+    .to(
+      mark,
+      {
+        autoAlpha: 0,
+        scale: 1.04,
+        duration: 0.28,
+        ease: 'power2.in',
+      },
+      '<'
+    )
+    .set(overlay, {
+      xPercent: -100,
+      autoAlpha: 0,
+      pointerEvents: 'none',
+    })
+    .set(mark, { autoAlpha: 0, scale: 0.94 })
+    .add(() => document.documentElement.classList.remove('is-page-transitioning'));
+}
+
 export default function BarbaTransition() {
   const overlayRef = useRef(null);
   const initializedRef = useRef(false);
@@ -39,6 +102,12 @@ export default function BarbaTransition() {
       pointerEvents: 'none',
     });
     gsap.set(mark, { autoAlpha: 0, scale: 0.94 });
+
+    const handleLocalTransition = (event) => {
+      playCoverTransition(overlay, mark, reduceMotion, event.detail?.onCovered);
+    };
+
+    window.addEventListener('natura:cover-transition', handleLocalTransition);
 
     barba.init({
       debug: false,
@@ -130,6 +199,7 @@ export default function BarbaTransition() {
     });
 
     return () => {
+      window.removeEventListener('natura:cover-transition', handleLocalTransition);
       barba.destroy();
       initializedRef.current = false;
       document.documentElement.classList.remove('is-page-transitioning');
