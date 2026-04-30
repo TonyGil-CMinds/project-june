@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
+import MediaThemeSutro from 'player.style/sutro/react';
 import GlassFrame from '../components/GlassFrame.jsx';
 import '../styles/home.css';
 
@@ -255,7 +256,7 @@ export default function Home({ appReady }) {
     }
 
     setVideoClosing(true);
-    media?.pause();
+    media?.querySelector?.('video')?.pause();
 
     gsap.timeline({
       defaults: { ease: 'power3.inOut' },
@@ -521,14 +522,20 @@ export default function Home({ appReady }) {
           onClick={closeHeroVideo}
         >
           <div className="home-video-panel" ref={videoPanelRef} onClick={(event) => event.stopPropagation()}>
-            <video
+            <MediaThemeSutro
               ref={videoMediaRef}
               className="home-video-media"
-              src="https://video.wixstatic.com/video/fd7443_c1ce3883b1e64f3f932416fbe030dd4f/1080p/mp4/file.mp4"
-              autoPlay
-              controls
-              playsInline
-            />
+              style={{ '--media-accent-color': '#bbff00' }}
+            >
+              <video
+                slot="media"
+                className="home-video-element"
+                src="https://video.wixstatic.com/video/fd7443_c1ce3883b1e64f3f932416fbe030dd4f/1080p/mp4/file.mp4"
+                autoPlay
+                playsInline
+                crossOrigin="anonymous"
+              />
+            </MediaThemeSutro>
             <button className="home-video-close" type="button" onClick={closeHeroVideo} aria-label="Cerrar video">
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />

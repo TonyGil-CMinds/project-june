@@ -274,6 +274,12 @@ html.stories-card-is-open .glass-nav {
   display: block;
   width: 100%;
   height: 100%;
+  background: #050706;
+  --media-accent-color: #bbff00;
+}
+.home-video-element {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   background: #050706;
 }
@@ -729,6 +735,9 @@ html.stories-card-is-open .glass-nav {
     box-shadow: 0 22px 70px rgba(0, 0, 0, 0.5);
   }
   .home-video-media {
+    --media-object-fit: contain;
+  }
+  .home-video-element {
     object-fit: contain;
   }
   .home-video-close {
