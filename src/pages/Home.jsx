@@ -656,10 +656,10 @@ export default function Home({ appReady }) {
           <div className="programs-horizontal-line"></div>
           <div className="programs-container">
             {[
-              { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.webp',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →' },
-              { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.webp', desc: 'Red de conocimiento y empoderamiento para liderazgos locales en conservación y restauración de ecosistemas.', link: 'IR A CEIBA →' },
-              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.webp',desc: 'Laboratorio de innovación tecnológica, co-creando soluciones disruptivas para los desafíos ambientales más urgentes.', link: 'IR A STUDIO →' },
-              { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.webp',     desc: 'Plataforma de comunicación e impacto, amplificando las voces y las historias de quienes protegen la naturaleza.', link: 'IR A ECOS →' },
+              { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.webp',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →',url:'https://500.naturatech.org/'},
+              { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.webp', desc: 'Red de conocimiento y empoderamiento para liderazgos locales en conservación y restauración de ecosistemas.', link: 'IR A CEIBA →', url:'https://qa.naturatech.org/ceiba' },
+              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.webp',desc: 'Laboratorio de innovación tecnológica, co-creando soluciones disruptivas para los desafíos ambientales más urgentes.', link: 'IR A STUDIO →', url:'https://qa.naturatech.org/studio' },
+              { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.webp',     desc: 'Plataforma de comunicación e impacto, amplificando las voces y las historias de quienes protegen la naturaleza.', link: 'IR A ECOS →', url:'https://ecos.naturatech.org/' },
             ].map((p, i) => (
               <div className="program-panel" key={p.title}>
                 <img src={p.bg} alt={p.title} className="program-bg" loading="lazy" />
@@ -690,7 +690,7 @@ export default function Home({ appReady }) {
                     <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" /> DESTACADO
                   </span>
                   <h3 className="program-title">{p.title}</h3>
-                  <a href="#" className="btn-glass btn-glass-sm program-cta">
+                  <a href=""  className="btn-glass btn-glass-sm program-cta">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="#101511"><polygon points="5,3 19,12 5,21"/></svg>
                     Ver Video
                   </a>
@@ -698,7 +698,7 @@ export default function Home({ appReady }) {
 
                 <div className="program-bottom-bar">
                   <div className="program-desc">{p.desc}</div>
-                  <a href="#" className="program-link">{p.link}</a>
+                  <a href={p.url} target="_blank" rel="noopener noreferrer" className="program-link">{p.link}</a>
                 </div>
               </div>
             ))}
