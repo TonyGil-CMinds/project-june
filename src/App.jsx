@@ -75,9 +75,6 @@ export default function App() {
 
     if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
 
-    // Kill any ScrollTriggers from the page we just left
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-
     // Allow new page to mount and transition to finish, then refresh GSAP
     const id = setTimeout(() => {
       ScrollTrigger.refresh();
