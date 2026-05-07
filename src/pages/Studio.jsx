@@ -41,9 +41,9 @@ const mobileLeftContent = [
 
 function StudioPortfolioCard({ image }) {
   return (
-    <button className="studio-portfolio-card" type="button" aria-label={`Aprende más sobre ${image.title}`}>
+    <button className="studio-portfolio-card" type="button" aria-label={`Aprende mas sobre ${image.title}`}>
       <img src={image.src} alt={image.title} loading="lazy" />
-      <span>Aprende más</span>
+      <span>Aprende m&aacute;s</span>
     </button>
   );
 }
@@ -52,10 +52,10 @@ function StudioPortfolioText() {
   return (
     <div className="studio-portfolio-copy">
       <div className="studio-portfolio-stats" aria-label="Impacto del portafolio">
-        <p>10 países de Latam</p>
+        <p>10 pa&iacute;ses de Latam</p>
         <p>14 proyectos incubados</p>
         <p>30% impacto en comunidades afro</p>
-        <p>50% tecnologías DMRV</p>
+        <p>50% tecnolog&iacute;as DMRV</p>
       </div>
       <h2>Portafolio de Soluciones</h2>
     </div>
@@ -148,6 +148,12 @@ export default function Studio() {
           ease: 'power3.out',
           scrollTrigger: { trigger: '.studio-info-section', start: 'top 80%', toggleActions: 'play none none reverse' },
         });
+      });
+
+      gsap.to('.studio-levels-orbit', {
+        rotate: 92,
+        ease: 'none',
+        scrollTrigger: { trigger: '.studio-levels', start: 'top bottom', end: 'bottom top', scrub: 0.8 },
       });
     }, rootRef);
 
@@ -369,61 +375,67 @@ export default function Studio() {
             <img src="/assets/Studio/studio-gallery-1.webp" alt="Studio Work" />
           </div>
           <div className="studio-main-text">
-            <h3>Un Portafolio de Lenguaje Común entre (Teknologías)</h3>
+            <h3>
+              Un Portafolio<br />
+              de Lenguaje Com&uacute;n<br />
+              entre <span>(Teknolog&iacute;as</span>
+            </h3>
             <p>
-              Experiencias de desarrolladores y ordenamos soluciones en territorio haciendo de nuestras socios con base en el territorio y de nuestros socios emprendedores.
+              Financiamos, co-desarrollamos y probamos soluciones en territorio favorables para la naturaleza, bajo el liderazgo de nuestros socios con base en el territorio y de nuestros socios emprendedores.
             </p>
-            <a href="#" className="link-arrow">
-              Leer más sobre la metodología
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="5 12 19 12M12 5l7 7-7 7"></polyline></svg>
-            </a>
+            <p className="studio-main-stat">1.6M de invertidos en la naturaleza</p>
           </div>
         </div>
       </section>
 
       <section className="studio-info-section">
         <div className="studio-info-inner">
-          <div className="studio-info-card">
-            <h4>Metodología</h4>
-            <p className="card-label">Tiene doble impacto</p>
-            <p>Nos permite inculcar soluciones innovadoras y tangibles, crear kits de soluciones replicables para la naturaleza, bajo el liderazgo de nuestros socios con base en el territorio y caracterizadas con los mercados verdes globales.</p>
+          <div className="studio-info-kicker">
+            <span aria-hidden="true">+</span>
+            <p>
+              Nuestra metodolog&iacute;a<br />
+              tiene doble impacto
+            </p>
           </div>
 
-          <div className="studio-info-card">
-            <h4>Niveles Sistémicos</h4>
-            <p className="card-label">La solución que proponen</p>
-            <p>Actúan para movilizar soluciones innovadoras y tangibles, crear kits de soluciones replicables para la naturaleza, bajo el liderazgo de nuestros socios con base en el territorio y caracterizadas con los mercados verdes globales.</p>
+          <svg className="studio-info-path" viewBox="0 0 480 690" fill="none" aria-hidden="true" preserveAspectRatio="none">
+            <path d="M459 6L283 104L250 317L19 381L8 676" />
+          </svg>
+
+          <div className="studio-info-card studio-info-card-systemic">
+            <h4>Niveles<br />Sist&eacute;micos</h4>
+            <p>Nos permite visibilizar soluciones innovadoras y tangibles, crear kits de soluciones replicables, fortalecer la posici&oacute;n global de ALC como una regi&oacute;n que impulsa transformaciones efectivas de abajo hacia arriba y conectarse con los mercados verdes globales.</p>
           </div>
 
-          <div className="studio-info-card">
+          <div className="studio-info-card studio-info-card-local">
             <h4>Impacto Local</h4>
-            <p className="card-label">Genera un impacto tangible</p>
-            <p>Genera un impacto tangible hacia en el número de hectáreas conservadas como en la mejora de las condiciones de vida de nuestros socios locales.</p>
+            <p>Genera un impacto tangible tanto en el n&uacute;mero de hect&aacute;reas conservadas como en la mejora de las condiciones de vida de nuestros socios locales.</p>
           </div>
         </div>
-
         <div className="studio-levels">
-          <h3>Tres Niveles de Acceso a Iniciativas Especiales</h3>
-          <div className="studio-levels-grid">
-            <div className="level-item">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2" />
-                <path d="M16 10V16M16 16L12 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-              <p>Herramientas para generar confianza y potenciar el impacto</p>
+          <div className="studio-levels-visual" aria-hidden="true">
+            <div className="studio-levels-orbit">
+              <img className="studio-levels-photo studio-levels-photo-one" src="/assets/Studio/studio-levels-img1.png" alt="" loading="lazy" />
+              <img className="studio-levels-photo studio-levels-photo-two" src="/assets/Studio/studio-levels-img2.png" alt="" loading="lazy" />
+              <img className="studio-levels-photo studio-levels-photo-three" src="/assets/Studio/studio-levels-icon-3.png" alt="" loading="lazy" />
             </div>
-            <div className="level-item">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <rect x="6" y="6" width="20" height="20" stroke="currentColor" strokeWidth="2" />
-                <path d="M12 16L14 18L20 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              <p>Capacidad de preparación y recursos</p>
-            </div>
-            <div className="level-item">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                <path d="M16 4L21.18 11.58L29.33 12.33L23.33 17.65L24.76 26L16 22.13L7.24 26L8.67 17.65L2.67 12.33L10.82 11.58L16 4Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-              </svg>
-              <p>Capacidad de sostenibilidad</p>
+          </div>
+
+          <div className="studio-levels-copy">
+            <h3>Tres niveles de apoyo para acceder de manera opcional</h3>
+            <div className="studio-levels-grid">
+              <div className="level-item">
+                <img src="/assets/Studio/studio-levels-icon-1.svg" alt="" width="34" height="34" loading="lazy" />
+                <p>Herramientas para generar confianza y potenciar el impacto</p>
+              </div>
+              <div className="level-item">
+                <img src="/assets/Studio/studio-levels-icon-2.svg" alt="" width="34" height="34" loading="lazy" />
+                <p>Capacidad de preparaci&oacute;n financiera</p>
+              </div>
+              <div className="level-item">
+                <img src="/assets/Studio/studio-levels-icon-3.svg" alt="" width="34" height="34" loading="lazy" />
+                <p>Capacidad de sostenibilidad</p>
+              </div>
             </div>
           </div>
         </div>
