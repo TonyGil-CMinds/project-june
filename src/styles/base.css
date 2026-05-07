@@ -51,7 +51,12 @@ html, body, #root {
   color: var(--text-primary);
 }
 
-html { font-size: 16px; scroll-behavior: auto; overflow-x: hidden; }
+html { 
+  font-size: 16px; 
+  scroll-behavior: auto; 
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 230, 50, 0.72) rgba(10, 17, 12, 0.96);
+  overflow-x: hidden; }
 
 body {
   font-family: var(--font-body);
