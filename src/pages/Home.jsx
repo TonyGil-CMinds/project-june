@@ -647,9 +647,7 @@ export default function Home({ appReady }) {
                 <div className="card-glass-overlay">
                   <h3 className="card-title">{c.title}</h3>
                   <p className="card-desc">{c.desc}</p>
-                  <div className="card-arrow">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C8E632" strokeWidth="2"><path d="M5 12H19M19 12L13 6M19 12L13 18"/></svg>
-                  </div>
+                  
                 </div>
               </div>
             </div>
