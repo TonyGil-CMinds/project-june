@@ -16,6 +16,7 @@ const Emprendimientos = lazy(() => import('./pages/Emprendimientos.jsx'));
 const Ceiba = lazy(() => import('./pages/Ceiba.jsx'));
 const Studio = lazy(() => import('./pages/Studio.jsx'));
 const Ecos = lazy(() => import('./pages/Ecos.jsx'));
+const Hitos = lazy(() => import('./pages/Hitos.jsx'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -103,6 +104,7 @@ export default function App() {
             <Route path="/ceiba" element={<Ceiba />} />
             <Route path="/studio" element={<Studio />} />
             <Route path="/ecos" element={<Ecos />} />
+            <Route path="/hitos" element={<Hitos />} />
             <Route path="*" element={<Home appReady={appReady} />} />
           </Routes>
         </Suspense>
