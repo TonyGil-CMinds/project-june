@@ -217,21 +217,21 @@ html.lenis, html.lenis body { height: auto; }
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(40, 43, 24, 0.11);
+  border: 1px solid rgba(40, 43, 24, 0);
   border-radius: 50%;
   background:
-    linear-gradient(180deg, rgba(253, 253, 253, 0.192), rgba(255, 255, 255, 0.018)),
-    rgba(73, 101, 47, 0.34);
+    linear-gradient(180deg, rgba(253, 253, 253, 0), rgba(255, 255, 255, 0)),
+    rgba(73, 101, 47, 0);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 14px 38px rgba(13, 32, 11, 0.22);
-  backdrop-filter: blur(5px) saturate(145%);
-  -webkit-backdrop-filter: blur(5px) saturate(145%);
+  backdrop-filter: blur(2px) saturate(145%);
+  -webkit-backdrop-filter: blur(2px) saturate(145%);
 }
 .nav-logo-glass img {
   width: 29px;
   height: 26px;
-  filter: drop-shadow(0 0 10px rgba(140, 141, 131, 0.34));
+  filter: drop-shadow(0 0 10px rgba(140, 141, 131, 0));
 }
 .nav-pill-cell {
   flex: 1 1 auto;
@@ -241,18 +241,17 @@ html.lenis, html.lenis body { height: auto; }
 .nav-pill-glass {
   width: 100%;
   min-height: 56px;
-  border: 1px solid rgba(50, 51, 41, 0.062);
+  border: 1px solid rgba(40, 43, 24, 0);
   border-radius: var(--radius-pill);
   position: relative;
-  background:
-    linear-gradient(180deg, rgba(250, 250, 250, 0.253), rgba(255, 255, 255, 0.012)),
-    rgba(73, 101, 47, 0.30);
+   background:
+    linear-gradient(180deg, rgba(253, 253, 253, 0), rgba(255, 255, 255, 0)),
+    rgba(73, 101, 47, 0);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -18px 28px rgba(21, 26, 20, 0.12),
-    0 14px 40px rgba(13, 32, 11, 0.20);
-  backdrop-filter: blur(5px) saturate(135%);
-  -webkit-backdrop-filter: blur(5px) saturate(135%);
+    0 14px 38px rgba(13, 32, 11, 0.22);
+  backdrop-filter: blur(2px) saturate(145%);
+  -webkit-backdrop-filter: blur(2px) saturate(145%);
   overflow: hidden;
 }
 .nav-pill-glass::before {
@@ -759,8 +758,8 @@ html.lenis, html.lenis body { height: auto; }
     min-height: 88px;
     border-color: rgba(255, 255, 255, 0.20);
     background:
-      linear-gradient(180deg, rgba(235, 255, 87, 0.08), rgba(255, 255, 255, 0.018)),
-      rgba(54, 76, 38, 0.42);
+      linear-gradient(180deg, rgba(235, 255, 87, 0), rgba(255, 255, 255, 0.018)),
+      rgba(54, 76, 38, 0);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.14),
       inset 0 -22px 32px rgba(17, 31, 12, 0.16),
@@ -782,7 +781,7 @@ html.lenis, html.lenis body { height: auto; }
     justify-content: center;
     padding: 8px 4px;
     gap: 8px;
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     font-weight: 700;
     white-space: nowrap;
   }
@@ -832,7 +831,7 @@ html.lenis, html.lenis body { height: auto; }
 .nav-link {
     padding: 7px 2px;
     gap: 7px;
-    font-size: 0.72rem;
+    font-size: 0.6rem;
   }
   .nav-pill {
     gap: 0;
