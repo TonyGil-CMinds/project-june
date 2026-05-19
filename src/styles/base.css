@@ -720,6 +720,46 @@ html.lenis, html.lenis body { height: auto; }
 
 .route-loading { min-height: 100vh; background: var(--bg-primary); }
 
+/* Critical route-subject layout.
+   Page CSS is lazy-loaded per route, so these centering rules must be global
+   to avoid a one-frame off-center flash during client-side navigation. */
+.ceiba-subject-wrapper,
+.studio-subject-wrapper,
+.ecos-subject-wrapper,
+.regen-people-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ceiba-subject-anchor,
+.studio-subject-anchor,
+.ecos-subject-anchor,
+.regen-people-anchor {
+  --subject-anchor-scale: 1;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: max-content;
+  transform: translateX(-50%) scale(var(--subject-anchor-scale));
+  transform-origin: center bottom;
+}
+
+.ceiba-subject,
+.studio-subject,
+.ecos-subject,
+.regen-people {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
 @media (max-width: 1024px) {
   .footer-partners { margin-bottom: 84px; }
   .footer-partner-logo { min-width: 118px; }
