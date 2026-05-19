@@ -9,7 +9,6 @@ import { Analytics } from "@vercel/analytics/react"
 import Nav from './components/Nav.jsx';
 import Footer from './components/Footer.jsx';
 import ViewportFrame from './components/ViewportFrame.jsx';
-import BarbaTransition from './components/BarbaTransition.jsx';
 
 const Home = lazy(() => import('./pages/Home.jsx'));
 const Emprendimientos = lazy(() => import('./pages/Emprendimientos.jsx'));
@@ -19,6 +18,8 @@ const Ecos = lazy(() => import('./pages/Ecos.jsx'));
 const Hitos = lazy(() => import('./pages/Hitos.jsx'));
 
 gsap.registerPlugin(ScrollTrigger);
+
+const BOOT_LOADER_SEEN_KEY = 'naturatech-boot-loader-seen';
 
 export default function App() {
   const location = useLocation();
@@ -31,18 +32,37 @@ export default function App() {
     // Show content immediately - always
     setAppReady(true);
     requestAnimationFrame(() => ScrollTrigger.refresh());
-    sessionStorage.setItem('app-initialized', 'true');
 
-    // Fade out loader in background
     const loader = document.getElementById('boot-loader');
-    if (loader) {
-      setTimeout(() => {
-        loader.classList.add('is-hidden');
-        setTimeout(() => {
-          if (loader.parentNode) loader.remove();
-        }, 1200);
-      }, 500);
+    const removeLoader = () => {
+      if (loader?.parentNode) loader.remove();
+    };
+
+    let hasSeenLoader = false;
+    try {
+      hasSeenLoader = localStorage.getItem(BOOT_LOADER_SEEN_KEY) === 'true';
+    } catch (_) {
+      hasSeenLoader = false;
     }
+
+    if (!loader) return;
+
+    if (hasSeenLoader) {
+      removeLoader();
+      return;
+    }
+
+    const hideTimer = window.setTimeout(() => {
+      loader.classList.add('is-hidden');
+      try {
+        localStorage.setItem(BOOT_LOADER_SEEN_KEY, 'true');
+        document.documentElement.classList.add('boot-loader-seen');
+      } catch (_) {}
+
+      window.setTimeout(removeLoader, 1200);
+    }, 500);
+
+    return () => window.clearTimeout(hideTimer);
   }, []);
 
   /* ── Lenis smooth scroll, persistent across routes ───────── */
@@ -76,10 +96,10 @@ export default function App() {
 
     if (lenisRef.current) lenisRef.current.scrollTo(0, { immediate: true });
 
-    // Allow new page to mount and transition to finish, then refresh GSAP
+    // Allow new page to mount, then refresh GSAP
     const id = setTimeout(() => {
       ScrollTrigger.refresh();
-    }, 700);
+    }, 120);
 
     // Reset frame on every nav
     setFrameVisible(false);
@@ -91,7 +111,6 @@ export default function App() {
     <>
       <Nav />
       <ViewportFrame visible={frameVisible} />
-      <BarbaTransition />
 
       <main className="page-shell">
         <Suspense fallback={<div className="route-loading" aria-hidden="true" />}>

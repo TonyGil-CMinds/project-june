@@ -7,8 +7,18 @@
   <meta name="description" content="Somos una iniciativa que articula innovación sistémica para la naturaleza en América Latina y el Caribe. Enraizamos posibilidades." />
   <meta name="theme-color" content="#101511" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/logo.svg" />
+  <script>
+    try {
+      if (localStorage.getItem('naturatech-boot-loader-seen') === 'true') {
+        document.documentElement.classList.add('boot-loader-seen');
+      }
+    } catch (_) {}
+  </script>
   <style>
     html, body { margin: 0; background: #101511; }
+    html.boot-loader-seen #boot-loader {
+      display: none;
+    }
     #boot-loader {
       position: fixed; inset: 0; z-index: 99999;
       background: #101511;

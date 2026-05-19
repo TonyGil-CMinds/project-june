@@ -357,7 +357,7 @@ export default function Studio() {
   const [clickOriginRect, setClickOriginRect] = useState(null);
 
   const runCoverTransition = (onCovered) => {
-    window.dispatchEvent(new CustomEvent('natura:cover-transition', { detail: { onCovered } }));
+    onCovered?.();
   };
 
   const openPortfolio = (event) => {
@@ -386,6 +386,16 @@ export default function Studio() {
     if (!rootRef.current || portfolioOpen) return undefined;
 
     const ctx = gsap.context(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduceMotion) {
+        gsap.fromTo(
+          '.studio-subject-anchor',
+          { scale: 1.08 },
+          { scale: 1, duration: 1.4, ease: 'power3.out', clearProps: 'scale' }
+        );
+      }
+
       gsap.to('.studio-bg', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.studio-hero', start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
       gsap.to('.studio-subject', { yPercent: 18, scale: 1.03, ease: 'none', scrollTrigger: { trigger: '.studio-hero', start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
       gsap.from('.studio-content-inner', { y: 60, opacity: 0, duration: 1.2, delay: 0.15, ease: 'power3.out' });

@@ -71,6 +71,16 @@ export default function Ceiba() {
     if (!rootRef.current) return;
 
     const ctx = gsap.context(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduceMotion) {
+        gsap.fromTo(
+          '.ceiba-subject-anchor',
+          { scale: 1.08 },
+          { scale: 1, duration: 1.4, ease: 'power3.out', clearProps: 'scale' }
+        );
+      }
+
       /* ─── HERO parallax ─── */
       gsap.to('.ceiba-bg', {
         yPercent: 12, ease: 'none',

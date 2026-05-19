@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { gsap } from 'gsap';
 
 const links = [
   {
@@ -22,10 +23,13 @@ export default function Nav() {
   const location = useLocation();
   const [hideMobilePill, setHideMobilePill] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
-  const [routeSettling, setRouteSettling] = useState(false);
-  const firstRouteRef = useRef(true);
+  const pillRef = useRef(null);
+  const activeIconRef = useRef(null);
+  const iconRefs = useRef(new Map());
+  const activeIconMetricsRef = useRef(null);
   const lastScrollYRef = useRef(0);
   const scrollIdleRef = useRef(null);
+  const activeLink = links.find((link) => link.to === location.pathname) || links[0];
 
   useEffect(() => {
     const mobileQuery = window.matchMedia('(max-width: 768px)');
@@ -137,15 +141,78 @@ export default function Nav() {
     };
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (firstRouteRef.current) {
-      firstRouteRef.current = false;
-      return;
-    }
+  useLayoutEffect(() => {
+    const pill = pillRef.current;
+    const activeIcon = activeIconRef.current;
+    const targetIcon = iconRefs.current.get(activeLink.to);
+    if (!pill || !activeIcon || !targetIcon) return undefined;
 
-    setRouteSettling(true);
-    const id = window.setTimeout(() => setRouteSettling(false), 360);
-    return () => window.clearTimeout(id);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let resizeId;
+
+    const getMetrics = () => {
+      const pillRect = pill.getBoundingClientRect();
+      const iconRect = targetIcon.getBoundingClientRect();
+
+      return {
+        x: iconRect.left - pillRect.left,
+        y: iconRect.top - pillRect.top,
+        width: iconRect.width,
+        height: iconRect.height,
+      };
+    };
+
+    const positionActiveIcon = (animate = true) => {
+      const next = getMetrics();
+      const previous = activeIconMetricsRef.current || next;
+      activeIconMetricsRef.current = next;
+
+      gsap.killTweensOf(activeIcon);
+      gsap.killTweensOf(activeIcon.querySelector('img'));
+
+      if (!animate || reduceMotion) {
+        gsap.set(activeIcon, { ...next, autoAlpha: 1, scale: 1 });
+        gsap.set(activeIcon.querySelector('img'), { scale: 1, rotate: 0 });
+        return;
+      }
+
+      gsap.fromTo(
+        activeIcon,
+        { ...previous, autoAlpha: 1, scale: 0.92 },
+        {
+          ...next,
+          scale: 1,
+          duration: 0.58,
+          ease: 'power3.inOut',
+        }
+      );
+
+      gsap.fromTo(
+        activeIcon.querySelector('img'),
+        { scale: 0.72, rotate: -18, opacity: 0.35 },
+        {
+          scale: 1,
+          rotate: 0,
+          opacity: 1,
+          duration: 0.46,
+          ease: 'back.out(1.7)',
+        }
+      );
+    };
+
+    positionActiveIcon(Boolean(activeIconMetricsRef.current));
+
+    const handleResize = () => {
+      window.clearTimeout(resizeId);
+      resizeId = window.setTimeout(() => positionActiveIcon(false), 80);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.clearTimeout(resizeId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, [location.pathname]);
 
   return (
@@ -153,33 +220,45 @@ export default function Nav() {
       className={
         'glass-nav' +
         (hideMobilePill ? ' is-hidden-mobile' : '') +
-        (footerVisible ? ' is-footer-visible' : '') +
-        (routeSettling ? ' is-route-settling' : '')
+        (footerVisible ? ' is-footer-visible' : '')
       }
     >
       <div className="nav-inner">
-        <a href="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home">
+        <Link to="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home">
           <div className="nav-logo-glass">
             <img src="/assets/images/logo.svg" alt="" width="30" height="27" />
           </div>
-        </a>
+        </Link>
 
         <div className="nav-pill-cell">
           <div className="nav-pill-glass">
-            <div className="nav-pill">
+            <div className="nav-pill" ref={pillRef}>
+              <span className="nav-active-icon" ref={activeIconRef} aria-hidden="true">
+                <img key={activeLink.to} src={activeLink.icon} alt="" />
+              </span>
               {links.map((l) => (
-                <a
+                <Link
                   key={l.to}
-                  href={l.to}
+                  to={l.to}
                   className={'nav-link' + (location.pathname === l.to ? ' active' : '')}
                   aria-current={location.pathname === l.to ? 'page' : undefined}
                 >
-                  <span className="nav-icon" aria-hidden="true">
+                  <span
+                    className="nav-icon"
+                    ref={(node) => {
+                      if (node) {
+                        iconRefs.current.set(l.to, node);
+                      } else {
+                        iconRefs.current.delete(l.to);
+                      }
+                    }}
+                    aria-hidden="true"
+                  >
                     <img src={l.icon} alt="" />
                   </span>
                   <span className="nav-text nav-label-mobile">{l.label}</span>
                   <span className="nav-text nav-label-desktop">{l.desktopLabel || l.label}</span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>

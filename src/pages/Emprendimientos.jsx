@@ -14,6 +14,16 @@ export default function Emprendimientos({ onFrameToggle }) {
   useEffect(() => {
     if (!rootRef.current) return;
     const ctx = gsap.context(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduceMotion) {
+        gsap.fromTo(
+          '.regen-people-anchor',
+          { scale: 1.08 },
+          { scale: 1, duration: 1.4, ease: 'power3.out', clearProps: 'scale' }
+        );
+      }
+
       gsap.to('.regen-bg', {
         yPercent: 12, ease: 'none',
         scrollTrigger: { trigger: '.regen-section', start: 'top bottom', end: 'bottom top', scrub: 0.8 },

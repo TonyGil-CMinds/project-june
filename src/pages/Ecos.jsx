@@ -12,6 +12,16 @@ export default function Ecos() {
     if (!rootRef.current) return;
 
     const ctx = gsap.context(() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!reduceMotion) {
+        gsap.fromTo(
+          '.ecos-subject-anchor',
+          { scale: 1.08 },
+          { scale: 1, duration: 1.4, ease: 'power3.out', clearProps: 'scale' }
+        );
+      }
+
       gsap.to('.ecos-bg', {
         yPercent: 10,
         ease: 'none',

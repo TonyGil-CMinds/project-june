@@ -453,14 +453,16 @@ html.ceiba-video-is-open .glass-nav {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: #14260c;
+  background: var(--glass-strong-bg);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: #C8E632;
   transition: all 0.35s var(--ease-out);
-  border: 2px solid transparent;
-  box-shadow: 0 6px 18px rgba(20, 38, 12, 0.18);
+  border: var(--glass-strong-border);
+  box-shadow: var(--glass-strong-shadow);
+  backdrop-filter: var(--glass-strong-filter);
+  -webkit-backdrop-filter: var(--glass-strong-filter);
   opacity: 1;
   transform: translateY(0);
 }
@@ -471,10 +473,10 @@ html.ceiba-video-is-open .glass-nav {
   transition: transform 0.35s var(--ease-out);
 }
 .ceiba-social-btn:hover {
-  background: #0a1505;
+  background: var(--glass-strong-bg-hover);
   color: #EBFF57;
   transform: translateY(-5px);
-  box-shadow: 0 12px 28px rgba(20, 38, 12, 0.35);
+  box-shadow: var(--glass-strong-shadow), 0 12px 28px rgba(20, 38, 12, 0.26);
 }
 .ceiba-social-btn:hover img {
   transform: scale(1.08);
@@ -578,7 +580,7 @@ html.ceiba-video-is-open .glass-nav {
     gap: 11px;
     font-size: 1rem;
     font-weight: 700;
-    background: rgba(74, 74, 32, 0.34);
+    background: var(--glass-strong-bg);
   }
   .ceiba-video-overlay {
     display: flex;
