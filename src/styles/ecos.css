@@ -66,12 +66,13 @@
 }
 
 .ecos-subject-anchor {
+  --subject-anchor-scale: 1;
   position: absolute;
   left: 50%;
   bottom: -22px;
   height: min(100vh, 1000px);
   width: max-content;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(var(--subject-anchor-scale));
   transform-origin: center bottom;
 }
 

@@ -76,8 +76,8 @@ export default function Ceiba() {
       if (!reduceMotion) {
         gsap.fromTo(
           '.ceiba-subject-anchor',
-          { scale: 1.08 },
-          { scale: 1, duration: 1.4, ease: 'power3.out', clearProps: 'scale' }
+          { '--subject-anchor-scale': 1.08 },
+          { '--subject-anchor-scale': 1, duration: 1.4, ease: 'power3.out' }
         );
       }
 

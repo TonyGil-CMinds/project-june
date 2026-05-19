@@ -73,12 +73,13 @@ html.ceiba-video-is-open .glass-nav {
   pointer-events: none;
 }
 .ceiba-subject-anchor {
+  --subject-anchor-scale: 1;
   position: absolute;
   bottom: 0;
   left: 50%;
   height: 85%;
   width: max-content;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(var(--subject-anchor-scale));
   transform-origin: center bottom;
 }
 .ceiba-subject {
