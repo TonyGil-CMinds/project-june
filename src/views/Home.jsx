@@ -499,9 +499,9 @@ export default function Home({ appReady = true }) {
 
             <div className="hero-bottom-right">
               <h1 className="hero-heading">
-                <span className="hero-heading-line">Innovación</span>
+                <span className="hero-heading-line">Innovación para</span>
                 <span className="hero-heading-line hero-heading-accent">
-                  <span className="amp">&amp;</span> Naturaleza
+                la Naturaleza
                 </span>
               </h1>
               <a href="#" className="btn-glass hero-cta-button" id="hero-cta" ref={heroCtaRef} onClick={openHeroVideo}>
