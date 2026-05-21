@@ -1,3 +1,5 @@
+'use client';
+
 import LiquidGlass from 'liquid-glass-react';
 
 /**
@@ -42,7 +44,7 @@ export default function GlassFrame({
       {/* Sizer: invisible duplicate that defines the frame's layout box. */}
       <div
         aria-hidden="true"
-        inert=""
+        inert={true}
         className={`glass-frame__sizer ${contentClassName}`}
         style={{
           ...innerStyle,

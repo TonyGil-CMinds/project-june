@@ -1,15 +1,20 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GlassFrame from '../components/GlassFrame.jsx';
-import '../styles/emprendimientos.css';
+import { useFrameToggle } from '../components/FrameContext.jsx';
+import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
-const REGENERA_VIDEO_SRC = import.meta.env.VITE_REGENERA_VIDEO_URL?.trim() || 'https://pub-c9d9bba411f444e5a7d61a43c6e28f11.r2.dev/emprendimiento/video/regenera.mp4';
+const REGENERA_VIDEO_SRC = process.env.NEXT_PUBLIC_REGENERA_VIDEO_URL?.trim() || 'https://pub-c9d9bba411f444e5a7d61a43c6e28f11.r2.dev/emprendimiento/video/regenera.mp4';
 
 export default function Emprendimientos({ onFrameToggle }) {
   const rootRef = useRef(null);
   const videoRef = useRef(null);
   const [muted, setMuted] = useState(true);
+  const contextFrameToggle = useFrameToggle();
+  const setFrameVisible = onFrameToggle || contextFrameToggle;
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -78,22 +83,22 @@ export default function Emprendimientos({ onFrameToggle }) {
           onEnter: () => {
             video.play().catch(() => {});
             video.classList.add('is-playing');
-            onFrameToggle?.(true);
+            setFrameVisible?.(true);
           },
           onLeave: () => {
             video.pause();
             video.classList.remove('is-playing');
-            onFrameToggle?.(false);
+            setFrameVisible?.(false);
           },
           onEnterBack: () => {
             video.play().catch(() => {});
             video.classList.add('is-playing');
-            onFrameToggle?.(true);
+            setFrameVisible?.(true);
           },
           onLeaveBack: () => {
             video.pause();
             video.classList.remove('is-playing');
-            onFrameToggle?.(false);
+            setFrameVisible?.(false);
           },
         });
       }
@@ -136,10 +141,11 @@ export default function Emprendimientos({ onFrameToggle }) {
     }, rootRef);
 
     return () => {
+      cleanupGsapRoute(rootRef.current);
       ctx.revert();
-      onFrameToggle?.(false);
+      setFrameVisible?.(false);
     };
-  }, [onFrameToggle]);
+  }, [setFrameVisible]);
 
   return (
     <div ref={rootRef}>

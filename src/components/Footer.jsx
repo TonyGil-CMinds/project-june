@@ -1,4 +1,6 @@
-import { useLocation } from 'react-router-dom';
+'use client';
+
+import { usePathname } from 'next/navigation';
 
 const social = [
   { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/naturatechlac/', icon: '/assets/icons/footer/ig-icon.svg' },
@@ -27,7 +29,7 @@ const partnerLogos = [
 ];
 
 export default function Footer() {
-  const location = useLocation();
+  const pathname = usePathname();
 
   return (
     <footer className="footer-section">
@@ -80,8 +82,8 @@ export default function Footer() {
               <a
                 key={l.to} 
                 href={l.to}
-                className={`footer-link ${location.pathname === l.to ? 'active' : ''}`}
-                aria-current={location.pathname === l.to ? 'page' : undefined}
+                className={`footer-link ${pathname === l.to ? 'active' : ''}`}
+                aria-current={pathname === l.to ? 'page' : undefined}
               >
                 {l.label}
               </a>

@@ -1,10 +1,12 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
 import MediaThemeSutro from 'player.style/sutro/react';
 import GlassFrame from '../components/GlassFrame.jsx';
-import '../styles/home.css';
+import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 const stories = [
   { title: 'Lola Cabnal en',     subtitle: 'Somos Raíces',        img: '/assets/historias/historia-one.webp',    href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s',                                          cta: 'Ver Video',           play: true },
@@ -13,7 +15,7 @@ const stories = [
   { title: 'Escucha el Soundtrack', subtitle: 'de CEIBA',         img: '/assets/historias/historia-cuatro.webp', href: 'https://open.spotify.com/intl-es/album/0lg3EDWiGdTLW565zGKvuO?si=D1-PT4T9Sz-o9vn9a5Jtvw',     cta: 'Escuchar en Spotify' },
 ];
 
-export default function Home({ appReady }) {
+export default function Home({ appReady = true }) {
   const rootRef = useRef(null);
   const heroCtaRef = useRef(null);
   const videoOverlayRef = useRef(null);
@@ -142,7 +144,10 @@ export default function Home({ appReady }) {
       }
     }, rootRef);
 
-    return () => ctx.revert();
+    return () => {
+      cleanupGsapRoute(rootRef.current);
+      ctx.revert();
+    };
   }, [appReady]);
 
   useEffect(() => {
@@ -582,12 +587,12 @@ export default function Home({ appReady }) {
 <path d="M25.6295 1.59306C25.5057 4.45953 26.0709 7.17403 27.0827 9.77324C28.2184 12.6764 29.7954 15.2756 31.7868 17.3875C32.7664 18.4041 35.1938 20.8932 38.9183 22.4391C39.3705 22.654 39.7634 22.7693 40.0432 22.8741C39.758 22.9841 39.3651 23.1309 38.9022 23.3143C35.1777 24.8602 32.7503 27.3493 31.7707 28.366C29.7846 30.4778 28.2023 33.077 27.0666 35.9802C26.0547 38.5794 25.4573 41.2939 25.6134 44.1604C25.678 45.5176 25.8341 45.7063 27.002 45.743L29.6232 45.743C32.9064 45.591 36.0604 44.8364 39.0906 43.3691C41.5503 42.1638 43.6655 40.4292 45.6569 38.4327C46.7603 37.3008 47.7399 36.0955 48.558 34.8116C49.3492 33.5696 51.1468 30.7398 51.8735 26.5161C52.121 25.0226 52.1856 23.7492 52.191 22.8846L52.2072 22.8846C52.2072 22.0566 52.1426 20.736 51.8896 19.2268C51.163 15.045 49.3653 12.1785 48.5741 10.9313C47.7237 9.61078 46.7765 8.4055 45.6731 7.31027C43.6547 5.27702 41.5395 3.57915 39.1067 2.37387C36.0765 0.901336 32.9225 0.151966 29.6393 -3.59856e-06L27.0182 -3.37917e-06C25.8502 0.0366827 25.6941 0.262013 25.6295 1.58258L25.6295 1.59306Z" fill="url(#paint1_linear_4614_1031)"/>
 <defs>
 <linearGradient id="paint0_linear_4614_1031" x1="13.3041" y1="45.7691" x2="13.3041" y2="0.0313643" gradientUnits="userSpaceOnUse">
-<stop stop-color="#D3F804"/>
-<stop offset="1" stop-color="#A2D200"/>
+<stop stopColor="#D3F804"/>
+<stop offset="1" stopColor="#A2D200"/>
 </linearGradient>
 <linearGradient id="paint1_linear_4614_1031" x1="38.8968" y1="45.7429" x2="38.8968" y2="0.00523916" gradientUnits="userSpaceOnUse">
-<stop stop-color="#D3F804"/>
-<stop offset="1" stop-color="#A2D200"/>
+<stop stopColor="#D3F804"/>
+<stop offset="1" stopColor="#A2D200"/>
 </linearGradient>
 </defs>
 </svg>

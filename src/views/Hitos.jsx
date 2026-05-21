@@ -1,8 +1,9 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import '../styles/hitos.css';
+import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,12 +71,6 @@ export default function Hitos() {
   const dotsRef        = useRef([]);
   const counterCurrentRef = useRef(null);
 
-  /* Hide main nav */
-  useEffect(() => {
-    document.body.classList.add('hitos-active');
-    return () => document.body.classList.remove('hitos-active');
-  }, []);
-
   useEffect(() => {
     const ctx = gsap.context(() => {
       const heroLeft   = heroLeftRef.current;
@@ -135,7 +130,10 @@ export default function Hitos() {
       });
     }, rootRef);
 
-    return () => ctx.revert();
+    return () => {
+      cleanupGsapRoute(rootRef.current);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -144,13 +142,13 @@ export default function Hitos() {
 
         {/* ── Top chrome ── */}
         <div className="hitos-chrome-top">
-          <Link to="/" className="hitos-back">
+          <a href="/" className="hitos-back">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <line x1="19" y1="12" x2="5" y2="12" />
               <polyline points="12 5 5 12 12 19" />
             </svg>
             Regresar
-          </Link>
+          </a>
           <span className="hitos-page-label">HITOS</span>
           <span className="hitos-counter">
             <span ref={counterCurrentRef} className="counter-current">01</span>

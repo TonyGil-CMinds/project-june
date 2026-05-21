@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import '../styles/studio.css';
+import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -415,7 +417,10 @@ export default function Studio() {
       gsap.to('.studio-levels-orbit', { rotate: 92, ease: 'none', scrollTrigger: { trigger: '.studio-levels', start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
     }, rootRef);
 
-    return () => ctx.revert();
+    return () => {
+      cleanupGsapRoute(rootRef.current);
+      ctx.revert();
+    };
   }, [portfolioOpen]);
 
   /* ── Portfolio mode GSAP (infinite scroll columns) ── */

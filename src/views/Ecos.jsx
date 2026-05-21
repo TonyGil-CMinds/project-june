@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import '../styles/ecos.css';
+import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -62,7 +64,10 @@ export default function Ecos() {
       });
     }, rootRef);
 
-    return () => ctx.revert();
+    return () => {
+      cleanupGsapRoute(rootRef.current);
+      ctx.revert();
+    };
   }, []);
 
   return (

@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
 
 const links = [
@@ -20,7 +22,7 @@ const links = [
 ];
 
 export default function Nav() {
-  const location = useLocation();
+  const pathname = usePathname();
   const [hideMobilePill, setHideMobilePill] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   const pillRef = useRef(null);
@@ -29,7 +31,107 @@ export default function Nav() {
   const activeIconMetricsRef = useRef(null);
   const lastScrollYRef = useRef(0);
   const scrollIdleRef = useRef(null);
-  const activeLink = links.find((link) => link.to === location.pathname) || links[0];
+  const activeLink = links.find((link) => link.to === pathname) || links[0];
+  const navigationTimerRef = useRef(null);
+
+  const getIconDestination = (to) => {
+    const pill = pillRef.current;
+    const targetIcon = iconRefs.current.get(to);
+    if (!pill || !targetIcon) return null;
+
+    const pillRect = pill.getBoundingClientRect();
+    const iconRect = targetIcon.getBoundingClientRect();
+
+    if (iconRect.width > 0 && iconRect.height > 0) {
+      return {
+        x: iconRect.left - pillRect.left,
+        y: iconRect.top - pillRect.top,
+        width: iconRect.width,
+        height: iconRect.height,
+      };
+    }
+
+    const link = targetIcon.closest('.nav-link');
+    const visibleText = Array.from(link?.querySelectorAll('.nav-text') || []).find((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0 && window.getComputedStyle(node).display !== 'none';
+    });
+
+    if (!visibleText) return null;
+
+    const textRect = visibleText.getBoundingClientRect();
+    const width = activeIconMetricsRef.current?.width || 12;
+    const height = activeIconMetricsRef.current?.height || 12;
+    const gap = 9;
+
+    return {
+      x: textRect.left - pillRect.left - width - gap,
+      y: textRect.top - pillRect.top + (textRect.height - height) / 2,
+      width,
+      height,
+    };
+  };
+
+  const animateIconTo = (to, onComplete) => {
+    const activeIcon = activeIconRef.current;
+    const nextLink = links.find((link) => link.to === to);
+    const next = getIconDestination(to);
+
+    if (!activeIcon || !nextLink || !next) {
+      onComplete();
+      return;
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const img = activeIcon.querySelector('img');
+    if (img) img.src = nextLink.icon;
+
+    gsap.killTweensOf(activeIcon);
+    gsap.killTweensOf(img);
+
+    if (reduceMotion) {
+      onComplete();
+      return;
+    }
+
+    gsap.to(activeIcon, {
+      ...next,
+      scale: 1,
+      autoAlpha: 1,
+      duration: 0.34,
+      ease: 'power3.inOut',
+      onComplete,
+    });
+
+    if (img) {
+      gsap.fromTo(
+        img,
+        { scale: 0.72, rotate: -16, opacity: 0.35 },
+        { scale: 1, rotate: 0, opacity: 1, duration: 0.32, ease: 'back.out(1.7)' }
+      );
+    }
+  };
+
+  const handleNavigationClick = (event, to) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (to === pathname) {
+      event.preventDefault();
+      return;
+    }
+
+    event.preventDefault();
+    window.clearTimeout(navigationTimerRef.current);
+
+    const go = () => {
+      window.location.href = to;
+    };
+
+    navigationTimerRef.current = window.setTimeout(go, 460);
+    animateIconTo(to, () => {
+      window.clearTimeout(navigationTimerRef.current);
+      go();
+    });
+  };
 
   useEffect(() => {
     const mobileQuery = window.matchMedia('(max-width: 768px)');
@@ -72,6 +174,7 @@ export default function Nav() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.clearTimeout(scrollIdleRef.current);
+      window.clearTimeout(navigationTimerRef.current);
       if (mobileQuery.removeEventListener) {
         mobileQuery.removeEventListener('change', handleMediaChange);
       } else {
@@ -139,31 +242,19 @@ export default function Nav() {
       if (observer) observer.disconnect();
       if (mutationObserver) mutationObserver.disconnect();
     };
-  }, [location.pathname]);
+  }, [pathname]);
 
   useLayoutEffect(() => {
-    const pill = pillRef.current;
     const activeIcon = activeIconRef.current;
-    const targetIcon = iconRefs.current.get(activeLink.to);
-    if (!pill || !activeIcon || !targetIcon) return undefined;
+    if (!activeIcon) return undefined;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let resizeId;
 
-    const getMetrics = () => {
-      const pillRect = pill.getBoundingClientRect();
-      const iconRect = targetIcon.getBoundingClientRect();
-
-      return {
-        x: iconRect.left - pillRect.left,
-        y: iconRect.top - pillRect.top,
-        width: iconRect.width,
-        height: iconRect.height,
-      };
-    };
-
     const positionActiveIcon = (animate = true) => {
-      const next = getMetrics();
+      const next = getIconDestination(activeLink.to);
+      if (!next) return;
+
       const previous = activeIconMetricsRef.current || next;
       activeIconMetricsRef.current = next;
 
@@ -213,7 +304,7 @@ export default function Nav() {
       window.clearTimeout(resizeId);
       window.removeEventListener('resize', handleResize);
     };
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <nav
@@ -224,11 +315,11 @@ export default function Nav() {
       }
     >
       <div className="nav-inner">
-        <Link to="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home">
+        <a href="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home" onClick={(event) => handleNavigationClick(event, '/')}>
           <div className="nav-logo-glass">
             <img src="/assets/images/logo.svg" alt="" width="30" height="27" />
           </div>
-        </Link>
+        </a>
 
         <div className="nav-pill-cell">
           <div className="nav-pill-glass">
@@ -237,11 +328,12 @@ export default function Nav() {
                 <img key={activeLink.to} src={activeLink.icon} alt="" />
               </span>
               {links.map((l) => (
-                <Link
+                <a
                   key={l.to}
-                  to={l.to}
-                  className={'nav-link' + (location.pathname === l.to ? ' active' : '')}
-                  aria-current={location.pathname === l.to ? 'page' : undefined}
+                  href={l.to}
+                  onClick={(event) => handleNavigationClick(event, l.to)}
+                  className={'nav-link' + (pathname === l.to ? ' active' : '')}
+                  aria-current={pathname === l.to ? 'page' : undefined}
                 >
                   <span
                     className="nav-icon"
@@ -258,7 +350,7 @@ export default function Nav() {
                   </span>
                   <span className="nav-text nav-label-mobile">{l.label}</span>
                   <span className="nav-text nav-label-desktop">{l.desktopLabel || l.label}</span>
-                </Link>
+                </a>
               ))}
             </div>
           </div>

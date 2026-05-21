@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import '../styles/ceiba.css';
+import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -216,7 +218,10 @@ export default function Ceiba() {
       });
     }, rootRef);
 
-    return () => ctx.revert();
+    return () => {
+      cleanupGsapRoute(rootRef.current);
+      ctx.revert();
+    };
   }, []);
 
   useEffect(() => {
