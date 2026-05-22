@@ -820,9 +820,8 @@ export default function Studio() {
           </div>
           <div className="studio-main-text">
             <h3>
-              Un Portafolio<br />
-              de Lenguaje Com&uacute;n<br />
-              entre <span>(Teknolog&iacute;as</span>
+              Un portafolio vivo de innovación para la biodiversidad
+              <span>(biodiversidad</span>
             </h3>
             <p>Financiamos, co-desarrollamos y probamos soluciones en territorio favorables para la naturaleza, bajo el liderazgo de nuestros socios con base en el territorio y de nuestros socios emprendedores.</p>
             <p className="studio-main-stat">1.6M de invertidos en la naturaleza</p>
