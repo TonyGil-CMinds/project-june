@@ -99,7 +99,10 @@ export default function Ecos() {
             </h1>
 
             <p className="ecos-description">
-              Presentamos ecos&copy; como nuestra plataforma de entrada al conocimiento m&aacute;s preciso desde informes hasta investigaci&oacute;n y estado de la regi&oacute;n en temas de econom&iacute;as, innovaci&oacute;n y escalabilidad.
+              ECOS es la plataforma de inteligencia de NaturaTech LAC para navegar las nuevas economías de biodiversidad, bioinnovación y naturaleza en América Latina y el Caribe.
+
+Conecta tendencias, investigación aplicada, herramientas de IA y conocimiento estratégico para fortalecer la toma de decisiones y el escalamiento de soluciones regenerativas.
+
             </p>
 
             <a href="https://ecos.naturatech.org/" className="btn-glass hero-cta-button ecos-cta-button">
