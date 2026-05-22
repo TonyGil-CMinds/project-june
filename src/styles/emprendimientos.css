@@ -45,6 +45,7 @@
   justify-content: center;
 }
 .regen-letter {
+  font-size: clamp(6rem, 12vw, 20rem) !important;
   background: linear-gradient(180deg, #E4A052 0%, rgba(76, 97, 48, 0) 100%) !important;
   -webkit-background-clip: text !important;
           background-clip: text !important;
