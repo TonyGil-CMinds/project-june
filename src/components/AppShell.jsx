@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
@@ -21,6 +21,8 @@ export default function AppShell({ children }) {
   const pathname = usePathname();
   const lenisRef = useRef(null);
   const isInitialMount = useRef(true);
+  const routeRef = useRef(null);
+  const privacyTransitionRef = useRef(null);
   const [frameVisible, setFrameVisible] = useState(false);
 
   useEffect(() => {
@@ -96,13 +98,47 @@ export default function AppShell({ children }) {
     return () => window.clearTimeout(id);
   }, [pathname]);
 
+  useLayoutEffect(() => {
+    const route = routeRef.current;
+    const transition = privacyTransitionRef.current;
+    if (!route || !transition) return undefined;
+
+    gsap.killTweensOf([route, transition]);
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasActivePrivacyTransition = document.documentElement.classList.contains('privacy-route-transitioning');
+
+    if (pathname !== '/privacy-policy' || reduceMotion || !hasActivePrivacyTransition) {
+      gsap.set(route, { clearProps: 'opacity,transform,filter' });
+      gsap.set(transition, { autoAlpha: 0, yPercent: 100 });
+      document.documentElement.classList.remove('privacy-route-transitioning');
+      return undefined;
+    }
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        gsap.set(route, { clearProps: 'opacity,transform,filter' });
+        gsap.set(transition, { autoAlpha: 0, yPercent: 100 });
+        document.documentElement.classList.remove('privacy-route-transitioning');
+      },
+    });
+
+    tl.set(transition, { autoAlpha: 1, yPercent: 0 })
+      .set(route, { autoAlpha: 0, y: 34, filter: 'blur(10px)' })
+      .to(route, { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 0.78, ease: 'power3.out' }, 0.12)
+      .to(transition, { yPercent: -100, duration: 0.72, ease: 'power4.inOut' }, 0.18);
+
+    return () => tl.kill();
+  }, [pathname]);
+
   return (
     <FrameToggleContext.Provider value={setFrameVisible}>
       <Nav />
       <ViewportFrame visible={frameVisible} />
+      <div ref={privacyTransitionRef} className="privacy-route-transition" aria-hidden="true" />
 
       <main className="page-shell">
-        <div key={pathname} className="route-view">
+        <div key={pathname} ref={routeRef} className="route-view">
           {children}
         </div>
         <Footer />

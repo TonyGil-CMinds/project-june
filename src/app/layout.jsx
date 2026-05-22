@@ -6,6 +6,7 @@ import '../styles/ceiba.css';
 import '../styles/studio.css';
 import '../styles/ecos.css';
 import '../styles/hitos.css';
+import '../styles/privacy-policy.css';
 
 const BASE_URL = 'https://naturatech.org';
 

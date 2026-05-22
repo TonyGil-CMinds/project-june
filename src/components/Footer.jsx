@@ -1,6 +1,8 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { useRef } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { gsap } from 'gsap';
 
 const social = [
   { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/naturatechlac/', icon: '/assets/icons/footer/ig-icon.svg' },
@@ -31,6 +33,37 @@ const partnerLogos = [
 
 export default function Footer() {
   const pathname = usePathname();
+  const router = useRouter();
+  const privacyTransitioningRef = useRef(false);
+
+  const handlePrivacyClick = (event) => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (pathname === '/privacy-policy') return;
+
+    event.preventDefault();
+    if (privacyTransitioningRef.current) return;
+    privacyTransitioningRef.current = true;
+
+    const transition = document.querySelector('.privacy-route-transition');
+    const route = document.querySelector('.route-view');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.documentElement.classList.add('privacy-route-transitioning');
+
+    if (!transition || reduceMotion) {
+      router.push('/privacy-policy');
+      return;
+    }
+
+    gsap.killTweensOf([transition, route]);
+    gsap.timeline({
+      defaults: { ease: 'power4.inOut' },
+      onComplete: () => router.push('/privacy-policy'),
+    })
+      .set(transition, { autoAlpha: 1, yPercent: 100 })
+      .to(route, { y: -20, autoAlpha: 0.74, filter: 'blur(6px)', duration: 0.42, ease: 'power3.out' }, 0)
+      .to(transition, { yPercent: 0, duration: 0.62 }, 0.04);
+  };
 
   return (
     <footer className="footer-section">
@@ -95,7 +128,7 @@ export default function Footer() {
       <div className="footer-legal">
         <span className="footer-legal-copy">© {new Date().getFullYear()} NaturaTech LAC. Todos los derechos reservados.</span>
         <div className="footer-legal-links">
-          <span className="footer-legal-link">Aviso de Privacidad</span>
+          <a className="footer-legal-link" href="/privacy-policy" onClick={handlePrivacyClick}>Aviso de Privacidad</a>
           <span className="footer-legal-sep">·</span>
           <span className="footer-legal-link">Términos y Condiciones</span>
         </div>
