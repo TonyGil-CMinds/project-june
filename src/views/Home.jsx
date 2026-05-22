@@ -577,9 +577,8 @@ export default function Home({ appReady = true }) {
       <section className="mission-section">
         <div className="mission-content">
           <p className="mission-text">
-            <span className="word">Somos</span>{' '}
-            <span className="word">una</span>{' '}
-            <span className="word">iniciativa</span>{' '}
+            <span className="word">Habilitamos</span>{' '}
+            <span className="word word-bold">innovación</span>{' '}
             <span className="word word-icon" aria-hidden="true">
               <svg width="53" height="46" viewBox="0 0 53 46" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M20.0642 38.4536C21.1676 37.3216 22.1471 36.1164 22.9652 34.8325C23.7564 33.5905 25.5541 30.7607 26.2807 26.537C26.5283 25.0435 26.5929 23.7701 26.5983 22.9055L26.6144 22.9055C26.6144 22.0775 26.5498 20.7569 26.2969 19.2477C25.5703 15.0659 23.7726 12.1994 22.9814 10.9522C22.131 9.63167 21.1837 8.42639 20.0803 7.33116C18.062 5.29791 15.9468 3.60004 13.514 2.39476C10.4838 0.922229 7.32976 0.172855 4.04658 0.0208857L1.42542 0.0208859C0.257464 0.0575681 0.101378 0.282906 0.036791 1.60347C-0.0870011 4.46994 0.478137 7.18444 1.49 9.78365C2.62566 12.6868 4.20266 15.286 6.1941 17.3979C7.17367 18.4145 9.60108 20.9037 13.3256 22.4496C13.7777 22.6644 14.1706 22.7797 14.4505 22.8845C14.1652 22.9945 13.7723 23.1413 13.3095 23.3247C9.58493 24.8706 7.15753 27.3598 6.17795 28.3764C4.1919 30.4882 2.60951 33.0874 1.47386 35.9906C0.467372 38.6055 -0.135441 41.32 0.0260265 44.1865C0.0852314 45.5437 0.246699 45.7324 1.41465 45.7691L4.03581 45.7691C7.31899 45.6171 10.473 44.8625 13.5032 43.3952C15.9629 42.1899 18.0781 40.4554 20.0696 38.4588L20.0642 38.4536Z" fill="url(#paint0_linear_4614_1031)"/>
@@ -597,16 +596,27 @@ export default function Home({ appReady = true }) {
 </svg>
 
             </span>{' '}
-            <span className="word">que</span>{' '}
-            <span className="word">articula</span>
-            <br/>
-            <span className="word word-bold">innovación</span>{' '}
             <span className="word word-bold">sistémica</span>{' '}
             <span className="word">para</span>{' '}
             <span className="word">la</span>{' '}
-            <span className="word">naturaleza</span>
+            <span className="word">conservación</span>{' '}
+            <span className="word">y</span>{' '}
+            <span className="word">regeneración</span>
             <br/>
-            <span className="word">en</span>{' '}
+            <span className="word">de</span>{' '}
+            <span className="word">la</span>{' '}
+            <span className="word">biodiversidad,</span>{' '}
+            <span className="word">el</span>{' '}
+            <span className="word">capital</span>{' '}
+            <span className="word">natural</span>{' '}
+            <span className="word">y</span>{' '}
+            <span className="word">la</span>{' '}
+            <span className="word word-bold">prosperidad</span>{' '}
+            <span className="word word-bold">compartida</span>
+            <br/>
+            <span className="word">desde</span>{' '}
+            <span className="word">y</span>{' '}
+            <span className="word">para</span>{' '}
             <span className="word">América</span>{' '}
             <span className="word">Latina</span>{' '}
             <span className="word">y</span>{' '}
