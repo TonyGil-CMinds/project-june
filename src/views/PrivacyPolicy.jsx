@@ -1,3 +1,8 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+
 const privacySections = [
   {
     title: '1. Informacion que recopilamos',
@@ -135,8 +140,41 @@ const privacySections = [
 ];
 
 export default function PrivacyPolicy() {
+  const rootRef = useRef(null);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return undefined;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return undefined;
+
+    const ctx = gsap.context(() => {
+      gsap.from(
+        [
+          '.privacy-policy-eyebrow',
+          '.privacy-policy-hero h1',
+          '.privacy-policy-updated',
+          '.privacy-policy-intro',
+          '.privacy-policy-consent',
+          '.privacy-policy-section',
+        ],
+        {
+          y: 26,
+          autoAlpha: 0,
+          duration: 0.78,
+          delay: 0.12,
+          stagger: 0.07,
+          ease: 'power3.out',
+        }
+      );
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <article className="privacy-policy-page">
+    <article ref={rootRef} className="privacy-policy-page">
       <header className="privacy-policy-hero">
         <p className="privacy-policy-eyebrow">NaturaTech ID</p>
         <h1>Aviso de Privacidad</h1>

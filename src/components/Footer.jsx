@@ -1,7 +1,7 @@
 'use client';
 
-import { useRef } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
 
 const social = [
@@ -33,8 +33,11 @@ const partnerLogos = [
 
 export default function Footer() {
   const pathname = usePathname();
-  const router = useRouter();
   const privacyTransitioningRef = useRef(false);
+
+  useEffect(() => {
+    privacyTransitioningRef.current = false;
+  }, [pathname]);
 
   const handlePrivacyClick = (event) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
@@ -45,24 +48,26 @@ export default function Footer() {
     privacyTransitioningRef.current = true;
 
     const transition = document.querySelector('.privacy-route-transition');
-    const route = document.querySelector('.route-view');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     document.documentElement.classList.add('privacy-route-transitioning');
 
+    const goToPrivacy = () => {
+      window.location.href = '/privacy-policy';
+    };
+
     if (!transition || reduceMotion) {
-      router.push('/privacy-policy');
+      goToPrivacy();
       return;
     }
 
-    gsap.killTweensOf([transition, route]);
+    gsap.killTweensOf(transition);
     gsap.timeline({
       defaults: { ease: 'power4.inOut' },
-      onComplete: () => router.push('/privacy-policy'),
+      onComplete: goToPrivacy,
     })
       .set(transition, { autoAlpha: 1, yPercent: 100 })
-      .to(route, { y: -20, autoAlpha: 0.74, filter: 'blur(6px)', duration: 0.42, ease: 'power3.out' }, 0)
-      .to(transition, { yPercent: 0, duration: 0.62 }, 0.04);
+      .to(transition, { yPercent: 0, duration: 0.62 }, 0);
   };
 
   return (
