@@ -8,7 +8,7 @@ const socialLinks = [
 
 const linkItems = [
   { label: 'Nuevo documento en Ecos', href: '/ecos' },
-  { label: 'Ultimo lanzamiento en "SOMOS RAICES"', href: 'https://www.youtube.com/@NaturaTechLAC/featured' },
+  { label: 'Último lanzamiento en "SOMOS RAÍCES"', href: 'https://www.youtube.com/@NaturaTechLAC/featured' },
   { label: 'Revive CEIBA 2025', href: '/ceiba' },
   { label: 'Aprende sobre N500', href: '/emprendimientos' },
 ];
@@ -58,7 +58,7 @@ export default function Links() {
           <a href="/" className="links-domain">www.naturatech.org</a>
           <div className="links-legal">
             <a href="/privacy-policy">Aviso de Privacidad</a>
-            <a href="/terms-and-conditions">Terminos y Condiciones</a>
+            <a href="/terms-and-conditions">Términos y Condiciones</a>
           </div>
         </footer>
       </div>
