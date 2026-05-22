@@ -216,10 +216,9 @@ function StudioPortfolioText() {
   return (
     <div className="studio-portfolio-copy">
       <div className="studio-portfolio-stats" aria-label="Impacto del portafolio">
-        <p>10 pa&iacute;ses de Latam</p>
-        <p>13 proyectos incubados</p>
-        <p>30% impacto en comunidades afro</p>
-        <p>50% tecnolog&iacute;as DMRV</p>
+        <p>Soluciones presentes en 6 países</p>
+        <p>18 proyectos incubados</p>
+        <p>15 diferentes tecnologías de frontera</p>
       </div>
       <h2>Portafolio de Soluciones</h2>
     </div>
