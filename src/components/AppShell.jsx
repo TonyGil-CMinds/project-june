@@ -19,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function AppShell({ children }) {
   const pathname = usePathname();
+  const isLinksRoute = pathname === '/links';
   const lenisRef = useRef(null);
   const isInitialMount = useRef(true);
   const privacyTransitionRef = useRef(null);
@@ -99,15 +100,15 @@ export default function AppShell({ children }) {
 
   return (
     <FrameToggleContext.Provider value={setFrameVisible}>
-      <Nav />
-      <ViewportFrame visible={frameVisible} />
+      {!isLinksRoute && <Nav />}
+      {!isLinksRoute && <ViewportFrame visible={frameVisible} />}
       <div ref={privacyTransitionRef} className="privacy-route-transition" aria-hidden="true" />
 
       <main className="page-shell">
         <div key={pathname} className="route-view">
           {children}
         </div>
-        <Footer />
+        {!isLinksRoute && <Footer />}
       </main>
 
       <SpeedInsights />
