@@ -60,7 +60,6 @@ export default function Home({ appReady = true }) {
 
       gsap.to('.hero-bird', { y: '-=8', yoyo: true, repeat: -1, duration: 4.2, ease: 'sine.inOut' });
 
-      gsap.to('.hero-bg',    { yPercent: 12,             ease: 'none', scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: 0.8 } });
       gsap.to('.hero-bird',  { yPercent: 28, scale: 1.04, ease: 'none', scrollTrigger: { trigger: '.hero-section', start: 'top top', end: 'bottom top', scrub: 0.6 } });
       document.querySelectorAll('.giant-letter-wrap').forEach((wrap) => {
         const speed = parseFloat(wrap.dataset.speed) || 1;

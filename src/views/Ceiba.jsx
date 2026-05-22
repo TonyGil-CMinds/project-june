@@ -83,11 +83,6 @@ export default function Ceiba() {
         );
       }
 
-      /* ─── HERO parallax ─── */
-      gsap.to('.ceiba-bg', {
-        yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '.ceiba-hero', start: 'top bottom', end: 'bottom top', scrub: 0.8 },
-      });
       gsap.to('.ceiba-subject', {
         yPercent: 18, scale: 1.03, ease: 'none',
         scrollTrigger: { trigger: '.ceiba-hero', start: 'top bottom', end: 'bottom top', scrub: 0.6 },

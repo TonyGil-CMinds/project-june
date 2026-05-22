@@ -306,7 +306,9 @@ html.lenis, html.lenis body { height: auto; }
   z-index: 1;
 }
 .nav-link .nav-icon {
-  display: none;
+  display: inline-flex;
+  opacity: 0;
+  pointer-events: none;
   width: 12px;
   height: 12px;
   align-items: center;
@@ -328,7 +330,7 @@ html.lenis, html.lenis body { height: auto; }
   text-shadow: 0 0 12px rgba(200, 230, 50, 0.18);
 }
 .nav-link.active .nav-icon {
-  display: inline-flex;
+  opacity: 0;
 }
 .nav-link.active .nav-icon img {
   opacity: 0;
@@ -867,6 +869,7 @@ html.lenis, html.lenis body { height: auto; }
   .nav-label-desktop { display: none; }
   .nav-link .nav-icon {
     display: inline-flex;
+    opacity: 1;
     width: 31px;
     height: 31px;
   }
@@ -877,8 +880,12 @@ html.lenis, html.lenis body { height: auto; }
     height: 20px;
   }
   .nav-link.active .nav-icon {
+    opacity: 0;
     width: 25px;
     height: 25px;
+  }
+  .nav-active-icon img {
+    filter: brightness(0) saturate(100%) invert(86%) sepia(81%) saturate(625%) hue-rotate(18deg) brightness(103%) contrast(97%);
   }
 .footer-section { padding: 60px 22px; }
   .footer-partners { margin-bottom: 64px; }

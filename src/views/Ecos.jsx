@@ -24,16 +24,7 @@ export default function Ecos() {
         );
       }
 
-      gsap.to('.ecos-bg', {
-        yPercent: 10,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.ecos-hero',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.8,
-        },
-      });
+
 
       gsap.to('.ecos-subject', {
         yPercent: 12,

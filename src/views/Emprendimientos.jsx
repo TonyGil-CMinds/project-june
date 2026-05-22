@@ -29,10 +29,6 @@ export default function Emprendimientos({ onFrameToggle }) {
         );
       }
 
-      gsap.to('.regen-bg', {
-        yPercent: 12, ease: 'none',
-        scrollTrigger: { trigger: '.regen-section', start: 'top bottom', end: 'bottom top', scrub: 0.8 },
-      });
       gsap.to('.regen-people', {
         yPercent: 18, scale: 1.03, ease: 'none',
         scrollTrigger: { trigger: '.regen-section', start: 'top bottom', end: 'bottom top', scrub: 0.6 },

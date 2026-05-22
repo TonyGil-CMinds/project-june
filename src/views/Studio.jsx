@@ -563,7 +563,6 @@ export default function Studio() {
         );
       }
 
-      gsap.to('.studio-bg', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.studio-hero', start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
       gsap.to('.studio-subject', { yPercent: 18, scale: 1.03, ease: 'none', scrollTrigger: { trigger: '.studio-hero', start: 'top bottom', end: 'bottom top', scrub: 0.6 } });
       gsap.from('.studio-content-inner', { y: 60, opacity: 0, duration: 1.2, delay: 0.15, ease: 'power3.out' });
 
