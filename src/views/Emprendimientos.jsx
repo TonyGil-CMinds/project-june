@@ -152,7 +152,7 @@ export default function Emprendimientos({ onFrameToggle }) {
       {/* HERO */}
       <section className="regen-section">
         <div className="regen-bg-wrapper">
-          <img src="/assets/regenera/bg-regenera.png" alt="" className="regen-bg" />
+          <img src="/assets/regenera/bg-regenera.avif" alt="" className="regen-bg" />
         </div>
 
         <div className="regen-giant-text" aria-hidden="true">
