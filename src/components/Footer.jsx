@@ -135,7 +135,7 @@ export default function Footer() {
         <div className="footer-legal-links">
           <a className="footer-legal-link" href="/privacy-policy" onClick={handlePrivacyClick}>Aviso de Privacidad</a>
           <span className="footer-legal-sep">·</span>
-          <span className="footer-legal-link">Términos y Condiciones</span>
+          <a className="footer-legal-link" href="/terms-and-conditions">Términos y Condiciones</a>
         </div>
       </div>
     </footer>
