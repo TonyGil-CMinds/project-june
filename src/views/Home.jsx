@@ -677,7 +677,7 @@ export default function Home({ appReady = true }) {
             {[
               { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.avif',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →',url:'/emprendimientos'},
               { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.avif', desc: 'Comunidad multisectorial, multicultural, intergeneracional y transregional para la innovación y el financiamiento para la biodiversidad.', link: 'IR A CEIBA →', url:'/ceiba' },
-              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.avif',desc: 'Laboratorio de innovación eco-socio-tecnológica para demostrar lo que es posible.', link: 'IR A STUDIO →', url:'https://qa.naturatech.org/studio' },
+              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.avif',desc: 'Laboratorio de innovación eco-socio-tecnológica para demostrar lo que es posible.', link: 'IR A STUDIO →', url:'/studio' },
               { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.avif',     desc: 'Plataforma de conocimiento colectivo para liderar procesos de innovación, conservación y regeneración desde y para LAC.', link: 'IR A ECOS →', url:'https://ecos.naturatech.org/' },
             ].map((p, i) => (
               <div className="program-panel" key={p.title}>
