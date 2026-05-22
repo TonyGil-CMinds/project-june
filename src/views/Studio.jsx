@@ -841,13 +841,13 @@ export default function Studio() {
           </svg>
 
           <div className="studio-info-card studio-info-card-systemic">
-            <h4>Niveles<br />Sist&eacute;micos</h4>
-            <p>Nos permite visibilizar soluciones innovadoras y tangibles, crear kits de soluciones replicables, fortalecer la posici&oacute;n global de ALC como una regi&oacute;n que impulsa transformaciones efectivas de abajo hacia arriba y conectarse con los mercados verdes globales.</p>
+            <h4>Escalamiento<br />Sistémico</h4>
+            <p>El Studio transforma experiencias territoriales en demostradores replicables, infraestructura compartida y aprendizajes aplicados que fortalecen el ecosistema regional de innovación para la naturaleza.</p>
           </div>
 
           <div className="studio-info-card studio-info-card-local">
-            <h4>Impacto Local</h4>
-            <p>Genera un impacto tangible tanto en el n&uacute;mero de hect&aacute;reas conservadas como en la mejora de las condiciones de vida de nuestros socios locales.</p>
+            <h4>Impacto Territorial</h4>
+            <p>Las soluciones impulsadas desde el Studio contribuyen a la conservación de ecosistemas, el fortalecimiento de economías locales y el desarrollo de capacidades en comunidades y organizaciones de América Latina y el Caribe.</p>
           </div>
         </div>
 
@@ -860,7 +860,7 @@ export default function Studio() {
             </div>
           </div>
           <div className="studio-levels-copy">
-            <h3>Tres niveles de apoyo para acceder de manera opcional</h3>
+            <h3>Capacidades para escalar soluciones regenerativas</h3>
             <div className="studio-levels-grid">
               <div className="level-item">
                 <img src="/assets/Studio/studio-levels-icon-1.svg" alt="" width="34" height="34" loading="lazy" />
