@@ -7,6 +7,10 @@ import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
+function historiaImage(folder, file) {
+  return `/assets/historias/${encodeURIComponent(folder)}/${encodeURIComponent(file)}`;
+}
+
 const HITOS = [
   {
     id: '01',
@@ -15,7 +19,9 @@ const HITOS = [
     event: 'Premio NaturaTech LAC',
     description:
       'NaturaTech LAC Scale-Up Studio financia y brinda apoyo personalizado a un portafolio de demostradores innovadores en 6 países y 48 organizaciones aliadas, 11 de ellas indígenas o afrodescendientes. En conjunto, gestionan más de 62,000 hectáreas con tecnologías de frontera, mitigan 4.4 millones de tCO₂ al año, han certificado 690 hectáreas como carbono azul y generaron 77 nuevos empleos locales directos en más de 40 comunidades.',
-    images: ['/assets/historias/historia-dos.avif'],
+    images: [
+      historiaImage('Premio 2024', 'Premiacion Naturatech Lac-115.avif'),
+    ],
     layout: 'hero-hito',
     cta: 'Ver video',
     ctaUrl: 'https://www.youtube.com/watch?si=MD393RKzMzYmZzV6&v=bHeOXvmVqWo&feature=youtu.be',
@@ -28,8 +34,8 @@ const HITOS = [
     description:
       'En alianza con Escuela Viva Amazonía, una iniciativa de Cuencas Sagradas Amazónicas, la cohorte inaugural de Explora capacitó a jóvenes indígenas de más de 20 nacionalidades en IA, drones, SIG y narrativa.',
     images: [
-      '/assets/historias/historia-one.avif',
-      '/assets/historias/historia-tres.avif',
+      historiaImage('Explora 1a edicion', 'DSC01063.avif'),
+      historiaImage('Explora 1a edicion', 'DSC01282 (1).avif'),
     ],
     layout: 'split',
     cta: 'Ver video',
@@ -43,9 +49,9 @@ const HITOS = [
     description:
       'El primer espacio regional donde voces multiculturales de Latinoamérica y el Caribe se reunieron para dar forma juntas al futuro de la innovación en la naturaleza. Al reunir a líderes indígenas, científicos, emprendedores y responsables de políticas públicas de toda LAC, el Foro fue un acto fundacional de diálogo. Sembró la visión de gobernanza que más tarde se convertiría en CEIBA.',
     images: [
-      '/assets/historias/historia-one.avif',
-      '/assets/historias/historia-dos.avif',
-      '/assets/historias/historia-tres.avif',
+      historiaImage('Foro', '750_7588 (1).avif'),
+      historiaImage('Foro', '750_7637.avif'),
+      historiaImage('Foro', '750_7696.avif'),
     ],
     layout: 'triple',
     cta: 'Ver video',
@@ -58,7 +64,9 @@ const HITOS = [
     event: 'Presentación de la Minga Jaguar',
     description:
       'La primera alianza biocultural de la región guiada por el espíritu del jaguar y el liderazgo de los pueblos indígenas. La Alianza Minga Jaguar nació en 6 países —México, Costa Rica, Ecuador, Perú, Colombia y Brasil—, tejiendo una red compartida de gobernanza y monitoreo para proteger los biocorredores del jaguar.',
-    images: ['/assets/historias/historia-cuatro.avif'],
+    images: [
+      historiaImage('1er Encuentro Minga', 'Panel Jaguar_Flii_1.avif'),
+    ],
     layout: 'full',
     cta: 'Ver video',
     ctaUrl: 'https://www.youtube.com/watch?v=drLfbctSeoo',
@@ -70,7 +78,9 @@ const HITOS = [
     event: 'Primer Encuentro',
     description:
       'Por primera vez, los guardianes del corredor del jaguar se reunieron en un mismo espacio y construyeron una hoja de ruta compartida. Celebrado en la Península de Yucatán, el encuentro convocó a miembros de la alianza de todo el corredor transfronterizo para alinear protocolos de monitoreo, impulsar la adopción de IA y codiseñar el modelo de gobernanza biocultural para todo el rango de distribución del jaguar.',
-    images: ['/assets/historias/historia-tres.avif'],
+    images: [
+      historiaImage('1er Encuentro Minga', 'IMG_8018.avif'),
+    ],
     layout: 'hero-hito',
     cta: 'Ver video',
     ctaUrl: 'https://www.youtube.com/watch?v=drLfbctSeoo',
@@ -83,8 +93,8 @@ const HITOS = [
     description:
       'El primer encuentro transfronterizo entre la EU–LAC para la innovación regenerativa. Codirigido junto con SIDA y el Stockholm Resilience Centre en el Beijer Institute / Royal Swedish Academy of Sciences, Bridging Regions conectó el ecosistema de innovación biocultural de LAC con las redes europeas de sostenibilidad, tecnología y financiamiento.',
     images: [
-      '/assets/historias/historia-cuatro.avif',
-      '/assets/historias/historia-one.avif',
+      historiaImage('Bioregiones', '250617_NaturaTechLAC-27.avif'),
+      historiaImage('Bioregiones', '250617_NaturaTechLAC-41.avif'),
     ],
     layout: 'split',
     cta: 'Ver video',
@@ -98,9 +108,9 @@ const HITOS = [
     description:
       'A lo largo de sus dos ediciones, Explora ha formado a más de 100 jóvenes líderes indígenas de más de 20 nacionalidades de Ecuador y Perú.',
     images: [
-      '/assets/historias/historia-dos.avif',
-      '/assets/historias/historia-tres.avif',
-      '/assets/historias/historia-cuatro.avif',
+      historiaImage('Explora 2a edici\u00f3n', 'DSC00077.avif'),
+      historiaImage('Explora 2a edici\u00f3n', 'DSC01420.avif'),
+      historiaImage('Explora 2a edici\u00f3n', 'DSC01694.avif'),
     ],
     layout: 'triple',
     cta: 'Ver video',
@@ -113,7 +123,9 @@ const HITOS = [
     event: 'Ceiba 2025',
     description:
       'Más de 100 líderes de 17 países se reunieron en un consejo de gobernanza. Multicultural, intergeneracional y multisectorial —desde liderazgos indígenas territoriales hasta fondos, emprendedores y sociedad civil—, con el objetivo de habilitar la arquitectura continental de LAC para la inteligencia colectiva sobre biodiversidad y capital natural.',
-    images: ['/assets/historias/historia-one.avif'],
+    images: [
+      historiaImage('CEIBA', 'CEIBA DIA 1 202514.avif'),
+    ],
     layout: 'full',
     cta: 'Ver video',
     ctaUrl: 'https://www.youtube.com/watch?v=RWM2R4UhTDE',
@@ -316,12 +328,12 @@ export default function Hitos() {
 
         {/* ── Hero left image ── */}
         <div ref={heroLeftRef} className="hero-side hero-side--left">
-          <div className="hero-side__img" style={{ backgroundImage: `url(/assets/historias/historia-one.avif)` }} />
+          <div className="hero-side__img" style={{ backgroundImage: `url(${historiaImage('Premio 2024', 'Premiacion Naturatech Lac-176.avif')})` }} />
         </div>
 
         {/* ── Hero right image ── */}
         <div ref={heroRightRef} className="hero-side hero-side--right">
-          <div className="hero-side__img" style={{ backgroundImage: `url(/assets/historias/historia-cuatro.avif)` }} />
+          <div className="hero-side__img" style={{ backgroundImage: `url(${historiaImage('CEIBA', 'CEIBA DIA 1 202523.avif')})` }} />
         </div>
 
         {/* ── Hero center content ── */}
