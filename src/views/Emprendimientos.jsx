@@ -163,7 +163,7 @@ export default function Emprendimientos({ onFrameToggle }) {
 
         <div className="regen-people-wrapper">
           <div className="regen-people-anchor">
-            <img src="/assets/regenera/people-regen.png" alt="Emprendedores regenerativos" className="regen-people" />
+            <img src="/assets/regenera/people-regen.avif" alt="Emprendedores regenerativos" className="regen-people" />
           </div>
         </div>
 
@@ -247,9 +247,9 @@ export default function Emprendimientos({ onFrameToggle }) {
       <section className="regen-100k-section">
         <div className="regen-100k-content">
           <div className="regen-100k-fan">
-            <img src="/assets/regenera/fan_1.png" alt="Emprendedor 1" className="fan-img fan-left" loading="lazy" />
-            <img src="/assets/regenera/fan_3.png" alt="Emprendedor 3" className="fan-img fan-right" loading="lazy" />
-            <img src="/assets/regenera/fan_2.png" alt="Emprendedor 2" className="fan-img fan-center" loading="lazy" />
+            <img src="/assets/regenera/fan_1.avif" alt="Emprendedor 1" className="fan-img fan-left" loading="lazy" />
+            <img src="/assets/regenera/fan_3.avif" alt="Emprendedor 3" className="fan-img fan-right" loading="lazy" />
+            <img src="/assets/regenera/fan_2.avif" alt="Emprendedor 2" className="fan-img fan-center" loading="lazy" />
           </div>
           <div className="regen-100k-info">
             <h3 className="regen-100k-heading">Hasta <span className="regen-100k-number">100K USD</span> en financiamiento catalítico</h3>

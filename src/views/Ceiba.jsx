@@ -9,26 +9,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* Gallery images */
 const galleryImages = [
-  '/assets/CEIBA/galeria-ceiba-1.webp',
-  '/assets/CEIBA/galeria-ceiba-2.webp',
-  '/assets/CEIBA/galeria-ceiba-3.webp',
-  '/assets/CEIBA/galeria-ceiba-4.webp',
+  '/assets/CEIBA/galeria-ceiba-1.avif',
+  '/assets/CEIBA/galeria-ceiba-2.avif',
+  '/assets/CEIBA/galeria-ceiba-3.avif',
+  '/assets/CEIBA/galeria-ceiba-4.avif',
 ];
 
 /* Shape divider assets */
 const shapes = [
-  '/assets/CEIBA/ceiba-shape-1.webp',
-  '/assets/CEIBA/ceiba-shape-2.webp',
-  '/assets/CEIBA/ceiba-shape-3.webp',
-  '/assets/CEIBA/ceiba-shape-4.webp',
+  '/assets/CEIBA/ceiba-shape-1.avif',
+  '/assets/CEIBA/ceiba-shape-2.avif',
+  '/assets/CEIBA/ceiba-shape-3.avif',
+  '/assets/CEIBA/ceiba-shape-4.avif',
 ];
 
 /* Persona photos for podcast section */
 const personas = [
-  '/assets/CEIBA/ceiba-persona-1.webp',
-  '/assets/CEIBA/ceiba-persona-2.webp',
-  '/assets/CEIBA/ceiba-persona-3.webp',
-  '/assets/CEIBA/ceiba-persona-4.webp',
+  '/assets/CEIBA/ceiba-persona-1.avif',
+  '/assets/CEIBA/ceiba-persona-2.avif',
+  '/assets/CEIBA/ceiba-persona-3.avif',
+  '/assets/CEIBA/ceiba-persona-4.avif',
 ];
 
 /* Social links for podcast */
@@ -360,7 +360,7 @@ export default function Ceiba() {
       {/* ════════════ HERO ════════════ */}
       <section className="ceiba-hero">
         <div className="ceiba-bg-wrapper">
-          <img src="/assets/CEIBA/bg-ceiba.webp" alt="" className="ceiba-bg" />
+          <img src="/assets/CEIBA/bg-ceiba.avif" alt="" className="ceiba-bg" />
         </div>
 
         <div className="ceiba-giant-text" aria-hidden="true">
@@ -371,7 +371,7 @@ export default function Ceiba() {
 
         <div className="ceiba-subject-wrapper">
           <div className="ceiba-subject-anchor">
-            <img src="/assets/CEIBA/lina-subject.png" alt="Speaker CEIBA" className="ceiba-subject" />
+            <img src="/assets/CEIBA/lina-subject.avif" alt="Speaker CEIBA" className="ceiba-subject" />
           </div>
         </div>
 

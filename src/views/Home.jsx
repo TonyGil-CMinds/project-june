@@ -9,10 +9,10 @@ import GlassFrame from '../components/GlassFrame.jsx';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 const stories = [
-  { title: 'Lola Cabnal en',     subtitle: 'Somos Raíces',        img: '/assets/historias/historia-one.webp',    href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s',                                          cta: 'Ver Video',           play: true },
-  { title: 'Conoce más de',      subtitle: 'Natura 500',          img: '/assets/historias/historia-dos.webp',    href: '/emprendimientos',                                                                                  cta: 'Ir a Natura 500' },
-  { title: 'Accede a nuestro',   subtitle: 'Canal de Whatsapp',   img: '/assets/historias/historia-tres.webp',   href: 'https://whatsapp.com/channel/0029Vb7HsgN3mFXwkZzeW71V',                                       cta: 'Ir a Canal' },
-  { title: 'Escucha el Soundtrack', subtitle: 'de CEIBA',         img: '/assets/historias/historia-cuatro.webp', href: 'https://open.spotify.com/intl-es/album/0lg3EDWiGdTLW565zGKvuO?si=D1-PT4T9Sz-o9vn9a5Jtvw',     cta: 'Escuchar en Spotify' },
+  { title: 'Lola Cabnal en',     subtitle: 'Somos Raíces',        img: '/assets/historias/historia-one.avif',    href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s',                                          cta: 'Ver Video',           play: true },
+  { title: 'Conoce más de',      subtitle: 'Natura 500',          img: '/assets/historias/historia-dos.avif',    href: '/emprendimientos',                                                                                  cta: 'Ir a Natura 500' },
+  { title: 'Accede a nuestro',   subtitle: 'Canal de Whatsapp',   img: '/assets/historias/historia-tres.avif',   href: 'https://whatsapp.com/channel/0029Vb7HsgN3mFXwkZzeW71V',                                       cta: 'Ir a Canal' },
+  { title: 'Escucha el Soundtrack', subtitle: 'de CEIBA',         img: '/assets/historias/historia-cuatro.avif', href: 'https://open.spotify.com/intl-es/album/0lg3EDWiGdTLW565zGKvuO?si=D1-PT4T9Sz-o9vn9a5Jtvw',     cta: 'Escuchar en Spotify' },
 ];
 
 export default function Home({ appReady = true }) {
@@ -369,7 +369,7 @@ export default function Home({ appReady = true }) {
       {/* HERO */}
       <section id="hero" className="hero-section">
         <div className="hero-bg-wrapper">
-          <img src="/assets/images/hero-bg.webp" alt="" className="hero-bg" />
+          <img src="/assets/images/hero-bg.avif" alt="" className="hero-bg" />
         </div>
 
         <div className="hero-giant-text" aria-hidden="true">
@@ -382,7 +382,7 @@ export default function Home({ appReady = true }) {
 
         <div className="hero-bird-wrapper">
           <div className="hero-bird-anchor">
-            <img src="/assets/images/colibri.webp" alt="Colibrí verde iridiscente" className="hero-bird" />
+            <img src="/assets/images/colibri.avif" alt="Colibrí verde iridiscente" className="hero-bird" />
           </div>
         </div>
 
@@ -556,7 +556,7 @@ export default function Home({ appReady = true }) {
           <div className="gallery-row gallery-row-top">
             {[1,2,3,4,5].map((n, i) => (
               <div className="gallery-item" data-speed={[0.9,1.05,0.95,1.1,0.9][i]} key={n}>
-                <img src={`/assets/images/gallery-${n}.webp`} alt="" loading="lazy" />
+                <img src={`/assets/images/gallery-${n}.avif`} alt="" loading="lazy" />
               </div>
             ))}
           </div>
@@ -567,7 +567,7 @@ export default function Home({ appReady = true }) {
                 data-speed={[1.05,0.95,1.1,0.9][i]}
                 key={n}
               >
-                <img src={`/assets/images/gallery-${n}.webp`} alt="" loading="lazy" />
+                <img src={`/assets/images/gallery-${n}.avif`} alt="" loading="lazy" />
               </div>
             ))}
           </div>
@@ -642,9 +642,9 @@ export default function Home({ appReady = true }) {
 
         <div className="cards-grid">
           {[
-            { id: 'card-financiamos', title: 'Demostramos', img: '/assets/images/gallery-1.webp', desc: 'Financiamos, acompañamos y co-creamos modelos replicables de innovación biocultural que integren regeneración del capital natural, tecnologías con propósito y liderazgo económico local, impulsando empresas y soluciones lideradas desde los territorios.' },
-            { id: 'card-acompanamos', title: 'Habilitamos condiciones', img: '/assets/images/gallery-3.webp', desc: 'Co-habilitamos las condiciones necesarias para escalar economías y mercados positivos para la naturaleza mediante infraestructura digital abierta, herramientas de dMRV, fortalecimiento de capacidades, gobernanza biocultural y mecanismos de financiamiento inclusivo y combinado.' },
-            { id: 'card-conectamos',  title: 'Conectamos',  img: '/assets/images/gallery-4.webp', desc: 'Fortalecemos el ecosistema multisectorial y multicultural de innovación para la biodiversidad, articulando comunidades indígenas y afrodescendientes, academia, emprendimientos, financiadores, gobiernos y tomadores de decisión a través de plataformas colaborativas, aprendizaje entre pares y espacios de confianza.' },
+            { id: 'card-financiamos', title: 'Demostramos', img: '/assets/images/gallery-1.avif', desc: 'Financiamos, acompañamos y co-creamos modelos replicables de innovación biocultural que integren regeneración del capital natural, tecnologías con propósito y liderazgo económico local, impulsando empresas y soluciones lideradas desde los territorios.' },
+            { id: 'card-acompanamos', title: 'Habilitamos condiciones', img: '/assets/images/gallery-3.avif', desc: 'Co-habilitamos las condiciones necesarias para escalar economías y mercados positivos para la naturaleza mediante infraestructura digital abierta, herramientas de dMRV, fortalecimiento de capacidades, gobernanza biocultural y mecanismos de financiamiento inclusivo y combinado.' },
+            { id: 'card-conectamos',  title: 'Conectamos',  img: '/assets/images/gallery-4.avif', desc: 'Fortalecemos el ecosistema multisectorial y multicultural de innovación para la biodiversidad, articulando comunidades indígenas y afrodescendientes, academia, emprendimientos, financiadores, gobiernos y tomadores de decisión a través de plataformas colaborativas, aprendizaje entre pares y espacios de confianza.' },
           ].map((c) => (
             <div className="feature-card" id={c.id} key={c.id}>
               <div className="card-image-wrapper">
@@ -666,10 +666,10 @@ export default function Home({ appReady = true }) {
           <div className="programs-horizontal-line"></div>
           <div className="programs-container">
             {[
-              { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.webp',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →',url:'https://qa.naturatech.org/emprendimientos'},
-              { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.webp', desc: 'Comunidad multisectorial, multicultural, intergeneracional y transregional para la innovación y el financiamiento para la biodiversidad.', link: 'IR A CEIBA →', url:'https://qa.naturatech.org/ceiba' },
-              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.webp',desc: 'Laboratorio de innovación eco-socio-tecnológica para demostrar lo que es posible.', link: 'IR A STUDIO →', url:'https://qa.naturatech.org/studio' },
-              { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.webp',     desc: 'Plataforma de conocimiento colectivo para liderar procesos de innovación, conservación y regeneración desde y para LAC.', link: 'IR A ECOS →', url:'https://ecos.naturatech.org/' },
+              { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.avif',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →',url:'https://qa.naturatech.org/emprendimientos'},
+              { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.avif', desc: 'Comunidad multisectorial, multicultural, intergeneracional y transregional para la innovación y el financiamiento para la biodiversidad.', link: 'IR A CEIBA →', url:'https://qa.naturatech.org/ceiba' },
+              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.avif',desc: 'Laboratorio de innovación eco-socio-tecnológica para demostrar lo que es posible.', link: 'IR A STUDIO →', url:'https://qa.naturatech.org/studio' },
+              { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.avif',     desc: 'Plataforma de conocimiento colectivo para liderar procesos de innovación, conservación y regeneración desde y para LAC.', link: 'IR A ECOS →', url:'https://ecos.naturatech.org/' },
             ].map((p, i) => (
               <div className="program-panel" key={p.title}>
                 <img src={p.bg} alt={p.title} className="program-bg" loading="lazy" />

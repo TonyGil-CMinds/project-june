@@ -74,7 +74,7 @@ export default function Ecos() {
     <div ref={rootRef}>
       <section className="ecos-hero" id="ecos">
         <div className="ecos-bg-wrapper">
-          <img src="/assets/Ecos/bg-ecos.png" alt="" className="ecos-bg" />
+          <img src="/assets/Ecos/bg-ecos.avif" alt="" className="ecos-bg" />
         </div>
 
         <div className="ecos-giant-text" aria-hidden="true">
@@ -84,7 +84,7 @@ export default function Ecos() {
         <div className="ecos-subject-wrapper">
           <div className="ecos-subject-anchor">
             <img
-              src="/assets/Ecos/subject-ecos.png"
+              src="/assets/Ecos/subject-ecos.avif"
               alt="Mujer lideresa mirando hacia el bosque"
               className="ecos-subject"
             />

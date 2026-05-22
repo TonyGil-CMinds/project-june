@@ -15,7 +15,7 @@ const PROJECTS = [
     description: 'Organización indígena que gestiona la Reserva Comunal Amarakaeri en Perú, combinando tecnología y conocimiento ancestral para la vigilancia y control territorial.',
     url: 'https://eca-amarakaeri.org.pe/',
     region: 'Reserva Comunal Amarakaeri, Perú',
-    img: '/assets/Studio/portafolio/proyect-img-1.png',
+    img: '/assets/Studio/portafolio/proyect-img-1.avif',
     leaders: [
       { name: 'Carlos Tayori', avatar: 'https://i.pravatar.cc/60?img=11' },
       { name: 'Rosa Harakbut', avatar: 'https://i.pravatar.cc/60?img=45' },
@@ -28,7 +28,7 @@ const PROJECTS = [
     description: 'Empresa colombiana de turismo que promueve la conservación, restauración y uso sostenible de la biodiversidad, creando oportunidades económicas para comunidades rurales a través de su proyecto Red de Biomonitoreo Comunitario.',
     url: 'https://awake.travel/',
     region: 'Colombia',
-    img: '/assets/Studio/portafolio/proyect-img-2.png',
+    img: '/assets/Studio/portafolio/proyect-img-2.avif',
     leaders: [
       { name: 'Valentina Arango', avatar: 'https://i.pravatar.cc/60?img=47' },
       { name: 'Mateo Restrepo', avatar: 'https://i.pravatar.cc/60?img=15' },
@@ -40,7 +40,7 @@ const PROJECTS = [
     description: 'Centro de innovación que implementa el proyecto REGEN para desarrollar bioeconomía amazónica utilizando tecnologías de Industria 4.0, en alianza con comunidades Asháninkas y el MIT.',
     url: 'https://www.fab.pe/',
     region: 'Amazonía peruana',
-    img: '/assets/Studio/portafolio/proyect-img-3.png',
+    img: '/assets/Studio/portafolio/proyect-img-3.avif',
     leaders: [
       { name: 'Ana Lucía Torres', avatar: 'https://i.pravatar.cc/60?img=49' },
       { name: 'Diego Cisneros', avatar: 'https://i.pravatar.cc/60?img=17' },
@@ -53,7 +53,7 @@ const PROJECTS = [
     description: 'Organización que trabaja en la conservación del jaguar y el desarrollo de créditos bioculturales para proteger ecosistemas y apoyar comunidades indígenas en Ecuador.',
     url: 'https://www.pachamama.org/',
     region: 'Ecuador',
-    img: '/assets/Studio/portafolio/proyect-img-4.png',
+    img: '/assets/Studio/portafolio/proyect-img-4.avif',
     leaders: [
       { name: 'Lorena Grefa', avatar: 'https://i.pravatar.cc/60?img=53' },
       { name: 'Pablo Varela', avatar: 'https://i.pravatar.cc/60?img=19' },
@@ -65,7 +65,7 @@ const PROJECTS = [
     description: 'Fundación enfocada en la protección marina que implementa sistemas de monitoreo automatizado para mejorar la resiliencia de ecosistemas marinos en el Caribe.',
     url: 'https://www.fundemardr.org/',
     region: 'República Dominicana / Caribe',
-    img: '/assets/Studio/portafolio/proyect-img-5.png',
+    img: '/assets/Studio/portafolio/proyect-img-5.avif',
     leaders: [
       { name: 'Carmen Díaz', avatar: 'https://i.pravatar.cc/60?img=55' },
       { name: 'Rafael Oleo', avatar: 'https://i.pravatar.cc/60?img=21' },
@@ -78,7 +78,7 @@ const PROJECTS = [
     description: 'Empresa tecnológica que desarrolla un sistema dMRV de monitoreo, reporte y verificación descentralizado para la creación y gestión de activos ambientales digitales.',
     url: 'https://www.landprint.co/',
     region: 'Activos ambientales digitales',
-    img: '/assets/Studio/portafolio/proyect-img-6.png',
+    img: '/assets/Studio/portafolio/proyect-img-6.avif',
     leaders: [
       { name: 'Sebastián Mora', avatar: 'https://i.pravatar.cc/60?img=23' },
       { name: 'Isabella Ruiz', avatar: 'https://i.pravatar.cc/60?img=59' },
@@ -90,7 +90,7 @@ const PROJECTS = [
     description: 'Organización comunitaria que lidera el proyecto TAC Nuquí, Territorio de Aprendizaje Comunitario, en el Pacífico colombiano, integrando tecnología con saberes ancestrales para el desarrollo sostenible.',
     url: 'https://manocambiada.org/',
     region: 'Nuquí, Pacífico colombiano',
-    img: '/assets/Studio/portafolio/proyect-img-7.png',
+    img: '/assets/Studio/portafolio/proyect-img-7.avif',
     leaders: [
       { name: 'Esperanza Palacios', avatar: 'https://i.pravatar.cc/60?img=61' },
       { name: 'Nelson Mosquera', avatar: 'https://i.pravatar.cc/60?img=25' },
@@ -103,7 +103,7 @@ const PROJECTS = [
     description: 'Organización dedicada a la restauración de bosques tropicales secos, implementando soluciones tecnológicas y biotecnológicas para la recuperación de ecosistemas degradados.',
     url: 'https://nativas.ar/',
     region: 'Argentina / Colombia',
-    img: '/assets/Studio/portafolio/proyect-img-8.png',
+    img: '/assets/Studio/portafolio/proyect-img-8.avif',
     leaders: [
       { name: 'Luciana Bertolini', avatar: 'https://i.pravatar.cc/60?img=65' },
       { name: 'Agustín Paz', avatar: 'https://i.pravatar.cc/60?img=27' },
@@ -115,7 +115,7 @@ const PROJECTS = [
     description: 'Iniciativa que apoya un modelo de conservación liderado por mujeres rurales para prevenir la deforestación en La Macarena, Colombia, a través de soluciones basadas en la naturaleza.',
     url: '#',
     region: 'La Macarena, Colombia',
-    img: '/assets/Studio/portafolio/proyect-img-9.png',
+    img: '/assets/Studio/portafolio/proyect-img-9.avif',
     leaders: [
       { name: 'María del Carmen', avatar: 'https://i.pravatar.cc/60?img=67' },
       { name: 'Luz Adriana García', avatar: 'https://i.pravatar.cc/60?img=69' },
@@ -128,7 +128,7 @@ const PROJECTS = [
     description: 'Savimbo desarrolla una metodología de créditos agroforestales que empodera a pequeños productores de café y cacao en la adopción de prácticas regenerativas, integra monitoreo comunitario de biodiversidad y canaliza pagos justos por servicios ecosistémicos, captura de carbono y créditos de biodiversidad.',
     url: 'https://savimbo.com/',
     region: 'Territorios agroforestales',
-    img: '/assets/Studio/portafolio/proyect-img-1.png',
+    img: '/assets/Studio/portafolio/proyect-img-1.avif',
     leaders: [
       { name: 'Camila Fonseca', avatar: 'https://i.pravatar.cc/60?img=32' },
       { name: 'Andrés Gómez', avatar: 'https://i.pravatar.cc/60?img=29' },
@@ -140,7 +140,7 @@ const PROJECTS = [
     description: 'Fondo de inversión enfocado en proyectos de restauración de ecosistemas, actualmente trabajando en la recuperación de manglares utilizando tecnología Lidar para monitoreo y medición de impacto.',
     url: 'https://www.understory.fund/',
     region: 'Ecosistemas de manglar',
-    img: '/assets/Studio/portafolio/proyect-img-2.png',
+    img: '/assets/Studio/portafolio/proyect-img-2.avif',
     leaders: [
       { name: 'Sophie Leblanc', avatar: 'https://i.pravatar.cc/60?img=33' },
       { name: 'James Okafor', avatar: 'https://i.pravatar.cc/60?img=31' },
@@ -153,7 +153,7 @@ const PROJECTS = [
     description: 'Instituciones académicas que lideran el proyecto SeaFlower Wise para la conservación marina y el desarrollo de créditos azules en la Reserva de Biósfera Seaflower.',
     url: 'https://umanizales.edu.co/',
     region: 'Reserva de Biósfera Seaflower',
-    img: '/assets/Studio/portafolio/proyect-img-3.png',
+    img: '/assets/Studio/portafolio/proyect-img-3.avif',
     leaders: [
       { name: 'Dr. Hernán Ospina', avatar: 'https://i.pravatar.cc/60?img=37' },
       { name: 'Dra. Claudia Vásquez', avatar: 'https://i.pravatar.cc/60?img=73' },
@@ -165,7 +165,7 @@ const PROJECTS = [
     description: 'ONG con sede en Ecuador que trabaja con comunidades indígenas como los Siekopai para regenerar bosques amazónicos, fortalecer la soberanía alimentaria y salvaguardar el patrimonio cultural. En colaboración con Regen Network, desarrolla proyectos de créditos bioculturales para proteger al jaguar y apoyar a la Nación Siekopai.',
     url: 'https://yakum.org/',
     region: 'Amazonía ecuatoriana',
-    img: '/assets/Studio/portafolio/proyect-img-4.png',
+    img: '/assets/Studio/portafolio/proyect-img-4.avif',
     leaders: [
       { name: 'Alianza Siekopai', avatar: 'https://i.pravatar.cc/60?img=39' },
       { name: 'Fernanda Rivadeneira', avatar: 'https://i.pravatar.cc/60?img=75' },
@@ -721,7 +721,7 @@ export default function Studio() {
     <div ref={rootRef}>
       <section className="studio-hero">
         <div className="studio-bg-wrapper">
-          <img src="/assets/Studio/bg-studio.webp" alt="" className="studio-bg" />
+          <img src="/assets/Studio/bg-studio.avif" alt="" className="studio-bg" />
         </div>
 
         <div className="studio-giant-text" aria-hidden="true">
@@ -732,7 +732,7 @@ export default function Studio() {
 
         <div className="studio-subject-wrapper">
           <div className="studio-subject-anchor">
-            <img src="/assets/Studio/subject-studio.png" alt="Studio Subject" className="studio-subject" />
+            <img src="/assets/Studio/subject-studio.avif" alt="Studio Subject" className="studio-subject" />
           </div>
         </div>
 
@@ -773,7 +773,7 @@ export default function Studio() {
       <section className="studio-main-content">
         <div className="studio-main-inner">
           <div className="studio-main-image">
-            <img src="/assets/Studio/studio-gallery-1.webp" alt="Studio Work" />
+            <img src="/assets/Studio/studio-gallery-1.avif" alt="Studio Work" />
           </div>
           <div className="studio-main-text">
             <h3>
@@ -812,9 +812,9 @@ export default function Studio() {
         <div className="studio-levels">
           <div className="studio-levels-visual" aria-hidden="true">
             <div className="studio-levels-orbit">
-              <img className="studio-levels-photo studio-levels-photo-one" src="/assets/Studio/studio-levels-img1.png" alt="" loading="lazy" />
-              <img className="studio-levels-photo studio-levels-photo-two" src="/assets/Studio/studio-levels-img2.png" alt="" loading="lazy" />
-              <img className="studio-levels-photo studio-levels-photo-three" src="/assets/Studio/studio-levels-icon-3.png" alt="" loading="lazy" />
+              <img className="studio-levels-photo studio-levels-photo-one" src="/assets/Studio/studio-levels-img1.avif" alt="" loading="lazy" />
+              <img className="studio-levels-photo studio-levels-photo-two" src="/assets/Studio/studio-levels-img2.avif" alt="" loading="lazy" />
+              <img className="studio-levels-photo studio-levels-photo-three" src="/assets/Studio/studio-levels-icon-3.avif" alt="" loading="lazy" />
             </div>
           </div>
           <div className="studio-levels-copy">
