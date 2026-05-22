@@ -171,24 +171,14 @@
   text-transform: uppercase;
 }
 
-.hero-waveform {
-  display: flex;
-  align-items: flex-end;
-  gap: 2.5px;
-  height: 24px;
+.hero-scroll-chevron {
+  color: var(--accent);
+  animation: chevron-bounce 1.6s ease-in-out infinite;
 }
 
-.waveform-bar {
-  width: 2px;
-  height: var(--bar-h, 8px);
-  border-radius: 1px;
-  background: var(--text-faint);
-  animation: waveform-pulse 1.4s ease-in-out infinite alternate;
-}
-
-@keyframes waveform-pulse {
-  0%   { opacity: 0.3; transform: scaleY(0.5); }
-  100% { opacity: 0.9; transform: scaleY(1); }
+@keyframes chevron-bounce {
+  0%, 100% { transform: translateY(0);    opacity: 0.5; }
+  50%       { transform: translateY(6px); opacity: 1;   }
 }
 
 /* ── Slide base ── */

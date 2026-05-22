@@ -132,8 +132,6 @@ const HITOS = [
   },
 ];
 
-/* Waveform bars for the scroll indicator */
-const BARS = [3, 6, 10, 14, 18, 22, 20, 16, 12, 8, 6, 4, 6, 9, 14, 18, 22, 18, 13, 8, 5, 3];
 
 function getYouTubeEmbedUrl(url) {
   try {
@@ -153,6 +151,8 @@ export default function Hitos() {
   const slidesRef      = useRef([]);
   const dotsRef        = useRef([]);
   const counterCurrentRef = useRef(null);
+  const counterWrapRef    = useRef(null);
+  const countStartedRef   = useRef(false);
 
   const videoOverlayRef = useRef(null);
   const videoPanelRef   = useRef(null);
@@ -171,6 +171,7 @@ export default function Hitos() {
 
       /* ── Initial states ── */
       gsap.set(slides, { autoAlpha: 0 });
+      gsap.set(counterWrapRef.current, { autoAlpha: 0 });
       /* GSAP owns the y-centering so transforms don't conflict */
       gsap.set([heroLeft, heroRight], { yPercent: -50 });
 
@@ -179,13 +180,14 @@ export default function Hitos() {
 
       /*
         Phase 0 → 1  (t: 0 → ~1.2)
-        Side images pinch inward + hero center fades out → first hito fades in
+        Side images slide outward + hero center fades out → first hito fades in
       */
-      tl.to(heroLeft,  { x: '28vw',  duration: 0.85, ease: 'power2.inOut' }, 0)
-        .to(heroRight, { x: '-28vw', duration: 0.85, ease: 'power2.inOut' }, 0)
+      tl.to(heroLeft,  { x: '-20vw', duration: 0.85, ease: 'power2.inOut' }, 0)
+        .to(heroRight, { x: '20vw',  duration: 0.85, ease: 'power2.inOut' }, 0)
         .to(heroCenter, { autoAlpha: 0, y: -24, duration: 0.5, ease: 'power1.in' }, 0.15)
         .to([heroLeft, heroRight], { autoAlpha: 0, duration: 0.35 }, 0.75)
-        .to(slides[0], { autoAlpha: 1, duration: 0.55, ease: 'power1.out' }, 0.85);
+        .to(slides[0], { autoAlpha: 1, duration: 0.55, ease: 'power1.out' }, 0.85)
+        .to(counterWrapRef.current, { autoAlpha: 1, duration: 0.4, ease: 'power1.out' }, 0.95);
 
       /*
         Phases 1 → total  (each ~1 unit)
@@ -207,10 +209,10 @@ export default function Hitos() {
         animation: tl,
         invalidateOnRefresh: true,
         onUpdate(self) {
-          /* One phase per hito (including the hero→hito-1 transition) */
           const idx = Math.min(Math.floor(self.progress * total + 0.01), total - 1);
 
-          if (counterCurrentRef.current) {
+          if (idx > 0) countStartedRef.current = true;
+          if (counterCurrentRef.current && countStartedRef.current) {
             counterCurrentRef.current.textContent = String(idx + 1).padStart(2, '0');
           }
           dotsRef.current.forEach((dot, i) => {
@@ -319,7 +321,7 @@ export default function Hitos() {
             Regresar
           </a>
           <span className="hitos-page-label">HITOS</span>
-          <span className="hitos-counter">
+          <span ref={counterWrapRef} className="hitos-counter">
             <span ref={counterCurrentRef} className="counter-current">01</span>
             <span className="counter-sep"> / </span>
             <span className="counter-total">{String(HITOS.length).padStart(2, '0')}</span>
@@ -342,22 +344,16 @@ export default function Hitos() {
             <img src="/assets/images/logo.svg" alt="NaturaTech" className="hero-logo" />
           </div>
           <p className="hero-initiative-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-              <path d="M8 12c0-2.21 1.79-4 4-4s4 1.79 4 4"/>
-            </svg>
             LOGROS DE LA INICIATIVA
           </p>
           <h1 className="hero-title">
             HITOS DE<br />IMPACTO
           </h1>
           <div className="hero-scroll-indicator">
-            <span className="hero-scroll-text">SCROLL</span>
-            <div className="hero-waveform">
-              {BARS.map((h, i) => (
-                <div key={i} className="waveform-bar" style={{ '--bar-h': `${h}px`, animationDelay: `${i * 0.06}s` }} />
-              ))}
-            </div>
+            <span className="hero-scroll-text">DESLIZA</span>
+            <svg className="hero-scroll-chevron" width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M8 4L8 20M8 20L2 14M8 20L14 14" />
+            </svg>
           </div>
         </div>
 

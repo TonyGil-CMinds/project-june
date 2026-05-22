@@ -471,7 +471,7 @@ export default function Ceiba() {
             </p>
             
           </div>
-          <a href="https://www.biodiversityweek.com/reporteceiba" target="_blank" rel="noreferrer" className="btn-glass ceiba-info-btn">
+          <a href="https://www.biodiversityweek.com/galeriaceiba" target="_blank" rel="noreferrer" className="btn-glass ceiba-info-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
             Revive CEIBA 2025
           </a>
