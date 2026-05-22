@@ -823,7 +823,7 @@ export default function Studio() {
               Un portafolio vivo de innovación para la biodiversidad
               <span>(biodiversidad</span>
             </h3>
-            <p>Financiamos, co-desarrollamos y probamos soluciones en territorio favorables para la naturaleza, bajo el liderazgo de nuestros socios con base en el territorio y de nuestros socios emprendedores.</p>
+            <p>Financiamos, co-desarrollamos y validamos soluciones regenerativas junto a organizaciones territoriales, emprendedores y aliados estratégicos para acelerar nuevas formas de conservar, regenerar y generar valor desde la biodiversidad.</p>
             <p className="studio-main-stat">1.6M de invertidos en la naturaleza</p>
           </div>
         </div>
