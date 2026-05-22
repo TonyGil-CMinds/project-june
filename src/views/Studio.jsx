@@ -793,7 +793,7 @@ export default function Studio() {
               <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> Co-crea</span>
             </h1>
             <p className="studio-description">
-              Acompa&ntilde;amos a 13 proyectos que est&aacute;n demostrando c&oacute;mo el nexo entre tecnolog&iacute;a con prop&oacute;sito y sabidur&iacute;a ancestral echa ra&iacute;ces.
+             El Studio de NaturaTech LAC conecta innovación, infraestructura digital y colaboración territorial para demostrar nuevas formas de regenerar biodiversidad y economías locales.
             </p>
             <a href="#portfolio" className="btn-glass hero-cta-button" onClick={openPortfolio}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
