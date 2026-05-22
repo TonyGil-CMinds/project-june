@@ -642,9 +642,9 @@ export default function Home({ appReady = true }) {
 
         <div className="cards-grid">
           {[
-            { id: 'card-financiamos', title: 'Financiamos', img: '/assets/images/gallery-1.webp', desc: 'Accedemos e intermediamos el financiamiento en proyectos que aceleran la protección con tecnología.' },
-            { id: 'card-acompanamos', title: 'Acompañamos', img: '/assets/images/gallery-3.webp', desc: 'Creamos la empresa de soporte digital-biocultura más robusta de la región aliados y las primeras soluciones territoriales.' },
-            { id: 'card-conectamos',  title: 'Conectamos',  img: '/assets/images/gallery-4.webp', desc: 'Diseñamos redes de participación y acción entre emprendedores, comunidades, fondos, inversionistas.' },
+            { id: 'card-financiamos', title: 'Demostramos', img: '/assets/images/gallery-1.webp', desc: 'Financiamos, acompañamos y co-creamos modelos replicables de innovación biocultural que integren regeneración del capital natural, tecnologías con propósito y liderazgo económico local, impulsando empresas y soluciones lideradas desde los territorios.' },
+            { id: 'card-acompanamos', title: 'Habilitamos condiciones', img: '/assets/images/gallery-3.webp', desc: 'Co-habilitamos las condiciones necesarias para escalar economías y mercados positivos para la naturaleza mediante infraestructura digital abierta, herramientas de dMRV, fortalecimiento de capacidades, gobernanza biocultural y mecanismos de financiamiento inclusivo y combinado.' },
+            { id: 'card-conectamos',  title: 'Conectamos',  img: '/assets/images/gallery-4.webp', desc: 'Fortalecemos el ecosistema multisectorial y multicultural de innovación para la biodiversidad, articulando comunidades indígenas y afrodescendientes, academia, emprendimientos, financiadores, gobiernos y tomadores de decisión a través de plataformas colaborativas, aprendizaje entre pares y espacios de confianza.' },
           ].map((c) => (
             <div className="feature-card" id={c.id} key={c.id}>
               <div className="card-image-wrapper">
@@ -666,10 +666,10 @@ export default function Home({ appReady = true }) {
           <div className="programs-horizontal-line"></div>
           <div className="programs-container">
             {[
-              { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.webp',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →',url:'https://500.naturatech.org/'},
-              { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.webp', desc: 'Red de conocimiento y empoderamiento para liderazgos locales en conservación y restauración de ecosistemas.', link: 'IR A CEIBA →', url:'https://qa.naturatech.org/ceiba' },
-              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.webp',desc: 'Laboratorio de innovación tecnológica, co-creando soluciones disruptivas para los desafíos ambientales más urgentes.', link: 'IR A STUDIO →', url:'https://qa.naturatech.org/studio' },
-              { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.webp',     desc: 'Plataforma de comunicación e impacto, amplificando las voces y las historias de quienes protegen la naturaleza.', link: 'IR A ECOS →', url:'https://ecos.naturatech.org/' },
+              { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.webp',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →',url:'https://qa.naturatech.org/emprendimientos'},
+              { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.webp', desc: 'Comunidad multisectorial, multicultural, intergeneracional y transregional para la innovación y el financiamiento para la biodiversidad.', link: 'IR A CEIBA →', url:'https://qa.naturatech.org/ceiba' },
+              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.webp',desc: 'Laboratorio de innovación eco-socio-tecnológica para demostrar lo que es posible.', link: 'IR A STUDIO →', url:'https://qa.naturatech.org/studio' },
+              { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.webp',     desc: 'Plataforma de conocimiento colectivo para liderar procesos de innovación, conservación y regeneración desde y para LAC.', link: 'IR A ECOS →', url:'https://ecos.naturatech.org/' },
             ].map((p, i) => (
               <div className="program-panel" key={p.title}>
                 <img src={p.bg} alt={p.title} className="program-bg" loading="lazy" />

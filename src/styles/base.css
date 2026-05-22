@@ -647,6 +647,27 @@ html.lenis, html.lenis body { height: auto; }
 .footer-link:hover, .footer-link.active { color: var(--accent); }
 .footer-link.active { border-bottom-color: var(--accent); }
 
+.footer-legal {
+  max-width: 1400px;
+  margin: 40px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.footer-legal-copy,
+.footer-legal-link {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  letter-spacing: 0.02em;
+}
+.footer-legal-link { cursor: default; }
+.footer-legal-links { display: flex; align-items: center; gap: 10px; }
+.footer-legal-sep { color: var(--text-faint); opacity: 0.4; font-size: 0.72rem; }
+
 /* ══════════════════════════════════════════
    CSS-GLASS — used for tiny / inline UI where
    the LiquidGlass library would inflate layout
@@ -884,6 +905,7 @@ html.lenis, html.lenis body { height: auto; }
   .footer-content { flex-direction: column; gap: 40px; }
   .footer-nav { align-items: flex-start; text-align: left; }
   .footer-link:first-child { text-align: left; width: 100%; }
+  .footer-legal { flex-direction: column; align-items: flex-start; gap: 10px; }
 }
 
 @media (max-width: 420px) {

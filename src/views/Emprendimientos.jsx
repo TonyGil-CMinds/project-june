@@ -180,13 +180,13 @@ export default function Emprendimientos({ onFrameToggle }) {
               <span className="regen-heading-line regen-heading-accent"><span className="amp">&amp;</span> Regenera</span>
             </h1>
             <p className="regen-description">
-              <span className="regen-mobile-line">Accede a herramientas de IA, conecta con</span>{' '}
-              <span className="regen-mobile-line">nuevas oportunidades de financiamiento y</span>{' '}
-              <span className="regen-mobile-line">sé parte de una red global.</span>
+              <span className="regen-mobile-line">Conecta con financiamiento, inteligencia</span>{' '}
+              <span className="regen-mobile-line">de mercado y una red global</span>{' '}
+              <span className="regen-mobile-line">de innovación para la biodiversidad.</span>
             </p>
-            <a href="https://500.naturatech.org" target="_blank" rel="noreferrer" className="btn-glass hero-cta-button">
+            <a href="#" target="_self" rel="noreferrer" className="btn-glass hero-cta-button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
-              Acceder a Natura 500
+              Próximamente
             </a>
           </div>
 
@@ -199,8 +199,8 @@ export default function Emprendimientos({ onFrameToggle }) {
         </div>
       </section>
 
-      {/* IMMERSIVE VIDEO */}
-      <section className="regen-video-section">
+      {/* IMMERSIVE VIDEO — hidden */}
+      <section className="regen-video-section" style={{ display: 'none' }}>
         <div className="regen-video-sticky">
           <video
             ref={videoRef}
@@ -252,13 +252,13 @@ export default function Emprendimientos({ onFrameToggle }) {
             <img src="/assets/regenera/fan_2.png" alt="Emprendedor 2" className="fan-img fan-center" loading="lazy" />
           </div>
           <div className="regen-100k-info">
-            <h3 className="regen-100k-heading">Hasta <span className="regen-100k-number">100K USD</span></h3>
+            <h3 className="regen-100k-heading">Hasta <span className="regen-100k-number">100K USD</span> en financiamiento catalítico</h3>
             <p className="regen-100k-text">
               Natura 500: Regenera es un premio por registrarte en la red de Natura 500 y estará disponible hasta el 15 de Julio. Accede a esta y más oportunidades.
             </p>
-            <a href="https://500.naturatech.org" target="_blank" rel="noreferrer" className="btn-sparkle">
+            <a href="#" target="_self" rel="noreferrer" className="btn-sparkle">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="#C8E632"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
-              Acceder a Natura 500
+              Próximamente
             </a>
           </div>
         </div>
@@ -298,9 +298,9 @@ export default function Emprendimientos({ onFrameToggle }) {
             <h2 className="regen-conditions-title">
               Tres condiciones<br/>para escalar la<br/>regeneración
             </h2>
-            <a href="https://500.naturatech.org" target="_blank" rel="noreferrer" className="btn-glass">
+            <a href="#" target="_self" rel="noreferrer" className="btn-glass">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              Acceder a Natura 500
+              Próximamente
             </a>
           </div>
           <div className="regen-conditions-right">

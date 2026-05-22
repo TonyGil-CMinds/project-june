@@ -7,22 +7,171 @@ import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Project data (dummy) ── */
+/* ── Project data ── */
 const PROJECTS = [
-  { id: '01', title: 'Estrategia Biocultural del Jaguar', description: 'Iniciativa liderada por Fundación Pachamama —organización enfocada en la conservación del jaguar y el desarrollo de créditos bioculturales— y Cuencas Sagradas, en sociedad con BID Lab y Future of Earth de C Minds, e implementada en Ecuador por la comunidad Achuar de Sharamentsa.', url: '#', region: 'Cuencas Sagradas de la Amazonía Ecuatoriana', img: '/assets/Studio/portafolio/proyect-img-1.png' },
-  { id: '02', title: 'Amakaeri Bioeconomía Comunitaria', description: 'Proyecto de bioeconomía comunitaria implementado en la Reserva Comunal Amarakaeri, Madre de Dios, Perú. Integra monitoreo de biodiversidad con DMRV y mecanismos de pago por servicios ecosistémicos para comunidades Harakbut y Wachiperi.', url: '#', region: 'Madre de Dios, Perú', img: '/assets/Studio/portafolio/proyect-img-2.png' },
-  { id: '03', title: 'Bosques para Siempre', description: 'Modelo de conservación liderado por comunidades afrodescendientes en el Pacífico colombiano. Desarrolla créditos de carbono con trazabilidad blockchain y fortalece la gobernanza territorial ancestral de los consejos comunitarios.', url: '#', region: 'Chocó, Colombia', img: '/assets/Studio/portafolio/proyect-img-3.png' },
-  { id: '04', title: 'Kaxil Kiuic Biocultural Reserve', description: 'Reserva biocultural maya en la Península de Yucatán que combina restauración de selva mediana con turismo regenerativo y rescate de sistemas alimentarios tradicionales bajo gobernanza comunitaria indígena.', url: '#', region: 'Yucatán, México', img: '/assets/Studio/portafolio/proyect-img-4.png' },
-  { id: '05', title: 'Ríos Vivos Amazónicos', description: 'Plataforma de monitoreo de cuencas hidrográficas amazónicas con sensores IoT y conocimiento indígena integrado. Genera alertas tempranas de deforestación y contaminación en tiempo real para 12 comunidades ribereñas.', url: '#', region: 'Amazonía Brasileña', img: '/assets/Studio/portafolio/proyect-img-5.png' },
-  { id: '06', title: 'Café de Altura Regenerativo', description: 'Cooperativa de caficultores indígenas Mam que transita hacia agricultura regenerativa en los Cuchumatanes. Integra certificación orgánica, acceso a mercados directos y rescate de variedades criollas de alta calidad.', url: '#', region: 'Huehuetenango, Guatemala', img: '/assets/Studio/portafolio/proyect-img-6.png' },
-  { id: '07', title: 'Manglares Guardianes', description: 'Proyecto de restauración y conservación de ecosistemas de manglar en el Golfo de Nicoya, implementado con comunidades pesqueras artesanales. Genera ingresos sostenibles a través de ecoturismo y créditos azules verificados.', url: '#', region: 'Golfo de Nicoya, Costa Rica', img: '/assets/Studio/portafolio/proyect-img-7.png' },
-  { id: '08', title: 'Semillas Nativas Andinas', description: 'Red de custodios de semillas nativas en la región andina que preserva más de 800 variedades agrícolas tradicionales. Desarrolla un sistema de intercambio descentralizado y certificación de origen para mercados de nicho.', url: '#', region: 'Cusco, Perú', img: '/assets/Studio/portafolio/proyect-img-8.png' },
-  { id: '09', title: 'Selva Capital Verde', description: 'Fondo de inversión de impacto enfocado en empresas de base comunitaria en la Amazonía. Moviliza capital paciente hacia proyectos con retornos financieros moderados y alta generación de valor biocultural y ecosistémico.', url: '#', region: 'Pan-Amazónico', img: '/assets/Studio/portafolio/proyect-img-9.png' },
-  { id: '10', title: 'Wayra Energía Comunitaria', description: 'Cooperativa de energía renovable liderada por comunidades quechuas en los Andes. Instala micro-redes solares y eólicas en zonas sin acceso eléctrico, reduciendo la dependencia de combustibles fósiles y generando excedentes comercializables.', url: '#', region: 'Puno, Perú', img: '/assets/Studio/portafolio/proyect-img-1.png' },
-  { id: '11', title: 'Cacao Vivo del Trópico', description: 'Iniciativa que integra producción de cacao nativo fino de aroma con restauración de bosques secundarios en la región del Tumbesia. Conecta a 200 agricultores familiares con marcas de chocolate de alta gama en Europa y Estados Unidos.', url: '#', region: 'El Oro, Ecuador', img: '/assets/Studio/portafolio/proyect-img-2.png' },
-  { id: '12', title: 'Textile Ancestral Digital', description: 'Plataforma de trazabilidad blockchain para textiles artesanales indígenas que certifica autenticidad, origen y condiciones de producción. Empodera a artesanas tejedoras Zapotec para acceder directamente a mercados globales de moda sostenible.', url: '#', region: 'Oaxaca, México', img: '/assets/Studio/portafolio/proyect-img-3.png' },
-  { id: '13', title: 'Peces del Río Grande', description: 'Sistema comunitario de monitoreo y gestión pesquera en el río Magdalena con integración de conocimiento ecológico local y tecnologías acústicas de última generación. Restaura poblaciones de especies nativas amenazadas y fortalece medios de vida locales.', url: '#', region: 'Magdalena, Colombia', img: '/assets/Studio/portafolio/proyect-img-4.png' },
-  { id: '14', title: 'Tierra Viva Paraguay', description: 'Modelo de agricultura regenerativa basado en el sistema del monte nativo chaqueño, implementado con comunidades Qom y Nivaclé. Desarrolla mercados locales de productos agroforestales y construye resiliencia hídrica comunitaria.', url: '#', region: 'Gran Chaco, Paraguay', img: '/assets/Studio/portafolio/proyect-img-5.png' },
+  {
+    id: '01',
+    title: 'Amarakaeri',
+    description: 'Organización indígena que gestiona la Reserva Comunal Amarakaeri en Perú, combinando tecnología y conocimiento ancestral para la vigilancia y control territorial.',
+    url: 'https://eca-amarakaeri.org.pe/',
+    region: 'Reserva Comunal Amarakaeri, Perú',
+    img: '/assets/Studio/portafolio/proyect-img-1.png',
+    leaders: [
+      { name: 'Carlos Tayori', avatar: 'https://i.pravatar.cc/60?img=11' },
+      { name: 'Rosa Harakbut', avatar: 'https://i.pravatar.cc/60?img=45' },
+      { name: 'Julio Wachiperi', avatar: 'https://i.pravatar.cc/60?img=13' },
+    ],
+  },
+  {
+    id: '02',
+    title: 'Awake Travel',
+    description: 'Empresa colombiana de turismo que promueve la conservación, restauración y uso sostenible de la biodiversidad, creando oportunidades económicas para comunidades rurales a través de su proyecto Red de Biomonitoreo Comunitario.',
+    url: 'https://awake.travel/',
+    region: 'Colombia',
+    img: '/assets/Studio/portafolio/proyect-img-2.png',
+    leaders: [
+      { name: 'Valentina Arango', avatar: 'https://i.pravatar.cc/60?img=47' },
+      { name: 'Mateo Restrepo', avatar: 'https://i.pravatar.cc/60?img=15' },
+    ],
+  },
+  {
+    id: '03',
+    title: 'Fablab Perú',
+    description: 'Centro de innovación que implementa el proyecto REGEN para desarrollar bioeconomía amazónica utilizando tecnologías de Industria 4.0, en alianza con comunidades Asháninkas y el MIT.',
+    url: 'https://www.fab.pe/',
+    region: 'Amazonía peruana',
+    img: '/assets/Studio/portafolio/proyect-img-3.png',
+    leaders: [
+      { name: 'Ana Lucía Torres', avatar: 'https://i.pravatar.cc/60?img=49' },
+      { name: 'Diego Cisneros', avatar: 'https://i.pravatar.cc/60?img=17' },
+      { name: 'Milagros Quispe', avatar: 'https://i.pravatar.cc/60?img=51' },
+    ],
+  },
+  {
+    id: '04',
+    title: 'Fundación Pachamama',
+    description: 'Organización que trabaja en la conservación del jaguar y el desarrollo de créditos bioculturales para proteger ecosistemas y apoyar comunidades indígenas en Ecuador.',
+    url: 'https://www.pachamama.org/',
+    region: 'Ecuador',
+    img: '/assets/Studio/portafolio/proyect-img-4.png',
+    leaders: [
+      { name: 'Lorena Grefa', avatar: 'https://i.pravatar.cc/60?img=53' },
+      { name: 'Pablo Varela', avatar: 'https://i.pravatar.cc/60?img=19' },
+    ],
+  },
+  {
+    id: '05',
+    title: 'FundeMar',
+    description: 'Fundación enfocada en la protección marina que implementa sistemas de monitoreo automatizado para mejorar la resiliencia de ecosistemas marinos en el Caribe.',
+    url: 'https://www.fundemardr.org/',
+    region: 'República Dominicana / Caribe',
+    img: '/assets/Studio/portafolio/proyect-img-5.png',
+    leaders: [
+      { name: 'Carmen Díaz', avatar: 'https://i.pravatar.cc/60?img=55' },
+      { name: 'Rafael Oleo', avatar: 'https://i.pravatar.cc/60?img=21' },
+      { name: 'Yolanda Pérez', avatar: 'https://i.pravatar.cc/60?img=57' },
+    ],
+  },
+  {
+    id: '06',
+    title: 'Landprint',
+    description: 'Empresa tecnológica que desarrolla un sistema dMRV de monitoreo, reporte y verificación descentralizado para la creación y gestión de activos ambientales digitales.',
+    url: 'https://www.landprint.co/',
+    region: 'Activos ambientales digitales',
+    img: '/assets/Studio/portafolio/proyect-img-6.png',
+    leaders: [
+      { name: 'Sebastián Mora', avatar: 'https://i.pravatar.cc/60?img=23' },
+      { name: 'Isabella Ruiz', avatar: 'https://i.pravatar.cc/60?img=59' },
+    ],
+  },
+  {
+    id: '07',
+    title: 'ManoCambiada',
+    description: 'Organización comunitaria que lidera el proyecto TAC Nuquí, Territorio de Aprendizaje Comunitario, en el Pacífico colombiano, integrando tecnología con saberes ancestrales para el desarrollo sostenible.',
+    url: 'https://manocambiada.org/',
+    region: 'Nuquí, Pacífico colombiano',
+    img: '/assets/Studio/portafolio/proyect-img-7.png',
+    leaders: [
+      { name: 'Esperanza Palacios', avatar: 'https://i.pravatar.cc/60?img=61' },
+      { name: 'Nelson Mosquera', avatar: 'https://i.pravatar.cc/60?img=25' },
+      { name: 'Daniela Córdoba', avatar: 'https://i.pravatar.cc/60?img=63' },
+    ],
+  },
+  {
+    id: '08',
+    title: 'Nativas & Ecohome',
+    description: 'Organización dedicada a la restauración de bosques tropicales secos, implementando soluciones tecnológicas y biotecnológicas para la recuperación de ecosistemas degradados.',
+    url: 'https://nativas.ar/',
+    region: 'Argentina / Colombia',
+    img: '/assets/Studio/portafolio/proyect-img-8.png',
+    leaders: [
+      { name: 'Luciana Bertolini', avatar: 'https://i.pravatar.cc/60?img=65' },
+      { name: 'Agustín Paz', avatar: 'https://i.pravatar.cc/60?img=27' },
+    ],
+  },
+  {
+    id: '09',
+    title: 'Asmucacd – Paz y Flora',
+    description: 'Iniciativa que apoya un modelo de conservación liderado por mujeres rurales para prevenir la deforestación en La Macarena, Colombia, a través de soluciones basadas en la naturaleza.',
+    url: '#',
+    region: 'La Macarena, Colombia',
+    img: '/assets/Studio/portafolio/proyect-img-9.png',
+    leaders: [
+      { name: 'María del Carmen', avatar: 'https://i.pravatar.cc/60?img=67' },
+      { name: 'Luz Adriana García', avatar: 'https://i.pravatar.cc/60?img=69' },
+      { name: 'Patricia Lozano', avatar: 'https://i.pravatar.cc/60?img=71' },
+    ],
+  },
+  {
+    id: '10',
+    title: 'Savimbo',
+    description: 'Savimbo desarrolla una metodología de créditos agroforestales que empodera a pequeños productores de café y cacao en la adopción de prácticas regenerativas, integra monitoreo comunitario de biodiversidad y canaliza pagos justos por servicios ecosistémicos, captura de carbono y créditos de biodiversidad.',
+    url: 'https://savimbo.com/',
+    region: 'Territorios agroforestales',
+    img: '/assets/Studio/portafolio/proyect-img-1.png',
+    leaders: [
+      { name: 'Camila Fonseca', avatar: 'https://i.pravatar.cc/60?img=32' },
+      { name: 'Andrés Gómez', avatar: 'https://i.pravatar.cc/60?img=29' },
+    ],
+  },
+  {
+    id: '11',
+    title: 'Understory',
+    description: 'Fondo de inversión enfocado en proyectos de restauración de ecosistemas, actualmente trabajando en la recuperación de manglares utilizando tecnología Lidar para monitoreo y medición de impacto.',
+    url: 'https://www.understory.fund/',
+    region: 'Ecosistemas de manglar',
+    img: '/assets/Studio/portafolio/proyect-img-2.png',
+    leaders: [
+      { name: 'Sophie Leblanc', avatar: 'https://i.pravatar.cc/60?img=33' },
+      { name: 'James Okafor', avatar: 'https://i.pravatar.cc/60?img=31' },
+      { name: 'Renata Souza', avatar: 'https://i.pravatar.cc/60?img=35' },
+    ],
+  },
+  {
+    id: '12',
+    title: 'Universidad de Manizales & Universidad de Antioquia',
+    description: 'Instituciones académicas que lideran el proyecto SeaFlower Wise para la conservación marina y el desarrollo de créditos azules en la Reserva de Biósfera Seaflower.',
+    url: 'https://umanizales.edu.co/',
+    region: 'Reserva de Biósfera Seaflower',
+    img: '/assets/Studio/portafolio/proyect-img-3.png',
+    leaders: [
+      { name: 'Dr. Hernán Ospina', avatar: 'https://i.pravatar.cc/60?img=37' },
+      { name: 'Dra. Claudia Vásquez', avatar: 'https://i.pravatar.cc/60?img=73' },
+    ],
+  },
+  {
+    id: '13',
+    title: 'Yakum',
+    description: 'ONG con sede en Ecuador que trabaja con comunidades indígenas como los Siekopai para regenerar bosques amazónicos, fortalecer la soberanía alimentaria y salvaguardar el patrimonio cultural. En colaboración con Regen Network, desarrolla proyectos de créditos bioculturales para proteger al jaguar y apoyar a la Nación Siekopai.',
+    url: 'https://yakum.org/',
+    region: 'Amazonía ecuatoriana',
+    img: '/assets/Studio/portafolio/proyect-img-4.png',
+    leaders: [
+      { name: 'Alianza Siekopai', avatar: 'https://i.pravatar.cc/60?img=39' },
+      { name: 'Fernanda Rivadeneira', avatar: 'https://i.pravatar.cc/60?img=75' },
+      { name: 'Tomás Grefa', avatar: 'https://i.pravatar.cc/60?img=41' },
+    ],
+  },
 ];
 
 /* ── Portfolio grid setup (existing 9 images) ── */
@@ -68,7 +217,7 @@ function StudioPortfolioText() {
     <div className="studio-portfolio-copy">
       <div className="studio-portfolio-stats" aria-label="Impacto del portafolio">
         <p>10 pa&iacute;ses de Latam</p>
-        <p>14 proyectos incubados</p>
+        <p>13 proyectos incubados</p>
         <p>30% impacto en comunidades afro</p>
         <p>50% tecnolog&iacute;as DMRV</p>
       </div>
@@ -298,20 +447,24 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
           <h1 className="detail-title">{project.title}</h1>
           <p className="detail-desc">{project.description}</p>
 
-          <a href={project.url} className="detail-cta" target="_blank" rel="noopener noreferrer">
-            Visitar sitio web
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </a>
+          {project.url !== '#' && (
+            <a href={project.url} className="detail-cta" target="_blank" rel="noopener noreferrer">
+              Visitar sitio web
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </a>
+          )}
 
           <div className="detail-meta">
             <div className="detail-meta-col">
               <span className="detail-meta-label">Líderes del Proyecto</span>
               <div className="detail-leaders">
-                {[0, 1, 2].map((i) => (
-                  <div key={i} className="detail-avatar" />
+                {project.leaders.map((leader) => (
+                  <div key={leader.name} className="detail-avatar" title={leader.name}>
+                    <img src={leader.avatar} alt={leader.name} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -592,11 +745,11 @@ export default function Studio() {
               STUDIO
             </div>
             <h1 className="studio-heading">
-              <span className="studio-heading-line">Acciona</span>
-              <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> Demuestra</span>
+              <span className="studio-heading-line">Demuestra</span>
+              <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> Co-crea</span>
             </h1>
             <p className="studio-description">
-              Acompa&ntilde;amos a 14 proyectos que est&aacute;n demostrando c&oacute;mo el nexo entre tecnolog&iacute;a con prop&oacute;sito y sabidur&iacute;a ancestral echa ra&iacute;ces.
+              Acompa&ntilde;amos a 13 proyectos que est&aacute;n demostrando c&oacute;mo el nexo entre tecnolog&iacute;a con prop&oacute;sito y sabidur&iacute;a ancestral echa ra&iacute;ces.
             </p>
             <a href="#portfolio" className="btn-glass hero-cta-button" onClick={openPortfolio}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

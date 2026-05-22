@@ -66,7 +66,7 @@ export default function Footer() {
             <img src="/assets/images/logo.svg" alt="NaturaTech LAC" width="46" height="42" />
           </div>
           <p className="footer-description">
-            En NaturaTech LAC nos impulsa el compromiso de descubrir y explorar las raíces que emergen de los territorios: sus historias y, sobre todo, su innovación.
+            En NaturaTech LAC co-creamos infraestructura, alianzas y soluciones bioculturales para acelerar la innovación para la biodiversidad en América Latina y el Caribe.
           </p>
           <div className="footer-socials">
             {social.map((s) => (
@@ -89,6 +89,14 @@ export default function Footer() {
               </a>
             ))}
           </nav>
+        </div>
+      </div>
+      <div className="footer-legal">
+        <span className="footer-legal-copy">© {new Date().getFullYear()} NaturaTech LAC. Todos los derechos reservados.</span>
+        <div className="footer-legal-links">
+          <span className="footer-legal-link">Aviso de Privacidad</span>
+          <span className="footer-legal-sep">·</span>
+          <span className="footer-legal-link">Términos y Condiciones</span>
         </div>
       </div>
     </footer>

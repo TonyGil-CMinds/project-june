@@ -298,10 +298,17 @@ html.ceiba-video-is-open .glass-nav {
   color: #14260c;
   font-style: normal;
   margin-bottom: 40px;
-  max-width: 560px;
+  max-width: 760px;
 }
 .ceiba-info-btn {
   margin-top: 8px;
+  background: #BCD42A;
+  color: #14260c;
+}
+.ceiba-info-btn:hover {
+  background: #A3BA1F;
+  color: #14260c;
+  box-shadow: var(--glass-strong-shadow), 0 12px 34px rgba(163, 186, 31, 0.35);
 }
 
 /* ── CEIBA SHAPES DIVIDER ── */
@@ -454,32 +461,35 @@ html.ceiba-video-is-open .glass-nav {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: var(--glass-strong-bg);
+  background: #14260c;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #C8E632;
   transition: all 0.35s var(--ease-out);
-  border: var(--glass-strong-border);
-  box-shadow: var(--glass-strong-shadow);
-  backdrop-filter: var(--glass-strong-filter);
-  -webkit-backdrop-filter: var(--glass-strong-filter);
+  border: none;
+  box-shadow: 0 4px 16px rgba(20, 38, 12, 0.22);
   opacity: 1;
   transform: translateY(0);
 }
-.ceiba-social-btn img {
+.ceiba-social-icon {
+  display: block;
   width: 26px;
   height: 26px;
-  object-fit: contain;
+  background-color: #BCD42A;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
   transition: transform 0.35s var(--ease-out);
 }
 .ceiba-social-btn:hover {
-  background: var(--glass-strong-bg-hover);
-  color: #EBFF57;
+  background: #0d1a08;
   transform: translateY(-5px);
-  box-shadow: var(--glass-strong-shadow), 0 12px 28px rgba(20, 38, 12, 0.26);
+  box-shadow: 0 12px 28px rgba(20, 38, 12, 0.38);
 }
-.ceiba-social-btn:hover img {
+.ceiba-social-btn:hover .ceiba-social-icon {
   transform: scale(1.08);
 }
 

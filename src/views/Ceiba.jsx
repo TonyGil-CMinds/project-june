@@ -384,13 +384,15 @@ export default function Ceiba() {
               CEIBA
             </div>
             <h1 className="ceiba-heading">
-              <span className="ceiba-heading-line">Comparte</span>
-              <span className="ceiba-heading-line ceiba-heading-accent"><span className="amp">&amp;</span> Co-Crea</span>
+              <span className="ceiba-heading-line">Co-crea</span>
+              <span className="ceiba-heading-line ceiba-heading-accent"><span className="amp">&amp;</span> Conecta</span>
             </h1>
             <p className="ceiba-description">
-              <span className="ceiba-mobile-line">Accede a herramientas de IA, conecta con</span>{' '}
-              <span className="ceiba-mobile-line">nuevas oportunidades de financiamiento y</span>{' '}
-              <span className="ceiba-mobile-line">sé parte de una red global.</span>
+              <span className="ceiba-mobile-line">Comunidad de líderes, comunidades,</span>{' '}
+              <span className="ceiba-mobile-line">innovadores, científicos, inversionistas y</span>{' '}
+              <span className="ceiba-mobile-line">tomadores de decisión para construir juntos</span>{' '}
+              <span className="ceiba-mobile-line">nuevas economías regenerativas para </span>{' '}
+              <span className="ceiba-mobile-line">América Latina y el Caribe.</span>
             </p>
             <a
               href="https://www.youtube.com/watch?v=gFI3zUEc1fo"
@@ -457,16 +459,17 @@ export default function Ceiba() {
       <section className="ceiba-info">
         <div className="ceiba-info-inner">
           <div className="ceiba-info-logo">
-            <img src="/assets/programs-logos/ceiba.svg" alt="CEIBA — Cumbre de Innovación e Inversión para la Biodiversidad" />
+            <img src="/assets/CEIBA/Logos - Dark.svg" alt="CEIBA — Cumbre de Innovación e Inversión para la Biodiversidad" />
           </div>
           <p className="ceiba-info-sub">
-            CUMBRE DE INNOVACIÓN E INVERSIÓN PARA LA BIODIVERSIDAD<br />& ECONOMÍAS FUTURAS
+            COMUNIDAD DE INNOVACIÓN E INVERSIÓN PARA LA BIODIVERSIDAD<br />& ECONOMÍAS FUTURAS
           </p>
           <div className="ceiba-info-divider" />
           <div className="ceiba-info-text">
             <p>
-              Una convergencia global de pensadores y practicantes de frontera, líderes en Territorio, arquitectos de tecnologías para la naturaleza y modelos de negocio regenerativos. Es un laboratorio vivo de las economías futuras, enraizadas en inteligencia biocultural.
+             Una convergencia multisectorial, multicultural, intergeneracional y trans-regional de líderes de América Latina y el Caribe. Su propósito es habilitar la innovación y el financiamiento para la biodiversidad, los sistemas bioculturales y el capital natural de las bioregiones de LAC.
             </p>
+            
           </div>
           <a href="https://www.biodiversityweek.com/reporteceiba" target="_blank" rel="noreferrer" className="btn-glass ceiba-info-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
@@ -508,7 +511,7 @@ export default function Ceiba() {
           <div className="ceiba-podcast-socials">
             {podcastLinks.map((link) => (
               <a key={link.id} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label} className="ceiba-social-btn">
-                <img src={link.icon} alt="" width="26" height="26" loading="lazy" />
+                <span className="ceiba-social-icon" style={{ WebkitMaskImage: `url(${link.icon})`, maskImage: `url(${link.icon})` }} />
               </a>
             ))}
           </div>
