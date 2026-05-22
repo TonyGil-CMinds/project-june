@@ -7,7 +7,7 @@ const socialLinks = [
 ];
 
 const linkItems = [
-  { label: 'Nuevo documento en Ecos', href: '/ecos' },
+  { label: 'Documento en Ecos', badge: 'Nuevo', href: '/ecos' },
   { label: 'Último lanzamiento en "SOMOS RAÍCES"', href: 'https://www.youtube.com/@NaturaTechLAC/featured' },
   { label: 'Revive CEIBA 2025', href: '/ceiba' },
   { label: 'Aprende sobre N500', href: '/emprendimientos' },
@@ -48,8 +48,9 @@ export default function Links() {
 
         <div className="links-list">
           {linkItems.map((item) => (
-            <a className="links-item" href={item.href} key={item.label}>
-              {item.label}
+            <a className={`links-item ${item.badge ? 'has-badge' : ''}`} href={item.href} key={item.label}>
+              {item.badge && <span className="links-item-badge">{item.badge}</span>}
+              <span>{item.label}</span>
             </a>
           ))}
         </div>

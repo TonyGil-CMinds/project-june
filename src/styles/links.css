@@ -68,6 +68,7 @@
     saturate(1.08)
     drop-shadow(0 0 24px rgba(148, 185, 37, 0.24))
     drop-shadow(0 16px 28px rgba(0, 0, 0, 0.26));
+  animation: links-rise-in 0.86s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
 .links-logo {
@@ -87,6 +88,7 @@
     inset 0 0 18px rgba(200, 230, 50, 0.14),
     0 0 34px rgba(200, 230, 50, 0.34);
   transition: transform 0.32s var(--ease-out), box-shadow 0.32s var(--ease-out);
+  animation: links-pop-in 0.74s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 .links-logo::before {
@@ -131,6 +133,7 @@
   line-height: 1;
   letter-spacing: 0;
   color: rgba(248, 252, 242, 0.94);
+  animation: links-rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
 }
 
 .links-primary {
@@ -156,6 +159,7 @@
   font-weight: 800;
   color: var(--links-accent);
   transition: transform 0.28s var(--ease-out), box-shadow 0.28s var(--ease-out), border-color 0.28s var(--ease-out);
+  animation: links-rise-in 0.68s cubic-bezier(0.16, 1, 0.3, 1) 0.44s both;
 }
 
 .links-primary:hover {
@@ -185,7 +189,14 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.015);
   transition: transform 0.26s var(--ease-out), border-color 0.26s var(--ease-out), background 0.26s var(--ease-out);
+  animation: links-pop-in 0.56s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+.links-social:nth-child(1) { animation-delay: 0.56s; }
+.links-social:nth-child(2) { animation-delay: 0.62s; }
+.links-social:nth-child(3) { animation-delay: 0.68s; }
+.links-social:nth-child(4) { animation-delay: 0.74s; }
+.links-social:nth-child(5) { animation-delay: 0.8s; }
 
 .links-social img {
   width: 21px;
@@ -220,6 +231,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 14px;
   padding: 9px 14px;
   border: 1px solid transparent;
   border-radius: 8px;
@@ -237,7 +249,13 @@
     border-color 0.28s var(--ease-out),
     background 0.28s var(--ease-out),
     transform 0.28s var(--ease-out);
+  animation: links-rise-in 0.64s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+.links-item:nth-child(1) { animation-delay: 0.9s; }
+.links-item:nth-child(2) { animation-delay: 0.99s; }
+.links-item:nth-child(3) { animation-delay: 1.08s; }
+.links-item:nth-child(4) { animation-delay: 1.17s; }
 
 .links-item:hover {
   color: var(--links-text);
@@ -248,6 +266,40 @@
   transform: translateY(-2px);
 }
 
+.links-item.has-badge {
+  position: relative;
+  justify-content: center;
+  padding-inline: 96px 15px;
+}
+
+.links-item.has-badge > span:not(.links-item-badge) {
+  width: 100%;
+  text-align: center;
+}
+
+.links-item-badge {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  min-height: 32px;
+  padding: 5px 18px;
+  border-radius: 5px;
+  background:
+    linear-gradient(135deg, #ebff57 0%, #95ff00 100%),
+    var(--links-accent);
+  color: #07100b;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    0 0 18px rgba(200, 230, 50, 0.28);
+}
+
 .links-footer {
   width: 100%;
   margin-top: auto;
@@ -255,6 +307,33 @@
   display: grid;
   gap: 22px;
   text-align: center;
+  animation: links-rise-in 0.66s cubic-bezier(0.16, 1, 0.3, 1) 1.26s both;
+}
+
+@keyframes links-rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes links-pop-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.84);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
 }
 
 .links-domain,
@@ -360,6 +439,17 @@
     font-size: 14px;
   }
 
+  .links-item.has-badge {
+    gap: 12px;
+    padding-inline: 96px 15px;
+  }
+
+  .links-item-badge {
+    min-width: 76px;
+    min-height: 32px;
+    padding-inline: 16px;
+  }
+
   .links-footer {
     padding-top: 22px;
     gap: 21px;
@@ -434,6 +524,18 @@
     padding: 7px 9px;
   }
 
+  .links-item.has-badge {
+    gap: 8px;
+    padding-inline: 74px 9px;
+  }
+
+  .links-item-badge {
+    min-width: 58px;
+    min-height: 24px;
+    padding: 4px 11px;
+    border-radius: 5px;
+  }
+
   .links-footer {
     padding-top: 14px;
     gap: 14px;
@@ -459,5 +561,17 @@
 
   .links-socials {
     gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links-cover,
+  .links-logo,
+  .links-header h1,
+  .links-primary,
+  .links-social,
+  .links-item,
+  .links-footer {
+    animation: none;
   }
 }
