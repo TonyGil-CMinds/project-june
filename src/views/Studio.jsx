@@ -578,7 +578,40 @@ export default function Studio() {
         gsap.from(el, { y: 40, opacity: 0, duration: 0.7, delay: i * 0.1, ease: 'power3.out', scrollTrigger: { trigger: '.studio-info-section', start: 'top 80%', toggleActions: 'play none none reverse' } });
       });
 
-      gsap.to('.studio-levels-orbit', { rotate: 92, ease: 'none', scrollTrigger: { trigger: '.studio-levels', start: 'top bottom', end: 'bottom top', scrub: 0.8 } });
+      const infoPath = rootRef.current?.querySelector('.studio-info-path path');
+      if (infoPath) {
+        const len = infoPath.getTotalLength();
+        gsap.set(infoPath, {
+          attr: { 'stroke-dasharray': len, 'stroke-dashoffset': len },
+        });
+        gsap.to(infoPath, {
+          attr: { 'stroke-dashoffset': 0 },
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.studio-info-section',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        });
+      }
+
+      const levelSelectors = ['.studio-levels-photo-one', '.studio-levels-photo-two', '.studio-levels-photo-three'];
+      gsap.set(levelSelectors, { scale: 0.22, autoAlpha: 0, y: 68, x: -24 });
+      const levelsTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.studio-levels-visual',
+          start: 'top 78%',
+          end: 'bottom 22%',
+          scrub: 1.5,
+        },
+      });
+      levelSelectors.forEach((sel, i) => {
+        const t = i * 0.32;
+        levelsTl
+          .to(sel, { y: 0, duration: 0.28, ease: 'power2.out' }, t)
+          .to(sel, { x: 0, scale: 1, autoAlpha: 1, duration: 0.36, ease: 'power3.out' }, t + 0.06);
+      });
     }, rootRef);
 
     return () => {

@@ -561,7 +561,6 @@
   stroke-width: 4;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 3 12;
 }
 .studio-info-card-systemic {
   top: 41.5%;
@@ -636,8 +635,6 @@
   width: 520px;
   height: 520px;
   transform: translate(-50%, -50%);
-  transform-origin: 50% 50%;
-  will-change: transform;
 }
 .studio-levels-photo {
   position: absolute;
@@ -645,13 +642,13 @@
   width: 205px;
   height: 165px;
   object-fit: cover;
+  border-radius: var(--radius-sm);
   box-shadow: 0 28px 50px rgba(0, 0, 0, 0.16);
-  will-change: transform;
+  will-change: transform, opacity;
 }
 .studio-levels-photo-one {
   top: 38px;
   left: 76px;
-  transform: rotate(15deg);
   z-index: 1;
 }
 .studio-levels-photo-two {
@@ -659,7 +656,6 @@
   left: 95px;
   width: 265px;
   height: 150px;
-  transform: rotate(11deg);
   z-index: 2;
 }
 .studio-levels-photo-three {
@@ -667,7 +663,6 @@
   left: 277px;
   width: 235px;
   height: 290px;
-  transform: rotate(-8deg);
   z-index: 3;
 }
 .studio-levels-copy {
