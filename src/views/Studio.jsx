@@ -820,8 +820,8 @@ export default function Studio() {
           </div>
           <div className="studio-main-text">
             <h3>
-              Un portafolio vivo de innovación para la
-              <span>biodiversidad</span>
+              Un portafolio vivo de innovación 
+              para la Biodiversidad
             </h3>
             <p>Financiamos, co-desarrollamos y validamos soluciones regenerativas junto a organizaciones territoriales, emprendedores y aliados estratégicos para acelerar nuevas formas de conservar, regenerar y generar valor desde la biodiversidad.</p>
             <p className="studio-main-stat">1.6M de invertidos en la naturaleza</p>
