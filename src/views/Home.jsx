@@ -49,8 +49,8 @@ export default function Home({ appReady = true }) {
         .from(
           '#hero-stories-card',
           {
-            x: isMobileHero ? 0 : -60,
-            y: isMobileHero ? 22 : 0,
+            x: 0,
+            y: 40,
             opacity: 0,
             duration: 0.95,
             clearProps: 'transform,opacity',

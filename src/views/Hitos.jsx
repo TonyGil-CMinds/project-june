@@ -69,7 +69,7 @@ const HITOS = [
     ],
     layout: 'full',
     cta: 'Ver video',
-    ctaUrl: 'https://www.youtube.com/watch?v=drLfbctSeoo',
+    ctaUrl: 'https://www.youtube.com/watch?v=lyO3V67DHi4',
   },
   {
     id: '05',
@@ -83,7 +83,7 @@ const HITOS = [
     ],
     layout: 'hero-hito',
     cta: 'Ver video',
-    ctaUrl: 'https://www.youtube.com/watch?v=drLfbctSeoo',
+    ctaUrl: 'https://www.youtube.com/shorts/jZh_MFQB8dI',
   },
   {
     id: '06',
@@ -114,7 +114,7 @@ const HITOS = [
     ],
     layout: 'triple',
     cta: 'Ver video',
-    ctaUrl: 'https://www.youtube.com/watch?v=gnjdSS36jXE',
+    ctaUrl: 'https://www.youtube.com/watch?v=Iop-QfLFprc',
   },
   {
     id: '08',

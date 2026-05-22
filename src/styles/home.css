@@ -1,3 +1,7 @@
+.home-page .giant-letter {
+  font-size: clamp(7rem, 16vw, 26rem);
+}
+
 .stories-badge-mobile,
 .stories-minimize-button,
 .stories-restore-button,
@@ -754,6 +758,8 @@ html.stories-card-is-open .glass-nav {
     z-index: 2;
     width: min(280px, calc(100vw - 66px));
     transform: translateX(-50%);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
     transition:
       top 0.58s var(--stories-close-ease),
       bottom 0.58s var(--stories-close-ease),
