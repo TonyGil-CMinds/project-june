@@ -864,15 +864,15 @@ export default function Studio() {
             <div className="studio-levels-grid">
               <div className="level-item">
                 <img src="/assets/Studio/studio-levels-icon-1.svg" alt="" width="34" height="34" loading="lazy" />
-                <p>Herramientas para generar confianza y potenciar el impacto</p>
+                <p>Preparación para financiamiento</p>
               </div>
               <div className="level-item">
                 <img src="/assets/Studio/studio-levels-icon-2.svg" alt="" width="34" height="34" loading="lazy" />
-                <p>Capacidad de preparaci&oacute;n financiera</p>
+                <p>Infraestructura de confianza</p>
               </div>
               <div className="level-item">
                 <img src="/assets/Studio/studio-levels-icon-3.svg" alt="" width="34" height="34" loading="lazy" />
-                <p>Capacidad de sostenibilidad</p>
+                <p>Conexión y escalamiento</p>
               </div>
             </div>
           </div>
