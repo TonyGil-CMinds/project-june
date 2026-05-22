@@ -23,9 +23,10 @@ const partnerLogos = [
   { id: 'c-minds', label: 'C Minds', src: '/assets/socios%20y%20aliados/ES/C%20Minds.svg' },
   { id: 'suecia', label: 'Suecia', src: '/assets/socios%20y%20aliados/ES/Suecia.svg' },
   { id: 'francia', label: 'Gobierno de Francia', src: '/assets/socios%20y%20aliados/ES/Francia.svg' },
-  { id: 'amazonia', label: 'Amazonia', src: '/assets/socios%20y%20aliados/ES/amazonia.svg' },
   { id: 'climate', label: 'Climate Collective', src: '/assets/socios%20y%20aliados/ES/Climate.svg' },
-  { id: 'bid', label: 'BID', src: '/assets/socios%20y%20aliados/ES/BID.svg' },
+  { id: 'climate', label: 'Climate Collective', src: '/assets/socios%20y%20aliados/ES/amazonia.svg' },
+  { id: 'amazonia', label: 'Amazonia', src: '/assets/socios%20y%20aliados/ES/grupoBid.svg' },
+
 ];
 
 export default function Footer() {

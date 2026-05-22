@@ -314,9 +314,8 @@ export default function Hitos() {
         {/* ── Top chrome ── */}
         <div className="hitos-chrome-top">
           <a href="/" className="hitos-back">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <line x1="19" y1="12" x2="5" y2="12" />
-              <polyline points="12 5 5 12 12 19" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             Regresar
           </a>

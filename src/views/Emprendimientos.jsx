@@ -108,23 +108,27 @@ export default function Emprendimientos({ onFrameToggle }) {
         scrollTrigger: { trigger: '.regen-100k-section', start: 'top 75%', toggleActions: 'play none none reverse' },
       });
 
-      document.querySelectorAll('.regen-blockquote .word').forEach((word) => {
-        ScrollTrigger.create({
-          trigger: word,
-          start: 'top 85%',
-          end: 'top 55%',
-          scrub: true,
-          onUpdate: (self) => {
-            if (self.progress > 0.3) word.classList.add('is-revealed');
-            else word.classList.remove('is-revealed');
-          },
-        });
-      });
-
       gsap.from('.regen-quote-icon', {
         scale: 0.5, opacity: 0, duration: 0.8, ease: 'back.out(1.6)',
         scrollTrigger: { trigger: '.regen-quote-section', start: 'top 80%', toggleActions: 'play none none reverse' },
       });
+
+      const quoteWords = gsap.utils.toArray('.regen-blockquote .word');
+      const quoteTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.regen-quote-content',
+          start: 'top top',
+          end: '+=200vh',
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+      quoteTl.fromTo(quoteWords,
+        { opacity: 0.12 },
+        { opacity: 1, duration: 0.4, ease: 'none', stagger: { each: 0.1 } }
+      );
 
       gsap.from('.regen-condition-row', {
         y: 50, opacity: 0, stagger: 0.2, duration: 0.9, ease: 'power3.out',
@@ -268,13 +272,15 @@ export default function Emprendimientos({ onFrameToggle }) {
           </div>
           <blockquote className="regen-blockquote">
             {[
-              'Si','construimos','infraestructura','de','confianza,','estándares','compartidos,',
-              'gobernanza','verificable,',
-              ['métricas','word-bold'],
-              ['comparables,','word-bold'],
-              'el','capital','fluye','con','menor','riesgo,','mayor','velocidad','y','mejor',
-              'distribución','del',
-              ['valor.','word-bold'],
+              'Natura500','busca','hacer','visible,',
+              ['conectada','word-bold'],
+              'y',
+              ['financiable','word-bold'],
+              'la','innovación','verde','y','azul','de','América','Latina','y','el','Caribe',
+              'mediante','infraestructura','digital,','inteligencia','de','mercado','y',
+              ['redes','word-bold'],
+              ['de','word-bold'],
+              ['confianza.','word-bold'],
             ].map((entry, i) => {
               const [text, extra] = Array.isArray(entry) ? entry : [entry, ''];
               return <span key={i} className={'word ' + (extra || '')}>{text} </span>;

@@ -264,19 +264,27 @@
   transform: translateY(-2px);
 }
 
-.regen-quote-section { padding: 140px 60px; background: var(--bg-primary); }
-.regen-quote-content { max-width: 900px; margin: 0 auto; }
+.regen-quote-section { position: relative; background: var(--bg-primary); }
+.regen-quote-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 120px 60px;
+  min-height: 100vh;
+  will-change: transform;
+}
 .regen-quote-icon { margin-bottom: 36px; }
 .regen-quote-icon img { filter: drop-shadow(0 0 16px var(--accent-glow)); }
 .regen-blockquote {
+  max-width: 900px;
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 3vw, 2.2rem);
   font-weight: 500;
   line-height: 1.5;
   color: var(--text-primary);
 }
-.regen-blockquote .word { display: inline-block; margin-right: 0.28em; opacity: 0.18; transition: opacity 0.4s; }
-.regen-blockquote .word.is-revealed { opacity: 1; }
+.regen-blockquote .word { display: inline-block; margin-right: 0.28em; opacity: 0.18; }
 .regen-blockquote .word-bold { font-weight: 800; color: var(--accent); }
 
 .regen-conditions-section { position: relative; padding: 120px 60px; background: var(--bg-primary); overflow: hidden; }

@@ -25,17 +25,30 @@
 }
 
 .hitos-back {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
-  color: var(--text-secondary);
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-pill);
+  background: rgba(18, 27, 19, 0.58);
+  color: rgba(255, 255, 255, 0.86);
   font-family: var(--font-body);
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   text-decoration: none;
-  transition: color 0.2s;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  transition: color 0.2s, border-color 0.2s;
 }
-.hitos-back:hover { color: var(--accent); }
+.hitos-back:hover {
+  color: var(--accent);
+  border-color: rgba(200, 230, 50, 0.36);
+}
 .hitos-back svg { flex-shrink: 0; }
 
 .hitos-page-label {
