@@ -512,7 +512,19 @@ export default function Studio() {
   const [clickOriginRect, setClickOriginRect] = useState(null);
 
   const runCoverTransition = (onCovered) => {
-    onCovered?.();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      onCovered?.();
+      return;
+    }
+    const el = document.createElement('div');
+    el.className = 'studio-cover-overlay';
+    document.body.appendChild(el);
+    gsap.timeline()
+      .fromTo(el,
+        { yPercent: 100 },
+        { yPercent: 0, duration: 0.52, ease: 'power3.inOut', onComplete: () => onCovered?.() }
+      )
+      .to(el, { yPercent: -100, duration: 0.48, ease: 'power3.inOut', onComplete: () => el.remove() });
   };
 
   const openPortfolio = (event) => {

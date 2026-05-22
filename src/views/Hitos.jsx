@@ -35,7 +35,7 @@ const HITOS = [
       'En alianza con Escuela Viva Amazonía, una iniciativa de Cuencas Sagradas Amazónicas, la cohorte inaugural de Explora capacitó a jóvenes indígenas de más de 20 nacionalidades en IA, drones, SIG y narrativa.',
     images: [
       historiaImage('Explora 1a edicion', 'DSC01063.avif'),
-      historiaImage('Explora 1a edicion', 'DSC01282 (1).avif'),
+      historiaImage('Explora 1a edicion', 'DSC01282.avif'),
     ],
     layout: 'split',
     cta: 'Ver video',
@@ -49,7 +49,7 @@ const HITOS = [
     description:
       'El primer espacio regional donde voces multiculturales de Latinoamérica y el Caribe se reunieron para dar forma juntas al futuro de la innovación en la naturaleza. Al reunir a líderes indígenas, científicos, emprendedores y responsables de políticas públicas de toda LAC, el Foro fue un acto fundacional de diálogo. Sembró la visión de gobernanza que más tarde se convertiría en CEIBA.',
     images: [
-      historiaImage('Foro', '750_7588 (1).avif'),
+      historiaImage('Foro', 'foro1.avif'),
       historiaImage('Foro', '750_7637.avif'),
       historiaImage('Foro', '750_7696.avif'),
     ],
@@ -474,14 +474,16 @@ function TripleSlide({ hito, onOpenVideo }) {
       <div className="slide-triple__text">
         <p className="slide-label">{hito.label} — {hito.year}</p>
         <h2 className="slide-title">{hito.event}</h2>
-        <HitoCta hito={hito} onOpenVideo={onOpenVideo} />
       </div>
       <div className="slide-triple__images">
         {hito.images.map((src, i) => (
           <div key={i} className="img-frame" style={{ backgroundImage: `url(${src})` }} />
         ))}
       </div>
-      <p className="slide-desc slide-desc--wide">{hito.description}</p>
+      <div className="slide-triple__footer">
+        <p className="slide-desc slide-desc--wide">{hito.description}</p>
+        <HitoCta hito={hito} onOpenVideo={onOpenVideo} />
+      </div>
     </div>
   );
 }

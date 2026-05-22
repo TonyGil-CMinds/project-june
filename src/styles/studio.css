@@ -1290,3 +1290,13 @@
   /* On mobile, order: image first */
   .detail-right { order: -1; }
 }
+
+/* ── Cover transition overlay ── */
+.studio-cover-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg-primary);
+  pointer-events: none;
+  will-change: transform;
+}
