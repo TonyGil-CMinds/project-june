@@ -1,0 +1,267 @@
+.not-found-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(148, 182, 35, 0.22), transparent 34%),
+    radial-gradient(circle at 18% 62%, rgba(200, 230, 50, 0.1), transparent 28%),
+    linear-gradient(180deg, #0d130f 0%, var(--bg-primary) 100%);
+  padding: 0;
+}
+
+.not-found-bg-glow {
+  position: absolute;
+  top: 9%;
+  left: 50%;
+  z-index: -1;
+  width: min(720px, 86vw);
+  aspect-ratio: 1.6;
+  background: radial-gradient(ellipse at center, rgba(197, 226, 51, 0.28) 0%, rgba(94, 119, 26, 0.18) 35%, transparent 70%);
+  filter: blur(52px);
+  transform: translateX(-50%);
+  opacity: 0;
+}
+
+.not-found-stage {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.not-found-number {
+  position: absolute;
+  top: clamp(132px, 22vh, 210px);
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0px, 0.55vw, 8px);
+  width: 100vw;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(10rem, 25vw, 24rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--accent);
+  pointer-events: none;
+}
+
+.not-found-digit-window {
+  --digit-gap: 0.11em;
+  --digit-step: calc(1em + var(--digit-gap));
+  display: block;
+  height: 1em;
+  overflow: hidden;
+  opacity: 1;
+  filter: blur(0);
+}
+
+.not-found-digit-track {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--digit-gap);
+  will-change: transform;
+  background: linear-gradient(180deg, #eaff3f 0%, #defb2d 38%, #72822a 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.not-found-digit {
+  display: block;
+  height: 1em;
+  line-height: 1;
+}
+
+.not-found-digit-window:nth-child(1) .not-found-digit-track,
+.not-found-digit-window:nth-child(3) .not-found-digit-track {
+  transform: translateY(calc(-3 * var(--digit-step)));
+}
+
+.not-found-digit-window:nth-child(2) .not-found-digit-track {
+  transform: translateY(calc(-9 * var(--digit-step)));
+}
+
+.not-found-sr-number {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.not-found-subject-layer {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(56px, 9vh, 116px);
+  z-index: 2;
+  width: clamp(900px, 92vw, 1680px);
+  aspect-ratio: 920 / 520;
+  translate: -50% 0;
+  transform-origin: center bottom;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
+}
+
+.not-found-subject {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: none;
+  height: auto;
+}
+
+.not-found-viewport-fades {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.not-found-viewport-fades::before,
+.not-found-viewport-fades::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.not-found-viewport-fades::before {
+  background:
+    linear-gradient(90deg, var(--bg-primary) 0%, rgba(16, 21, 17, 0.8) 4%, rgba(16, 21, 17, 0) 17%, rgba(16, 21, 17, 0) 83%, rgba(16, 21, 17, 0.8) 96%, var(--bg-primary) 100%),
+    linear-gradient(180deg, rgba(16, 21, 17, 0) 52%, rgba(16, 21, 17, 0.54) 76%, var(--bg-primary) 100%);
+}
+
+.not-found-viewport-fades::after {
+  background:
+    radial-gradient(ellipse at 50% 62%, rgba(16, 21, 17, 0) 0%, rgba(16, 21, 17, 0) 42%, rgba(16, 21, 17, 0.32) 72%, rgba(16, 21, 17, 0.72) 100%);
+}
+
+@media (min-width: 901px) {
+  .not-found-viewport-fades::before {
+    background:
+      linear-gradient(90deg, var(--bg-primary) 0%, rgba(16, 21, 17, 0.9) 8%, rgba(16, 21, 17, 0) 25%, rgba(16, 21, 17, 0) 75%, rgba(16, 21, 17, 0.9) 92%, var(--bg-primary) 100%),
+      linear-gradient(180deg, rgba(16, 21, 17, 0) 44%, rgba(16, 21, 17, 0.42) 72%, var(--bg-primary) 100%);
+  }
+
+  .not-found-viewport-fades::after {
+    background:
+      radial-gradient(ellipse at 50% 60%, rgba(16, 21, 17, 0) 0%, rgba(16, 21, 17, 0) 34%, rgba(16, 21, 17, 0.28) 66%, rgba(16, 21, 17, 0.78) 100%);
+  }
+}
+
+.not-found-content {
+  position: absolute;
+  left: clamp(72px, 8.7vw, 136px);
+  bottom: clamp(42px, 8vh, 92px);
+  z-index: 4;
+  width: min(540px, calc(100vw - 96px));
+}
+
+.not-found-title {
+  margin: 0 0 18px;
+  font-family: var(--font-body);
+  font-size: clamp(2.3rem, 3.8vw, 3.42rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: 0;
+  color: rgba(250, 252, 246, 0.98);
+  text-wrap: balance;
+}
+
+.not-found-line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.not-found-copy-line {
+  display: block;
+  will-change: transform;
+}
+
+.not-found-home-link {
+  min-width: 160px;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 24px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: rgba(250, 252, 246, 0.96);
+  opacity: 1;
+  transition:
+    color 0.28s var(--ease-out),
+    transform 0.28s var(--ease-out),
+    box-shadow 0.28s var(--ease-out);
+}
+
+.not-found-home-link:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--glass-strong-shadow), 0 12px 34px rgba(200, 230, 50, 0.16);
+}
+
+.not-found-link-icon {
+  flex: 0 0 auto;
+  color: var(--accent);
+  filter: drop-shadow(0 0 10px rgba(200, 230, 50, 0.26));
+}
+
+@media (max-width: 900px) {
+  .not-found-page {
+    height: 100vh;
+    min-height: 100vh;
+  }
+
+  .not-found-number {
+    top: 27vh;
+    font-size: clamp(7.2rem, 27vw, 14rem);
+  }
+
+  .not-found-subject-layer {
+    top: 45%;
+    bottom: auto;
+    width: min(860px, 124vw);
+    translate: -50% -50%;
+    transform-origin: center center;
+  }
+
+  .not-found-content {
+    left: 18px;
+    bottom: max(136px, env(safe-area-inset-bottom));
+    width: min(360px, calc(100vw - 36px));
+  }
+}
+
+@media (max-width: 560px) {
+  .not-found-number {
+    top: 28vh;
+    width: 100vw;
+    font-size: clamp(4.4rem, 20vw, 7.1rem);
+  }
+
+  .not-found-subject-layer {
+    top: 45%;
+    width: min(610px, 132vw);
+  }
+
+  .not-found-content {
+    bottom: max(140px, env(safe-area-inset-bottom));
+  }
+
+  .not-found-title {
+    max-width: 330px;
+    font-size: clamp(1.9rem, 9.8vw, 2.72rem);
+  }
+}

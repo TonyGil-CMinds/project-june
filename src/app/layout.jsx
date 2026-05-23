@@ -8,6 +8,7 @@ import '../styles/ecos.css';
 import '../styles/hitos.css';
 import '../styles/privacy-policy.css';
 import '../styles/links.css';
+import '../styles/not-found.css';
 
 const BASE_URL = 'https://naturatech.org';
 
@@ -88,7 +89,9 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `
 try {
-  if (localStorage.getItem('naturatech-boot-loader-seen') === 'true') {
+  var knownRoutes = ['/', '/emprendimientos', '/ceiba', '/studio', '/ecos', '/hitos', '/links', '/privacy-policy', '/terms-and-conditions'];
+  var currentPath = window.location.pathname.replace(/\\/$/, '') || '/';
+  if (localStorage.getItem('naturatech-boot-loader-seen') === 'true' || knownRoutes.indexOf(currentPath) === -1) {
     document.documentElement.classList.add('boot-loader-seen');
   }
 } catch (_) {}
