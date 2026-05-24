@@ -154,6 +154,12 @@
   pointer-events: none;
 }
 
+.studio-portfolio-open .glass-nav,
+.studio-portfolio-open .glass-nav * {
+  visibility: hidden;
+  pointer-events: none !important;
+}
+
 .studio-portfolio-open .footer-section {
   display: none;
 }

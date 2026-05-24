@@ -380,6 +380,12 @@ html.hitos-is-open .glass-nav {
   transform: translateY(-18px);
 }
 
+html.hitos-is-open .glass-nav,
+html.hitos-is-open .glass-nav * {
+  visibility: hidden;
+  pointer-events: none !important;
+}
+
 html.hitos-video-is-open {
   overflow: hidden;
 }
