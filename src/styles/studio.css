@@ -1056,12 +1056,13 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 20;
+  z-index: 260;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 26px 52px;
   flex-shrink: 0;
+  pointer-events: none;
 }
 
 .detail-back {
@@ -1071,23 +1072,26 @@
   gap: 8px;
   min-height: 42px;
   padding: 0 16px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(240, 251, 221, 0.28);
   border-radius: var(--radius-pill);
-  background: rgba(18, 27, 19, 0.58);
-  color: rgba(255, 255, 255, 0.86);
+  background: rgba(12, 19, 14, 0.82);
+  color: rgba(240, 251, 221, 0.96);
   font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   cursor: pointer;
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  transition: color 0.2s, border-color 0.2s;
+  pointer-events: auto;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 }
 .detail-back:hover {
   color: var(--accent);
   border-color: rgba(200, 230, 50, 0.36);
+  background: rgba(12, 19, 14, 0.92);
 }
 .detail-back svg { flex-shrink: 0; }
 
@@ -1101,12 +1105,23 @@
 }
 
 .detail-counter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid rgba(240, 251, 221, 0.18);
+  border-radius: var(--radius-pill);
+  background: rgba(12, 19, 14, 0.68);
   font-family: var(--font-display);
   font-size: 13px;
   letter-spacing: 0.06em;
-  color: var(--text-muted);
+  color: rgba(240, 251, 221, 0.82);
+  pointer-events: auto;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
 }
 .detail-counter .counter-current { color: var(--accent); }
+.detail-counter .counter-total { color: rgba(240, 251, 221, 0.78); }
 
 /* ── Main layout grid ── */
 .detail-layout {
