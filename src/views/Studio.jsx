@@ -62,7 +62,7 @@ const PROJECTS = [
     description: 'Fundación enfocada en la protección marina que implementa sistemas de monitoreo automatizado para mejorar la resiliencia de ecosistemas marinos en el Caribe.',
     url: 'https://www.fundemardr.org/',
     region: 'República Dominicana / Caribe',
-    img: '/assets/Studio/portafolio/proyect-img-5.avif',
+    img: '/assets/Studio/portafolio/project-fundemar/FUNDEMAR.avif',
     leaders: [
       { name: 'Carmen Díaz', avatar: 'https://i.pravatar.cc/60?img=55' },
       { name: 'Rafael Oleo', avatar: 'https://i.pravatar.cc/60?img=21' },
@@ -75,7 +75,7 @@ const PROJECTS = [
     description: 'Empresa tecnológica que desarrolla un sistema dMRV de monitoreo, reporte y verificación descentralizado para la creación y gestión de activos ambientales digitales.',
     url: 'https://www.landprint.co/',
     region: 'Activos ambientales digitales',
-    img: '/assets/Studio/portafolio/proyect-img-6.avif',
+    img: '/assets/Studio/portafolio/project-landprint/LANDPRINT.avif',
     leaders: [
       { name: 'Sebastián Mora', avatar: 'https://i.pravatar.cc/60?img=23' },
       { name: 'Isabella Ruiz', avatar: 'https://i.pravatar.cc/60?img=59' },
@@ -99,7 +99,7 @@ const PROJECTS = [
     description: 'Organización dedicada a la restauración de bosques tropicales secos, implementando soluciones tecnológicas y biotecnológicas para la recuperación de ecosistemas degradados.',
     url: 'https://nativas.ar/',
     region: 'Argentina / Colombia',
-    img: '/assets/Studio/portafolio/proyect-img-8.avif',
+    img: '/assets/Studio/portafolio/project-nativas/NATIVAS.avif',
     leaders: [
       { name: 'Luciana Bertolini', avatar: 'https://i.pravatar.cc/60?img=65' },
       { name: 'Agustín Paz', avatar: 'https://i.pravatar.cc/60?img=27' },
@@ -136,7 +136,7 @@ const PROJECTS = [
     description: 'Fondo de inversión enfocado en proyectos de restauración de ecosistemas, actualmente trabajando en la recuperación de manglares utilizando tecnología Lidar para monitoreo y medición de impacto.',
     url: 'https://www.understory.fund/',
     region: 'Ecosistemas de manglar',
-    img: '/assets/Studio/portafolio/proyect-img-2.avif',
+    img: '/assets/Studio/portafolio/project-understory/UNDERSTORY.avif',
     leaders: [
       { name: 'Sophie Leblanc', avatar: 'https://i.pravatar.cc/60?img=33' },
       { name: 'James Okafor', avatar: 'https://i.pravatar.cc/60?img=31' },
