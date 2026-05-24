@@ -65,7 +65,7 @@ const PROJECTS = [
     img: '/assets/Studio/portafolio/project-fundemar/FUNDEMAR.avif',
     leaders: [
       { name: 'Rita Sellares', role: 'CEO de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-fundemar/leadWoman.png'},
-      { name: 'María Villalpando', role: 'Gerente de Investigación y Desarrollo de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-landprint/leadWoman.png'},
+      { name: 'María Villalpando', role: 'Gerente de Investigación y Desarrollo de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-fundemar/leadWoman.png'},
 
     ],
   },
