@@ -15,11 +15,9 @@ const PROJECTS = [
     description: 'Organización indígena que gestiona la Reserva Comunal Amarakaeri en Perú, combinando tecnología y conocimiento ancestral para la vigilancia y control territorial.',
     url: 'https://eca-amarakaeri.org.pe/',
     region: 'Reserva Comunal Amarakaeri, Perú',
-    img: '/assets/Studio/portafolio/proyect-img-1.avif',
+    img: '/assets/Studio/portafolio/project-amakaeri/Amarakaeri.avif',
     leaders: [
-      { name: 'Carlos Tayori', avatar: 'https://i.pravatar.cc/60?img=11' },
-      { name: 'Rosa Harakbut', avatar: 'https://i.pravatar.cc/60?img=45' },
-      { name: 'Julio Wachiperi', avatar: 'https://i.pravatar.cc/60?img=13' },
+      { name: 'Walter Quertehuari', role: 'Presidente', avatar: '/assets/Studio/portafolio/project-amakaeri/lead-walter.avif' },
     ],
   },
   {
@@ -28,10 +26,9 @@ const PROJECTS = [
     description: 'Empresa colombiana de turismo que promueve la conservación, restauración y uso sostenible de la biodiversidad, creando oportunidades económicas para comunidades rurales a través de su proyecto Red de Biomonitoreo Comunitario.',
     url: 'https://awake.travel/',
     region: 'Colombia',
-    img: '/assets/Studio/portafolio/proyect-img-2.avif',
+    img: '/assets/Studio/portafolio/project-awake/AWAKEavif.avif',
     leaders: [
-      { name: 'Valentina Arango', avatar: 'https://i.pravatar.cc/60?img=47' },
-      { name: 'Mateo Restrepo', avatar: 'https://i.pravatar.cc/60?img=15' },
+      { name: 'Laura Romero', role: 'Co-fundadora y Directora Técnica', avatar: '/assets/Studio/portafolio/project-awake/lead-laura.avif' },
     ],
   },
   {
@@ -49,14 +46,15 @@ const PROJECTS = [
   },
   {
     id: '04',
-    title: 'Fundación Pachamama',
+    title: 'Estrategia Biocultural del Jaguar',
     description: 'Organización que trabaja en la conservación del jaguar y el desarrollo de créditos bioculturales para proteger ecosistemas y apoyar comunidades indígenas en Ecuador.',
     url: 'https://www.pachamama.org/',
-    region: 'Ecuador',
-    img: '/assets/Studio/portafolio/proyect-img-4.avif',
+    region: 'Cuencas Sagradas de la Amazonía Ecuatoriana',
+    img: '/assets/Studio/portafolio/project-estrategiabiocultural/pachamama.jpg',
     leaders: [
-      { name: 'Lorena Grefa', avatar: 'https://i.pravatar.cc/60?img=53' },
-      { name: 'Pablo Varela', avatar: 'https://i.pravatar.cc/60?img=19' },
+      { name: 'Belén Páez Fundación Pachamama', role: 'Presidenta', avatar: '/assets/Studio/portafolio/project-estrategiabiocultural/lead-belen.avif' },
+      { name: 'Uyunkar Domingo Peas', role: 'Presidente de Cuencas Sagradas', avatar: '/assets/Studio/portafolio/project-estrategiabiocultural/lead-uyunkar.avif' },
+      { name: 'Joel Koupermann', role: 'Líder de Bosques y Territorio de Fundación Pachamama', avatar: '/assets/Studio/portafolio/project-estrategiabiocultural/joe.avif' },
     ],
   },
   {
@@ -111,15 +109,14 @@ const PROJECTS = [
   },
   {
     id: '09',
-    title: 'Asmucacd – Paz y Flora',
+    title: 'ASMUCAD - Paz y Flora',
     description: 'Iniciativa que apoya un modelo de conservación liderado por mujeres rurales para prevenir la deforestación en La Macarena, Colombia, a través de soluciones basadas en la naturaleza.',
     url: '#',
     region: 'La Macarena, Colombia',
-    img: '/assets/Studio/portafolio/proyect-img-9.avif',
+    img: '/assets/Studio/portafolio/project-asmucad/ASMUCAD.avif',
     leaders: [
-      { name: 'María del Carmen', avatar: 'https://i.pravatar.cc/60?img=67' },
-      { name: 'Luz Adriana García', avatar: 'https://i.pravatar.cc/60?img=69' },
-      { name: 'Patricia Lozano', avatar: 'https://i.pravatar.cc/60?img=71' },
+      { name: 'Sandy Alejandra Gómez', role: 'CEO', avatar: '/assets/Studio/portafolio/project-asmucad/lead-sandy.jpg' },
+      { name: 'Darly Johanna Garcia Valencia', role: 'Representante legal', avatar: '/assets/Studio/portafolio/project-asmucad/led-darly.jpg' },
     ],
   },
   {
@@ -161,15 +158,16 @@ const PROJECTS = [
   },
   {
     id: '13',
-    title: 'Yakum',
+    title: 'Créditos Bioculturales del Jaguar Nación Siekopai',
     description: 'ONG con sede en Ecuador que trabaja con comunidades indígenas como los Siekopai para regenerar bosques amazónicos, fortalecer la soberanía alimentaria y salvaguardar el patrimonio cultural. En colaboración con Regen Network, desarrolla proyectos de créditos bioculturales para proteger al jaguar y apoyar a la Nación Siekopai.',
     url: 'https://yakum.org/',
     region: 'Amazonía ecuatoriana',
-    img: '/assets/Studio/portafolio/proyect-img-4.avif',
+    img: '/assets/Studio/portafolio/project-creditosjaguar/YAKUM.avif',
     leaders: [
-      { name: 'Alianza Siekopai', avatar: 'https://i.pravatar.cc/60?img=39' },
-      { name: 'Fernanda Rivadeneira', avatar: 'https://i.pravatar.cc/60?img=75' },
-      { name: 'Tomás Grefa', avatar: 'https://i.pravatar.cc/60?img=41' },
+      { name: 'Mike McColm', role: 'Director de Desarrollo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.jpg' },
+      { name: 'Marcelo Piaguaje', role: 'Líder Nación Siekopai', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.jpg' },
+      { name: 'Gisel Booman', role: 'Líder de Ciencia de Regen Network', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Woman.jpg' },
+      { name: 'Nick Ovenden', role: 'Director Ejecutivo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.jpg' },
     ],
   },
 ];
@@ -228,6 +226,62 @@ function StudioPortfolioText() {
 /* ══════════════════════════════════════════
    PROJECT DETAIL MODE
    ══════════════════════════════════════════ */
+function DetailLeaderAvatar({ leader }) {
+  const profileRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const showProfile = () => {
+    if (!profileRef.current) return;
+    gsap.killTweensOf(profileRef.current);
+    gsap.fromTo(
+      profileRef.current,
+      { autoAlpha: 0, y: 10, scale: 0.94 },
+      { autoAlpha: 1, y: 0, scale: 1, duration: 0.26, ease: 'power3.out' }
+    );
+  };
+
+  const hideProfile = () => {
+    if (!profileRef.current) return;
+    setIsOpen(false);
+    gsap.killTweensOf(profileRef.current);
+    gsap.to(profileRef.current, { autoAlpha: 0, y: 8, scale: 0.96, duration: 0.18, ease: 'power2.out' });
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (isOpen) {
+      hideProfile();
+      return;
+    }
+    setIsOpen(true);
+    showProfile();
+  };
+
+  return (
+    <button
+      type="button"
+      className="detail-avatar"
+      aria-label={`${leader.name}, ${leader.role || 'Líder del Proyecto'}`}
+      aria-expanded={isOpen}
+      onMouseEnter={showProfile}
+      onMouseLeave={hideProfile}
+      onFocus={showProfile}
+      onBlur={hideProfile}
+      onClick={handleClick}
+    >
+      <span ref={profileRef} className="detail-leader-profile" aria-hidden="true">
+        <img src={leader.avatar} alt="" loading="lazy" />
+        <span>
+          <strong>{leader.name}</strong>
+          <em>{leader.role || 'Líder del Proyecto'}</em>
+        </span>
+      </span>
+      <img src={leader.avatar} alt="" loading="lazy" />
+    </button>
+  );
+}
+
 function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
   const containerRef     = useRef(null);
   const flyingRef        = useRef(null);
@@ -457,18 +511,16 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
 
           <div className="detail-meta">
             <div className="detail-meta-col">
+              <span className="detail-meta-label">Región</span>
+              <p className="detail-region">{project.region}</p>
+            </div>
+            <div className="detail-meta-col detail-meta-col-leaders">
               <span className="detail-meta-label">Líderes del Proyecto</span>
               <div className="detail-leaders">
                 {project.leaders.map((leader) => (
-                  <div key={leader.name} className="detail-avatar" title={leader.name}>
-                    <img src={leader.avatar} alt={leader.name} />
-                  </div>
+                  <DetailLeaderAvatar key={leader.name} leader={leader} />
                 ))}
               </div>
-            </div>
-            <div className="detail-meta-col">
-              <span className="detail-meta-label">Región</span>
-              <p className="detail-region">{project.region}</p>
             </div>
           </div>
         </div>
