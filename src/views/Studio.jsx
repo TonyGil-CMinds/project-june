@@ -64,8 +64,8 @@ const PROJECTS = [
     region: 'República Dominicana / Caribe',
     img: '/assets/Studio/portafolio/project-fundemar/FUNDEMAR.avif',
     leaders: [
-      { name: 'Rita Sellares', role: 'CEO de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-fundmar/lead-Woman.png'},
-      { name: 'María Villalpando', role: 'Gerente de Investigación y Desarrollo de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-landprint/lead-Woman.png'},
+      { name: 'Rita Sellares', role: 'CEO de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-fundmar/leadWoman.png'},
+      { name: 'María Villalpando', role: 'Gerente de Investigación y Desarrollo de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-landprint/leadWoman.png'},
 
     ],
   },
@@ -102,7 +102,7 @@ const PROJECTS = [
     img: '/assets/Studio/portafolio/project-nativas/NATIVAS.avif',
     leaders: [
       {  name: 'Mati Dutto', role: 'Director Ejecutivo de Nativas', avatar: '/assets/Studio/portafolio/project-nativas/lead-Man.png' },
-      { name: 'Maritza López Parra', role: 'Directora Ejecutiva de Ecohome ', avatar: '/assets/Studio/portafolio/project-nativas/lead-Woman.png' },
+      { name: 'Maritza López Parra', role: 'Directora Ejecutiva de Ecohome ', avatar: '/assets/Studio/portafolio/project-nativas/leadWoman.png' },
     ],
   },
   {
@@ -164,7 +164,7 @@ const PROJECTS = [
     leaders: [
       { name: 'Mike McColm', role: 'Director de Desarrollo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.png' },
       { name: 'Marcelo Piaguaje', role: 'Líder Nación Siekopai', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.png' },
-      { name: 'Gisel Booman', role: 'Líder de Ciencia de Regen Network', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Woman.png' },
+      { name: 'Gisel Booman', role: 'Líder de Ciencia de Regen Network', avatar: '/assets/Studio/portafolio/project-creditosjaguar/leadWoman.png' },
       { name: 'Nick Ovenden', role: 'Director Ejecutivo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.png' },
     ],
   },
