@@ -33,15 +33,14 @@ const PROJECTS = [
   },
   {
     id: '03',
-    title: 'Fablab Perú',
+    title: 'REGEN Fablab',
     description: 'Centro de innovación que implementa el proyecto REGEN para desarrollar bioeconomía amazónica utilizando tecnologías de Industria 4.0, en alianza con comunidades Asháninkas y el MIT.',
     url: 'https://www.fab.pe/',
     region: 'Amazonía peruana',
-    img: '/assets/Studio/portafolio/proyect-img-3.avif',
+    img: '/assets/Studio/portafolio/project-regen/REGEN.avif',
     leaders: [
-      { name: 'Ana Lucía Torres', avatar: 'https://i.pravatar.cc/60?img=49' },
-      { name: 'Diego Cisneros', avatar: 'https://i.pravatar.cc/60?img=17' },
-      { name: 'Milagros Quispe', avatar: 'https://i.pravatar.cc/60?img=51' },
+      { name: 'Beno Juárez', role: 'Líder Proyecto REGEN de Fablab Perú', avatar: '/assets/Studio/portafolio/project-regen/beno.avif' },
+      { name: 'Delia Barriga', role: 'Directora de Fablab Perú', avatar: '/assets/Studio/portafolio/project-regen/delia.avif' },
     ],
   },
   {
@@ -84,15 +83,14 @@ const PROJECTS = [
   },
   {
     id: '07',
-    title: 'ManoCambiada',
+    title: 'Territorio de Aprendizaje Comunitario Nuquí',
     description: 'Organización comunitaria que lidera el proyecto TAC Nuquí, Territorio de Aprendizaje Comunitario, en el Pacífico colombiano, integrando tecnología con saberes ancestrales para el desarrollo sostenible.',
     url: 'https://manocambiada.org/',
     region: 'Nuquí, Pacífico colombiano',
-    img: '/assets/Studio/portafolio/proyect-img-7.avif',
+    img: '/assets/Studio/portafolio/project-tac/TAC.avif',
     leaders: [
-      { name: 'Esperanza Palacios', avatar: 'https://i.pravatar.cc/60?img=61' },
-      { name: 'Nelson Mosquera', avatar: 'https://i.pravatar.cc/60?img=25' },
-      { name: 'Daniela Córdoba', avatar: 'https://i.pravatar.cc/60?img=63' },
+      { name: 'Josefina Klinger', role: 'Directora y representante legal de Mano Cambiada', avatar: '/assets/Studio/portafolio/project-tac/josefina.avif' },
+      { name: 'José Andrés Palacios Klinger', role: 'Director Proyecto TAC Nuquí', avatar: '/assets/Studio/portafolio/project-tac/lead-Man.png' },
     ],
   },
   {
@@ -116,19 +114,20 @@ const PROJECTS = [
     img: '/assets/Studio/portafolio/project-asmucad/ASMUCAD.avif',
     leaders: [
       { name: 'Sandy Alejandra Gómez', role: 'CEO', avatar: '/assets/Studio/portafolio/project-asmucad/lead-sandy.jpg' },
-      { name: 'Darly Johanna Garcia Valencia', role: 'Representante legal', avatar: '/assets/Studio/portafolio/project-asmucad/led-darly.jpg' },
+      { name: 'Darly Johanna Garcia Valencia', role: 'Representante legal', avatar: '/assets/Studio/portafolio/project-asmucad/led-darly.png' },
     ],
   },
   {
     id: '10',
-    title: 'Savimbo',
+    title: 'Agroforestería Regenerativa con Créditos de Carbono',
     description: 'Savimbo desarrolla una metodología de créditos agroforestales que empodera a pequeños productores de café y cacao en la adopción de prácticas regenerativas, integra monitoreo comunitario de biodiversidad y canaliza pagos justos por servicios ecosistémicos, captura de carbono y créditos de biodiversidad.',
     url: 'https://savimbo.com/',
     region: 'Territorios agroforestales',
-    img: '/assets/Studio/portafolio/proyect-img-1.avif',
+    img: '/assets/Studio/portafolio/project-savimbo/SAVIMBO.avif',
     leaders: [
-      { name: 'Camila Fonseca', avatar: 'https://i.pravatar.cc/60?img=32' },
-      { name: 'Andrés Gómez', avatar: 'https://i.pravatar.cc/60?img=29' },
+      { name: 'Drea Burbank', role: 'CEO de Savimbo', avatar: '/assets/Studio/portafolio/project-savimbo/drea.avif' },
+      { name: 'Hector Jhony López', role: 'Co-fundador de Savimbo', avatar: '/assets/Studio/portafolio/project-savimbo/lead-Man.png' },
+      { name: 'Fernando Lezama', role: 'Co-fundador de Savimbo', avatar: '/assets/Studio/portafolio/project-savimbo/lead-Man.png' },
     ],
   },
   {
@@ -146,14 +145,14 @@ const PROJECTS = [
   },
   {
     id: '12',
-    title: 'Universidad de Manizales & Universidad de Antioquia',
+    title: 'SEAFLOWER WISE',
     description: 'Instituciones académicas que lideran el proyecto SeaFlower Wise para la conservación marina y el desarrollo de créditos azules en la Reserva de Biósfera Seaflower.',
     url: 'https://umanizales.edu.co/',
     region: 'Reserva de Biósfera Seaflower',
-    img: '/assets/Studio/portafolio/proyect-img-3.avif',
+    img: '/assets/Studio/portafolio/project-seaflower/SEAFLOWER.avif',
     leaders: [
-      { name: 'Dr. Hernán Ospina', avatar: 'https://i.pravatar.cc/60?img=37' },
-      { name: 'Dra. Claudia Vásquez', avatar: 'https://i.pravatar.cc/60?img=73' },
+      { name: 'Jorge William Arboleda', role: 'Presidente', avatar: '/assets/Studio/portafolio/project-seaflower/jorge.avif' },
+      { name: 'Juan Camilo Henao', role: 'Investigador Senior de AGROSAVIA', avatar: '/assets/Studio/portafolio/project-seaflower/juancamilo.avif' },
     ],
   },
   {
@@ -164,10 +163,10 @@ const PROJECTS = [
     region: 'Amazonía ecuatoriana',
     img: '/assets/Studio/portafolio/project-creditosjaguar/YAKUM.avif',
     leaders: [
-      { name: 'Mike McColm', role: 'Director de Desarrollo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.jpg' },
-      { name: 'Marcelo Piaguaje', role: 'Líder Nación Siekopai', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.jpg' },
-      { name: 'Gisel Booman', role: 'Líder de Ciencia de Regen Network', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Woman.jpg' },
-      { name: 'Nick Ovenden', role: 'Director Ejecutivo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.jpg' },
+      { name: 'Mike McColm', role: 'Director de Desarrollo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.png' },
+      { name: 'Marcelo Piaguaje', role: 'Líder Nación Siekopai', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.png' },
+      { name: 'Gisel Booman', role: 'Líder de Ciencia de Regen Network', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Woman.png' },
+      { name: 'Nick Ovenden', role: 'Director Ejecutivo', avatar: '/assets/Studio/portafolio/project-creditosjaguar/lead-Man.png' },
     ],
   },
 ];
