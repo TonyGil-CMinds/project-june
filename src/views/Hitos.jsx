@@ -162,6 +162,11 @@ export default function Hitos() {
   const [videoClosing, setVideoClosing] = useState(false);
 
   useEffect(() => {
+    document.documentElement.classList.add('hitos-is-open');
+    return () => document.documentElement.classList.remove('hitos-is-open');
+  }, []);
+
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const heroLeft   = heroLeftRef.current;
       const heroRight  = heroRightRef.current;
