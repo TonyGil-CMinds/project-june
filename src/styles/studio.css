@@ -1262,13 +1262,79 @@
   z-index: 5;
 }
 
-.detail-avatar > img {
+.detail-avatar-image {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgba(238, 247, 220, 0.1);
+}
+
+.detail-avatar-image-thumb {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-avatar-image-profile {
+  width: clamp(44px, 3.4vw, 52px);
+  height: clamp(44px, 3.4vw, 52px);
+  max-width: 52px;
+  max-height: 52px;
+}
+
+.detail-avatar-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   border-radius: 50%;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.24s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+.detail-avatar-image.is-loaded img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.detail-avatar-skeleton {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(110deg, transparent 28%, rgba(238, 247, 220, 0.28) 45%, transparent 62%),
+    radial-gradient(circle at 35% 28%, rgba(238, 247, 220, 0.18), transparent 34%),
+    rgba(238, 247, 220, 0.1);
+  background-size: 220% 100%, 100% 100%, 100% 100%;
+  animation: detail-avatar-shimmer 1.05s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.detail-avatar-fallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  border-radius: inherit;
+  background: rgba(200, 230, 50, 0.18);
+  color: rgba(238, 247, 220, 0.9);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+@keyframes detail-avatar-shimmer {
+  from { background-position: 130% 0, 0 0, 0 0; }
+  to { background-position: -80% 0, 0 0, 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-avatar-skeleton {
+    animation: none;
+  }
+}
+
 .detail-avatar:first-child { margin-left: 0; }
 
 .detail-leader-profile {
@@ -1295,16 +1361,7 @@
   will-change: transform, opacity;
 }
 
-.detail-leader-profile img {
-  width: clamp(44px, 3.4vw, 52px);
-  height: clamp(44px, 3.4vw, 52px);
-  max-width: 52px;
-  max-height: 52px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.detail-leader-profile span {
+.detail-leader-copy {
   display: flex;
   min-width: 0;
   flex-direction: column;
@@ -1425,6 +1482,10 @@
     transform: translate(0, 8px) scale(0.96);
   }
   .detail-leader-profile img {
+    width: 48px;
+    height: 48px;
+  }
+  .detail-avatar-image-profile {
     width: 48px;
     height: 48px;
   }

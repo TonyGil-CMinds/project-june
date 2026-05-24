@@ -64,7 +64,7 @@ const PROJECTS = [
     region: 'República Dominicana / Caribe',
     img: '/assets/Studio/portafolio/project-fundemar/FUNDEMAR.avif',
     leaders: [
-      { name: 'Rita Sellares', role: 'CEO de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-fundmar/leadWoman.png'},
+      { name: 'Rita Sellares', role: 'CEO de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-fundemar/leadWoman.png'},
       { name: 'María Villalpando', role: 'Gerente de Investigación y Desarrollo de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-landprint/leadWoman.png'},
 
     ],
@@ -269,14 +269,42 @@ function DetailLeaderAvatar({ leader }) {
       onClick={handleClick}
     >
       <span ref={profileRef} className="detail-leader-profile" aria-hidden="true">
-        <img src={leader.avatar} alt="" loading="lazy" />
-        <span>
+        <LeaderAvatarImage leader={leader} size="profile" />
+        <span className="detail-leader-copy">
           <strong>{leader.name}</strong>
           <em>{leader.role || 'Líder del Proyecto'}</em>
         </span>
       </span>
-      <img src={leader.avatar} alt="" loading="lazy" />
+      <LeaderAvatarImage leader={leader} size="thumb" />
     </button>
+  );
+}
+
+function LeaderAvatarImage({ leader, size }) {
+  const [status, setStatus] = useState('loading');
+  const initials = leader.name
+    .split(' ')
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
+
+  return (
+    <span className={`detail-avatar-image detail-avatar-image-${size} is-${status}`}>
+      {status === 'error' ? (
+        <span className="detail-avatar-fallback" aria-hidden="true">{initials}</span>
+      ) : (
+        <img
+          src={leader.avatar}
+          alt=""
+          loading="lazy"
+          onLoad={() => setStatus('loaded')}
+          onError={() => setStatus('error')}
+        />
+      )}
+      {status === 'loading' && <span className="detail-avatar-skeleton" aria-hidden="true" />}
+    </span>
   );
 }
 
