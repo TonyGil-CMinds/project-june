@@ -64,9 +64,9 @@ const PROJECTS = [
     region: 'República Dominicana / Caribe',
     img: '/assets/Studio/portafolio/project-fundemar/FUNDEMAR.avif',
     leaders: [
-      { name: 'Carmen Díaz', avatar: 'https://i.pravatar.cc/60?img=55' },
-      { name: 'Rafael Oleo', avatar: 'https://i.pravatar.cc/60?img=21' },
-      { name: 'Yolanda Pérez', avatar: 'https://i.pravatar.cc/60?img=57' },
+      { name: 'Rita Sellares', role: 'CEO de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-fundmar/lead-Woman.png'},
+      { name: 'María Villalpando', role: 'Gerente de Investigación y Desarrollo de FUNDEMAR ', avatar: '/assets/Studio/portafolio/project-landprint/lead-Woman.png'},
+
     ],
   },
   {
@@ -74,11 +74,11 @@ const PROJECTS = [
     title: 'Landprint',
     description: 'Empresa tecnológica que desarrolla un sistema dMRV de monitoreo, reporte y verificación descentralizado para la creación y gestión de activos ambientales digitales.',
     url: 'https://www.landprint.co/',
-    region: 'Activos ambientales digitales',
+    region: 'Rodonia en la Amazonía brasileña',
     img: '/assets/Studio/portafolio/project-landprint/LANDPRINT.avif',
     leaders: [
-      { name: 'Sebastián Mora', avatar: 'https://i.pravatar.cc/60?img=23' },
-      { name: 'Isabella Ruiz', avatar: 'https://i.pravatar.cc/60?img=59' },
+      { name: 'Daniele Cesano', role: 'CEO de LandPrint ', avatar: '/assets/Studio/portafolio/project-landprint/lead-Man.png' },
+      
     ],
   },
   {
@@ -101,8 +101,8 @@ const PROJECTS = [
     region: 'Argentina / Colombia',
     img: '/assets/Studio/portafolio/project-nativas/NATIVAS.avif',
     leaders: [
-      { name: 'Luciana Bertolini', avatar: 'https://i.pravatar.cc/60?img=65' },
-      { name: 'Agustín Paz', avatar: 'https://i.pravatar.cc/60?img=27' },
+      {  name: 'Mati Dutto', role: 'Director Ejecutivo de Nativas', avatar: '/assets/Studio/portafolio/project-nativas/lead-Man.png' },
+      { name: 'Maritza López Parra', role: 'Directora Ejecutiva de Ecohome ', avatar: '/assets/Studio/portafolio/project-nativas/lead-Woman.png' },
     ],
   },
   {
@@ -138,9 +138,8 @@ const PROJECTS = [
     region: 'Ecosistemas de manglar',
     img: '/assets/Studio/portafolio/project-understory/UNDERSTORY.avif',
     leaders: [
-      { name: 'Sophie Leblanc', avatar: 'https://i.pravatar.cc/60?img=33' },
-      { name: 'James Okafor', avatar: 'https://i.pravatar.cc/60?img=31' },
-      { name: 'Renata Souza', avatar: 'https://i.pravatar.cc/60?img=35' },
+      {  name: 'Soheil Salehian', role: 'Co-fundador y CEO de Understory Labs', avatar: '/assets/Studio/portafolio/project-understory/lead-Man.png' },
+      { name: 'José Inés Loria Palma', role: 'Director Ejecutivo de Fundación de San Crisanto', avatar: '/assets/Studio/portafolio/project-understory/lead-Man.png' },
     ],
   },
   {
