@@ -1381,7 +1381,7 @@
 /* ── Mobile ── */
 @media (max-width: 768px) {
   .detail-chrome { padding: 18px 24px; }
-  .detail-logo { width: 28px; }
+  .detail-logo { display: none; }
 
   .detail-layout {
     grid-template-columns: 1fr;
