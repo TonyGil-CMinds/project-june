@@ -397,11 +397,10 @@ html.stories-card-is-open .glass-nav {
   opacity: 0;
   transform: translateY(28px);
   filter: blur(6px);
-  margin-right: 0.18em;
   will-change: transform, opacity, filter;
 }
 .mission-text .word-bold { font-weight: 700; color: var(--text-primary); }
-.mission-text .word-icon { display: inline-flex; vertical-align: middle; color: var(--accent); margin: 0 0.1em; }
+.mission-text .word-icon { display: inline-flex; vertical-align: middle; color: var(--accent); }
 .mission-text .word-icon svg { width: 1em; height: 1em; }
 
 /* Possibilities */

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
@@ -99,7 +99,7 @@ export default function Home({ appReady = true }) {
       gsap.to('.mission-text .word', {
         opacity: 1, y: 0, filter: 'blur(0px)', ease: 'power2.out',
         duration: 0.8, stagger: 0.045,
-        scrollTrigger: { trigger: '.mission-section', start: 'top 65%', end: 'top 10%', toggleActions: 'play none none reverse' },
+        scrollTrigger: { trigger: '.mission-section', start: 'top 65%', toggleActions: 'play none none none' },
       });
       gsap.from('#mission-cta', {
         y: 40, opacity: 0, duration: 0.9, ease: 'power3.out',
@@ -589,10 +589,21 @@ export default function Home({ appReady = true }) {
         <div className="mission-content">
           <p className="mission-text">
             {t.home.missionWords.map((token, i) => {
+              const isLast = i === t.home.missionWords.length - 1;
               if (token === 'BR') return <br key={i} />;
-              if (token === 'ICON') return <span key={i} className="word word-icon">{MISSION_ICON}</span>;
+              if (token === 'ICON') return (
+                <Fragment key={i}>
+                  <span className="word word-icon">{MISSION_ICON}</span>
+                  {!isLast && ' '}
+                </Fragment>
+              );
               const [text, extra] = token;
-              return <span key={i} className={'word' + (extra ? ' ' + extra : '')}>{text}{' '}</span>;
+              return (
+                <Fragment key={i}>
+                  <span className={'word' + (extra ? ' ' + extra : '')}>{text}</span>
+                  {!isLast && ' '}
+                </Fragment>
+              );
             })}
           </p>
           <a href="/hitos" className="btn-glass-outline css-glass" id="mission-cta">

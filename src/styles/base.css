@@ -556,58 +556,73 @@ html.lenis, html.lenis body { height: auto; }
   flex: 0 0 auto;
   color: var(--accent);
 }
-.footer-partners-marquee {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-}
-.footer-partners-track {
+.footer-partners-grid {
   display: flex;
-  width: max-content;
-  animation: footer-partners-slide 30s linear infinite;
-  will-change: transform;
-}
-.footer-partners-marquee:hover .footer-partners-track {
-  animation-play-state: paused;
-}
-.footer-partners-group {
-  display: flex;
-  flex: 0 0 auto;
+  flex-direction: column;
   align-items: center;
-  gap: 42px;
-  padding-right: 42px;
+  gap: 54px;
+}
+.footer-partners-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.footer-partners-tier-label {
+  margin: 0 0 26px;
+  font-family: var(--font-display);
+  font-size: 0.57rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+.footer-partners-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 46px);
+  flex-wrap: wrap;
 }
 .footer-partner-logo {
   position: relative;
   display: flex;
-  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  min-width: 132px;
-  height: 54px;
-}
-.footer-partner-logo:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -21px;
-  width: 1px;
-  height: 34px;
-  background: rgba(255, 255, 255, 0.56);
-  transform: translateY(-50%);
+  height: 56px;
 }
 .footer-partner-logo img {
   width: auto;
-  max-width: 180px;
-  max-height: 38px;
+  max-width: 210px;
+  max-height: 48px;
   object-fit: contain;
-  opacity: 0.92;
+  opacity: 0.96;
 }
-@keyframes footer-partners-slide {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+.footer-partners-tier--funded {
+  gap: 0;
+}
+.footer-partners-tier--funded .footer-partners-tier-label {
+  margin-bottom: 22px;
+}
+.footer-partners-tier--funded .footer-partners-logo-row {
+  gap: clamp(18px, 3vw, 30px);
+}
+.footer-partners-tier--funded .footer-partner-logo {
+  height: 34px;
+}
+.footer-partners-tier--funded .footer-partner-logo img {
+  max-width: 108px;
+  max-height: 28px;
+  opacity: 0.93;
+}
+.footer-partner-logo--suecia img {
+  max-width: 94px;
+}
+.footer-partner-logo--francia img {
+  max-width: 86px;
+}
+.footer-partner-logo--amazonia img {
+  max-width: 82px;
 }
 .footer-content {
   max-width: 1400px;
@@ -907,8 +922,12 @@ a.footer-legal-link:hover {
 
 @media (max-width: 1024px) {
   .footer-partners { margin-bottom: 84px; }
-  .footer-partner-logo { min-width: 118px; }
-  .footer-partner-logo img { max-width: 160px; }
+  .footer-partners-grid { gap: 48px; }
+  .footer-partner-logo img { max-width: 184px; }
+  .footer-partners-tier--funded .footer-partner-logo img { max-width: 98px; }
+  .footer-partner-logo--suecia img { max-width: 88px; }
+  .footer-partner-logo--francia img { max-width: 78px; }
+  .footer-partner-logo--amazonia img { max-width: 76px; }
 }
 
 @media (max-width: 768px) {
@@ -1023,21 +1042,40 @@ a.footer-legal-link:hover {
     margin-bottom: 32px;
     font-size: 0.62rem;
   }
-  .footer-partners-group {
-    gap: 28px;
-    padding-right: 28px;
+  .footer-partners-grid {
+    gap: 42px;
   }
-  .footer-partner-logo {
-    min-width: 104px;
-    height: 42px;
+  .footer-partners-tier-label {
+    margin-bottom: 22px;
+    font-size: 0.52rem;
+    letter-spacing: 0.24em;
   }
-  .footer-partner-logo:not(:last-child)::after {
-    right: -14px;
-    height: 26px;
+  .footer-partners-logo-row {
+    gap: 22px 28px;
   }
   .footer-partner-logo img {
-    max-width: 138px;
-    max-height: 30px;
+    max-width: 146px;
+    max-height: 36px;
+  }
+  .footer-partners-tier--funded .footer-partners-logo-row {
+    gap: 18px 22px;
+    max-width: 320px;
+  }
+  .footer-partners-tier--funded .footer-partner-logo {
+    height: 30px;
+  }
+  .footer-partners-tier--funded .footer-partner-logo img {
+    max-width: 86px;
+    max-height: 24px;
+  }
+  .footer-partner-logo--suecia img {
+    max-width: 78px;
+  }
+  .footer-partner-logo--francia img {
+    max-width: 70px;
+  }
+  .footer-partner-logo--amazonia img {
+    max-width: 66px;
   }
   .footer-content { flex-direction: column; gap: 40px; }
   .footer-nav { align-items: flex-start; text-align: left; }
@@ -1074,17 +1112,5 @@ a.footer-legal-link:hover {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
-  }
-  .footer-partners-track {
-    animation: none !important;
-    transform: none;
-  }
-  .footer-partners-group:nth-child(2) {
-    display: none;
-  }
-  .footer-partners-marquee {
-    overflow-x: auto;
-    -webkit-mask-image: none;
-    mask-image: none;
   }
 }

@@ -29,6 +29,8 @@ export const translations = {
     footer: {
       description: 'En NaturaTech LAC co-creamos infraestructura, alianzas y soluciones bioculturales para acelerar la innovación para la biodiversidad en América Latina y el Caribe.',
       partnersLabel: 'SOCIOS Y ALIADOS',
+      ledBy: 'LIDERADA POR',
+      fundedBy: 'FINANCIADA POR',
       copyright: `© ${new Date().getFullYear()} NaturaTech LAC. Todos los derechos reservados.`,
       privacy: 'Aviso de Privacidad',
       terms: 'Términos y Condiciones',
@@ -255,6 +257,8 @@ export const translations = {
     footer: {
       description: 'At NaturaTech LAC we co-create infrastructure, alliances and biocultural solutions to accelerate biodiversity innovation in Latin America and the Caribbean.',
       partnersLabel: 'PARTNERS & ALLIES',
+      ledBy: 'LED BY',
+      fundedBy: 'FUNDING PARTNERS',
       copyright: `© ${new Date().getFullYear()} NaturaTech LAC. All rights reserved.`,
       privacy: 'Privacy Policy',
       terms: 'Terms & Conditions',

@@ -13,15 +13,16 @@ const social = [
   { id: 'whatsapp', label: 'WhatsApp', href: 'https://api.whatsapp.com/send/?phone&text=https://www.naturatech.org/somosceiba', icon: '/assets/icons/footer/wp-icon.svg' },
 ];
 
-const partnerLogos = [
+const ledByLogos = [
   { id: 'bid-lab', label: 'BID Lab', src: '/assets/socios%20y%20aliados/ES/BID%20LAB.svg' },
   { id: 'c-minds', label: 'C Minds', src: '/assets/socios%20y%20aliados/ES/C%20Minds.svg' },
+];
+
+const fundedByLogos = [
   { id: 'suecia', label: 'Suecia', src: '/assets/socios%20y%20aliados/ES/Suecia.svg' },
   { id: 'francia', label: 'Gobierno de Francia', src: '/assets/socios%20y%20aliados/ES/Francia.svg' },
   { id: 'climate', label: 'Climate Collective', src: '/assets/socios%20y%20aliados/ES/Climate.svg' },
-  { id: 'climate', label: 'Climate Collective', src: '/assets/socios%20y%20aliados/ES/amazonia.svg' },
-  { id: 'amazonia', label: 'Amazonia', src: '/assets/socios%20y%20aliados/ES/grupoBid.svg' },
-
+  { id: 'amazonia', label: 'Amazonia Emprende', src: '/assets/socios%20y%20aliados/ES/amazonia.svg' },
 ];
 
 export default function Footer() {
@@ -74,21 +75,27 @@ export default function Footer() {
           </svg>
           <span>{t.footer.partnersLabel}</span>
         </div>
-        <div className="footer-partners-marquee">
-          <div className="footer-partners-track">
-            {[0, 1].map((groupIndex) => (
-              <div
-                className="footer-partners-group"
-                key={groupIndex}
-                aria-hidden={groupIndex === 1 ? 'true' : undefined}
-              >
-                {partnerLogos.map((logo) => (
-                  <div className="footer-partner-logo" key={`${groupIndex}-${logo.id}`}>
-                    <img src={logo.src} alt={groupIndex === 0 ? logo.label : ''} loading="eager" />
-                  </div>
-                ))}
-              </div>
-            ))}
+        <div className="footer-partners-grid">
+          <div className="footer-partners-tier footer-partners-tier--lead">
+            <p className="footer-partners-tier-label">{t.footer.ledBy}</p>
+            <div className="footer-partners-logo-row">
+              {ledByLogos.map((logo) => (
+                <div className={`footer-partner-logo footer-partner-logo--${logo.id}`} key={logo.id}>
+                  <img src={logo.src} alt={logo.label} loading="eager" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="footer-partners-tier footer-partners-tier--funded">
+            <p className="footer-partners-tier-label">{t.footer.fundedBy}</p>
+            <div className="footer-partners-logo-row">
+              {fundedByLogos.map((logo) => (
+                <div className={`footer-partner-logo footer-partner-logo--${logo.id}`} key={logo.id}>
+                  <img src={logo.src} alt={logo.label} loading="eager" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
