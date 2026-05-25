@@ -120,7 +120,7 @@ html.stories-card-is-open .glass-nav {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   gap: 26px;
 }
 
@@ -233,7 +233,7 @@ html.stories-card-is-open .glass-nav {
 
 .hero-heading {
   font-family: var(--font-body);
-  text-align: left;
+  text-align: center;
   line-height: 0.98;
   letter-spacing: -0.025em;
 }
@@ -704,15 +704,16 @@ html.stories-card-is-open .glass-nav {
   }
   .home-page .hero-bottom-right {
     top: clamp(184px, 27svh, 226px);
-    right: 0;
-    left: 0;
+    right: 20px;
+    left: 20px;
     bottom: auto;
-    align-items: flex-start;
+    align-items: center;
     gap: 24px;
-    text-align: left;
+    text-align: center;
   }
   .home-page .hero-heading {
-    text-align: left;
+    width: 100%;
+    text-align: center;
     letter-spacing: 0;
   }
   .home-page .hero-heading-line {
@@ -721,7 +722,7 @@ html.stories-card-is-open .glass-nav {
     letter-spacing: 0;
   }
   .home-page .hero-heading-accent {
-    padding-left: 40px;
+    padding-left: 0;
   }
   .home-page .hero-heading-accent .amp {
     margin-right: 0.08em;
