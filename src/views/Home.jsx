@@ -96,9 +96,9 @@ export default function Home({ appReady = true }) {
         });
       });
 
-      gsap.to('.mission-text .word', {
+      gsap.to('.mission-line', {
         opacity: 1, y: 0, filter: 'blur(0px)', ease: 'power2.out',
-        duration: 0.8, stagger: 0.045,
+        duration: 0.72, stagger: 0.08,
         scrollTrigger: { trigger: '.mission-section', start: 'top 65%', toggleActions: 'play none none none' },
       });
       gsap.from('#mission-cta', {
@@ -588,23 +588,26 @@ export default function Home({ appReady = true }) {
       <section className="mission-section">
         <div className="mission-content">
           <p className="mission-text">
-            {t.home.missionWords.map((token, i) => {
-              const isLast = i === t.home.missionWords.length - 1;
-              if (token === 'BR') return <br key={i} />;
-              if (token === 'ICON') return (
-                <Fragment key={i}>
-                  <span className="word word-icon">{MISSION_ICON}</span>
-                  {!isLast && ' '}
-                </Fragment>
-              );
-              const [text, extra] = token;
-              return (
-                <Fragment key={i}>
-                  <span className={'word' + (extra ? ' ' + extra : '')}>{text}</span>
-                  {!isLast && ' '}
-                </Fragment>
-              );
-            })}
+            {t.home.missionLines.map((line, lineIndex) => (
+              <span className="mission-line" key={lineIndex}>
+                {line.map((token, tokenIndex) => {
+                  const isLast = tokenIndex === line.length - 1;
+                  if (token === 'ICON') return (
+                    <Fragment key={tokenIndex}>
+                      <span className="word word-icon">{MISSION_ICON}</span>
+                      {!isLast && ' '}
+                    </Fragment>
+                  );
+                  const [text, extra] = token;
+                  return (
+                    <Fragment key={tokenIndex}>
+                      <span className={'word' + (extra ? ' ' + extra : '')}>{text}</span>
+                      {!isLast && ' '}
+                    </Fragment>
+                  );
+                })}
+              </span>
+            ))}
           </p>
           <a href="/hitos" className="btn-glass-outline css-glass" id="mission-cta">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>

@@ -375,7 +375,7 @@ html.stories-card-is-open .glass-nav {
   filter: blur(40px);
 }
 .mission-content {
-  max-width: 880px;
+  max-width: 1040px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -386,21 +386,26 @@ html.stories-card-is-open .glass-nav {
 }
 .mission-text {
   font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-size: clamp(1.35rem, 2.05vw, 1.6rem);
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.36;
   color: var(--text-secondary);
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
 }
-.mission-text .word {
-  display: inline-block;
+.mission-line {
+  display: block;
+  white-space: nowrap;
+  text-wrap: balance;
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(24px);
   filter: blur(6px);
   will-change: transform, opacity, filter;
 }
+.mission-text .word {
+  display: inline-block;
+}
 .mission-text .word-bold { font-weight: 700; color: var(--text-primary); }
-.mission-text .word-icon { display: inline-flex; vertical-align: middle; color: var(--accent); }
+.mission-text .word-icon { display: inline-flex; vertical-align: -0.12em; color: var(--accent); }
 .mission-text .word-icon svg { width: 1em; height: 1em; }
 
 /* Possibilities */
@@ -638,6 +643,8 @@ html.stories-card-is-open .glass-nav {
 
 @media (max-width: 1024px) {
 .hero-section { padding: 40px 30px 60px; }
+  .mission-content { max-width: calc(100vw - 60px); }
+  .mission-text { font-size: clamp(1.15rem, 2.2vw, 1.45rem); }
   .home-page .hero-bottom-left { left: 40px; }
   .possibilities-header { flex-direction: column; gap: 28px; }
   .cards-grid { grid-template-columns: repeat(2, 1fr); }
@@ -972,6 +979,10 @@ html.stories-card-is-open .glass-nav {
   .cards-grid { grid-template-columns: 1fr; }
   .card-image-wrapper { height: 360px; }
   .mission-section { padding: 90px 22px; }
+  .mission-content { max-width: min(560px, calc(100vw - 44px)); }
+  .mission-line {
+    white-space: normal;
+  }
   .possibilities-section { padding: 70px 22px; }
   .programs-section { padding: 0; }
   .program-panel { padding: 72px 22px 120px; align-items: center; }
