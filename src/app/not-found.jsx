@@ -1,7 +1,7 @@
 import NotFound from '../views/NotFound.jsx';
 
 export const metadata = {
-  title: 'Pagina no encontrada',
+  title: 'Página no encontrada · Page Not Found',
   robots: {
     index: false,
     follow: false,

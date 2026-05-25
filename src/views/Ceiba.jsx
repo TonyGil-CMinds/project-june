@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,6 +62,7 @@ const podcastLinks = [
 
 export default function Ceiba() {
   const rootRef = useRef(null);
+  const { t } = useLanguage();
   const recapCtaRef = useRef(null);
   const videoOverlayRef = useRef(null);
   const videoPanelRef = useRef(null);
@@ -359,7 +361,7 @@ export default function Ceiba() {
         </div>
 
         <div className="ceiba-giant-text" aria-hidden="true">
-          {['C', 'O', 'N', 'E', 'C', 'T', 'A'].map((ch, i) => (
+          {t.ceiba.giantText.split('').map((ch, i) => (
             <span key={i} className="giant-letter ceiba-letter" data-speed={[0.7, 0.9, 1.1, 0.8, 1.0, 0.85, 1.15, 0.95][i]}>{ch}</span>
           ))}
         </div>
@@ -376,18 +378,16 @@ export default function Ceiba() {
           <div className="ceiba-content-inner">
             <div className="ceiba-header-label">
               <img src="/assets/CEIBA/ceiba-icon.svg" alt="" width="22" height="22" />
-              CEIBA
+              {t.ceiba.headerLabel}
             </div>
             <h1 className="ceiba-heading">
-              <span className="ceiba-heading-line">Co-crea</span>
-              <span className="ceiba-heading-line ceiba-heading-accent"><span className="amp">&amp;</span> Conecta</span>
+              <span className="ceiba-heading-line">{t.ceiba.heading1}</span>
+              <span className="ceiba-heading-line ceiba-heading-accent"><span className="amp">&amp;</span> {t.ceiba.heading2}</span>
             </h1>
             <p className="ceiba-description">
-              <span className="ceiba-mobile-line">Comunidad de líderes, comunidades,</span>{' '}
-              <span className="ceiba-mobile-line">innovadores, científicos, inversionistas y</span>{' '}
-              <span className="ceiba-mobile-line">tomadores de decisión para construir juntos</span>{' '}
-              <span className="ceiba-mobile-line">nuevas economías regenerativas para </span>{' '}
-              <span className="ceiba-mobile-line">América Latina y el Caribe.</span>
+              {t.ceiba.desc.map((line, i) => (
+                <span key={i} className="ceiba-mobile-line">{line}{i < t.ceiba.desc.length - 1 ? ' ' : ''}</span>
+              ))}
             </p>
             <a
               href="https://www.youtube.com/watch?v=gFI3zUEc1fo"
@@ -396,13 +396,13 @@ export default function Ceiba() {
               className="btn-glass hero-cta-button"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
-              Ver Recap de 2025
+              {t.ceiba.heroCta}
             </a>
           </div>
 
           <div className="ceiba-bottom-center">
             <div className="hero-scroll-indicator">
-              <span>DESLIZAR</span>
+              <span>{t.common.scroll}</span>
               <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L8 20M8 20L2 14M8 20L14 14" /></svg>
             </div>
           </div>
@@ -415,7 +415,7 @@ export default function Ceiba() {
           ref={videoOverlayRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Video recap de CEIBA 2025"
+          aria-label={t.ceiba.videoLabel}
           onClick={closeRecapVideo}
         >
           <div className="ceiba-video-panel" ref={videoPanelRef} onClick={(event) => event.stopPropagation()}>
@@ -427,7 +427,7 @@ export default function Ceiba() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
-            <button className="ceiba-video-close" type="button" onClick={closeRecapVideo} aria-label="Cerrar video">
+            <button className="ceiba-video-close" type="button" onClick={closeRecapVideo} aria-label={t.common.closeVideo}>
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               </svg>
@@ -456,19 +456,14 @@ export default function Ceiba() {
           <div className="ceiba-info-logo">
             <img src="/assets/CEIBA/Logos - Dark.svg" alt="CEIBA — Cumbre de Innovación e Inversión para la Biodiversidad" />
           </div>
-          <p className="ceiba-info-sub">
-            COMUNIDAD DE INNOVACIÓN E INVERSIÓN PARA LA BIODIVERSIDAD<br />& ECONOMÍAS FUTURAS
-          </p>
+          <p className="ceiba-info-sub">{t.ceiba.infoSub}</p>
           <div className="ceiba-info-divider" />
           <div className="ceiba-info-text">
-            <p>
-             Una convergencia multisectorial, multicultural, intergeneracional y trans-regional de líderes de América Latina y el Caribe. Su propósito es habilitar la innovación y el financiamiento para la biodiversidad, los sistemas bioculturales y el capital natural de las bioregiones de LAC.
-            </p>
-            
+            <p>{t.ceiba.infoText}</p>
           </div>
           <a href="https://www.biodiversityweek.com/galeriaceiba" target="_blank" rel="noreferrer" className="btn-glass ceiba-info-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
-            Revive CEIBA 2025
+            {t.ceiba.infoButton}
           </a>
         </div>
       </section>
@@ -499,9 +494,7 @@ export default function Ceiba() {
           <h2 className="ceiba-podcast-title">
             <img src="/assets/CEIBA/somosraices.svg" alt="Somos Raíces" />
           </h2>
-          <p className="ceiba-podcast-desc">
-            Escucha nuestro podcast oficial,<br />historias que nacen desde los<br />territorios.
-          </p>
+          <p className="ceiba-podcast-desc">{t.ceiba.podcastDesc}</p>
 
           <div className="ceiba-podcast-socials">
             {podcastLinks.map((link) => (

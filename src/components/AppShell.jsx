@@ -11,7 +11,9 @@ import { Analytics } from '@vercel/analytics/react';
 import Nav from './Nav.jsx';
 import Footer from './Footer.jsx';
 import ViewportFrame from './ViewportFrame.jsx';
+import LanguageSwitcher from './LanguageSwitcher.jsx';
 import { FrameToggleContext } from './FrameContext.jsx';
+import { LanguageProvider } from '../contexts/LanguageContext.jsx';
 
 const BOOT_LOADER_SEEN_KEY = 'naturatech-boot-loader-seen';
 
@@ -20,6 +22,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AppShell({ children }) {
   const pathname = usePathname();
   const isLinksRoute = pathname === '/links';
+  const isHitosRoute = pathname === '/hitos';
   const lenisRef = useRef(null);
   const isInitialMount = useRef(true);
   const privacyTransitionRef = useRef(null);
@@ -99,20 +102,23 @@ export default function AppShell({ children }) {
   }, [pathname]);
 
   return (
-    <FrameToggleContext.Provider value={setFrameVisible}>
-      {!isLinksRoute && <Nav />}
-      {!isLinksRoute && <ViewportFrame visible={frameVisible} />}
-      <div ref={privacyTransitionRef} className="privacy-route-transition" aria-hidden="true" />
+    <LanguageProvider>
+      <FrameToggleContext.Provider value={setFrameVisible}>
+        {!isLinksRoute && <Nav />}
+        {!isLinksRoute && !isHitosRoute && <LanguageSwitcher />}
+        {!isLinksRoute && <ViewportFrame visible={frameVisible} />}
+        <div ref={privacyTransitionRef} className="privacy-route-transition" aria-hidden="true" />
 
-      <main className="page-shell">
-        <div key={pathname} className="route-view">
-          {children}
-        </div>
-        {!isLinksRoute && <Footer />}
-      </main>
+        <main className="page-shell">
+          <div key={pathname} className="route-view">
+            {children}
+          </div>
+          {!isLinksRoute && <Footer />}
+        </main>
 
-      <SpeedInsights />
-      <Analytics />
-    </FrameToggleContext.Provider>
+        <SpeedInsights />
+        <Analytics />
+      </FrameToggleContext.Provider>
+    </LanguageProvider>
   );
 }

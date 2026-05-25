@@ -7,16 +7,26 @@ import SplitType from 'split-type';
 import MediaThemeSutro from 'player.style/sutro/react';
 import GlassFrame from '../components/GlassFrame.jsx';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
-const stories = [
-  { title: 'Lola Cabnal en',     subtitle: 'Somos Raíces',        img: '/assets/historias/historia-one.avif',    href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s',                                          cta: 'Ver Video',           play: true },
-  { title: 'Conoce más de',      subtitle: 'Natura 500',          img: '/assets/historias/historia-dos.avif',    href: '/emprendimientos',                                                                                  cta: 'Ir a Natura 500' },
-  { title: 'Accede a nuestro',   subtitle: 'Canal de Whatsapp',   img: '/assets/historias/historia-tres.avif',   href: 'https://whatsapp.com/channel/0029Vb7HsgN3mFXwkZzeW71V',                                       cta: 'Ir a Canal' },
-  { title: 'Escucha el Soundtrack', subtitle: 'de CEIBA',         img: '/assets/historias/historia-cuatro.avif', href: 'https://open.spotify.com/intl-es/album/0lg3EDWiGdTLW565zGKvuO?si=D1-PT4T9Sz-o9vn9a5Jtvw',     cta: 'Escuchar en Spotify' },
-];
+const MISSION_ICON = (
+  <svg width="53" height="46" viewBox="0 0 53 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M20.0642 38.4536C21.1676 37.3216 22.1471 36.1164 22.9652 34.8325C23.7564 33.5905 25.5541 30.7607 26.2807 26.537C26.5283 25.0435 26.5929 23.7701 26.5983 22.9055L26.6144 22.9055C26.6144 22.0775 26.5498 20.7569 26.2969 19.2477C25.5703 15.0659 23.7726 12.1994 22.9814 10.9522C22.131 9.63167 21.1837 8.42639 20.0803 7.33116C18.062 5.29791 15.9468 3.60004 13.514 2.39476C10.4838 0.922229 7.32976 0.172855 4.04658 0.0208857L1.42542 0.0208859C0.257464 0.0575681 0.101378 0.282906 0.036791 1.60347C-0.0870011 4.46994 0.478137 7.18444 1.49 9.78365C2.62566 12.6868 4.20266 15.286 6.1941 17.3979C7.17367 18.4145 9.60108 20.9037 13.3256 22.4496C13.7777 22.6644 14.1706 22.7797 14.4505 22.8845C14.1652 22.9945 13.7723 23.1413 13.3095 23.3247C9.58493 24.8706 7.15753 27.3598 6.17795 28.3764C4.1919 30.4882 2.60951 33.0874 1.47386 35.9906C0.467372 38.6055 -0.135441 41.32 0.0260265 44.1865C0.0852314 45.5437 0.246699 45.7324 1.41465 45.7691L4.03581 45.7691C7.31899 45.6171 10.473 44.8625 13.5032 43.3952C15.9629 42.1899 18.0781 40.4554 20.0696 38.4588L20.0642 38.4536Z" fill="url(#paint0_linear_4614_1031)"/>
+    <path d="M25.6295 1.59306C25.5057 4.45953 26.0709 7.17403 27.0827 9.77324C28.2184 12.6764 29.7954 15.2756 31.7868 17.3875C32.7664 18.4041 35.1938 20.8932 38.9183 22.4391C39.3705 22.654 39.7634 22.7693 40.0432 22.8741C39.758 22.9841 39.3651 23.1309 38.9022 23.3143C35.1777 24.8602 32.7503 27.3493 31.7707 28.366C29.7846 30.4778 28.2023 33.077 27.0666 35.9802C26.0547 38.5794 25.4573 41.2939 25.6134 44.1604C25.678 45.5176 25.8341 45.7063 27.002 45.743L29.6232 45.743C32.9064 45.591 36.0604 44.8364 39.0906 43.3691C41.5503 42.1638 43.6655 40.4292 45.6569 38.4327C46.7603 37.3008 47.7399 36.0955 48.558 34.8116C49.3492 33.5696 51.1468 30.7398 51.8735 26.5161C52.121 25.0226 52.1856 23.7492 52.191 22.8846L52.2072 22.8846C52.2072 22.0566 52.1426 20.736 51.8896 19.2268C51.163 15.045 49.3653 12.1785 48.5741 10.9313C47.7237 9.61078 46.7765 8.4055 45.6731 7.31027C43.6547 5.27702 41.5395 3.57915 39.1067 2.37387C36.0765 0.901336 32.9225 0.151966 29.6393 -3.59856e-06L27.0182 -3.37917e-06C25.8502 0.0366827 25.6941 0.262013 25.6295 1.58258L25.6295 1.59306Z" fill="url(#paint1_linear_4614_1031)"/>
+    <defs>
+      <linearGradient id="paint0_linear_4614_1031" x1="13.3041" y1="45.7691" x2="13.3041" y2="0.0313643" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#D3F804"/><stop offset="1" stopColor="#A2D200"/>
+      </linearGradient>
+      <linearGradient id="paint1_linear_4614_1031" x1="38.8968" y1="45.7429" x2="38.8968" y2="0.00523916" gradientUnits="userSpaceOnUse">
+        <stop stopColor="#D3F804"/><stop offset="1" stopColor="#A2D200"/>
+      </linearGradient>
+    </defs>
+  </svg>
+);
 
 export default function Home({ appReady = true }) {
   const rootRef = useRef(null);
+  const { t } = useLanguage();
   const heroCtaRef = useRef(null);
   const videoOverlayRef = useRef(null);
   const videoPanelRef = useRef(null);
@@ -292,12 +302,13 @@ export default function Home({ appReady = true }) {
       return (firstItem?.offsetHeight || 88) + gap;
     };
     let i = 0;
+    const storyCount = t.home.stories.length;
     const id = setInterval(() => {
-      i = (i + 1) % stories.length;
+      i = (i + 1) % storyCount;
       list.scrollTo({ top: i * getItemHeight(), behavior: 'smooth' });
     }, 3500);
     return () => clearInterval(id);
-  }, [storiesCollapsed, storiesMinimized]);
+  }, [storiesCollapsed, storiesMinimized, t.home.stories.length]);
 
   useEffect(() => () => {
     window.clearTimeout(storiesLayerTimeoutRef.current);
@@ -372,7 +383,7 @@ export default function Home({ appReady = true }) {
         </div>
 
         <div className="hero-giant-text" aria-hidden="true">
-          {['E','N','R','A','I','Z','A'].map((ch, idx) => (
+          {t.home.giantLetters.map((ch, idx) => (
             <span key={idx} className="giant-letter-wrap" data-speed={1.1 + (idx % 3) * 0.05} style={{ display: 'inline-block' }}>
               <span className="giant-letter">{ch}</span>
             </span>
@@ -415,13 +426,13 @@ export default function Home({ appReady = true }) {
                   type="button"
                   aria-expanded={!storiesCollapsed}
                   aria-controls="hero-stories-list"
-                  aria-label={storiesCollapsed ? 'Abrir historias destacadas' : 'Cerrar historias destacadas'}
+                  aria-label={storiesCollapsed ? t.home.storiesExpand : t.home.storiesCollapse}
                   tabIndex={storiesMinimized ? -1 : 0}
                 >
                   <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                     <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" />
-                    <span className="stories-badge-desktop">Destacado</span>
-                    <span className="stories-badge-mobile">Destacado</span>
+                    <span className="stories-badge-desktop">{t.home.storiesBadge}</span>
+                    <span className="stories-badge-mobile">{t.home.storiesBadge}</span>
                   </span>
                   <svg
                     className="stories-badge-chevron"
@@ -436,7 +447,7 @@ export default function Home({ appReady = true }) {
                   className="stories-minimize-button"
                   onClick={minimizeStories}
                   type="button"
-                  aria-label="Minimizar historias destacadas"
+                  aria-label={t.home.storiesMinimize}
                   tabIndex={storiesMinimized ? -1 : 0}
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -448,7 +459,7 @@ export default function Home({ appReady = true }) {
                   className={'stories-list' + (storiesCollapsed ? ' is-collapsed' : '')}
                   ref={storiesListRef}
                 >
-                  {stories.map((s, i) => (
+                  {t.home.stories.map((s, i) => (
                     <div className="stories-content" key={i}>
                       <div className="stories-thumb"><img src={s.img} alt={s.subtitle} /></div>
                       <div className="stories-info">
@@ -478,7 +489,7 @@ export default function Home({ appReady = true }) {
                 ref={storiesRestoreRef}
                 onClick={restoreStories}
                 type="button"
-                aria-label="Mostrar historias destacadas"
+                aria-label={t.home.storiesRestore}
                 aria-expanded={!storiesMinimized}
                 aria-controls="hero-stories-card"
                 tabIndex={storiesMinimized ? 0 : -1}
@@ -491,16 +502,16 @@ export default function Home({ appReady = true }) {
 
             <div className="hero-bottom-center">
               <div className="hero-scroll-indicator" id="hero-scroll">
-                <span>DESLIZAR</span>
+                <span>{t.common.scroll}</span>
                 <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L8 20M8 20L2 14M8 20L14 14"/></svg>
               </div>
             </div>
 
             <div className="hero-bottom-right">
               <h1 className="hero-heading">
-                <span className="hero-heading-line">Innovación para</span>
+                <span className="hero-heading-line">{t.home.heroHeading1}</span>
                 <span className="hero-heading-line hero-heading-accent">
-                la Naturaleza
+                {t.home.heroHeading2}
                 </span>
               </h1>
               <a href="#" className="btn-glass hero-cta-button" id="hero-cta" ref={heroCtaRef} onClick={openHeroVideo}>
@@ -508,7 +519,7 @@ export default function Home({ appReady = true }) {
                 <svg className="hero-cta-icon hero-cta-icon-sparkle" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d="M12 2.8 14.45 9.55 21.2 12 14.45 14.45 12 21.2 9.55 14.45 2.8 12 9.55 9.55 12 2.8Z" fill="currentColor" />
                 </svg>
-                Ver Video
+                {t.home.heroCta}
               </a>
             </div>
 
@@ -522,7 +533,7 @@ export default function Home({ appReady = true }) {
           ref={videoOverlayRef}
           role="dialog"
           aria-modal="true"
-          aria-label="Video de Enraiza"
+          aria-label={t.home.videoLabel}
           onClick={closeHeroVideo}
         >
           <div className="home-video-panel" ref={videoPanelRef} onClick={(event) => event.stopPropagation()}>
@@ -540,7 +551,7 @@ export default function Home({ appReady = true }) {
                 crossOrigin="anonymous"
               />
             </MediaThemeSutro>
-            <button className="home-video-close" type="button" onClick={closeHeroVideo} aria-label="Cerrar video">
+            <button className="home-video-close" type="button" onClick={closeHeroVideo} aria-label={t.common.closeVideo}>
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               </svg>
@@ -577,55 +588,16 @@ export default function Home({ appReady = true }) {
       <section className="mission-section">
         <div className="mission-content">
           <p className="mission-text">
-            <span className="word">Habilitamos</span>{' '}
-            <span className="word word-bold">innovación</span>{' '}
-            <span className="word word-icon" aria-hidden="true">
-              <svg width="53" height="46" viewBox="0 0 53 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M20.0642 38.4536C21.1676 37.3216 22.1471 36.1164 22.9652 34.8325C23.7564 33.5905 25.5541 30.7607 26.2807 26.537C26.5283 25.0435 26.5929 23.7701 26.5983 22.9055L26.6144 22.9055C26.6144 22.0775 26.5498 20.7569 26.2969 19.2477C25.5703 15.0659 23.7726 12.1994 22.9814 10.9522C22.131 9.63167 21.1837 8.42639 20.0803 7.33116C18.062 5.29791 15.9468 3.60004 13.514 2.39476C10.4838 0.922229 7.32976 0.172855 4.04658 0.0208857L1.42542 0.0208859C0.257464 0.0575681 0.101378 0.282906 0.036791 1.60347C-0.0870011 4.46994 0.478137 7.18444 1.49 9.78365C2.62566 12.6868 4.20266 15.286 6.1941 17.3979C7.17367 18.4145 9.60108 20.9037 13.3256 22.4496C13.7777 22.6644 14.1706 22.7797 14.4505 22.8845C14.1652 22.9945 13.7723 23.1413 13.3095 23.3247C9.58493 24.8706 7.15753 27.3598 6.17795 28.3764C4.1919 30.4882 2.60951 33.0874 1.47386 35.9906C0.467372 38.6055 -0.135441 41.32 0.0260265 44.1865C0.0852314 45.5437 0.246699 45.7324 1.41465 45.7691L4.03581 45.7691C7.31899 45.6171 10.473 44.8625 13.5032 43.3952C15.9629 42.1899 18.0781 40.4554 20.0696 38.4588L20.0642 38.4536Z" fill="url(#paint0_linear_4614_1031)"/>
-<path d="M25.6295 1.59306C25.5057 4.45953 26.0709 7.17403 27.0827 9.77324C28.2184 12.6764 29.7954 15.2756 31.7868 17.3875C32.7664 18.4041 35.1938 20.8932 38.9183 22.4391C39.3705 22.654 39.7634 22.7693 40.0432 22.8741C39.758 22.9841 39.3651 23.1309 38.9022 23.3143C35.1777 24.8602 32.7503 27.3493 31.7707 28.366C29.7846 30.4778 28.2023 33.077 27.0666 35.9802C26.0547 38.5794 25.4573 41.2939 25.6134 44.1604C25.678 45.5176 25.8341 45.7063 27.002 45.743L29.6232 45.743C32.9064 45.591 36.0604 44.8364 39.0906 43.3691C41.5503 42.1638 43.6655 40.4292 45.6569 38.4327C46.7603 37.3008 47.7399 36.0955 48.558 34.8116C49.3492 33.5696 51.1468 30.7398 51.8735 26.5161C52.121 25.0226 52.1856 23.7492 52.191 22.8846L52.2072 22.8846C52.2072 22.0566 52.1426 20.736 51.8896 19.2268C51.163 15.045 49.3653 12.1785 48.5741 10.9313C47.7237 9.61078 46.7765 8.4055 45.6731 7.31027C43.6547 5.27702 41.5395 3.57915 39.1067 2.37387C36.0765 0.901336 32.9225 0.151966 29.6393 -3.59856e-06L27.0182 -3.37917e-06C25.8502 0.0366827 25.6941 0.262013 25.6295 1.58258L25.6295 1.59306Z" fill="url(#paint1_linear_4614_1031)"/>
-<defs>
-<linearGradient id="paint0_linear_4614_1031" x1="13.3041" y1="45.7691" x2="13.3041" y2="0.0313643" gradientUnits="userSpaceOnUse">
-<stop stopColor="#D3F804"/>
-<stop offset="1" stopColor="#A2D200"/>
-</linearGradient>
-<linearGradient id="paint1_linear_4614_1031" x1="38.8968" y1="45.7429" x2="38.8968" y2="0.00523916" gradientUnits="userSpaceOnUse">
-<stop stopColor="#D3F804"/>
-<stop offset="1" stopColor="#A2D200"/>
-</linearGradient>
-</defs>
-</svg>
-
-            </span>{' '}
-            <span className="word word-bold">sistémica</span>{' '}
-            <span className="word">para</span>{' '}
-            <span className="word">la</span>{' '}
-            <span className="word">conservación</span>{' '}
-            <span className="word">y</span>{' '}
-            <span className="word">regeneración</span>
-            <br/>
-            <span className="word">de</span>{' '}
-            <span className="word">la</span>{' '}
-            <span className="word">biodiversidad,</span>{' '}
-            <span className="word">el</span>{' '}
-            <span className="word">capital</span>{' '}
-            <span className="word">natural</span>{' '}
-            <span className="word">y</span>{' '}
-            <span className="word">la</span>{' '}
-            <span className="word word-bold">prosperidad</span>{' '}
-            <span className="word word-bold">compartida</span>
-            <br/>
-            <span className="word">desde</span>{' '}
-            <span className="word">y</span>{' '}
-            <span className="word">para</span>{' '}
-            <span className="word">América</span>{' '}
-            <span className="word">Latina</span>{' '}
-            <span className="word">y</span>{' '}
-            <span className="word">el</span>{' '}
-            <span className="word">Caribe</span>
+            {t.home.missionWords.map((token, i) => {
+              if (token === 'BR') return <br key={i} />;
+              if (token === 'ICON') return <span key={i} className="word word-icon">{MISSION_ICON}</span>;
+              const [text, extra] = token;
+              return <span key={i} className={'word' + (extra ? ' ' + extra : '')}>{text}{' '}</span>;
+            })}
           </p>
           <a href="/hitos" className="btn-glass-outline css-glass" id="mission-cta">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            Ver Hitos
+            {t.home.missionCta}
           </a>
         </div>
       </section>
@@ -638,23 +610,17 @@ export default function Home({ appReady = true }) {
               <img src="/assets/images/logo.svg" alt="" width="32" height="29" />
             </div>
             <h2 className="section-title" id="possibilities-title">
-              <span className="line-mask"><span className="line-inner">Enraizamos</span></span>
-              <span className="line-mask"><span className="line-inner">Posibilidades</span></span>
+              <span className="line-mask"><span className="line-inner">{t.home.possibilitiesTitle1}</span></span>
+              <span className="line-mask"><span className="line-inner">{t.home.possibilitiesTitle2}</span></span>
             </h2>
           </div>
           <p className="possibilities-description" id="possibilities-desc">
-            La iniciativa impulsa la conservación mediante tecnología, innovación y saberes
-            bioculturales, conectando proyectos con financiamiento y colaboración para generar
-            impacto sostenible.
+            {t.home.possibilitiesDesc}
           </p>
         </div>
 
         <div className="cards-grid">
-          {[
-            { id: 'card-financiamos', title: 'Demostramos', img: '/assets/images/gallery-1.avif', desc: 'Financiamos, acompañamos y co-creamos modelos replicables de innovación biocultural que integren regeneración del capital natural, tecnologías con propósito y liderazgo económico local, impulsando empresas y soluciones lideradas desde los territorios.' },
-            { id: 'card-acompanamos', title: 'Habilitamos condiciones', img: '/assets/images/gallery-3.avif', desc: 'Co-habilitamos las condiciones necesarias para escalar economías y mercados positivos para la naturaleza mediante infraestructura digital abierta, herramientas de dMRV, fortalecimiento de capacidades, gobernanza biocultural y mecanismos de financiamiento inclusivo y combinado.' },
-            { id: 'card-conectamos',  title: 'Conectamos',  img: '/assets/images/gallery-4.avif', desc: 'Fortalecemos el ecosistema multisectorial y multicultural de innovación para la biodiversidad, articulando comunidades indígenas y afrodescendientes, academia, emprendimientos, financiadores, gobiernos y tomadores de decisión a través de plataformas colaborativas, aprendizaje entre pares y espacios de confianza.' },
-          ].map((c) => (
+          {t.home.featureCards.map((c) => (
             <div className="feature-card" id={c.id} key={c.id}>
               <div className="card-image-wrapper">
                 <img src={c.img} alt={c.title} loading="lazy" />
@@ -674,12 +640,7 @@ export default function Home({ appReady = true }) {
         <div className="programs-pin-wrap">
           <div className="programs-horizontal-line"></div>
           <div className="programs-container">
-            {[
-              { logo: '/assets/programs-logos/500.svg',   title: 'NATURA 500', bg: '/assets/images/500-line-bg.avif',   desc: 'Programa para emprendimientos verdes y azules. Acceder a una red, herramientas con IA y oportunidades de financiamiento.', link: 'IR A NATURA 500 →',url:'/emprendimientos'},
-              { logo: '/assets/programs-logos/ceiba.svg', title: 'CEIBA',      bg: '/assets/images/ceiba-line-bg.avif', desc: 'Comunidad multisectorial, multicultural, intergeneracional y transregional para la innovación y el financiamiento para la biodiversidad.', link: 'IR A CEIBA →', url:'/ceiba' },
-              { logo: '/assets/programs-logos/studio.svg',title: 'STUDIO',     bg: '/assets/images/studio-line-bg.avif',desc: 'Laboratorio de innovación eco-socio-tecnológica para demostrar lo que es posible.', link: 'IR A STUDIO →', url:'/studio' },
-              { logo: '/assets/programs-logos/ecos.svg',  title: 'ECOS',       bg: '/assets/images/ecos-line.avif',     desc: 'Plataforma de conocimiento colectivo para liderar procesos de innovación, conservación y regeneración desde y para LAC.', link: 'IR A ECOS →', url:'https://ecos.naturatech.org/' },
-            ].map((p, i) => (
+            {t.home.programs.map((p, i) => (
               <div className="program-panel" key={p.title}>
                 <img src={p.bg} alt={p.title} className="program-bg" loading="lazy" />
                 <div className="program-overlay"></div>
@@ -688,7 +649,7 @@ export default function Home({ appReady = true }) {
                   <div className="program-top-left">
                     <div className="programs-header-label">
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8E632" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                      PROGRAMAS EMBLEMÁTICOS
+                      {t.home.programsHeader}
                     </div>
                   </div>
                 )}
@@ -706,7 +667,7 @@ export default function Home({ appReady = true }) {
                 >
                   <img src={p.logo} alt={`${p.title} Logo`} className="program-logo" />
                   <span className="program-featured">
-                    <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" /> DESTACADO
+                    <img src="/assets/icons/Fire.svg" alt="" width="11" height="11" /> {t.home.programFeatured}
                   </span>
                   <h3 className="program-title">{p.title}</h3>
                   <a href={p.url}  className="btn-glass btn-glass-sm program-cta">

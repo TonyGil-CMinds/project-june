@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 const social = [
   { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/naturatechlac/', icon: '/assets/icons/footer/ig-icon.svg' },
@@ -10,14 +11,6 @@ const social = [
   { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/company/naturatechlac/posts/?feedView=all', icon: '/assets/icons/footer/ln-icon.svg' },
   { id: 'youtube', label: 'YouTube', href: 'https://www.youtube.com/@NaturaTechLAC/featured', icon: '/assets/icons/footer/yt-icon.svg' },
   { id: 'whatsapp', label: 'WhatsApp', href: 'https://api.whatsapp.com/send/?phone&text=https://www.naturatech.org/somosceiba', icon: '/assets/icons/footer/wp-icon.svg' },
-];
-
-const footerLinks = [
-  { to: '/',                label: 'INICIO' },
-  { to: '/emprendimientos', label: 'EMPRESAS' },
-  { to: '/ceiba',           label: 'CEIBA' },
-  { to: '/studio',          label: 'STUDIO' },
-  { to: '/ecos',            label: 'ECOS' },
 ];
 
 const partnerLogos = [
@@ -33,6 +26,7 @@ const partnerLogos = [
 
 export default function Footer() {
   const pathname = usePathname();
+  const { t } = useLanguage();
   const privacyTransitioningRef = useRef(false);
 
   useEffect(() => {
@@ -72,13 +66,13 @@ export default function Footer() {
 
   return (
     <footer className="footer-section">
-      <section className="footer-partners" aria-label="Socios y aliados">
+      <section className="footer-partners" aria-label={t.footer.partnersLabel}>
         <div className="footer-partners-label">
           <svg className="footer-partners-label-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <path d="M3 3h8v8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M3 11 11 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
           </svg>
-          <span>SOCIOS Y ALIADOS</span>
+          <span>{t.footer.partnersLabel}</span>
         </div>
         <div className="footer-partners-marquee">
           <div className="footer-partners-track">
@@ -104,9 +98,7 @@ export default function Footer() {
           <div className="footer-logo">
             <img src="/assets/images/logo.svg" alt="NaturaTech LAC" width="46" height="42" />
           </div>
-          <p className="footer-description">
-            En NaturaTech LAC co-creamos infraestructura, alianzas y soluciones bioculturales para acelerar la innovación para la biodiversidad en América Latina y el Caribe.
-          </p>
+          <p className="footer-description">{t.footer.description}</p>
           <div className="footer-socials">
             {social.map((s) => (
               <a key={s.id} href={s.href} aria-label={s.label} className="social-icon css-glass">
@@ -117,9 +109,9 @@ export default function Footer() {
         </div>
         <div className="footer-right">
           <nav className="footer-nav">
-            {footerLinks.map((l) => (
+            {t.footer.links.map((l) => (
               <a
-                key={l.to} 
+                key={l.to}
                 href={l.to}
                 className={`footer-link ${pathname === l.to ? 'active' : ''}`}
                 aria-current={pathname === l.to ? 'page' : undefined}
@@ -131,11 +123,11 @@ export default function Footer() {
         </div>
       </div>
       <div className="footer-legal">
-        <span className="footer-legal-copy">© {new Date().getFullYear()} NaturaTech LAC. Todos los derechos reservados.</span>
+        <span className="footer-legal-copy">{t.footer.copyright}</span>
         <div className="footer-legal-links">
-          <a className="footer-legal-link" href="/privacy-policy" onClick={handlePrivacyClick}>Aviso de Privacidad</a>
+          <a className="footer-legal-link" href="/privacy-policy" onClick={handlePrivacyClick}>{t.footer.privacy}</a>
           <span className="footer-legal-sep">·</span>
-          <a className="footer-legal-link" href="/terms-and-conditions">Términos y Condiciones</a>
+          <a className="footer-legal-link" href="/terms-and-conditions">{t.footer.terms}</a>
         </div>
       </div>
     </footer>

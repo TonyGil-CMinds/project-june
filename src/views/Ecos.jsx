@@ -4,11 +4,13 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Ecos() {
   const rootRef = useRef(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -69,14 +71,14 @@ export default function Ecos() {
         </div>
 
         <div className="ecos-giant-text" aria-hidden="true">
-          <span className="ecos-giant-word">DECIDE</span>
+          <span className="ecos-giant-word">{t.ecos.giantWord}</span>
         </div>
 
         <div className="ecos-subject-wrapper">
           <div className="ecos-subject-anchor">
             <img
               src="/assets/Ecos/subject-ecos.avif"
-              alt="Mujer lideresa mirando hacia el bosque"
+              alt={t.ecos.subjectAlt}
               className="ecos-subject"
             />
           </div>
@@ -88,28 +90,23 @@ export default function Ecos() {
           <div className="ecos-content-inner">
             <div className="ecos-header-label">
               <img src="/assets/icons/Navbar/ecos.svg" alt="" width="16" height="17" />
-              ECOS
+              {t.ecos.headerLabel}
             </div>
 
             <h1 className="ecos-heading">
-              <span className="ecos-heading-line">Valida</span>
+              <span className="ecos-heading-line">{t.ecos.heading1}</span>
               <span className="ecos-heading-line ecos-heading-accent">
-                <span className="amp">&amp;</span> Co-Dise&ntilde;a
+                <span className="amp">&amp;</span> {t.ecos.heading2}
               </span>
             </h1>
 
-            <p className="ecos-description">
-              ECOS es la plataforma de inteligencia de NaturaTech LAC para navegar las nuevas economías de biodiversidad, bioinnovación y naturaleza en América Latina y el Caribe.
-
-Conecta tendencias, investigación aplicada, herramientas de IA y conocimiento estratégico para fortalecer la toma de decisiones y el escalamiento de soluciones regenerativas.
-
-            </p>
+            <p className="ecos-description">{t.ecos.desc}</p>
 
             <a href="https://ecos.naturatech.org/" className="btn-glass hero-cta-button ecos-cta-button">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2.5L14.58 9.42L21.5 12L14.58 14.58L12 21.5L9.42 14.58L2.5 12L9.42 9.42L12 2.5Z" />
               </svg>
-              Ir a Ecos
+              {t.ecos.cta}
             </a>
           </div>
         </div>

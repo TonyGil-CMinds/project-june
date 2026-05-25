@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -143,6 +144,7 @@ function getYouTubeEmbedUrl(url) {
 }
 
 export default function Hitos() {
+  const { t } = useLanguage();
   const rootRef    = useRef(null);
   const wrapperRef = useRef(null);
   const heroLeftRef    = useRef(null);
@@ -322,9 +324,9 @@ export default function Hitos() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            Regresar
+            {t.common.back}
           </a>
-          <span className="hitos-page-label">HITOS</span>
+          <span className="hitos-page-label">{t.hitos.pageLabel}</span>
           <span ref={counterWrapRef} className="hitos-counter">
             <span ref={counterCurrentRef} className="counter-current">01</span>
             <span className="counter-sep"> / </span>
@@ -347,14 +349,12 @@ export default function Hitos() {
           <div className="hero-logo-wrap">
             <img src="/assets/images/logo.svg" alt="NaturaTech" className="hero-logo" />
           </div>
-          <p className="hero-initiative-label">
-            LOGROS DE LA INICIATIVA
-          </p>
+          <p className="hero-initiative-label">{t.hitos.initiativeLabel}</p>
           <h1 className="hero-title">
-            HITOS DE<br />IMPACTO
+            {t.hitos.title1}<br />{t.hitos.title2}
           </h1>
           <div className="hero-scroll-indicator">
-            <span className="hero-scroll-text">DESLIZA</span>
+            <span className="hero-scroll-text">{t.hitos.scrollText}</span>
             <svg className="hero-scroll-chevron" width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M8 4L8 20M8 20L2 14M8 20L14 14" />
             </svg>
@@ -362,18 +362,22 @@ export default function Hitos() {
         </div>
 
         {/* ── Hito slides ── */}
-        {HITOS.map((hito, i) => (
-          <div
-            key={hito.id}
-            ref={(el) => (slidesRef.current[i] = el)}
-            className={`hito-slide hito-slide--${hito.layout}`}
-          >
-            {hito.layout === 'hero-hito' && <HeroHitoSlide hito={hito} onOpenVideo={openVideo} />}
-            {hito.layout === 'split'     && <SplitSlide    hito={hito} onOpenVideo={openVideo} />}
-            {hito.layout === 'triple'    && <TripleSlide   hito={hito} onOpenVideo={openVideo} />}
-            {hito.layout === 'full'      && <FullSlide     hito={hito} onOpenVideo={openVideo} />}
-          </div>
-        ))}
+        {HITOS.map((hito, i) => {
+          const content = t.hitos.items[i] || {};
+          const merged = { ...hito, label: content.label || hito.label, event: content.event || hito.event, description: content.description || hito.description };
+          return (
+            <div
+              key={hito.id}
+              ref={(el) => (slidesRef.current[i] = el)}
+              className={`hito-slide hito-slide--${hito.layout}`}
+            >
+              {hito.layout === 'hero-hito' && <HeroHitoSlide hito={merged} onOpenVideo={openVideo} ctaLabel={t.hitos.ctaVideo} />}
+              {hito.layout === 'split'     && <SplitSlide    hito={merged} onOpenVideo={openVideo} ctaLabel={t.hitos.ctaVideo} />}
+              {hito.layout === 'triple'    && <TripleSlide   hito={merged} onOpenVideo={openVideo} ctaLabel={t.hitos.ctaVideo} />}
+              {hito.layout === 'full'      && <FullSlide     hito={merged} onOpenVideo={openVideo} ctaLabel={t.hitos.ctaVideo} />}
+            </div>
+          );
+        })}
 
         {/* ── Progress indicator ── */}
         <div className="hitos-progress">
@@ -395,7 +399,7 @@ export default function Hitos() {
           className="hitos-video-overlay"
           role="dialog"
           aria-modal="true"
-          aria-label="Video del hito"
+          aria-label={t.hitos.ctaVideo}
           onClick={closeVideo}
         >
           <div ref={videoPanelRef} className="hitos-video-panel" onClick={(e) => e.stopPropagation()}>
@@ -407,7 +411,7 @@ export default function Hitos() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
-            <button className="hitos-video-close" type="button" onClick={closeVideo} aria-label="Cerrar video">
+            <button className="hitos-video-close" type="button" onClick={closeVideo} aria-label={t.common.closeVideo}>
               <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               </svg>
@@ -421,8 +425,8 @@ export default function Hitos() {
 
 /* ── Slide components ── */
 
-function HitoCta({ hito, onOpenVideo }) {
-  if (!hito.cta) return null;
+function HitoCta({ hito, onOpenVideo, ctaLabel }) {
+  if (!hito.ctaUrl) return null;
   const handleClick = (e) => {
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
@@ -433,19 +437,19 @@ function HitoCta({ hito, onOpenVideo }) {
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
         <polygon points="5 3 19 12 5 21 5 3" />
       </svg>
-      {hito.cta}
+      {ctaLabel}
     </button>
   );
 }
 
-function HeroHitoSlide({ hito, onOpenVideo }) {
+function HeroHitoSlide({ hito, onOpenVideo, ctaLabel }) {
   return (
     <div className="slide-hero-hito">
       <div className="slide-hero-hito__text">
         <p className="slide-label">{hito.label} — {hito.year}</p>
         <h2 className="slide-title">{hito.event}</h2>
         <p className="slide-desc">{hito.description}</p>
-        <HitoCta hito={hito} onOpenVideo={onOpenVideo} />
+        <HitoCta hito={hito} onOpenVideo={onOpenVideo} ctaLabel={ctaLabel} />
       </div>
       <div className="slide-hero-hito__image">
         <div className="img-frame" style={{ backgroundImage: `url(${hito.images[0]})` }} />
@@ -454,7 +458,7 @@ function HeroHitoSlide({ hito, onOpenVideo }) {
   );
 }
 
-function SplitSlide({ hito, onOpenVideo }) {
+function SplitSlide({ hito, onOpenVideo, ctaLabel }) {
   return (
     <div className="slide-split">
       <div className="slide-split__images">
@@ -466,13 +470,13 @@ function SplitSlide({ hito, onOpenVideo }) {
         <p className="slide-label">{hito.label} — {hito.year}</p>
         <h2 className="slide-title">{hito.event}</h2>
         <p className="slide-desc">{hito.description}</p>
-        <HitoCta hito={hito} onOpenVideo={onOpenVideo} />
+        <HitoCta hito={hito} onOpenVideo={onOpenVideo} ctaLabel={ctaLabel} />
       </div>
     </div>
   );
 }
 
-function TripleSlide({ hito, onOpenVideo }) {
+function TripleSlide({ hito, onOpenVideo, ctaLabel }) {
   return (
     <div className="slide-triple">
       <div className="slide-triple__text">
@@ -486,13 +490,13 @@ function TripleSlide({ hito, onOpenVideo }) {
       </div>
       <div className="slide-triple__footer">
         <p className="slide-desc slide-desc--wide">{hito.description}</p>
-        <HitoCta hito={hito} onOpenVideo={onOpenVideo} />
+        <HitoCta hito={hito} onOpenVideo={onOpenVideo} ctaLabel={ctaLabel} />
       </div>
     </div>
   );
 }
 
-function FullSlide({ hito, onOpenVideo }) {
+function FullSlide({ hito, onOpenVideo, ctaLabel }) {
   return (
     <div className="slide-full">
       <div className="slide-full__image">
@@ -502,7 +506,7 @@ function FullSlide({ hito, onOpenVideo }) {
         <p className="slide-label">{hito.label} — {hito.year}</p>
         <h2 className="slide-title">{hito.event}</h2>
         <p className="slide-desc">{hito.description}</p>
-        <HitoCta hito={hito} onOpenVideo={onOpenVideo} />
+        <HitoCta hito={hito} onOpenVideo={onOpenVideo} ctaLabel={ctaLabel} />
       </div>
     </div>
   );

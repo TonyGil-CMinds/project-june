@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 const digitReels = [
   ['1', '2', '3', '4'],
@@ -19,6 +20,8 @@ const getDigitStep = (track) => {
 
 export default function NotFound() {
   const rootRef = useRef(null);
+  const { t } = useLanguage();
+  const nf = t.notFound;
 
   useLayoutEffect(() => {
     if (!rootRef.current) return undefined;
@@ -135,10 +138,10 @@ export default function NotFound() {
         <div className="not-found-content">
           <h1 className="not-found-title" id="not-found-title">
             <span className="not-found-line-mask">
-              <span className="not-found-copy-line">La página que buscas</span>
+              <span className="not-found-copy-line">{nf.line1}</span>
             </span>
             <span className="not-found-line-mask">
-              <span className="not-found-copy-line">no está disponible</span>
+              <span className="not-found-copy-line">{nf.line2}</span>
             </span>
           </h1>
 
@@ -146,7 +149,7 @@ export default function NotFound() {
             <svg className="not-found-link-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 2.8 14.45 9.55 21.2 12 14.45 14.45 12 21.2 9.55 14.45 2.8 12 9.55 9.55 12 2.8Z" fill="currentColor" />
             </svg>
-            Ir al inicio
+            {nf.cta}
           </a>
         </div>
       </div>

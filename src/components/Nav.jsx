@@ -3,26 +3,19 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { gsap } from 'gsap';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
-const links = [
-  {
-    to: '/',
-    label: 'Inicio',
-    icon: '/assets/icons/Navbar/inicio.svg',
-  },
-  {
-    to: '/emprendimientos',
-    label: 'Empresas',
-    desktopLabel: 'Empresas',
-    icon: '/assets/icons/Navbar/startups.svg',
-  },
-  { to: '/ceiba', label: 'CEIBA', icon: '/assets/icons/Navbar/ceiba.svg' },
-  { to: '/studio', label: 'Studio', icon: '/assets/icons/Navbar/studio.svg' },
-  { to: '/ecos', label: 'Ecos', icon: '/assets/icons/Navbar/ecos.svg' },
+const NAV_ROUTES = [
+  { to: '/',                key: 'inicio',  icon: '/assets/icons/Navbar/inicio.svg' },
+  { to: '/emprendimientos', key: 'empresas', icon: '/assets/icons/Navbar/startups.svg' },
+  { to: '/ceiba',           key: 'ceiba',   icon: '/assets/icons/Navbar/ceiba.svg' },
+  { to: '/studio',          key: 'studio',  icon: '/assets/icons/Navbar/studio.svg' },
+  { to: '/ecos',            key: 'ecos',    icon: '/assets/icons/Navbar/ecos.svg' },
 ];
 
 export default function Nav() {
   const pathname = usePathname();
+  const { t, lang } = useLanguage();
   const [hideMobilePill, setHideMobilePill] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   const pillRef = useRef(null);
@@ -31,8 +24,10 @@ export default function Nav() {
   const activeIconMetricsRef = useRef(null);
   const lastScrollYRef = useRef(0);
   const scrollIdleRef = useRef(null);
-  const activeLink = links.find((link) => link.to === pathname) || links[0];
   const navigationTimerRef = useRef(null);
+
+  const links = NAV_ROUTES.map((r) => ({ ...r, label: t.nav[r.key], desktopLabel: t.nav[r.key] }));
+  const activeLink = links.find((link) => link.to === pathname) || links[0];
 
   const getIconDestination = (to) => {
     const pill = pillRef.current;
@@ -304,7 +299,7 @@ export default function Nav() {
       window.clearTimeout(resizeId);
       window.removeEventListener('resize', handleResize);
     };
-  }, [pathname]);
+  }, [pathname, lang]);
 
   return (
     <nav

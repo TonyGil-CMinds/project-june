@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import GlassFrame from '../components/GlassFrame.jsx';
 import { useFrameToggle } from '../components/FrameContext.jsx';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 const REGENERA_VIDEO_SRC = process.env.NEXT_PUBLIC_REGENERA_VIDEO_URL?.trim() || 'https://pub-c9d9bba411f444e5a7d61a43c6e28f11.r2.dev/emprendimiento/video/regenera.mp4';
 
@@ -15,6 +16,7 @@ export default function Emprendimientos({ onFrameToggle }) {
   const [muted, setMuted] = useState(true);
   const contextFrameToggle = useFrameToggle();
   const setFrameVisible = onFrameToggle || contextFrameToggle;
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -156,8 +158,8 @@ export default function Emprendimientos({ onFrameToggle }) {
         </div>
 
         <div className="regen-giant-text" aria-hidden="true">
-          {['R','E','G','E','N','E','R','A'].map((ch, i) => (
-            <span key={i} className="giant-letter regen-letter" data-speed={[0.7,0.9,1.1,0.8,1.0,0.85,1.15,0.95][i]}>{ch}</span>
+          {t.emprendimientos.regenGiantLetters.map((ch, i) => (
+            <span key={i} className="giant-letter regen-letter" data-speed={[0.7,0.9,1.1,0.8,1.0,0.85,1.15,0.95,0.88,1.05][i] || 1}>{ch}</span>
           ))}
         </div>
 
@@ -173,26 +175,26 @@ export default function Emprendimientos({ onFrameToggle }) {
           <div className="regen-content-inner">
             <div className="regen-header-label">
               <img src="/assets/shapes/double-d.svg" alt="" width="18" height="18" />
-              NATURA500
+              {t.emprendimientos.headerLabel}
             </div>
             <h1 className="regen-heading">
-              <span className="regen-heading-line">Emprende</span>
-              <span className="regen-heading-line regen-heading-accent"><span className="amp">&amp;</span> Regenera</span>
+              <span className="regen-heading-line">{t.emprendimientos.heading1}</span>
+              <span className="regen-heading-line regen-heading-accent"><span className="amp">&amp;</span> {t.emprendimientos.heading2}</span>
             </h1>
             <p className="regen-description">
-              <span className="regen-mobile-line">Conecta con financiamiento, inteligencia</span>{' '}
-              <span className="regen-mobile-line">de mercado y una red global</span>{' '}
-              <span className="regen-mobile-line">de innovación para la biodiversidad.</span>
+              {t.emprendimientos.desc.map((line, i) => (
+                <span key={i} className="regen-mobile-line">{line}{i < t.emprendimientos.desc.length - 1 ? ' ' : ''}</span>
+              ))}
             </p>
             <a href="#" target="_self" rel="noreferrer" className="btn-glass hero-cta-button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
-              Próximamente
+              {t.emprendimientos.heroCta}
             </a>
           </div>
 
           <div className="regen-bottom-center">
             <div className="hero-scroll-indicator">
-              <span>DESLIZAR</span>
+              <span>{t.common.scroll}</span>
               <svg width="15" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L8 20M8 20L2 14M8 20L14 14"/></svg>
             </div>
           </div>
@@ -236,7 +238,7 @@ export default function Emprendimientos({ onFrameToggle }) {
                 ) : (
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
                 )}
-                <span>{muted ? 'Activar sonido' : 'Silenciar'}</span>
+                <span>{muted ? t.emprendimientos.soundOn : t.emprendimientos.soundOff}</span>
               </div>
             </GlassFrame>
           </button>
@@ -252,13 +254,11 @@ export default function Emprendimientos({ onFrameToggle }) {
             <img src="/assets/regenera/fan_2.avif" alt="Emprendedor 2" className="fan-img fan-center" loading="lazy" />
           </div>
           <div className="regen-100k-info">
-            <h3 className="regen-100k-heading">Hasta <span className="regen-100k-number">100K USD</span> en financiamiento catalítico</h3>
-            <p className="regen-100k-text">
-              Natura 500: Regenera es un premio por registrarte en la red de Natura 500 y estará disponible hasta el 15 de Julio. Accede a esta y más oportunidades.
-            </p>
+            <h3 className="regen-100k-heading">{t.emprendimientos.financingHeadingPre} <span className="regen-100k-number">{t.emprendimientos.financingHeading}</span> {t.emprendimientos.financingHeadingPost}</h3>
+            <p className="regen-100k-text">{t.emprendimientos.financingDesc}</p>
             <a href="#" target="_self" rel="noreferrer" className="btn-sparkle">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="#C8E632"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
-              Próximamente
+              {t.emprendimientos.financingCta}
             </a>
           </div>
         </div>
@@ -271,20 +271,9 @@ export default function Emprendimientos({ onFrameToggle }) {
             <img src="/assets/shapes/double-d.svg" alt="" width="40" height="40" />
           </div>
           <blockquote className="regen-blockquote">
-            {[
-              'Natura500','busca','hacer','visible,',
-              ['conectada','word-bold'],
-              'y',
-              ['financiable','word-bold'],
-              'la','innovación','verde','y','azul','de','América','Latina','y','el','Caribe',
-              'mediante','infraestructura','digital,','inteligencia','de','mercado','y',
-              ['redes','word-bold'],
-              ['de','word-bold'],
-              ['confianza.','word-bold'],
-            ].map((entry, i) => {
-              const [text, extra] = Array.isArray(entry) ? entry : [entry, ''];
-              return <span key={i} className={'word ' + (extra || '')}>{text} </span>;
-            })}
+            {t.emprendimientos.quoteWords.map(([text, extra], i) => (
+              <span key={i} className={'word ' + (extra || '')}>{text} </span>
+            ))}
           </blockquote>
         </div>
       </section>
@@ -295,22 +284,20 @@ export default function Emprendimientos({ onFrameToggle }) {
           <div className="regen-conditions-left">
             <div className="regen-conditions-label">
               <img src="/assets/shapes/Flower.svg" alt="" width="16" height="16" />
-              CÓMO LO HACEMOS
+              {t.emprendimientos.conditionsLabel}
             </div>
             <h2 className="regen-conditions-title">
-              Tres condiciones<br/>para escalar la<br/>regeneración
+              {t.emprendimientos.conditionsTitle.map((line, i) => (
+                <span key={i}>{line}{i < t.emprendimientos.conditionsTitle.length - 1 ? <br/> : ''}</span>
+              ))}
             </h2>
             <a href="#" target="_self" rel="noreferrer" className="btn-glass">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              Próximamente
+              {t.emprendimientos.conditionsCta}
             </a>
           </div>
           <div className="regen-conditions-right">
-            {[
-              { title: 'CONSTRUCTOR DE PORTAFOLIO', desc: 'Transformamos diversidad en comparabilidad. Cacao en Ecuador, manglares en Honduras, bioingredientes en Perú — cada proyecto único, ahora evaluable bajo criterios compartidos.', highlight: 'Para inversionistas', highlightTail: ' que necesitan originar operaciones sin reinventar la debida diligencia' },
-              { title: 'RIELES OPERATIVOS', desc: 'Diseñamos los estándares mínimos que hacen posible la confianza: gobernanza verificable, métricas comparables, trazabilidad desde el día uno.', highlight: 'Para emprendimientos', highlightTail: ' que hoy negocian con diez actores, cada uno pidiendo formatos incompatibles.' },
-              { title: 'CAPA DE ARTICULACIÓN', desc: 'Conectamos mundos que históricamente no se entienden: el tiempo del capital y el tiempo del bosque, la lógica del retorno y la lógica del territorio.', highlight: 'Para todo el ecosistema', highlightTail: ', porque el cuello de botella está en la fricción entre todos.' },
-            ].map((c, i) => (
+            {t.emprendimientos.conditions.map((c, i) => (
               <div className="regen-condition-row" key={i}>
                 <div className="condition-line"></div>
                 <h4 className="condition-title">{c.title}</h4>

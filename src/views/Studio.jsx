@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
+import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -209,14 +210,13 @@ function StudioPortfolioCard({ image, onSelect }) {
 
 /* ── StudioPortfolioText ── */
 function StudioPortfolioText() {
+  const { t } = useLanguage();
   return (
     <div className="studio-portfolio-copy">
-      <div className="studio-portfolio-stats" aria-label="Impacto del portafolio">
-        <p>Soluciones presentes en 6 países</p>
-        <p>18 proyectos incubados</p>
-        <p>15 diferentes tecnologías de frontera</p>
+      <div className="studio-portfolio-stats">
+        {t.studio.stats.map((s, i) => <p key={i}>{s}</p>)}
       </div>
-      <h2>Portafolio de Soluciones</h2>
+      <h2>{t.studio.portfolioHeading}</h2>
     </div>
   );
 }
@@ -227,6 +227,7 @@ function StudioPortfolioText() {
 function DetailLeaderAvatar({ leader }) {
   const profileRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   const showProfile = () => {
     if (!profileRef.current) return;
@@ -260,7 +261,7 @@ function DetailLeaderAvatar({ leader }) {
     <button
       type="button"
       className="detail-avatar"
-      aria-label={`${leader.name}, ${leader.role || 'Líder del Proyecto'}`}
+      aria-label={`${leader.name}, ${leader.role || t.common.projectLeaderDefault}`}
       aria-expanded={isOpen}
       onMouseEnter={showProfile}
       onMouseLeave={hideProfile}
@@ -272,7 +273,7 @@ function DetailLeaderAvatar({ leader }) {
         <LeaderAvatarImage leader={leader} size="profile" />
         <span className="detail-leader-copy">
           <strong>{leader.name}</strong>
-          <em>{leader.role || 'Líder del Proyecto'}</em>
+          <em>{leader.role || t.common.projectLeaderDefault}</em>
         </span>
       </span>
       <LeaderAvatarImage leader={leader} size="thumb" />
@@ -309,6 +310,7 @@ function LeaderAvatarImage({ leader, size }) {
 }
 
 function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
+  const { t } = useLanguage();
   const containerRef     = useRef(null);
   const flyingRef        = useRef(null);
   const rightPanelRef    = useRef(null);
@@ -322,7 +324,13 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
   const [flyingDone, setFlyingDone]     = useState(!clickOrigin);
   const [displayIndex, setDisplayIndex] = useState(initialIndex);
 
-  const project = PROJECTS[displayIndex];
+  const projectData = PROJECTS[displayIndex];
+  const leaderRoles = t.studio.projectLeaderRoles?.[projectData.id] || [];
+  const project = {
+    ...projectData,
+    description: t.studio.projectDescriptions[projectData.id] || projectData.description,
+    leaders: projectData.leaders.map((l, i) => ({ ...l, role: leaderRoles[i] || l.role })),
+  };
 
   /* ── Mount: fly image from card to right panel ── */
   useEffect(() => {
@@ -490,7 +498,7 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Regresar al portafolio
+          {t.common.backPortfolio}
         </button>
 
         <img src="/assets/images/logo.svg" alt="NaturaTech Studio" className="detail-logo detail-chrome-el" />
@@ -527,7 +535,7 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
 
           {project.url !== '#' && (
             <a href={project.url} className="detail-cta" target="_blank" rel="noopener noreferrer">
-              Visitar sitio web
+              {t.common.visitSite}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
@@ -537,11 +545,11 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
 
           <div className="detail-meta">
             <div className="detail-meta-col">
-              <span className="detail-meta-label">Región</span>
+              <span className="detail-meta-label">{t.common.projectRegion}</span>
               <p className="detail-region">{project.region}</p>
             </div>
             <div className="detail-meta-col detail-meta-col-leaders">
-              <span className="detail-meta-label">Líderes del Proyecto</span>
+              <span className="detail-meta-label">{t.common.projectLeaders}</span>
               <div className="detail-leaders">
                 {project.leaders.map((leader) => (
                   <DetailLeaderAvatar key={leader.name} leader={leader} />
@@ -582,6 +590,7 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
    STUDIO MAIN COMPONENT
    ══════════════════════════════════════════ */
 export default function Studio() {
+  const { t } = useLanguage();
   const rootRef = useRef(null);
   const [portfolioOpen,   setPortfolioOpen]   = useState(false);
   const [detailIndex,     setDetailIndex]     = useState(null);
@@ -795,11 +804,11 @@ export default function Studio() {
       <div ref={rootRef} className="studio-portfolio-mode">
         <div className="studio-portfolio-scroll">
           <section className="studio-portfolio-section" id="portfolio" aria-label="Portafolio de soluciones">
-            <button className="studio-portfolio-back" type="button" onClick={closePortfolio} aria-label="Regresar a Studio">
+            <button className="studio-portfolio-back" type="button" onClick={closePortfolio} aria-label={t.studio.portfolioBack}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Regresar
+              {t.studio.portfolioBack}
             </button>
 
             <div className="studio-portfolio-left">
@@ -862,26 +871,24 @@ export default function Studio() {
           <div className="studio-content-inner">
             <div className="studio-header-label">
               <img src="/assets/Studio/studio-icon.svg" alt="" width="22" height="22" />
-              STUDIO
+              {t.studio.headerLabel}
             </div>
             <h1 className="studio-heading">
-              <span className="studio-heading-line">Demuestra</span>
-              <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> Co-crea</span>
+              <span className="studio-heading-line">{t.studio.heading1}</span>
+              <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> {t.studio.heading2}</span>
             </h1>
-            <p className="studio-description">
-             El Studio de NaturaTech LAC conecta innovación, infraestructura digital y colaboración territorial para demostrar nuevas formas de regenerar biodiversidad y economías locales.
-            </p>
+            <p className="studio-description">{t.studio.heroDesc}</p>
             <a href="#portfolio" className="btn-glass hero-cta-button" onClick={openPortfolio}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2.5L14.58 9.42L21.5 12L14.58 14.58L12 21.5L9.42 14.58L2.5 12L9.42 9.42L12 2.5Z" />
               </svg>
-              Ver Portafolio
+              {t.studio.heroCta}
             </a>
           </div>
 
           <div className="studio-bottom-center">
             <div className="hero-scroll-indicator">
-              <span>DESLIZAR</span>
+              <span>{t.common.scroll}</span>
               <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 4L8 20M8 20L2 14M8 20L14 14" />
               </svg>
@@ -896,12 +903,9 @@ export default function Studio() {
             <img src="/assets/Studio/studio-gallery-1.avif" alt="Studio Work" />
           </div>
           <div className="studio-main-text">
-            <h3>
-              Un portafolio vivo de innovación 
-              para la Biodiversidad
-            </h3>
-            <p>Financiamos, co-desarrollamos y validamos soluciones regenerativas junto a organizaciones territoriales, emprendedores y aliados estratégicos para acelerar nuevas formas de conservar, regenerar y generar valor desde la biodiversidad.</p>
-            <p className="studio-main-stat">1.6M de invertidos en la naturaleza</p>
+            <h3>{t.studio.contentHeading}</h3>
+            <p>{t.studio.contentDesc}</p>
+            <p className="studio-main-stat">{t.studio.contentStat}</p>
           </div>
         </div>
       </section>
@@ -910,7 +914,7 @@ export default function Studio() {
         <div className="studio-info-inner">
           <div className="studio-info-kicker">
             <span aria-hidden="true">+</span>
-            <p>Nuestra metodolog&iacute;a<br />tiene doble impacto</p>
+            <p>{t.studio.infoKicker}</p>
           </div>
 
           <svg className="studio-info-path" viewBox="0 0 480 690" fill="none" aria-hidden="true" preserveAspectRatio="none">
@@ -918,13 +922,13 @@ export default function Studio() {
           </svg>
 
           <div className="studio-info-card studio-info-card-systemic">
-            <h4>Escalamiento<br />Sistémico</h4>
-            <p>El Studio transforma experiencias territoriales en demostradores replicables, infraestructura compartida y aprendizajes aplicados que fortalecen el ecosistema regional de innovación para la naturaleza.</p>
+            <h4>{t.studio.infoCards[0].title}</h4>
+            <p>{t.studio.infoCards[0].desc}</p>
           </div>
 
           <div className="studio-info-card studio-info-card-local">
-            <h4>Impacto Territorial</h4>
-            <p>Las soluciones impulsadas desde el Studio contribuyen a la conservación de ecosistemas, el fortalecimiento de economías locales y el desarrollo de capacidades en comunidades y organizaciones de América Latina y el Caribe.</p>
+            <h4>{t.studio.infoCards[1].title}</h4>
+            <p>{t.studio.infoCards[1].desc}</p>
           </div>
         </div>
 
@@ -937,20 +941,14 @@ export default function Studio() {
             </div>
           </div>
           <div className="studio-levels-copy">
-            <h3>Capacidades para escalar soluciones regenerativas</h3>
+            <h3>{t.studio.levelsHeading}</h3>
             <div className="studio-levels-grid">
-              <div className="level-item">
-                <img src="/assets/Studio/studio-levels-icon-1.svg" alt="" width="34" height="34" loading="lazy" />
-                <p>Preparación para financiamiento</p>
-              </div>
-              <div className="level-item">
-                <img src="/assets/Studio/studio-levels-icon-2.svg" alt="" width="34" height="34" loading="lazy" />
-                <p>Infraestructura de confianza</p>
-              </div>
-              <div className="level-item">
-                <img src="/assets/Studio/studio-levels-icon-3.svg" alt="" width="34" height="34" loading="lazy" />
-                <p>Conexión y escalamiento</p>
-              </div>
+              {t.studio.levels.map((label, i) => (
+                <div className="level-item" key={i}>
+                  <img src={`/assets/Studio/studio-levels-icon-${i + 1}.svg`} alt="" width="34" height="34" loading="lazy" />
+                  <p>{label}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
