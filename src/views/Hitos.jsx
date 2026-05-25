@@ -80,7 +80,7 @@ const HITOS = [
     description:
       'Por primera vez, los guardianes del corredor del jaguar se reunieron en un mismo espacio y construyeron una hoja de ruta compartida. Celebrado en la Península de Yucatán, el encuentro convocó a miembros de la alianza de todo el corredor transfronterizo para alinear protocolos de monitoreo, impulsar la adopción de IA y codiseñar el modelo de gobernanza biocultural para todo el rango de distribución del jaguar.',
     images: [
-      historiaImage('1er Encuentro Minga', 'IMG_8018.avif'),
+      historiaImage('Presentación Minga', 'presentacion.avif'),
     ],
     layout: 'hero-hito',
     cta: 'Ver video',
