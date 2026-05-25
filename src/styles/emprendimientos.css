@@ -81,7 +81,7 @@
   pointer-events: none;
 }
 .regen-content { position: relative; z-index: 4; width: 100%; }
-.regen-content-inner { max-width: 420px; }
+.regen-content-inner { max-width: 520px; }
 .regen-header-label {
   display: inline-flex;
   align-items: center;
