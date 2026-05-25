@@ -120,7 +120,7 @@ html.stories-card-is-open .glass-nav {
   bottom: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 26px;
 }
 
@@ -233,7 +233,7 @@ html.stories-card-is-open .glass-nav {
 
 .hero-heading {
   font-family: var(--font-body);
-  text-align: center;
+  text-align: right;
   line-height: 0.98;
   letter-spacing: -0.025em;
 }
