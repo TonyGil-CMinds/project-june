@@ -772,6 +772,12 @@ a.footer-legal-link:hover {
   top: 40px;
   right: 24px;
   z-index: 101;
+  transform: translateY(0px);
+  opacity: 1;
+  pointer-events: auto;
+  transition:
+    transform 0.52s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity   0.38s ease;
 }
 
 .lang-btn {
@@ -847,7 +853,17 @@ a.footer-legal-link:hover {
   .lang-switcher { top: 18px; right: 16px; }
 }
 
-.studio-portfolio-open .lang-switcher { display: none; }
+.studio-portfolio-open .lang-switcher,
+.hitos-video-is-open .lang-switcher,
+.home-video-is-open .lang-switcher,
+.ceiba-video-is-open .lang-switcher {
+  transform: translateY(-22px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.26s cubic-bezier(0.4, 0, 1, 1),
+    opacity   0.2s  ease-in;
+}
 
 /* Critical route-subject layout.
    Page CSS is lazy-loaded per route, so these centering rules must be global
