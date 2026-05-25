@@ -66,7 +66,7 @@ const HITOS = [
     description:
       'La primera alianza biocultural de la región guiada por el espíritu del jaguar y el liderazgo de los pueblos indígenas. La Alianza Minga Jaguar nació en 6 países —México, Costa Rica, Ecuador, Perú, Colombia y Brasil—, tejiendo una red compartida de gobernanza y monitoreo para proteger los biocorredores del jaguar.',
     images: [
-      historiaImage('1er Encuentro Minga', 'Panel Jaguar_Flii_1.avif'),
+      historiaImage('Presentación Minga', 'presentacion.avif'),
     ],
     layout: 'full',
     cta: 'Ver video',
@@ -80,7 +80,7 @@ const HITOS = [
     description:
       'Por primera vez, los guardianes del corredor del jaguar se reunieron en un mismo espacio y construyeron una hoja de ruta compartida. Celebrado en la Península de Yucatán, el encuentro convocó a miembros de la alianza de todo el corredor transfronterizo para alinear protocolos de monitoreo, impulsar la adopción de IA y codiseñar el modelo de gobernanza biocultural para todo el rango de distribución del jaguar.',
     images: [
-      historiaImage('Presentación Minga', 'presentacion.avif'),
+      historiaImage('1er Encuentro Minga', 'IMG_8018.avif'),
     ],
     layout: 'hero-hito',
     cta: 'Ver video',
