@@ -1,7 +1,7 @@
 import Emprendimientos from '../../views/Emprendimientos.jsx';
 
 export const metadata = {
-  title: 'Natura500 | NaturaTech LAC',
+  title: 'Natura500',
   description: 'Conecta con financiamiento, inteligencia de mercado y una red global de innovación para la biodiversidad.',
   openGraph: {
     title: 'Natura500 | NaturaTech LAC',

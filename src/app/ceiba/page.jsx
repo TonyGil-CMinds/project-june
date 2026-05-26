@@ -1,7 +1,7 @@
 import Ceiba from '../../views/Ceiba.jsx';
 
 export const metadata = {
-  title: 'CEIBA | NaturaTech LAC',
+  title: 'CEIBA',
   description: 'Comunidad de líderes, comunidades, innovadores, científicos, inversionistas y tomadores de decisión para construir juntos nuevas economías regenerativas para América Latina y el Caribe.',
   openGraph: {
     title: 'CEIBA | NaturaTech LAC',
