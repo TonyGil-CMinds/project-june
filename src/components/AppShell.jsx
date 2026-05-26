@@ -23,6 +23,7 @@ export default function AppShell({ children }) {
   const pathname = usePathname();
   const isLinksRoute = pathname === '/links';
   const isHitosRoute = pathname === '/hitos';
+  const isGalleryRoute = pathname === '/galeriaceiba';
   const lenisRef = useRef(null);
   const isInitialMount = useRef(true);
   const privacyTransitionRef = useRef(null);
@@ -104,16 +105,16 @@ export default function AppShell({ children }) {
   return (
     <LanguageProvider>
       <FrameToggleContext.Provider value={setFrameVisible}>
-        {!isLinksRoute && <Nav />}
-        {!isLinksRoute && !isHitosRoute && <LanguageSwitcher />}
-        {!isLinksRoute && <ViewportFrame visible={frameVisible} />}
+        {!isLinksRoute && !isGalleryRoute && <Nav />}
+        {!isLinksRoute && !isHitosRoute && !isGalleryRoute && <LanguageSwitcher />}
+        {!isLinksRoute && !isGalleryRoute && <ViewportFrame visible={frameVisible} />}
         <div ref={privacyTransitionRef} className="privacy-route-transition" aria-hidden="true" />
 
         <main className="page-shell">
           <div key={pathname} className="route-view">
             {children}
           </div>
-          {!isLinksRoute && <Footer />}
+          {!isLinksRoute && !isGalleryRoute && <Footer />}
         </main>
 
         <SpeedInsights />

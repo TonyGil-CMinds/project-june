@@ -461,7 +461,7 @@ export default function Ceiba() {
           <div className="ceiba-info-text">
             <p>{t.ceiba.infoText}</p>
           </div>
-          <a href="https://www.biodiversityweek.com/galeriaceiba" target="_blank" rel="noreferrer" className="btn-glass ceiba-info-btn">
+          <a href="/galeriaceiba" target="_blank" rel="noreferrer" className="btn-glass ceiba-info-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
             {t.ceiba.infoButton}
           </a>
