@@ -54,6 +54,12 @@ export const metadata = {
         height: 630,
         alt: 'NaturaTech LAC — Innovación para la Biodiversidad en América Latina y el Caribe',
       },
+      {
+        url: '/og-image-square.jpg',
+        width: 1200,
+        height: 1200,
+        alt: 'NaturaTech LAC — Innovación para la Biodiversidad en América Latina y el Caribe',
+      },
     ],
   },
 
