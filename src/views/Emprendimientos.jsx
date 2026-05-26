@@ -186,7 +186,7 @@ export default function Emprendimientos({ onFrameToggle }) {
                 <span key={i} className="regen-mobile-line">{line}{i < t.emprendimientos.desc.length - 1 ? ' ' : ''}</span>
               ))}
             </p>
-            <a href="https://500.naturatech.org" target="_self" rel="noreferrer" className="btn-glass hero-cta-button">
+            <a href="#" target="_self" rel="noreferrer" className="btn-glass hero-cta-button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
               {t.emprendimientos.heroCta}
             </a>
@@ -202,7 +202,7 @@ export default function Emprendimientos({ onFrameToggle }) {
       </section>
 
       {/* IMMERSIVE VIDEO — hidden */}
-      <section className="regen-video-section" >
+      <section className="regen-video-section" style={{ display: 'none' }}>
         <div className="regen-video-sticky">
           <video
             ref={videoRef}
@@ -256,7 +256,7 @@ export default function Emprendimientos({ onFrameToggle }) {
           <div className="regen-100k-info">
             <h3 className="regen-100k-heading">{t.emprendimientos.financingHeadingPre} <span className="regen-100k-number">{t.emprendimientos.financingHeading}</span> {t.emprendimientos.financingHeadingPost}</h3>
             <p className="regen-100k-text">{t.emprendimientos.financingDesc}</p>
-            <a href="https://500.naturatech.org" target="_self" rel="noreferrer" className="btn-sparkle">
+            <a href="#" target="_self" rel="noreferrer" className="btn-sparkle">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="#C8E632"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
               {t.emprendimientos.financingCta}
             </a>
