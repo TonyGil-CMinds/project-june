@@ -21,8 +21,8 @@ const ledByLogos = [
 const fundedByLogos = [
   { id: 'suecia', label: 'Suecia', src: '/assets/socios%20y%20aliados/ES/Suecia.svg' },
   { id: 'francia', label: 'Gobierno de Francia', src: '/assets/socios%20y%20aliados/ES/Francia.svg' },
-  { id: 'climate', label: 'Climate Collective', src: '/assets/socios%20y%20aliados/ES/Climate.svg' },
   { id: 'amazonia', label: 'Amazonia Emprende', src: '/assets/socios%20y%20aliados/ES/amazonia.svg' },
+  { id: 'climate', label: 'Climate Collective', src: '/assets/socios%20y%20aliados/ES/Climate.svg' },
 ];
 
 export default function Footer() {

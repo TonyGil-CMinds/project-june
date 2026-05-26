@@ -558,14 +558,14 @@ html.lenis, html.lenis body { height: auto; }
 }
 .footer-partners-grid {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 54px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: clamp(72px, 9vw, 126px);
 }
 .footer-partners-tier {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 .footer-partners-tier-label {
   margin: 0 0 26px;
@@ -580,7 +580,7 @@ html.lenis, html.lenis body { height: auto; }
 .footer-partners-logo-row {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: clamp(24px, 4vw, 46px);
   flex-wrap: wrap;
 }
@@ -593,8 +593,8 @@ html.lenis, html.lenis body { height: auto; }
 }
 .footer-partner-logo img {
   width: auto;
-  max-width: 210px;
-  max-height: 48px;
+  max-width: 188px;
+  max-height: 42px;
   object-fit: contain;
   opacity: 0.96;
 }
@@ -602,27 +602,35 @@ html.lenis, html.lenis body { height: auto; }
   gap: 0;
 }
 .footer-partners-tier--funded .footer-partners-tier-label {
-  margin-bottom: 22px;
+  margin-bottom: 26px;
 }
 .footer-partners-tier--funded .footer-partners-logo-row {
   gap: clamp(18px, 3vw, 30px);
+  flex-wrap: nowrap;
 }
 .footer-partners-tier--funded .footer-partner-logo {
-  height: 34px;
+  height: 44px;
 }
 .footer-partners-tier--funded .footer-partner-logo img {
-  max-width: 108px;
-  max-height: 28px;
+  max-width: 124px;
+  max-height: 34px;
   opacity: 0.93;
 }
 .footer-partner-logo--suecia img {
-  max-width: 94px;
+  max-width: 106px;
 }
 .footer-partner-logo--francia img {
-  max-width: 86px;
+  max-width: 96px;
 }
 .footer-partner-logo--amazonia img {
-  max-width: 82px;
+  max-width: 94px;
+}
+.footer-partners-tier--lead .footer-partner-logo {
+  height: 52px;
+}
+.footer-partners-tier--lead .footer-partner-logo img {
+  max-width: 176px;
+  max-height: 38px;
 }
 .footer-content {
   max-width: 1400px;
@@ -922,9 +930,27 @@ a.footer-legal-link:hover {
 
 @media (max-width: 1024px) {
   .footer-partners { margin-bottom: 84px; }
-  .footer-partners-grid { gap: 48px; }
+  .footer-partners-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+  }
+  .footer-partners-tier {
+    align-items: center;
+  }
+  .footer-partners-logo-row {
+    justify-content: center;
+  }
+  .footer-partners-tier--lead .footer-partner-logo img {
+    max-width: 184px;
+    max-height: 42px;
+  }
   .footer-partner-logo img { max-width: 184px; }
-  .footer-partners-tier--funded .footer-partner-logo img { max-width: 98px; }
+  .footer-partners-tier--funded .footer-partners-logo-row {
+    flex-wrap: wrap;
+    max-width: 420px;
+  }
+  .footer-partners-tier--funded .footer-partner-logo img { max-width: 104px; }
   .footer-partner-logo--suecia img { max-width: 88px; }
   .footer-partner-logo--francia img { max-width: 78px; }
   .footer-partner-logo--amazonia img { max-width: 76px; }
@@ -1043,7 +1069,15 @@ a.footer-legal-link:hover {
     font-size: 0.62rem;
   }
   .footer-partners-grid {
+    flex-direction: column;
+    align-items: center;
     gap: 42px;
+  }
+  .footer-partners-tier {
+    align-items: center;
+  }
+  .footer-partners-logo-row {
+    justify-content: center;
   }
   .footer-partners-tier-label {
     margin-bottom: 22px;
@@ -1060,6 +1094,17 @@ a.footer-legal-link:hover {
   .footer-partners-tier--funded .footer-partners-logo-row {
     gap: 18px 22px;
     max-width: 320px;
+    flex-wrap: wrap;
+  }
+  .footer-partners-tier--funded .footer-partners-tier-label {
+    margin-bottom: 22px;
+  }
+  .footer-partners-tier--lead .footer-partner-logo {
+    height: 56px;
+  }
+  .footer-partners-tier--lead .footer-partner-logo img {
+    max-width: 146px;
+    max-height: 36px;
   }
   .footer-partners-tier--funded .footer-partner-logo {
     height: 30px;
