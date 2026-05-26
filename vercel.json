@@ -1,4 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "redirects": [
+    {
+      "source": "/500",
+      "destination": "https://500.naturatech.org",
+      "permanent": true,
+      "has": [
+        {
+          "type": "host",
+          "value": "naturatech.org"
+        }
+      ]
+    }
+  ]
 }
