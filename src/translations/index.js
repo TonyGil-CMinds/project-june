@@ -243,7 +243,7 @@ export const translations = {
     lang: { es: 'Español', en: 'English' },
     nav: {
       inicio: 'Home',
-      empresas: 'Organizations',
+      empresas: 'Ventures',
       ceiba: 'CEIBA',
       studio: 'Studio',
       ecos: 'Ecos',
@@ -258,7 +258,7 @@ export const translations = {
       terms: 'Terms & Conditions',
       links: [
         { to: '/',                label: 'HOME' },
-        { to: '/emprendimientos', label: 'ORGANIZATIONS' },
+        { to: '/emprendimientos', label: 'VENTURES' },
         { to: '/ceiba',           label: 'CEIBA' },
         { to: '/studio',          label: 'STUDIO' },
         { to: '/ecos',            label: 'ECOS' },
