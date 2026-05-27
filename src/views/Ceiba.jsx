@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
@@ -74,6 +74,9 @@ export default function Ceiba() {
   useEffect(() => {
     if (!rootRef.current) return;
 
+    let scrollVel = 0;
+    let tick = null;
+
     const ctx = gsap.context(() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -113,10 +116,22 @@ export default function Ceiba() {
         );
       });
 
-      /* ─── INFINITE GALLERY (marquee) ─── */
+      /* ─── GALLERY PIN (300vh total scroll) ─── */
+      ScrollTrigger.create({
+        trigger: '.ceiba-gallery',
+        start: 'top top',
+        end: '+=200vh',
+        pin: true,
+        anticipatePin: 1,
+        onUpdate(self) {
+          scrollVel = self.getVelocity();
+        },
+      });
+
+      /* ─── IMAGE CAROUSEL (constant speed) ─── */
       const track = document.querySelector('.ceiba-gallery-track');
       if (track) {
-        const totalWidth = track.scrollWidth / 2; // half because we doubled them
+        const totalWidth = track.scrollWidth / 2;
         gsap.to(track, {
           x: -totalWidth,
           ease: 'none',
@@ -128,14 +143,27 @@ export default function Ceiba() {
         });
       }
 
-      /* ─── GALLERY parallax (slight rise as you scroll past) ─── */
-      gsap.fromTo('.ceiba-gallery-parallax',
-        { y: 60 },
-        {
-          y: -40, ease: 'none',
-          scrollTrigger: { trigger: '.ceiba-gallery', start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-        }
-      );
+      /* ─── VELOCITY MARQUEES ─── */
+      const marqueeTop = document.querySelector('.ceiba-marquee-top .ceiba-marquee-inner');
+      const marqueeBot = document.querySelector('.ceiba-marquee-bot .ceiba-marquee-inner');
+
+      if (marqueeTop && marqueeBot) {
+        const topHalfW = marqueeTop.scrollWidth / 2;
+        const botHalfW = marqueeBot.scrollWidth / 2;
+        let topX = 0;
+        let botX = 0;
+
+        tick = () => {
+          const boost = Math.min(Math.abs(scrollVel) * 0.003, 4);
+          const spd = 0.7 + boost;
+          topX = (topX + spd) % topHalfW;
+          botX = (botX + spd) % botHalfW;
+          gsap.set(marqueeTop, { x: topX - topHalfW });
+          gsap.set(marqueeBot, { x: -botX });
+          scrollVel *= 0.88;
+        };
+        gsap.ticker.add(tick);
+      }
 
       /* ─── INFO SECTION ─── */
       gsap.from('.ceiba-info-logo', {
@@ -216,6 +244,7 @@ export default function Ceiba() {
     }, rootRef);
 
     return () => {
+      if (tick) gsap.ticker.remove(tick);
       cleanupGsapRoute(rootRef.current);
       ctx.revert();
     };
@@ -436,11 +465,24 @@ export default function Ceiba() {
         </div>
       )}
 
-      {/* ════════════ INFINITE GALLERY CAROUSEL ════════════ */}
+      {/* ════════════ GALLERY + MARQUEES ════════════ */}
       <section className="ceiba-gallery">
-        <div className="ceiba-gallery-parallax">
+
+        {/* TOP MARQUEE — moves right */}
+        <div className="ceiba-marquee ceiba-marquee-top" aria-hidden="true">
+          <div className="ceiba-marquee-inner">
+            {[...Array(12)].map((_, i) => (
+              <Fragment key={i}>
+                <img src="/assets/CEIBA/illustrations/marquesee-somosraíces.svg" alt="" className="ceiba-marquee-text" />
+                <img src="/assets/CEIBA/illustrations/marquesee-yellowelement.svg" alt="" className="ceiba-marquee-dot" />
+              </Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* IMAGE CAROUSEL */}
+        <div className="ceiba-gallery-carousel">
           <div className="ceiba-gallery-track">
-            {/* Double the images for seamless loop */}
             {[...galleryImages, ...galleryImages].map((src, i) => (
               <div key={i} className="ceiba-gallery-item">
                 <img src={src} alt={`Galería CEIBA ${(i % galleryImages.length) + 1}`} loading="lazy" />
@@ -448,6 +490,19 @@ export default function Ceiba() {
             ))}
           </div>
         </div>
+
+        {/* BOTTOM MARQUEE — moves left */}
+        <div className="ceiba-marquee ceiba-marquee-bot" aria-hidden="true">
+          <div className="ceiba-marquee-inner">
+            {[...Array(12)].map((_, i) => (
+              <Fragment key={i}>
+                <img src="/assets/CEIBA/illustrations/marquesee-somosceibas.svg" alt="" className="ceiba-marquee-text" />
+                <img src="/assets/CEIBA/illustrations/marquesee-greenelement.svg" alt="" className="ceiba-marquee-dot" />
+              </Fragment>
+            ))}
+          </div>
+        </div>
+
       </section>
 
       {/* ════════════ INFO / SUMMIT SECTION ════════════ */}

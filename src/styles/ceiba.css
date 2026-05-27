@@ -210,16 +210,61 @@ html.ceiba-video-is-open .glass-nav {
   outline-offset: 4px;
 }
 
-/* ── CEIBA GALLERY CAROUSEL ── */
+/* ── CEIBA GALLERY + MARQUEES ── */
 .ceiba-gallery {
   position: relative;
   overflow: hidden;
-  padding: 40px 0 70px;
   background: rgb(244, 240, 190);
   margin: 0;
+  height: 100vh;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
 }
-.ceiba-gallery-parallax {
+
+/* Marquee strip */
+.ceiba-marquee {
+  width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(31, 58, 20, 0.12);
+}
+.ceiba-marquee-bot {
+  border-bottom: none;
+  border-top: 1px solid rgba(31, 58, 20, 0.12);
+}
+.ceiba-marquee-inner {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: max-content;
   will-change: transform;
+}
+.ceiba-marquee-text {
+  height: 26px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+.ceiba-marquee-dot {
+  height: 18px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Image carousel */
+.ceiba-gallery-carousel {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: 240px;
 }
 .ceiba-gallery-track {
   display: flex;
@@ -229,8 +274,8 @@ html.ceiba-video-is-open .glass-nav {
 }
 .ceiba-gallery-item {
   flex-shrink: 0;
-  width: 280px;
-  height: 200px;
+  width: 300px;
+  height: 220px;
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -493,7 +538,6 @@ html.ceiba-video-is-open .glass-nav {
 /* ── CEIBA RESPONSIVE ── */
 @media (max-width: 1024px) {
   .ceiba-hero { padding: 40px 30px 80px; }
-  .ceiba-gallery { padding: 50px 0 60px; }
   .ceiba-gallery-item { width: 220px; height: 160px; }
   .ceiba-info { padding: 80px 30px; }
   .ceiba-shapes-track { grid-template-columns: repeat(4, 1fr); }
@@ -617,8 +661,12 @@ html.ceiba-video-is-open .glass-nav {
     height: 44px;
     stroke-width: 1.8;
   }
-  .ceiba-gallery { padding: 40px 0 50px; }
-  .ceiba-gallery-item { width: 160px; height: 120px; }
+  .ceiba-gallery { height: 100svh; min-height: 440px; }
+  .ceiba-gallery-carousel { height: 160px; }
+  .ceiba-marquee { height: 48px; }
+  .ceiba-marquee-text { height: 20px; }
+  .ceiba-marquee-dot { height: 14px; }
+  .ceiba-gallery-item { width: 160px; height: 140px; }
   .ceiba-info { padding: 60px 22px; }
   .ceiba-info-logo img { height: 52px; }
   .ceiba-info-text p { font-size: 0.95rem; }
