@@ -12,6 +12,7 @@ import Nav from './Nav.jsx';
 import Footer from './Footer.jsx';
 import ViewportFrame from './ViewportFrame.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
+import SeoMetadata from './SeoMetadata.jsx';
 import { FrameToggleContext } from './FrameContext.jsx';
 import { LanguageProvider } from '../contexts/LanguageContext.jsx';
 
@@ -104,6 +105,7 @@ export default function AppShell({ children }) {
 
   return (
     <LanguageProvider>
+      <SeoMetadata />
       <FrameToggleContext.Provider value={setFrameVisible}>
         {!isLinksRoute && !isGalleryRoute && <Nav />}
         {!isLinksRoute && !isHitosRoute && !isGalleryRoute && <LanguageSwitcher />}
