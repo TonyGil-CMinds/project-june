@@ -5,14 +5,34 @@ import { gsap } from 'gsap';
 import { translations } from '../translations/index.js';
 
 const LanguageContext = createContext(null);
+const LANGUAGE_STORAGE_KEY = 'nt-lang';
+const LANGUAGE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
+
+function getCookieLanguage() {
+  const value = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(`${LANGUAGE_STORAGE_KEY}=`))
+    ?.split('=')[1];
+
+  return value === 'en' || value === 'es' ? value : null;
+}
+
+function persistLanguage(newLang) {
+  try { localStorage.setItem(LANGUAGE_STORAGE_KEY, newLang); } catch (_) {}
+  document.cookie = `${LANGUAGE_STORAGE_KEY}=${newLang}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}; samesite=lax`;
+  document.documentElement.lang = newLang;
+}
 
 export function LanguageProvider({ children }) {
   const [lang, setLang] = useState('es');
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem('nt-lang');
-      if (saved === 'en' || saved === 'es') setLang(saved);
+      const saved = getCookieLanguage() || localStorage.getItem(LANGUAGE_STORAGE_KEY);
+      if (saved === 'en' || saved === 'es') {
+        setLang(saved);
+        persistLanguage(saved);
+      }
     } catch (_) {}
   }, []);
 
@@ -23,7 +43,7 @@ export function LanguageProvider({ children }) {
 
     if (reduceMotion) {
       setLang(newLang);
-      try { localStorage.setItem('nt-lang', newLang); } catch (_) {}
+      persistLanguage(newLang);
       return;
     }
 
@@ -38,7 +58,7 @@ export function LanguageProvider({ children }) {
           yPercent: 0, duration: 0.52, ease: 'power3.inOut',
           onComplete: () => {
             setLang(newLang);
-            try { localStorage.setItem('nt-lang', newLang); } catch (_) {}
+            persistLanguage(newLang);
           },
         }
       )
