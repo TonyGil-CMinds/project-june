@@ -1,13 +1,11 @@
 'use client';
 
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
-import dynamic from 'next/dynamic';
-
-const WaterRipple = dynamic(() => import('../components/WaterRipple.jsx'), { ssr: false });
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -133,7 +131,6 @@ export default function Ceiba() {
   const burstLayerRef = useRef(null);
   const logoClickCountRef = useRef(0);
   const ceibaAudioRef = useRef(null);
-  const [waterActive, setWaterActive] = useState(false);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -456,7 +453,6 @@ export default function Ceiba() {
 
     // 4th click onwards — toggle the CEIBA anthem
     if (clickN === 4) {
-      setWaterActive(true);
       const audio = new Audio('/assets/CEIBA/Music/Mi%20Tierra%2C%20Tu%20Tierra%20%20(1).mp3');
       audio.volume = 0.7;
       audio.loop = false;
@@ -540,7 +536,6 @@ export default function Ceiba() {
   return (
     <div ref={rootRef}>
       <div ref={burstLayerRef} className="ceiba-burst-layer" aria-hidden="true" />
-      {waterActive && <WaterRipple />}
       {/* ════════════ HERO ════════════ */}
       <section className="ceiba-hero">
         <div className="ceiba-bg-wrapper">
@@ -596,7 +591,7 @@ export default function Ceiba() {
         </div>
       </section>
 
-      {videoMounted && (
+      {videoMounted && createPortal(
         <div
           className="ceiba-video-overlay"
           ref={videoOverlayRef}
@@ -620,7 +615,8 @@ export default function Ceiba() {
               </svg>
             </button>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
 
       {/* ════════════ GALLERY + MARQUEES ════════════ */}
