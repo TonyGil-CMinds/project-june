@@ -5,6 +5,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
+import dynamic from 'next/dynamic';
+
+const WaterRipple = dynamic(() => import('../components/WaterRipple.jsx'), { ssr: false });
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +34,54 @@ const personas = [
   '/assets/CEIBA/ceiba-persona-3.avif',
   '/assets/CEIBA/ceiba-persona-4.avif',
 ];
+
+/* Natural burst sound — shaped noise, no oscillators */
+function playBurstSound() {
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return;
+  const ctx = new AudioCtx();
+  const now = ctx.currentTime;
+
+  const makeNoise = (durationSec) => {
+    const len = Math.floor(ctx.sampleRate * durationSec);
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    return src;
+  };
+
+  // Layer 1 — soft low-mid puff (body of the sound)
+  const puff = makeNoise(0.18);
+  const lpf = ctx.createBiquadFilter();
+  lpf.type = 'lowpass';
+  lpf.frequency.value = 600;
+  const bpf = ctx.createBiquadFilter();
+  bpf.type = 'bandpass';
+  bpf.frequency.value = 280;
+  bpf.Q.value = 1.2;
+  const gPuff = ctx.createGain();
+  puff.connect(lpf); lpf.connect(bpf); bpf.connect(gPuff); gPuff.connect(ctx.destination);
+  gPuff.gain.setValueAtTime(0, now);
+  gPuff.gain.linearRampToValueAtTime(0.18, now + 0.022);
+  gPuff.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+  puff.start(now);
+
+  // Layer 2 — airy high-freq shimmer (leaves/seeds dispersing)
+  const shimmer = makeNoise(0.28);
+  const hpf = ctx.createBiquadFilter();
+  hpf.type = 'highpass';
+  hpf.frequency.value = 3200;
+  const gShimmer = ctx.createGain();
+  shimmer.connect(hpf); hpf.connect(gShimmer); gShimmer.connect(ctx.destination);
+  gShimmer.gain.setValueAtTime(0, now);
+  gShimmer.gain.linearRampToValueAtTime(0.06, now + 0.035);
+  gShimmer.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+  shimmer.start(now);
+
+  setTimeout(() => ctx.close(), 600);
+}
 
 /* Burst assets for logo click effect */
 const BURST_ASSETS = [
@@ -80,6 +131,9 @@ export default function Ceiba() {
   const [videoClosing, setVideoClosing] = useState(false);
   const logoImgRef = useRef(null);
   const burstLayerRef = useRef(null);
+  const logoClickCountRef = useRef(0);
+  const ceibaAudioRef = useRef(null);
+  const [waterActive, setWaterActive] = useState(false);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -255,6 +309,7 @@ export default function Ceiba() {
 
     return () => {
       if (tick) gsap.ticker.remove(tick);
+      if (ceibaAudioRef.current) { ceibaAudioRef.current.pause(); ceibaAudioRef.current = null; }
       cleanupGsapRoute(rootRef.current);
       ctx.revert();
     };
@@ -396,6 +451,24 @@ export default function Ceiba() {
     const layer = burstLayerRef.current;
     if (!img || !layer) return;
 
+    logoClickCountRef.current += 1;
+    const clickN = logoClickCountRef.current;
+
+    // 4th click onwards — toggle the CEIBA anthem
+    if (clickN === 4) {
+      setWaterActive(true);
+      const audio = new Audio('/assets/CEIBA/Music/Mi%20Tierra%2C%20Tu%20Tierra%20%20(1).mp3');
+      audio.volume = 0.7;
+      audio.loop = false;
+      ceibaAudioRef.current = audio;
+      audio.play().catch(() => {});
+    } else if (clickN > 4 && ceibaAudioRef.current) {
+      const a = ceibaAudioRef.current;
+      if (a.paused) { a.play().catch(() => {}); } else { a.pause(); }
+    }
+
+    playBurstSound();
+
     // Logo squish + elastic bounce
     gsap.timeline()
       .to(img, { scale: 0.74, duration: 0.11, ease: 'power3.in' })
@@ -467,6 +540,7 @@ export default function Ceiba() {
   return (
     <div ref={rootRef}>
       <div ref={burstLayerRef} className="ceiba-burst-layer" aria-hidden="true" />
+      {waterActive && <WaterRipple />}
       {/* ════════════ HERO ════════════ */}
       <section className="ceiba-hero">
         <div className="ceiba-bg-wrapper">

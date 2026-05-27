@@ -313,6 +313,13 @@ html.ceiba-video-is-open .glass-nav {
   overflow: visible;
 }
 
+.ceiba-water-ripple {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+}
+
 .ceiba-info-logo {
   margin-bottom: 22px;
   will-change: transform;
