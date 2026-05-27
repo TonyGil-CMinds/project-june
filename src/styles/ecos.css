@@ -306,6 +306,697 @@
   }
 }
 
+/* ════════════ LAUNCHES SECTION ════════════ */
+
+.ecos-launches {
+  position: relative;
+  padding: 120px 54px 140px;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  overflow: hidden;
+}
+
+/* Subtle ambient radial glow in background */
+.ecos-launches::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 55%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(200, 230, 50, 0.06) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+.ecos-launches-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ecos-launches-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+}
+
+.ecos-launches-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #101511;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── 3-D scene ── */
+.ecos-launches-scene {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Backlight — sits behind the card, follows cursor */
+.ecos-launches-glow {
+  position: absolute;
+  inset: -80px;
+  border-radius: 32px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+  will-change: opacity;
+}
+
+/* The document card */
+.ecos-launches-card {
+  position: relative;
+  z-index: 1;
+  width: clamp(260px, 34vw, 400px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.6),
+    0 10px 28px rgba(0, 0, 0, 0.4);
+  will-change: transform;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  cursor: default;
+}
+
+.ecos-launches-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ── Action icons ── */
+.ecos-launches-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.ecos-launches-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  cursor: pointer;
+  transition: background 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ecos-launches-action-btn:hover {
+  background: rgba(200, 230, 50, 0.12);
+  border-color: rgba(200, 230, 50, 0.35);
+  transform: translateY(-3px);
+}
+
+.ecos-launches-action-btn img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  filter: brightness(0) invert(1);
+  transition: opacity 0.22s ease, filter 0.22s ease;
+  pointer-events: none;
+}
+
+.ecos-launches-action-btn:hover img {
+  opacity: 1;
+  filter: brightness(0) saturate(100%) invert(88%) sepia(88%) saturate(672%) hue-rotate(18deg) brightness(102%) contrast(103%);
+}
+
+/* ── Animated tooltip ── */
+.ecos-launches-action-btn {
+  position: relative;
+}
+
+.ecos-action-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  white-space: nowrap;
+  background: rgba(20, 28, 18, 0.92);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+/* Arrow */
+.ecos-action-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(20, 28, 18, 0.92);
+}
+
+.ecos-launches-action-btn:hover .ecos-action-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (max-width: 768px) {
+  .ecos-launches {
+    padding: 80px 24px 100px;
+    gap: 48px;
+  }
+
+  .ecos-launches-title {
+    font-size: 1.5rem;
+  }
+
+  .ecos-launches-card {
+    width: min(300px, 82vw);
+  }
+
+  .ecos-launches-glow {
+    display: none; /* disable heavy blur on mobile */
+  }
+}
+
+/* ════════════ END LAUNCHES ════════════ */
+
+/* ════════════ COMMENT SCROLLYTELLING ════════════ */
+
+.ecos-comment {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 54px;
+  overflow: hidden;
+}
+
+/* Floating squares */
+.ecos-float-sq {
+  position: absolute;
+  border-radius: 14px;
+  background: var(--accent);
+  pointer-events: none;
+  will-change: transform;
+  flex-shrink: 0;
+}
+
+.ecos-float-sq--1 {
+  width: 50px;
+  height: 50px;
+  top: 20%;
+  right: 12%;
+}
+
+.ecos-float-sq--2 {
+  width: 32px;
+  height: 32px;
+  bottom: 26%;
+  left: 13%;
+}
+
+/* Content */
+.ecos-comment-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 740px;
+  width: 100%;
+}
+
+.ecos-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 48px;
+}
+
+.ecos-comment-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+}
+
+.ecos-comment-plus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 13px;
+  background: rgba(45, 65, 35, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  font-size: 1.6rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.22s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ecos-comment-plus:hover {
+  background: rgba(70, 100, 48, 0.85);
+  transform: rotate(90deg) scale(1.08);
+}
+
+/* Body text */
+.ecos-comment-body {
+  font-family: var(--font-body);
+  font-size: clamp(1.3rem, 2.3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0 0 56px;
+  letter-spacing: -0.01em;
+}
+
+/* Each word — background animated by GSAP */
+.ecos-comment-word {
+  display: inline;
+  border-radius: 4px;
+  padding: 2px 3px;
+  transition: none; /* GSAP handles all transitions */
+}
+
+/* Comment box — GSAP sets y/opacity; CSS only handles layout/look */
+.ecos-comment-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 420px;
+  background: rgba(25, 36, 20, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-pill);
+  padding: 10px 12px 10px 22px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.ecos-comment-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  caret-color: var(--accent);
+}
+
+.ecos-comment-input::placeholder {
+  color: rgba(255, 255, 255, 0.38);
+  font-weight: 400;
+}
+
+.ecos-comment-send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+}
+
+.ecos-comment-send:hover {
+  transform: scale(1.12) rotate(-15deg);
+  background: #d4f040;
+}
+
+.ecos-comment-send img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0); /* dark icon on lime bg */
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .ecos-comment {
+    padding: 80px 28px;
+    align-items: flex-start;
+  }
+
+  .ecos-comment-title {
+    font-size: 2.4rem;
+  }
+
+  .ecos-comment-body {
+    font-size: 1.22rem;
+    line-height: 1.65;
+  }
+
+  .ecos-float-sq--1 {
+    width: 38px;
+    height: 38px;
+    top: 14%;
+    right: 8%;
+  }
+
+  .ecos-float-sq--2 {
+    width: 24px;
+    height: 24px;
+    bottom: 18%;
+    left: 6%;
+  }
+}
+
+/* ════════════ END COMMENT ════════════ */
+
+/* ════════════ PUBLISH SCROLLYTELLING ════════════ */
+
+/* ── Theme tokens ── */
+.ecos-publish {
+  --pub-bg:           #f2f5e6;
+  --pub-text:         #101511;
+  --pub-sub:          rgba(16, 21, 17, 0.52);
+  --pub-card-bg:      rgba(16, 21, 17, 0.04);
+  --pub-card-border:  rgba(16, 21, 17, 0.18);
+  --pub-card-drag-bg: rgba(200, 230, 50, 0.09);
+  --pub-card-drag-bdr:rgba(200, 230, 50, 0.7);
+  --pub-btn-bg:       #101511;
+  --pub-btn-text:     #fff;
+  --pub-toggle-bg:    rgba(16, 21, 17, 0.08);
+  --pub-toggle-clr:   #101511;
+  transition: background 0.45s ease, color 0.45s ease;
+}
+
+.ecos-publish.is-dark {
+  --pub-bg:           var(--bg-primary);
+  --pub-text:         var(--text-primary);
+  --pub-sub:          rgba(255, 255, 255, 0.52);
+  --pub-card-bg:      rgba(255, 255, 255, 0.04);
+  --pub-card-border:  rgba(255, 255, 255, 0.15);
+  --pub-card-drag-bg: rgba(200, 230, 50, 0.08);
+  --pub-card-drag-bdr:rgba(200, 230, 50, 0.65);
+  --pub-btn-bg:       var(--accent);
+  --pub-btn-text:     #101511;
+  --pub-toggle-bg:    rgba(255, 255, 255, 0.08);
+  --pub-toggle-clr:   var(--text-primary);
+}
+
+/* ── Layout ── */
+.ecos-publish {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--pub-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 54px;
+  overflow: hidden;
+}
+
+/* ── Theme toggle ── */
+.ecos-publish-toggle {
+  position: absolute;
+  top: 36px;
+  right: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--pub-toggle-bg);
+  border: 1px solid transparent;
+  color: var(--pub-toggle-clr);
+  cursor: pointer;
+  transition: background 0.22s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.45s ease;
+  z-index: 10;
+}
+
+.ecos-publish-toggle:hover {
+  background: rgba(200, 230, 50, 0.15);
+  transform: rotate(20deg) scale(1.1);
+}
+
+.ecos-publish-toggle svg {
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+/* ── Inner content ── */
+.ecos-publish-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 860px;
+}
+
+.ecos-publish-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.ecos-publish-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.4vw, 4rem);
+  font-weight: 900;
+  color: var(--pub-text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+  transition: color 0.45s ease;
+}
+
+.ecos-publish-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+/* ── Upload card ── */
+.ecos-publish-card {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+  border-radius: 18px;
+  border: 2px dashed var(--pub-card-border);
+  background: var(--pub-card-bg);
+  overflow: hidden;
+  transition: border-color 0.35s ease, background 0.45s ease;
+}
+
+/* ── Three overlapping states ── */
+.ecos-pub-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 48px 32px;
+}
+
+/* State 1 — idle */
+.ecos-pub-idle {
+  z-index: 1;
+}
+
+.ecos-pub-idle-icon {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 6px;
+}
+
+.ecos-pub-idle h3 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--pub-text);
+  text-align: center;
+  transition: color 0.45s ease;
+}
+
+.ecos-pub-idle p {
+  margin: 0;
+  font-size: 0.87rem;
+  color: var(--pub-sub);
+  text-align: center;
+  transition: color 0.45s ease;
+}
+
+.ecos-pub-file-btn {
+  margin-top: 10px;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  background: var(--pub-btn-bg);
+  color: var(--pub-btn-text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+}
+
+.ecos-pub-file-btn:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+/* State 2 — drag-over */
+.ecos-pub-drag {
+  z-index: 2;
+  background: var(--pub-card-drag-bg);
+  border-radius: 16px;
+}
+
+.ecos-pub-drag-icon {
+  width: 110px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+}
+
+.ecos-pub-drag h3 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--pub-text);
+  transition: color 0.45s ease;
+}
+
+.ecos-pub-drag p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--pub-sub);
+  transition: color 0.45s ease;
+}
+
+/* State 3 — success */
+.ecos-pub-success {
+  z-index: 3;
+}
+
+.ecos-pub-check-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-bottom: 6px;
+}
+
+.ecos-pub-check-circle svg {
+  display: block;
+}
+
+.ecos-pub-success h3 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--pub-text);
+  text-align: center;
+  transition: color 0.45s ease;
+}
+
+.ecos-pub-success p {
+  margin: 0;
+  font-size: 0.87rem;
+  color: var(--pub-sub);
+  text-align: center;
+  max-width: 340px;
+  transition: color 0.45s ease;
+}
+
+/* Drag state active — border glows */
+.ecos-publish-card.is-drag {
+  border-style: solid;
+  border-color: var(--pub-card-drag-bdr);
+  box-shadow: 0 0 0 4px rgba(200, 230, 50, 0.12);
+}
+
+/* Success state active — card border accent */
+.ecos-publish-card.is-success {
+  border-style: solid;
+  border-color: rgba(200, 230, 50, 0.45);
+}
+
+@media (max-width: 768px) {
+  .ecos-publish {
+    padding: 80px 24px;
+    align-items: flex-start;
+  }
+
+  .ecos-publish-title {
+    font-size: 2.4rem;
+  }
+
+  .ecos-publish-card {
+    min-height: 260px;
+  }
+
+  .ecos-publish-toggle {
+    top: 24px;
+    right: 24px;
+  }
+}
+
+/* ════════════ END PUBLISH ════════════ */
+
 @media (max-width: 420px) {
   .ecos-content-inner {
     padding: 0 24px;
