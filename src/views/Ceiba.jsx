@@ -32,6 +32,14 @@ const personas = [
   '/assets/CEIBA/ceiba-persona-4.avif',
 ];
 
+/* Burst assets for logo click effect */
+const BURST_ASSETS = [
+  '/assets/CEIBA/illustrations/asset1.svg',
+  '/assets/CEIBA/illustrations/asset2.svg',
+  '/assets/CEIBA/illustrations/asset3.svg',
+  '/assets/CEIBA/illustrations/asset4.svg',
+];
+
 /* Social links for podcast */
 const podcastLinks = [
   {
@@ -70,6 +78,8 @@ export default function Ceiba() {
   const videoOriginRef = useRef(null);
   const [videoMounted, setVideoMounted] = useState(false);
   const [videoClosing, setVideoClosing] = useState(false);
+  const logoImgRef = useRef(null);
+  const burstLayerRef = useRef(null);
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -381,8 +391,82 @@ export default function Ceiba() {
       .to(overlay, { backgroundColor: 'rgba(8, 11, 9, 0)', duration: 0.5 }, 0.08);
   };
 
+  const handleLogoClick = () => {
+    const img = logoImgRef.current;
+    const layer = burstLayerRef.current;
+    if (!img || !layer) return;
+
+    // Logo squish + elastic bounce
+    gsap.timeline()
+      .to(img, { scale: 0.74, duration: 0.11, ease: 'power3.in' })
+      .to(img, { scale: 1, duration: 0.75, ease: 'elastic.out(1.1, 0.38)' });
+
+    // Burst particles
+    const rect = img.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const count = 8;
+
+    // Max distance from logo center to farthest viewport corner
+    const maxDist = Math.max(
+      Math.hypot(cx, cy),
+      Math.hypot(window.innerWidth - cx, cy),
+      Math.hypot(cx, window.innerHeight - cy),
+      Math.hypot(window.innerWidth - cx, window.innerHeight - cy),
+    );
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('img');
+      el.src = BURST_ASSETS[i % BURST_ASSETS.length];
+      layer.appendChild(el);
+
+      const baseAngle = (360 / count) * i;
+      const angle = baseAngle + (Math.random() - 0.5) * 55;
+      const distance = maxDist * (0.55 + Math.random() * 0.5);
+      const rad = (angle * Math.PI) / 180;
+      const dx = Math.cos(rad) * distance;
+      const dy = Math.sin(rad) * distance;
+      const size = 40 + Math.random() * 44;
+      const totalDuration = 1.4 + Math.random() * 0.8;
+      const delay = Math.random() * 0.1;
+
+      gsap.set(el, {
+        position: 'fixed',
+        left: cx,
+        top: cy,
+        xPercent: -50,
+        yPercent: -50,
+        width: size,
+        height: size,
+        scale: 0.1,
+        opacity: 1,
+        zIndex: 200,
+        pointerEvents: 'none',
+      });
+
+      // Phase 1: snap to full size quickly
+      // Phase 2: travel outward while fading
+      const tl = gsap.timeline({ delay, onComplete: () => el.remove() });
+      tl.to(el, {
+        x: dx * 0.18,
+        y: dy * 0.18,
+        scale: 1,
+        opacity: 1,
+        duration: totalDuration * 0.18,
+        ease: 'power3.out',
+      }).to(el, {
+        x: dx,
+        y: dy,
+        opacity: 0,
+        duration: totalDuration * 0.82,
+        ease: 'power1.out',
+      });
+    }
+  };
+
   return (
     <div ref={rootRef}>
+      <div ref={burstLayerRef} className="ceiba-burst-layer" aria-hidden="true" />
       {/* ════════════ HERO ════════════ */}
       <section className="ceiba-hero">
         <div className="ceiba-bg-wrapper">
@@ -508,8 +592,8 @@ export default function Ceiba() {
       {/* ════════════ INFO / SUMMIT SECTION ════════════ */}
       <section className="ceiba-info">
         <div className="ceiba-info-inner">
-          <div className="ceiba-info-logo">
-            <img src="/assets/CEIBA/Logos - Dark.svg" alt="CEIBA — Cumbre de Innovación e Inversión para la Biodiversidad" />
+          <div className="ceiba-info-logo" onClick={handleLogoClick} role="button" tabIndex={0} aria-label="CEIBA logo" onKeyDown={e => e.key === 'Enter' && handleLogoClick()}>
+            <img ref={logoImgRef} src="/assets/CEIBA/Logos - Dark.svg" alt="CEIBA — Cumbre de Innovación e Inversión para la Biodiversidad" />
           </div>
           <p className="ceiba-info-sub">{t.ceiba.infoSub}</p>
           <div className="ceiba-info-divider" />

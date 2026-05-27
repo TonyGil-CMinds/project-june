@@ -305,9 +305,24 @@ html.ceiba-video-is-open .glass-nav {
   flex-direction: column;
   align-items: center;
 }
+.ceiba-burst-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+  overflow: visible;
+}
+
 .ceiba-info-logo {
   margin-bottom: 22px;
   will-change: transform;
+  cursor: pointer;
+  user-select: none;
+}
+.ceiba-info-logo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+  border-radius: var(--radius-sm);
 }
 .ceiba-info-logo img {
   height: clamp(56px, 7vw, 88px);
