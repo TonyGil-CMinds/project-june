@@ -7,7 +7,7 @@ const socialLinks = [
 ];
 
 const linkItems = [
-  { label: 'Regístrate en N500', href: 'https://500.naturatech.org', n500: true },
+  { label: 'Regístrate en Natura500', href: 'https://500.naturatech.org', n500: true },
   { label: 'Documento en Ecos', badge: 'Nuevo', href: '/ecos' },
   { label: 'Último lanzamiento en "SOMOS RAÍCES"', href: 'https://www.youtube.com/@NaturaTechLAC/featured' },
   { label: 'Revive CEIBA 2025', href: '/ceiba' },

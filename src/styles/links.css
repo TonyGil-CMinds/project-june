@@ -20,7 +20,7 @@
 
 .links-card {
   position: relative;
-  width: min(100%, 330px);
+  width: min(100%, 400px);
   min-width: 0;
   min-height: min(620px, calc(100svh - 44px));
   display: flex;

@@ -97,7 +97,7 @@ export const translations = {
       financingHeading: '100K USD',
       financingHeadingPre: 'Hasta',
       financingHeadingPost: 'en financiamiento catalítico',
-      financingDesc: 'Natura 500: Regenera es un premio por registrarte en la red de Natura 500 y estará disponible hasta el 15 de Julio. Accede a esta y más oportunidades.',
+      financingDesc: 'Natura 500: Regenera es un premio por registrarte en la red de Natura 500 y estará disponible hasta el 25 de Julio. Accede a esta y más oportunidades.',
       financingCta: 'Sé parte de la Red',
       quoteWords: [
         ['Natura500', ''], ['busca', ''], ['hacer', ''], ['visible,', ''],
@@ -337,7 +337,7 @@ export const translations = {
       financingHeading: '100K USD',
       financingHeadingPre: 'Up to',
       financingHeadingPost: 'in catalytic funding',
-      financingDesc: 'Natura 500: Regenera is a grant for registering in the Natura 500 network, available until July 15. Access this and more opportunities.',
+      financingDesc: 'Natura 500: Regenera is a grant for registering in the Natura 500 network, available until July 25. Access this and more opportunities.',
       financingCta: 'Join the Network',
       quoteWords: [
         ['Natura500', ''], ['seeks', ''], ['to', ''], ['make', ''], ['visible,', ''],
