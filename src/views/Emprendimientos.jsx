@@ -100,7 +100,10 @@ export default function Emprendimientos({ onFrameToggle }) {
           duration: 1,
         });
 
-        /* ── Play / pause + landscape auto-scroll ── */
+        /* ── Play / pause + landscape auto-scroll ──
+           Safari fires orientationchange BEFORE viewport dimensions update,
+           so we track orientation via resize (which fires after the update)
+           and detect the portrait→landscape transition manually. */
         const scrollToFullVideo = () => {
           const section = document.querySelector('.regen-video-section');
           if (!section) return;
@@ -109,16 +112,24 @@ export default function Emprendimientos({ onFrameToggle }) {
           window.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
         };
 
+        let prevLandscape = window.innerWidth > window.innerHeight;
+        let orientDebounce = null;
+
         const handleOrientation = () => {
-          const isMobileLandscape =
-            window.innerWidth <= 900 && window.innerWidth > window.innerHeight;
-          if (isMobileLandscape && video.classList.contains('is-playing')) {
-            ring()?.classList.add('is-active');
-            /* Wait for browser to settle new dimensions before scrolling */
-            setTimeout(scrollToFullVideo, 200);
-          } else if (window.innerWidth <= 900) {
-            deactivateGlow();
-          }
+          clearTimeout(orientDebounce);
+          orientDebounce = setTimeout(() => {
+            const isMobile = window.innerWidth <= 900;
+            const isLandscape = window.innerWidth > window.innerHeight;
+            const rotatedToLandscape = isLandscape && !prevLandscape;
+            prevLandscape = isLandscape;
+
+            if (isMobile && isLandscape && video.classList.contains('is-playing')) {
+              ring()?.classList.add('is-active');
+              if (rotatedToLandscape) scrollToFullVideo();
+            } else if (isMobile) {
+              deactivateGlow();
+            }
+          }, 120);
         };
 
         window.addEventListener('orientationchange', handleOrientation);
