@@ -7,10 +7,10 @@ const socialLinks = [
 ];
 
 const linkItems = [
+  { label: 'Regístrate en N500', href: 'https://500.naturatech.org', n500: true },
   { label: 'Documento en Ecos', badge: 'Nuevo', href: '/ecos' },
   { label: 'Último lanzamiento en "SOMOS RAÍCES"', href: 'https://www.youtube.com/@NaturaTechLAC/featured' },
   { label: 'Revive CEIBA 2025', href: '/ceiba' },
-  { label: 'Aprende sobre N500', href: 'https://500.naturatech.org' },
 ];
 
 export default function Links() {
@@ -20,7 +20,7 @@ export default function Links() {
         <div className="links-card-marker" aria-hidden="true" />
 
         <header className="links-header">
-          <img className="links-cover" src="/assets/Links/portada-ecos.png" alt="" width="390" height="204" />
+          <img className="links-cover" src="/assets/Links/portada-n500.webp" alt="" width="390" height="204" />
           <a className="links-logo" href="/" aria-label="Ir a naturatech.org">
             <img src="/assets/images/logo.svg" alt="" width="44" height="40" />
           </a>
@@ -48,7 +48,13 @@ export default function Links() {
 
         <div className="links-list">
           {linkItems.map((item) => (
-            <a className={`links-item ${item.badge ? 'has-badge' : ''}`} href={item.href} key={item.label}>
+            <a
+              className={`links-item${item.badge ? ' has-badge' : ''}${item.n500 ? ' is-n500' : ''}`}
+              href={item.href}
+              key={item.label}
+              target={item.href.startsWith('http') ? '_blank' : undefined}
+              rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
               {item.badge && <span className="links-item-badge">{item.badge}</span>}
               <span>{item.label}</span>
             </a>
