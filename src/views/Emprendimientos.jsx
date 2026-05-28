@@ -8,7 +8,7 @@ import { useFrameToggle } from '../components/FrameContext.jsx';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 
-const REGENERA_VIDEO_SRC = process.env.NEXT_PUBLIC_REGENERA_VIDEO_URL?.trim() || 'https://pub-c9d9bba411f444e5a7d61a43c6e28f11.r2.dev/emprendimiento/video/regenera.mp4';
+const REGENERA_VIDEO_SRC = process.env.NEXT_PUBLIC_REGENERA_VIDEO_URL?.trim() || 'https://pub-c9d9bba411f444e5a7d61a43c6e28f11.r2.dev/emprendimiento/video/Regenera%20-%20Video%20Presentaci%C3%B3n%20de%20Natura%20500.mp4';
 
 export default function Emprendimientos({ onFrameToggle }) {
   const rootRef = useRef(null);

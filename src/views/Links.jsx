@@ -10,7 +10,7 @@ const linkItems = [
   { label: 'Documento en Ecos', badge: 'Nuevo', href: '/ecos' },
   { label: 'Último lanzamiento en "SOMOS RAÍCES"', href: 'https://www.youtube.com/@NaturaTechLAC/featured' },
   { label: 'Revive CEIBA 2025', href: '/ceiba' },
-  { label: 'Aprende sobre N500', href: '/emprendimientos' },
+  { label: 'Aprende sobre N500', href: 'https://500.naturatech.org' },
 ];
 
 export default function Links() {

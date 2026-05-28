@@ -36,7 +36,7 @@ export default function Home({ appReady = true }) {
   const [videoClosing, setVideoClosing] = useState(false);
   const [storiesCollapsed, setStoriesCollapsed] = useState(true);
   const [storiesElevated, setStoriesElevated] = useState(false);
-  const [storiesMinimized, setStoriesMinimized] = useState(false);
+  const [storiesMinimized, setStoriesMinimized] = useState(() => window.matchMedia('(max-width: 768px)').matches);
   const storiesBadgeRef = useRef(null);
   const storiesListRef = useRef(null);
   const storiesRestoreRef = useRef(null);
