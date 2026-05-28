@@ -609,10 +609,6 @@
 }
 
 @media (max-width: 380px) {
-  .links-page {
-    padding-inline: 22px;
-  }
-
   .links-socials {
     gap: 12px;
   }
