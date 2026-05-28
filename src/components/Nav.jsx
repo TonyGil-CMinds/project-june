@@ -7,7 +7,7 @@ import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 const NAV_ROUTES = [
   { to: '/',                key: 'inicio',  icon: '/assets/icons/Navbar/inicio.svg' },
-  { to: 'https://500.naturatech.org', key: 'empresas', icon: '/assets/icons/Navbar/startups.svg' },
+  { to: '/emprendimientos', key: 'empresas', icon: '/assets/icons/Navbar/startups.svg' },
   { to: '/ceiba',           key: 'ceiba',   icon: '/assets/icons/Navbar/ceiba.svg' },
   { to: '/studio',          key: 'studio',  icon: '/assets/icons/Navbar/studio.svg' },
   { to: '/ecos',            key: 'ecos',    icon: '/assets/icons/Navbar/ecos.svg' },
