@@ -100,12 +100,22 @@ export default function Emprendimientos({ onFrameToggle }) {
           duration: 1,
         });
 
-        /* ── Play / pause (separate trigger, wider window) ── */
+        /* ── Play / pause + landscape auto-scroll ── */
+        const scrollToFullVideo = () => {
+          const section = document.querySelector('.regen-video-section');
+          if (!section) return;
+          ScrollTrigger.refresh();
+          const scrollTarget = section.offsetTop + section.offsetHeight - window.innerHeight;
+          window.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+        };
+
         const handleOrientation = () => {
           const isMobileLandscape =
             window.innerWidth <= 900 && window.innerWidth > window.innerHeight;
           if (isMobileLandscape && video.classList.contains('is-playing')) {
             ring()?.classList.add('is-active');
+            /* Wait for browser to settle new dimensions before scrolling */
+            setTimeout(scrollToFullVideo, 200);
           } else if (window.innerWidth <= 900) {
             deactivateGlow();
           }
