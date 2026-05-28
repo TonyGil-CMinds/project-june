@@ -216,6 +216,24 @@ html.lenis, html.lenis body { height: auto; }
   opacity: 0;
   pointer-events: none;
 }
+
+/* Hide nav while immersive video section is fullscreen */
+html.regen-video-active .glass-nav {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-12px);
+}
+
+/* Mobile: nav lives at bottom — slide it down instead */
+@media (max-width: 768px) {
+  html.regen-video-active .glass-nav {
+    transform: translateY(12px);
+  }
+  html.regen-video-active .nav-logo-cell {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
 .glass-nav.is-footer-visible .nav-logo-cell,
 .glass-nav.is-footer-visible .nav-pill-cell {
   pointer-events: none;

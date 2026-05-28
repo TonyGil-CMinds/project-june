@@ -126,30 +126,94 @@
 }
 .regen-mobile-line { display: inline; }
 
+/* ── Video scrollytelling section ── */
 .regen-video-section {
   position: relative;
   width: 100%;
   height: 300vh;
   background: var(--bg-primary);
 }
+
 .regen-video-sticky {
-  position: sticky;
-  top: 0;
+  /* NO position:sticky — GSAP pin handles it entirely */
   width: 100vw;
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
+  background: var(--bg-primary);
 }
+
+/* The scaling frame — GSAP transforms this */
+.regen-video-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform, border-radius;
+  transform-origin: center center;
+}
+
+/* ── Gradient border ring ── */
+@property --regen-glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.regen-video-glow-ring {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+
+  background: conic-gradient(
+    from var(--regen-glow-angle),
+    transparent 0%,
+    rgba(200, 230, 50, 0.0) 30%,
+    #c8e632 45%,
+    #a8ff3e 50%,
+    #c8e632 55%,
+    rgba(200, 230, 50, 0.0) 70%,
+    transparent 100%
+  );
+
+  /* Mask trick — show only the border, transparent center */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 3px;
+}
+
+.regen-video-glow-ring.is-active {
+  opacity: 1;
+  animation: regen-spin-glow 2.8s linear infinite;
+}
+
+@keyframes regen-spin-glow {
+  to { --regen-glow-angle: 360deg; }
+}
+
 .regen-video {
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   opacity: 0;
+  z-index: 1;
   transition: opacity 0.8s var(--ease-out);
 }
+
 .regen-video.is-playing { opacity: 1; }
+
+/* ── Sound button ── */
 .regen-sound-btn {
   position: absolute;
   bottom: 40px;
@@ -176,6 +240,57 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+/* ── Mobile: rotate hint ── */
+.regen-rotate-hint {
+  display: none; /* CSS media query shows it */
+  position: absolute;
+  inset: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: rgba(12, 18, 13, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.regen-rotate-hint p {
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  max-width: 200px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.regen-rotate-icon {
+  color: var(--accent);
+  animation: regen-rotate-nudge 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  transform-origin: center;
+}
+
+@keyframes regen-rotate-nudge {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-90deg); }
+  55%  { transform: rotate(-90deg); }
+  80%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Show rotate hint only on portrait mobile */
+@media (max-width: 768px) and (orientation: portrait) {
+  .regen-rotate-hint { display: flex; }
+}
+
+/* Mobile landscape: ensure video fills correctly */
+@media (max-width: 900px) and (orientation: landscape) {
+  .regen-video-frame { border-radius: 0 !important; }
 }
 
 .regen-100k-section { position: relative; padding: 120px 60px; background: var(--bg-primary); overflow: hidden; }

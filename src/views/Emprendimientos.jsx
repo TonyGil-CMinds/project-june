@@ -65,40 +65,71 @@ export default function Emprendimientos({ onFrameToggle }) {
 
       const video = videoRef.current;
       if (video) {
-        ScrollTrigger.create({
-          trigger: '.regen-video-section',
-          start: 'top top',
-          end: 'bottom bottom',
-          pin: '.regen-video-sticky',
-          pinSpacing: false,
-          anticipatePin: 1,
+
+        /* ── Initial state: small centered frame ── */
+        gsap.set('.regen-video-frame', { scale: 0.32, borderRadius: '22px' });
+
+        const ring = () => document.querySelector('.regen-video-glow-ring');
+
+        const deactivateGlow = () => ring()?.classList.remove('is-active');
+
+        /* ── SINGLE ScrollTrigger: pin + scale grow simultaneously ──
+           The sticky div stays pinned at the viewport top for the entire
+           300vh section. The scale animation plays over that same distance.
+           pinSpacing:false lets the section's own 300vh provide the scroll room. */
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: '.regen-video-section',
+            start: 'top top',
+            end: 'bottom bottom',
+            pin: '.regen-video-sticky',
+            pinSpacing: false,
+            anticipatePin: 1,
+            scrub: 1.2,
+            onUpdate(self) {
+              /* Desktop: glow appears when video is fully grown (≥82%) */
+              if (window.innerWidth > 900) {
+                ring()?.classList.toggle('is-active', self.progress >= 0.82);
+              }
+            },
+          },
+        }).to('.regen-video-frame', {
+          scale: 1,
+          borderRadius: '0px',
+          ease: 'power2.inOut',
+          duration: 1,
         });
+
+        /* ── Play / pause (separate trigger, wider window) ── */
+        const handleOrientation = () => {
+          const isMobileLandscape =
+            window.innerWidth <= 900 && window.innerWidth > window.innerHeight;
+          if (isMobileLandscape && video.classList.contains('is-playing')) {
+            ring()?.classList.add('is-active');
+          } else if (window.innerWidth <= 900) {
+            deactivateGlow();
+          }
+        };
+
+        window.addEventListener('orientationchange', handleOrientation);
+        window.addEventListener('resize', handleOrientation);
 
         ScrollTrigger.create({
           trigger: '.regen-video-section',
-          start: 'top 80%',
-          end: 'bottom 20%',
-          onEnter: () => {
-            video.play().catch(() => {});
-            video.classList.add('is-playing');
-            setFrameVisible?.(true);
-          },
-          onLeave: () => {
-            video.pause();
-            video.classList.remove('is-playing');
-            setFrameVisible?.(false);
-          },
-          onEnterBack: () => {
-            video.play().catch(() => {});
-            video.classList.add('is-playing');
-            setFrameVisible?.(true);
-          },
-          onLeaveBack: () => {
-            video.pause();
-            video.classList.remove('is-playing');
-            setFrameVisible?.(false);
-          },
+          start: 'top 85%',
+          end: 'bottom 15%',
+          onEnter:      () => { video.play().catch(() => {}); video.classList.add('is-playing');    document.documentElement.classList.add('regen-video-active');    handleOrientation(); },
+          onLeave:      () => { video.pause();                video.classList.remove('is-playing'); document.documentElement.classList.remove('regen-video-active'); deactivateGlow(); },
+          onEnterBack:  () => { video.play().catch(() => {}); video.classList.add('is-playing');    document.documentElement.classList.add('regen-video-active');    handleOrientation(); },
+          onLeaveBack:  () => { video.pause();                video.classList.remove('is-playing'); document.documentElement.classList.remove('regen-video-active'); deactivateGlow(); },
         });
+
+        /* Cleanup orientation listeners */
+        const _removeListeners = () => {
+          window.removeEventListener('orientationchange', handleOrientation);
+          window.removeEventListener('resize', handleOrientation);
+        };
+        rootRef.current?._regenCleanup && (rootRef.current._regenCleanup = _removeListeners);
       }
 
       gsap.from('.regen-100k-fan .fan-img', {
@@ -186,7 +217,7 @@ export default function Emprendimientos({ onFrameToggle }) {
                 <span key={i} className="regen-mobile-line">{line}{i < t.emprendimientos.desc.length - 1 ? ' ' : ''}</span>
               ))}
             </p>
-            <a href="#" target="_self" rel="noreferrer" className="btn-glass hero-cta-button">
+            <a href="https://500.naturatech.org" target="_blank" rel="noopener noreferrer" className="btn-glass hero-cta-button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
               {t.emprendimientos.heroCta}
             </a>
@@ -201,47 +232,83 @@ export default function Emprendimientos({ onFrameToggle }) {
         </div>
       </section>
 
-      {/* IMMERSIVE VIDEO — hidden */}
-      <section className="regen-video-section" style={{ display: 'none' }}>
+      {/* IMMERSIVE VIDEO — scrollytelling: small → fullscreen */}
+      <section className="regen-video-section">
         <div className="regen-video-sticky">
-          <video
-            ref={videoRef}
-            className="regen-video"
-            src={REGENERA_VIDEO_SRC}
-            muted={muted}
-            loop
-            playsInline
-            preload="metadata"
-          />
-          <button
-            type="button"
-            className="regen-sound-btn is-visible"
-            style={{ padding: 0, border: 'none', background: 'transparent' }}
-            onClick={() => {
-              const v = videoRef.current;
-              if (!v) return;
-              v.muted = !v.muted;
-              setMuted(v.muted);
-            }}
-          >
-            <GlassFrame
-              cornerRadius={999}
-              padding="14px 24px"
-              blurAmount={0.15}
-              saturation={120}
-              aberrationIntensity={1}
-              elasticity={0.1}
+
+          {/* Scaling frame — GSAP animates scale + border-radius */}
+          <div className="regen-video-frame">
+
+            {/* Animated gradient border ring */}
+            <div className="regen-video-glow-ring" aria-hidden="true" />
+
+            <video
+              ref={videoRef}
+              className="regen-video"
+              src={REGENERA_VIDEO_SRC}
+              muted={muted}
+              loop
+              playsInline
+              preload="metadata"
+            />
+
+            {/* Sound toggle */}
+            <button
+              type="button"
+              className="regen-sound-btn is-visible"
+              style={{ padding: 0, border: 'none', background: 'transparent' }}
+              onClick={() => {
+                const v = videoRef.current;
+                if (!v) return;
+                v.muted = !v.muted;
+                setMuted(v.muted);
+              }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                {muted ? (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-                ) : (
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-                )}
-                <span>{muted ? t.emprendimientos.soundOn : t.emprendimientos.soundOff}</span>
-              </div>
-            </GlassFrame>
-          </button>
+              <GlassFrame
+                cornerRadius={999}
+                padding="14px 24px"
+                blurAmount={0.15}
+                saturation={120}
+                aberrationIntensity={1}
+                elasticity={0.1}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  {muted ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                  ) : (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                  )}
+                  <span>{muted ? t.emprendimientos.soundOn : t.emprendimientos.soundOff}</span>
+                </div>
+              </GlassFrame>
+            </button>
+          </div>
+
+          {/* Mobile portrait: rotate device hint */}
+          <div className="regen-rotate-hint" aria-label={t.emprendimientos.rotateHint}>
+            <svg
+              className="regen-rotate-icon"
+              width="52"
+              height="52"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              {/* Phone body */}
+              <rect x="7" y="2" width="10" height="16" rx="2" />
+              {/* Rotation arrows */}
+              <path d="M4 10a8 8 0 0 0 1.5 5" />
+              <path d="M4 10l-2 2 2 2" />
+              <path d="M20 14a8 8 0 0 0-1.5-5" />
+              <path d="M20 14l2-2-2-2" />
+            </svg>
+            <p>{t.emprendimientos.rotateHint}</p>
+          </div>
+
         </div>
       </section>
 
@@ -256,7 +323,7 @@ export default function Emprendimientos({ onFrameToggle }) {
           <div className="regen-100k-info">
             <h3 className="regen-100k-heading">{t.emprendimientos.financingHeadingPre} <span className="regen-100k-number">{t.emprendimientos.financingHeading}</span> {t.emprendimientos.financingHeadingPost}</h3>
             <p className="regen-100k-text">{t.emprendimientos.financingDesc}</p>
-            <a href="#" target="_self" rel="noreferrer" className="btn-sparkle">
+            <a href="https://500.naturatech.org" target="_blank" rel="noopener noreferrer" className="btn-sparkle">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="#C8E632"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z"/></svg>
               {t.emprendimientos.financingCta}
             </a>
@@ -291,7 +358,7 @@ export default function Emprendimientos({ onFrameToggle }) {
                 <span key={i}>{line}{i < t.emprendimientos.conditionsTitle.length - 1 ? <br/> : ''}</span>
               ))}
             </h2>
-            <a href="#" target="_self" rel="noreferrer" className="btn-glass">
+            <a href="https://500.naturatech.org" target="_blank" rel="noopener noreferrer" className="btn-glass">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               {t.emprendimientos.conditionsCta}
             </a>
