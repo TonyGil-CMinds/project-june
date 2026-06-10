@@ -63,7 +63,7 @@ html.stories-card-is-open .glass-nav {
 }
 .hero-giant-text {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
@@ -111,17 +111,22 @@ html.stories-card-is-open .glass-nav {
   pointer-events: none;
 }
 .hero-content { position: relative; z-index: 4; width: 100%; }
-.hero-bottom-grid { position: relative; width: 100%; height: 200px; }
-.hero-bottom-left { position: absolute; left: 0; bottom: 0; }
+.hero-bottom-grid { position: relative; width: 100%; height: 300px; }
+.hero-bottom-left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: min(560px, 42vw);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+}
 .hero-bottom-center { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); }
 .hero-bottom-right {
   position: absolute;
   right: 0;
   bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 26px;
 }
 
 /* Stories card uses LiquidGlass wrapper; the inner element handles spacing */
@@ -233,17 +238,21 @@ html.stories-card-is-open .glass-nav {
 
 .hero-heading {
   font-family: var(--font-body);
-  text-align: right;
+  text-align: left;
   line-height: 0.98;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
 }
 .hero-heading-line {
   display: block;
   font-family: var(--font-body);
-  font-size: clamp(2.6rem, 5.2vw, 4.6rem);
+  font-size: clamp(2.9rem, 5.2vw, 4.75rem);
   font-weight: 600;
   text-transform: none;
   color: var(--text-primary);
+}
+.hero-heading-word-accent {
+  color: var(--accent);
+  text-shadow: 0 0 14px var(--accent-glow);
 }
 .hero-heading-accent .amp {
   color: var(--accent);
@@ -252,6 +261,14 @@ html.stories-card-is-open .glass-nav {
   margin-right: 0.12em;
   text-shadow: 0 0 14px var(--accent-glow);
   display: inline-block;
+}
+.hero-intro {
+  max-width: 650px;
+  margin: 8px 0 6px;
+  color: var(--text-primary);
+  font-size: clamp(0.82rem, 0.95vw, 0.96rem);
+  font-weight: 700;
+  line-height: 1.75;
 }
 
 .home-video-overlay {
@@ -667,7 +684,7 @@ html.stories-card-is-open .glass-nav {
     object-position: center center;
   }
   .home-page .hero-giant-text {
-    top: clamp(156px, 23svh, 172px);
+    top: clamp(128px, 18svh, 150px);
     display: flex;
     opacity: 0.74;
     width: 112%;
@@ -702,11 +719,12 @@ html.stories-card-is-open .glass-nav {
   .home-page .hero-bottom-center {
     display: none;
   }
-  .home-page .hero-bottom-right {
+  .home-page .hero-bottom-left {
     top: clamp(184px, 27svh, 226px);
     right: 20px;
     left: 20px;
     bottom: auto;
+    width: auto;
     align-items: center;
     gap: 24px;
     text-align: center;
@@ -721,12 +739,12 @@ html.stories-card-is-open .glass-nav {
     line-height: 0.98;
     letter-spacing: 0;
   }
-  .home-page .hero-heading-accent {
-    padding-left: 0;
-  }
-  .home-page .hero-heading-accent .amp {
-    margin-right: 0.08em;
-    color: rgba(154, 198, 76, 0.95);
+  .home-page .hero-intro {
+    max-width: 330px;
+    margin: -4px auto 0;
+    font-size: 0.76rem;
+    line-height: 1.55;
+    font-weight: 650;
   }
   .home-page #hero-cta {
     align-self: center;
@@ -756,7 +774,7 @@ html.stories-card-is-open .glass-nav {
     width: 38px;
     height: 38px;
   }
-  .home-page .hero-bottom-left {
+  .home-page .hero-bottom-right {
     left: 50%;
     right: auto;
     top: auto;
@@ -774,17 +792,17 @@ html.stories-card-is-open .glass-nav {
   .home-page .hero-stories-card.css-glass::after {
     display: none;
   }
-  .home-page .hero-bottom-left.is-stories-elevated {
+  .home-page .hero-bottom-right.is-stories-elevated {
     z-index: 260;
   }
-  .home-page .hero-bottom-left.is-stories-expanded {
+  .home-page .hero-bottom-right.is-stories-expanded {
     top: 50%;
     bottom: auto;
     width: min(344px, calc(100vw - 24px));
     transform: translate(-50%, -50%);
     transition-timing-function: var(--stories-open-ease);
   }
-  .home-page .hero-bottom-left.is-stories-minimized {
+  .home-page .hero-bottom-right.is-stories-minimized {
     bottom: calc(90px + env(safe-area-inset-bottom));
     width: 64px;
     pointer-events: none;
@@ -1007,10 +1025,10 @@ html.stories-card-is-open .glass-nav {
 @media (max-width: 420px) {
   .home-hero { min-height: max(100dvh, 100vh); }
   .home-page .giant-letter { font-size: 4rem; }
-  .home-page .hero-bottom-left {
+  .home-page .hero-bottom-right {
     width: min(280px, calc(100vw - 40px));
   }
-  .home-page .hero-bottom-left.is-stories-expanded {
+  .home-page .hero-bottom-right.is-stories-expanded {
     width: min(344px, calc(100vw - 24px));
   }
   .stories-content {

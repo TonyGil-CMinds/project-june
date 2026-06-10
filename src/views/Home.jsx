@@ -407,9 +407,36 @@ export default function Home({ appReady = true }) {
         <div className="hero-content">
           <div className="hero-bottom-grid">
 
+            <div className="hero-bottom-left">
+              <h1 className="hero-heading">
+                <span className="hero-heading-line">
+                  {t.home.heroHeadingLead}{' '}
+                  <span className="hero-heading-word-accent">{t.home.heroHeadingAccent}</span>
+                </span>
+                <span className="hero-heading-line">
+                  {t.home.heroHeading2}
+                </span>
+              </h1>
+              <p className="hero-intro">{t.home.heroParagraph}</p>
+              <a href="#" className="btn-glass hero-cta-button" id="hero-cta" ref={heroCtaRef} onClick={openHeroVideo}>
+                <svg className="hero-cta-icon hero-cta-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="#101511"><polygon points="5,3 19,12 5,21"/></svg>
+                <svg className="hero-cta-icon hero-cta-icon-sparkle" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 2.8 14.45 9.55 21.2 12 14.45 14.45 12 21.2 9.55 14.45 2.8 12 9.55 9.55 12 2.8Z" fill="currentColor" />
+                </svg>
+                {t.home.heroCta}
+              </a>
+            </div>
+
+            <div className="hero-bottom-center">
+              <div className="hero-scroll-indicator" id="hero-scroll">
+                <span>{t.common.scroll}</span>
+                <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L8 20M8 20L2 14M8 20L14 14"/></svg>
+              </div>
+            </div>
+
             <div
               className={
-                'hero-bottom-left' +
+                'hero-bottom-right' +
                 (storiesElevated ? ' is-stories-elevated' : '') +
                 (!storiesCollapsed ? ' is-stories-expanded' : '') +
                 (storiesMinimized ? ' is-stories-minimized' : '')
@@ -504,29 +531,6 @@ export default function Home({ appReady = true }) {
                   <polyline points="6 15 12 9 18 15" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
-            </div>
-
-            <div className="hero-bottom-center">
-              <div className="hero-scroll-indicator" id="hero-scroll">
-                <span>{t.common.scroll}</span>
-                <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="#C8E632" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 4L8 20M8 20L2 14M8 20L14 14"/></svg>
-              </div>
-            </div>
-
-            <div className="hero-bottom-right">
-              <h1 className="hero-heading">
-                <span className="hero-heading-line">{t.home.heroHeading1}</span>
-                <span className="hero-heading-line hero-heading-accent">
-                {t.home.heroHeading2}
-                </span>
-              </h1>
-              <a href="#" className="btn-glass hero-cta-button" id="hero-cta" ref={heroCtaRef} onClick={openHeroVideo}>
-                <svg className="hero-cta-icon hero-cta-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="#101511"><polygon points="5,3 19,12 5,21"/></svg>
-                <svg className="hero-cta-icon hero-cta-icon-sparkle" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M12 2.8 14.45 9.55 21.2 12 14.45 14.45 12 21.2 9.55 14.45 2.8 12 9.55 9.55 12 2.8Z" fill="currentColor" />
-                </svg>
-                {t.home.heroCta}
-              </a>
             </div>
 
           </div>
