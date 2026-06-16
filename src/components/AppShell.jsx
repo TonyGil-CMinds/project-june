@@ -74,6 +74,7 @@ export default function AppShell({ children }) {
       touchMultiplier: 1.4,
     });
     lenisRef.current = lenis;
+    window.naturatechLenis = lenis;
 
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (time) => lenis.raf(time * 1000);
@@ -84,6 +85,9 @@ export default function AppShell({ children }) {
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
+      if (window.naturatechLenis === lenis) {
+        delete window.naturatechLenis;
+      }
     };
   }, []);
 

@@ -221,6 +221,43 @@ function StudioPortfolioText() {
   );
 }
 
+function StudioPortfolioSection({ onSelect }) {
+  return (
+    <section className="studio-portfolio-section" id="portfolio" aria-label="Portafolio de soluciones">
+      <div className="studio-portfolio-stage">
+        <div className="studio-portfolio-left">
+          <StudioPortfolioText />
+        </div>
+
+        <div className="studio-portfolio-desktop-grid">
+          {portfolioColumns.map((column, colIdx) => (
+            <div className="studio-portfolio-column" data-direction={colIdx === 1 ? 1 : -1} key={colIdx}>
+              {[...column, ...column, ...column].map((image, imgIdx) => (
+                <StudioPortfolioCard image={image} onSelect={onSelect} key={`${image.src}-${imgIdx}`} />
+              ))}
+            </div>
+          ))}
+        </div>
+
+        <div className="studio-portfolio-mobile-grid">
+          <div className="studio-portfolio-mobile-column" data-direction="-1">
+            {[...mobileLeftContent, ...mobileLeftContent, ...mobileLeftContent].map((item, idx) =>
+              item === 'copy'
+                ? <StudioPortfolioText key={`copy-${idx}`} />
+                : <StudioPortfolioCard image={item} onSelect={onSelect} key={`${item.src}-left-${idx}`} />
+            )}
+          </div>
+          <div className="studio-portfolio-mobile-column" data-direction="1">
+            {[...mobileRightImages, ...mobileRightImages, ...mobileRightImages].map((image, idx) => (
+              <StudioPortfolioCard image={image} onSelect={onSelect} key={`${image.src}-right-${idx}`} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ══════════════════════════════════════════
    PROJECT DETAIL MODE
    ══════════════════════════════════════════ */
@@ -592,34 +629,8 @@ function ProjectDetailMode({ initialIndex, onClose, clickOrigin }) {
 export default function Studio() {
   const { t } = useLanguage();
   const rootRef = useRef(null);
-  const [portfolioOpen,   setPortfolioOpen]   = useState(false);
   const [detailIndex,     setDetailIndex]     = useState(null);
   const [clickOriginRect, setClickOriginRect] = useState(null);
-
-  const runCoverTransition = (onCovered) => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      onCovered?.();
-      return;
-    }
-    const el = document.createElement('div');
-    el.className = 'studio-cover-overlay';
-    document.body.appendChild(el);
-    gsap.timeline()
-      .fromTo(el,
-        { yPercent: 100 },
-        { yPercent: 0, duration: 0.52, ease: 'power3.inOut', onComplete: () => onCovered?.() }
-      )
-      .to(el, { yPercent: -100, duration: 0.48, ease: 'power3.inOut', onComplete: () => el.remove() });
-  };
-
-  const openPortfolio = (event) => {
-    event.preventDefault();
-    runCoverTransition(() => setPortfolioOpen(true));
-  };
-
-  const closePortfolio = () => {
-    runCoverTransition(() => setPortfolioOpen(false));
-  };
 
   /* Open project detail from a portfolio card click */
   const openDetail = (index, rect) => {
@@ -633,9 +644,30 @@ export default function Studio() {
     setClickOriginRect(null);
   };
 
+  const scrollToPortfolio = (event) => {
+    event.preventDefault();
+
+    const target = document.getElementById('portfolio');
+    if (!target) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lenis = window.naturatechLenis;
+
+    if (lenis?.scrollTo) {
+      lenis.scrollTo(target, {
+        duration: reduceMotion ? 0 : 1.45,
+        easing: (t) => 1 - Math.pow(1 - t, 4),
+      });
+    } else {
+      target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+
+    window.history.replaceState(null, '', '#portfolio');
+  };
+
   /* ── Hero/content GSAP animations ── */
   useEffect(() => {
-    if (!rootRef.current || portfolioOpen) return undefined;
+    if (!rootRef.current) return undefined;
 
     const ctx = gsap.context(() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -703,87 +735,87 @@ export default function Studio() {
       cleanupGsapRoute(rootRef.current);
       ctx.revert();
     };
-  }, [portfolioOpen]);
+  }, []);
 
-  /* ── Portfolio mode GSAP (infinite scroll columns) ── */
+  /* ── Portfolio section GSAP (scroll-driven columns) ── */
   useEffect(() => {
-    document.documentElement.classList.toggle('studio-portfolio-open', portfolioOpen);
-
-    if (!portfolioOpen || !rootRef.current || detailIndex !== null) {
-      return () => document.documentElement.classList.remove('studio-portfolio-open');
-    }
-
-    window.scrollTo(0, 0);
+    if (!rootRef.current || detailIndex !== null) return undefined;
 
     const ctx = gsap.context(() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      gsap.from('.studio-portfolio-back', { y: -18, opacity: 0, duration: 0.55, ease: 'power3.out' });
-      gsap.from('.studio-portfolio-copy', { y: 28, opacity: 0, duration: 0.7, ease: 'power3.out' });
+      ScrollTrigger.create({
+        trigger: '.studio-portfolio-section',
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: '.studio-portfolio-stage',
+        pinSpacing: false,
+      });
+
+      gsap.set('.studio-portfolio-left .studio-portfolio-stats p', { y: 18, autoAlpha: 0 });
+      gsap.set('.studio-portfolio-left .studio-portfolio-copy h2', { y: 38, autoAlpha: 0, filter: 'blur(10px)' });
+
+      const copyTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.studio-portfolio-section',
+          start: 'top 68%',
+          toggleActions: 'play none none reverse',
+        },
+      });
+
+      copyTl
+        .to('.studio-portfolio-left .studio-portfolio-stats p', {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.58,
+          stagger: 0.08,
+          ease: 'power3.out',
+        })
+        .to('.studio-portfolio-left .studio-portfolio-copy h2', {
+          y: 0,
+          autoAlpha: 1,
+          filter: 'blur(0px)',
+          duration: 0.82,
+          ease: 'power4.out',
+        }, '-=0.24');
 
       if (reduceMotion) return;
 
-      let activeLoop;
-
       const setupColumns = (selector) => {
         const columns = gsap.utils.toArray(selector);
-        const setters = columns.map((col) => gsap.quickSetter(col, 'y', 'px'));
-        const cycleHeights = columns.map((col) => col.scrollHeight / 3);
-        const baseOffsets  = columns.map((_, i) => -cycleHeights[i] * [0.18, 0.54, 0.34][i % 3]);
-        const directions   = columns.map((col) => Number(col.dataset.direction || -1));
-        let current = 0;
-        let target  = 0;
-        let touchY  = null;
+        columns.forEach((col, i) => {
+          const cycle = col.scrollHeight / 3 || 1;
+          const direction = Number(col.dataset.direction || -1);
+          const base = -cycle * [0.18, 0.54, 0.34][i % 3];
+          const travel = cycle * 0.72 * direction;
 
-        const render = () => {
-          current += (target - current) * 0.095;
-          columns.forEach((col, i) => {
-            const cycle = cycleHeights[i] || 1;
-            const rawY  = baseOffsets[i] + directions[i] * current;
-            setters[i](gsap.utils.wrap(-cycle * 2, 0, rawY));
-          });
-        };
-
-        const addDelta = (delta) => { target += delta * 0.92; };
-
-        const handleWheel = (e) => { e.preventDefault(); addDelta(e.deltaY); };
-        const handleTouchStart = (e) => { touchY = e.touches[0]?.clientY ?? null; };
-        const handleTouchMove  = (e) => {
-          if (touchY === null) return;
-          e.preventDefault();
-          const nextY = e.touches[0]?.clientY ?? touchY;
-          addDelta(touchY - nextY);
-          touchY = nextY;
-        };
-        const handleTouchEnd = () => { touchY = null; };
-
-        window.addEventListener('wheel', handleWheel, { passive: false });
-        window.addEventListener('touchstart', handleTouchStart, { passive: true });
-        window.addEventListener('touchmove',  handleTouchMove,  { passive: false });
-        window.addEventListener('touchend',   handleTouchEnd,   { passive: true });
-        gsap.ticker.add(render);
-        render();
-
-        activeLoop = () => {
-          gsap.ticker.remove(render);
-          window.removeEventListener('wheel', handleWheel);
-          window.removeEventListener('touchstart', handleTouchStart);
-          window.removeEventListener('touchmove',  handleTouchMove);
-          window.removeEventListener('touchend',   handleTouchEnd);
-        };
+          gsap.fromTo(
+            col,
+            { y: base },
+            {
+              y: base + travel,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: '.studio-portfolio-section',
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: 0.8,
+              },
+            }
+          );
+        });
       };
 
       ScrollTrigger.matchMedia({
-        '(min-width: 769px)':  () => { setupColumns('.studio-portfolio-column');        return () => activeLoop?.(); },
-        '(max-width: 768px)':  () => { setupColumns('.studio-portfolio-mobile-column'); return () => activeLoop?.(); },
+        '(min-width: 769px)':  () => setupColumns('.studio-portfolio-column'),
+        '(max-width: 768px)':  () => setupColumns('.studio-portfolio-mobile-column'),
       });
     }, rootRef);
 
     return () => {
       ctx.revert();
-      document.documentElement.classList.remove('studio-portfolio-open');
     };
-  }, [portfolioOpen, detailIndex]);
+  }, [detailIndex]);
 
   /* ── Render: Project Detail Mode ── */
   if (detailIndex !== null) {
@@ -794,53 +826,6 @@ export default function Studio() {
           onClose={closeDetail}
           clickOrigin={clickOriginRect}
         />
-      </div>
-    );
-  }
-
-  /* ── Render: Portfolio Grid Mode ── */
-  if (portfolioOpen) {
-    return (
-      <div ref={rootRef} className="studio-portfolio-mode">
-        <div className="studio-portfolio-scroll">
-          <section className="studio-portfolio-section" id="portfolio" aria-label="Portafolio de soluciones">
-            <button className="studio-portfolio-back" type="button" onClick={closePortfolio} aria-label={t.studio.portfolioBack}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              {t.studio.portfolioBack}
-            </button>
-
-            <div className="studio-portfolio-left">
-              <StudioPortfolioText />
-            </div>
-
-            <div className="studio-portfolio-desktop-grid">
-              {portfolioColumns.map((column, colIdx) => (
-                <div className="studio-portfolio-column" data-direction={colIdx === 1 ? 1 : -1} key={colIdx}>
-                  {[...column, ...column, ...column].map((image, imgIdx) => (
-                    <StudioPortfolioCard image={image} onSelect={openDetail} key={`${image.src}-${imgIdx}`} />
-                  ))}
-                </div>
-              ))}
-            </div>
-
-            <div className="studio-portfolio-mobile-grid">
-              <div className="studio-portfolio-mobile-column" data-direction="-1">
-                {[...mobileLeftContent, ...mobileLeftContent, ...mobileLeftContent].map((item, idx) =>
-                  item === 'copy'
-                    ? <StudioPortfolioText key={`copy-${idx}`} />
-                    : <StudioPortfolioCard image={item} onSelect={openDetail} key={`${item.src}-left-${idx}`} />
-                )}
-              </div>
-              <div className="studio-portfolio-mobile-column" data-direction="1">
-                {[...mobileRightImages, ...mobileRightImages, ...mobileRightImages].map((image, idx) => (
-                  <StudioPortfolioCard image={image} onSelect={openDetail} key={`${image.src}-right-${idx}`} />
-                ))}
-              </div>
-            </div>
-          </section>
-        </div>
       </div>
     );
   }
@@ -878,7 +863,7 @@ export default function Studio() {
               <span className="studio-heading-line studio-heading-accent"><span className="amp">&amp;</span> {t.studio.heading2}</span>
             </h1>
             <p className="studio-description">{t.studio.heroDesc}</p>
-            <a href="#portfolio" className="btn-glass hero-cta-button" onClick={openPortfolio}>
+            <a href="#portfolio" className="btn-glass hero-cta-button" onClick={scrollToPortfolio}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2.5L14.58 9.42L21.5 12L14.58 14.58L12 21.5L9.42 14.58L2.5 12L9.42 9.42L12 2.5Z" />
               </svg>
@@ -896,6 +881,8 @@ export default function Studio() {
           </div>
         </div>
       </section>
+
+      <StudioPortfolioSection onSelect={openDetail} />
 
       <section className="studio-main-content">
         <div className="studio-main-inner">
