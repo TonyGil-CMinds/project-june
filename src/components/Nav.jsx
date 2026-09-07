@@ -311,13 +311,25 @@ export default function Nav() {
     >
       <div className="nav-inner">
         <a href="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home" onClick={(event) => handleNavigationClick(event, '/')}>
-          <div className="nav-logo-glass">
+          <div
+            className="nav-logo-glass"
+            data-liquid-glass
+            data-liquid-depth="13"
+            data-liquid-strength="15"
+            data-liquid-chromatic="0.16"
+          >
             <img src="/assets/images/logo.svg" alt="" width="30" height="27" />
           </div>
         </a>
 
         <div className="nav-pill-cell">
-          <div className="nav-pill-glass">
+          <div
+            className="nav-pill-glass"
+            data-liquid-glass
+            data-liquid-depth="15"
+            data-liquid-strength="17"
+            data-liquid-chromatic="0.13"
+          >
             <div className="nav-pill" ref={pillRef}>
               <span className="nav-active-icon" ref={activeIconRef} aria-hidden="true">
                 <img key={activeLink.to} src={activeLink.icon} alt="" />

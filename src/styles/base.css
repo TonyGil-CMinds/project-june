@@ -788,6 +788,46 @@ a.footer-legal-link:hover {
 .css-glass-lg   { border-radius: var(--radius-lg); }
 .css-glass-xl   { border-radius: var(--radius-xl); }
 
+/* ══════════════════════════════════════════
+   LIQUID GLASS — real backdrop refraction
+   (src/lib/liquidGlass.js, applied by src/components/LiquidGlassLayer.jsx)
+
+   The engine sets `backdrop-filter: … url(#id)` inline and tags the element
+   with `.is-liquid-glass`. Only Chromium supports url() there, so everything
+   below is a progressive enhancement on top of the CSS-glass fallback: once the
+   rim does real refraction the surface needs far less tint and fake blur to
+   read as glass, so we thin the fill right out and let the backdrop through.
+   ══════════════════════════════════════════ */
+
+/* Rim lighting: a bright top edge and a dark bottom edge sell the thickness
+   that the displacement map is refracting through. */
+.is-liquid-glass {
+  background: linear-gradient(135deg, hsla(0, 0%, 100%, 0.04), hsla(0, 0%, 100%, 0.008));
+  border: 1px solid hsla(0, 0%, 100%, 0.16);
+  box-shadow:
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.26),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    inset 0 0 14px 1px hsla(0, 0%, 100%, 0.09),
+    0 30px 60px -30px rgba(0, 0, 0, 0.6);
+}
+
+/* Buttons keep their lift and sweep on hover, just over the refracted rim. */
+.btn-glass.is-liquid-glass:hover,
+.btn-glass-outline.is-liquid-glass:hover {
+  background: linear-gradient(135deg, hsla(0, 0%, 100%, 0.075), hsla(0, 0%, 100%, 0.02));
+  border-color: hsla(0, 0%, 100%, 0.24);
+  box-shadow:
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 12px 34px rgba(200, 230, 50, 0.16);
+}
+
+/* The ::after hotspot was compensating for a flat surface — the rim highlight
+   above replaces it, and leaving both on reads as two light sources. */
+.css-glass.is-liquid-glass::after {
+  opacity: 0;
+}
+
 /* Footer social icons — small CSS-glass discs */
 .social-icon.css-glass {
   width: 38px; height: 38px;

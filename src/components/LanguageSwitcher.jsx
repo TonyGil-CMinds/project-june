@@ -17,7 +17,12 @@ export default function LanguageSwitcher() {
     if (open) {
       gsap.fromTo(el,
         { autoAlpha: 0, scale: 0.9, y: -6, filter: 'blur(8px)' },
-        { autoAlpha: 1, scale: 1, y: 0, filter: 'blur(0px)', duration: 0.26, ease: 'power3.out' }
+        {
+          autoAlpha: 1, scale: 1, y: 0, filter: 'blur(0px)', duration: 0.26, ease: 'power3.out',
+          // A lingering inline `filter` on the panel would sit on top of its own
+          // backdrop-filter and can knock out the liquid-glass refraction.
+          clearProps: 'filter',
+        }
       );
     } else {
       gsap.to(el, { autoAlpha: 0, scale: 0.9, y: -6, filter: 'blur(8px)', duration: 0.18, ease: 'power2.in' });
@@ -46,6 +51,7 @@ export default function LanguageSwitcher() {
       <button
         ref={btnRef}
         className="lang-btn css-glass"
+        data-liquid-chromatic="0.18"
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
         aria-expanded={open}
