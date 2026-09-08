@@ -512,19 +512,21 @@
   .ceiba-giant-text {
     display: none;
   }
-  .ceiba-subject-anchor {
-    height: 63%;
-    left: 50%;
-    bottom: -90px;
+  /* The portrait cover already has a person in it — the cut-out speaker on top
+     of it just produced two overlapping subjects. */
+  .ceiba-subject-wrapper {
+    display: none;
   }
+  /* Much heavier than desktop: the title and paragraph sit directly over the
+     brightest part of the cover. */
   .ceiba-overlay {
     background:
       linear-gradient(180deg,
-        rgba(26, 41, 18, 0) 0%,
-        rgba(26, 41, 18, 0.02) 34%,
-        rgba(26, 41, 18, 0.10) 54%,
-        rgba(26, 41, 18, 0.28) 82%,
-        rgba(26, 41, 18, 0.38) 100%);
+        rgba(12, 20, 10, 0.55) 0%,
+        rgba(12, 20, 10, 0.48) 26%,
+        rgba(14, 24, 12, 0.52) 48%,
+        rgba(18, 30, 14, 0.72) 74%,
+        rgba(26, 41, 18, 0.92) 100%);
   }
   .ceiba-content {
     position: absolute;
@@ -554,53 +556,48 @@
     margin-bottom: 27px;
   }
   .ceiba-heading-line {
-    font-size: 2.88rem;
-    line-height: 1.07;
-    letter-spacing: 0;
+    font-size: 60px;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
   }
+  /* Smaller indent than before: at 60px the old 48px pushed "& Conecta" past
+     the right edge on a 390px screen. */
   .ceiba-heading-accent {
-    padding-left: 48px;
+    padding-left: 12px;
   }
   .ceiba-description {
-    max-width: 316px;
-    margin: 0 auto 28px;
-    font-size: 0.97rem;
-    font-weight: 600;
-    line-height: 1.42;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.95);
+    max-width: none;
+    margin: 0 0 30px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.5;
+    text-align: left;
+    color: rgba(255, 255, 255, 0.94);
   }
+  /* The forced per-line breaks were tuned for the old centred, narrower
+     paragraph; left-aligned at 16px it should just wrap naturally. */
   .ceiba-mobile-line {
-    display: block;
+    display: inline;
   }
   .ceiba-content-inner .hero-cta-button {
     display: flex;
-    width: 284px;
-    min-height: 52px;
-    margin: 0 auto;
-    padding: 0 24px;
-    border-radius: 16px;
-    gap: 11px;
-    font-size: 1rem;
-    font-weight: 700;
-    background: var(--glass-strong-bg);
-  }
-  .ceiba-bottom-center {
-    position: absolute;
-    left: 50%;
-    bottom: 108px;
-    transform: translateX(-50%);
-  }
-  .ceiba-hero .hero-scroll-indicator {
-    gap: 9px;
+    justify-content: center;
+    width: 100%;
+    min-height: 58px;
+    margin: 0;
+    padding: 0 18px;
+    border-radius: 26px;
+    gap: 10px;
+    /* Sized so the longest label ("Únete a la comunidad de práctica") stays on
+       one line at 390px — it wrapped into a double-height button at 0.98rem. */
     font-size: 0.86rem;
-    letter-spacing: 0;
-    color: #ffffff;
+    font-weight: 700;
+    white-space: nowrap;
   }
-  .ceiba-hero .hero-scroll-indicator svg {
-    width: 30px;
-    height: 44px;
-    stroke-width: 1.8;
+  /* Scroll hint removed on mobile — it collided with the CTA once the button
+     went full width. */
+  .ceiba-bottom-center {
+    display: none;
   }
   .ceiba-gallery { height: 100svh; min-height: 440px; }
   .ceiba-gallery-carousel { height: 160px; }
@@ -906,4 +903,65 @@ html.ceiba-join-is-open body {
 .hero-cta-button.is-member,
 .hero-cta-button.is-member svg {
   color: var(--accent);
+}
+
+/* ══════════════════════════════════════════
+   CEIBA mobile hero CTA — orbiting light rim
+
+   Registered so the angle can be animated: a plain custom property is a string
+   to the animation engine and would jump instead of sweeping. Where @property
+   is unsupported the gradient simply stays put, which still reads as an accent
+   rim rather than breaking.
+   ══════════════════════════════════════════ */
+@property --ceiba-cta-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes ceiba-cta-orbit {
+  to { --ceiba-cta-angle: 360deg; }
+}
+
+@media (max-width: 768px) {
+  .ceiba-content-inner .hero-cta-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    /* Rim thickness. The mask below punches out the content box, so only this
+       2px ring of the gradient is ever painted. */
+    padding: 2px;
+    background: conic-gradient(
+      from var(--ceiba-cta-angle),
+      transparent 0deg,
+      rgba(200, 230, 50, 0.15) 40deg,
+      var(--accent) 78deg,
+      #f4ffc4 96deg,
+      var(--accent) 114deg,
+      rgba(200, 230, 50, 0.15) 152deg,
+      transparent 210deg,
+      transparent 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: ceiba-cta-orbit 3.2s linear infinite;
+    pointer-events: none;
+  }
+
+  /* A faint bloom so the travelling light reads as light, not just a stroke. */
+  .ceiba-content-inner .hero-cta-button {
+    box-shadow:
+      var(--glass-strong-shadow),
+      0 0 22px -6px rgba(200, 230, 50, 0.28);
+  }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .ceiba-content-inner .hero-cta-button::after {
+    animation: none;
+    background: linear-gradient(135deg, var(--accent), rgba(200, 230, 50, 0.25));
+  }
 }

@@ -431,7 +431,13 @@ export default function Ceiba() {
       {/* ════════════ HERO ════════════ */}
       <section className="ceiba-hero">
         <div className="ceiba-bg-wrapper">
-          <img src="/assets/CEIBA/bg-ceiba.avif" alt="" className="ceiba-bg" />
+          {/* Portrait crop on phones. <picture> so only one of the two is
+              fetched — <picture> is static, so the absolutely positioned img
+              still fills .ceiba-bg-wrapper. */}
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/assets/CEIBA/hero-cover-ceiba-mobile.png" />
+            <img src="/assets/CEIBA/bg-ceiba.avif" alt="" className="ceiba-bg" />
+          </picture>
         </div>
 
         <div className="ceiba-giant-text" aria-hidden="true">
@@ -460,7 +466,10 @@ export default function Ceiba() {
             </h1>
             <p className="ceiba-description">
               {t.ceiba.desc.map((line, i) => (
-                <span key={i} className="ceiba-mobile-line">{line}{i < t.ceiba.desc.length - 1 ? ' ' : ''}</span>
+                // Trimmed: some lines carry a trailing space from when they
+                // were rendered as separate blocks, which doubled up against
+                // the separator once they became inline.
+                <span key={i} className="ceiba-mobile-line">{line.trim()}{i < t.ceiba.desc.length - 1 ? ' ' : ''}</span>
               ))}
             </p>
             <button
