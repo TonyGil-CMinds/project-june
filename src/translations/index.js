@@ -128,6 +128,7 @@ export const translations = {
       heading2: 'Conecta',
       desc: ['Comunidad de líderes, comunidades,', 'innovadores, científicos, inversionistas y', 'tomadores de decisión para construir juntos', 'nuevas economías regenerativas para ', 'América Latina y el Caribe.'],
       heroCta: 'Únete a la comunidad de práctica',
+      joinedCta: 'Eres parte de la comunidad',
       join: {
         title: 'Únete a la Comunidad de CEIBA',
         subtitle: 'Cuéntanos quién eres y qué te trae a la comunidad de práctica.',
@@ -154,6 +155,7 @@ export const translations = {
           duplicate:  'Ya tenemos un registro con ese correo. ¡Nos vemos pronto!',
           server:     'No pudimos guardar tu registro. Inténtalo de nuevo en un momento.',
           network:    'Sin conexión. Revisa tu red e inténtalo de nuevo.',
+          timeout:    'El envío está tardando demasiado. Revisa tu conexión e inténtalo de nuevo.',
         },
         success: {
           title: '¡Registro recibido!',
@@ -405,6 +407,7 @@ export const translations = {
       heading2: 'Connect',
       desc: ['Community of leaders, communities,', 'innovators, scientists, investors and', 'decision-makers building together', 'new regenerative economies for ', 'Latin America and the Caribbean.'],
       heroCta: 'Join the community of practice',
+      joinedCta: 'You are part of the community',
       join: {
         title: 'Join the CEIBA Community',
         subtitle: 'Tell us who you are and what brings you to the community of practice.',
@@ -431,6 +434,7 @@ export const translations = {
           duplicate:  'We already have a registration with that email. See you soon!',
           server:     "We couldn't save your registration. Please try again in a moment.",
           network:    'No connection. Check your network and try again.',
+          timeout:    'This is taking too long. Check your connection and try again.',
         },
         success: {
           title: 'Registration received!',

@@ -21,6 +21,7 @@ const VIEW_EASE = [0.26, 0.08, 0.25, 1];
 const FIELDS = ['name', 'email', 'organization', 'position', 'motivation'];
 const CLOSE_DRAG_PX = 110;
 const CLOSE_DRAG_VELOCITY = 520;
+const REQUEST_TIMEOUT_MS = 20000;
 
 /** Animates the panel to its content's height as views swap. */
 function useMeasuredHeight(deps) {
@@ -50,7 +51,7 @@ function useMeasuredHeight(deps) {
   return [ref, height];
 }
 
-export default function CeibaJoinSheet({ open, onClose }) {
+export default function CeibaJoinSheet({ open, onClose, onJoined }) {
   const { t, lang } = useLanguage();
   const copy = t.ceiba.join;
 
@@ -171,15 +172,22 @@ export default function CeibaJoinSheet({ open, onClose }) {
       setFormError(null);
       setFieldErrors({});
 
+      // Without a ceiling the spinner can spin forever on a stalled request,
+      // which is the state the user was already complaining about.
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
       try {
         const response = await fetch('/api/ceiba/registro', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...values, locale: lang }),
+          signal: controller.signal,
         });
         const payload = await response.json().catch(() => ({}));
 
         if (response.ok) {
+          onJoined?.(values.email);
           setView('success');
           return;
         }
@@ -190,18 +198,21 @@ export default function CeibaJoinSheet({ open, onClose }) {
           return;
         }
         if (response.status === 409) {
+          // Already registered — still a member, so the page CTA should say so.
+          onJoined?.(values.email);
           setFieldErrors({ email: 'duplicate' });
           setFormError(copy.errors.duplicate);
           return;
         }
         setFormError(copy.errors.server);
-      } catch {
-        setFormError(copy.errors.network);
+      } catch (error) {
+        setFormError(error?.name === 'AbortError' ? copy.errors.timeout : copy.errors.network);
       } finally {
+        window.clearTimeout(timeout);
         setSubmitting(false);
       }
     },
-    [submitting, values, lang, copy]
+    [submitting, values, lang, copy, onJoined]
   );
 
   if (typeof document === 'undefined') return null;
@@ -344,7 +355,15 @@ export default function CeibaJoinSheet({ open, onClose }) {
                           </p>
                         )}
 
-                        <button type="submit" className="ceiba-join-submit" disabled={submitting}>
+                        <button
+                          type="submit"
+                          className={'ceiba-join-submit' + (submitting ? ' is-submitting' : '')}
+                          disabled={submitting}
+                          aria-busy={submitting || undefined}
+                        >
+                          {submitting ? (
+                            <span className="ceiba-join-spinner" aria-hidden="true" />
+                          ) : null}
                           {submitting ? copy.submitting : copy.submit}
                           {!submitting && (
                             <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
@@ -359,6 +378,11 @@ export default function CeibaJoinSheet({ open, onClose }) {
                             </svg>
                           )}
                         </button>
+
+                        {/* Announced to screen readers, which never see the spinner. */}
+                        <p className="ceiba-join-status" role="status" aria-live="polite">
+                          {submitting ? copy.submitting : ''}
+                        </p>
 
                         <p className="ceiba-join-note">{copy.note}</p>
                       </form>

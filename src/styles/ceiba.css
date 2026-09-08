@@ -865,3 +865,45 @@ html.ceiba-join-is-open body {
   /* 16px keeps iOS from zooming the viewport on focus. */
   .ceiba-join-input { font-size: 16px; }
 }
+
+/* ── Submit progress ── */
+.ceiba-join-submit.is-submitting {
+  /* Not `progress`: the pointer is over a button that is doing work, and
+     `wait` is what users read as "the app is busy". */
+  cursor: wait;
+}
+
+.ceiba-join-spinner {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(16, 21, 17, 0.25);
+  border-top-color: #101511;
+  animation: ceiba-join-spin 0.7s linear infinite;
+}
+
+@keyframes ceiba-join-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Visible only to screen readers — the spinner covers sighted users. */
+.ceiba-join-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Hero CTA once this browser has registered ──
+   Stays clickable on purpose (you may want to sign up a colleague), so it keeps
+   the normal button affordances — only the accent colour marks the state. */
+.hero-cta-button.is-member,
+.hero-cta-button.is-member svg {
+  color: var(--accent);
+}

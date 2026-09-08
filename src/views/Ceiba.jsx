@@ -9,6 +9,8 @@ import CeibaJoinSheet from '../components/CeibaJoinSheet.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CEIBA_MEMBER_KEY = 'ceiba-community-member';
+
 /* Gallery images */
 const galleryImages = [
   '/assets/CEIBA/galeria-ceiba-1.avif',
@@ -121,6 +123,31 @@ export default function Ceiba() {
   const rootRef = useRef(null);
   const { t } = useLanguage();
   const [joinOpen, setJoinOpen] = useState(false);
+  const [isMember, setIsMember] = useState(false);
+
+  /**
+   * Remembers that this browser already registered, so the hero CTA reads as a
+   * status instead of an invitation on a return visit.
+   *
+   * Read in an effect, never during render: /ceiba is statically prerendered,
+   * so touching localStorage in the render pass would cause a hydration
+   * mismatch. It also means the button starts as "join" for one frame, which is
+   * the correct default when we don't know yet.
+   */
+  useEffect(() => {
+    try {
+      setIsMember(localStorage.getItem(CEIBA_MEMBER_KEY) === 'true');
+    } catch (_) {
+      /* private mode / blocked storage — stay with the join label */
+    }
+  }, []);
+
+  const handleJoined = () => {
+    setIsMember(true);
+    try {
+      localStorage.setItem(CEIBA_MEMBER_KEY, 'true');
+    } catch (_) {}
+  };
   const logoImgRef = useRef(null);
   const burstLayerRef = useRef(null);
   const logoClickCountRef = useRef(0);
@@ -437,14 +464,27 @@ export default function Ceiba() {
               ))}
             </p>
             <button
-              type="button"
+              type="button"
               onClick={() => setJoinOpen(true)}
-              className="btn-glass hero-cta-button"
+              className={'btn-glass hero-cta-button' + (isMember ? ' is-member' : '')}
               aria-haspopup="dialog"
               aria-expanded={joinOpen}
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
-              {t.ceiba.heroCta}
+              {isMember ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M20 6L9 17l-5-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
+              )}
+              {isMember ? t.ceiba.joinedCta : t.ceiba.heroCta}
             </button>
           </div>
 
@@ -554,7 +594,11 @@ export default function Ceiba() {
         </div>
       </section>
 
-      <CeibaJoinSheet open={joinOpen} onClose={() => setJoinOpen(false)} />
+      <CeibaJoinSheet
+        open={joinOpen}
+        onClose={() => setJoinOpen(false)}
+        onJoined={handleJoined}
+      />
     </div>
   );
 }
