@@ -313,6 +313,7 @@ export default function Nav() {
         <a href="/" className="nav-logo-cell" aria-label="NaturaTech LAC Home" onClick={(event) => handleNavigationClick(event, '/')}>
           <div
             className="nav-logo-glass"
+            data-nav-adaptive
             data-liquid-glass
             data-liquid-depth="13"
             data-liquid-strength="15"
@@ -325,6 +326,7 @@ export default function Nav() {
         <div className="nav-pill-cell">
           <div
             className="nav-pill-glass"
+            data-nav-adaptive
             data-liquid-glass
             data-liquid-depth="15"
             data-liquid-strength="17"

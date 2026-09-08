@@ -508,7 +508,7 @@ export default function Ceiba() {
 
 
       {/* ════════════ GALLERY + MARQUEES ════════════ */}
-      <section className="ceiba-gallery">
+      <section className="ceiba-gallery" data-nav-contrast="light">
 
         {/* TOP MARQUEE — moves right */}
         <div className="ceiba-marquee ceiba-marquee-top" aria-hidden="true">
@@ -548,7 +548,7 @@ export default function Ceiba() {
       </section>
 
       {/* ════════════ INFO / SUMMIT SECTION ════════════ */}
-      <section className="ceiba-info">
+      <section className="ceiba-info" data-nav-contrast="light">
         <div className="ceiba-info-inner">
           <div className="ceiba-info-logo" onClick={handleLogoClick} role="button" tabIndex={0} aria-label="CEIBA logo" onKeyDown={e => e.key === 'Enter' && handleLogoClick()}>
             <img ref={logoImgRef} src="/assets/CEIBA/Logos - Dark.svg" alt="CEIBA — Cumbre de Innovación e Inversión para la Biodiversidad" />
@@ -566,7 +566,7 @@ export default function Ceiba() {
       </section>
 
       {/* ════════════ SHAPE DIVIDER ════════════ */}
-      <section className="ceiba-shapes">
+      <section className="ceiba-shapes" data-nav-contrast="light">
         <div className="ceiba-shapes-track">
           {shapes.map((src, i) => (
             <div key={i} className="ceiba-shape-item">
@@ -577,7 +577,7 @@ export default function Ceiba() {
       </section>
 
       {/* ════════════ PODCAST — SOMOS RAÍCES ════════════ */}
-      <section className="ceiba-podcast">
+      <section className="ceiba-podcast" data-nav-contrast="light">
         <div className="ceiba-podcast-glow" aria-hidden="true" />
         <div className="ceiba-podcast-inner">
           <div className="ceiba-podcast-personas">

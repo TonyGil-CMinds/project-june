@@ -116,20 +116,42 @@ function buildDisplacementMap(width, height, radius, depth) {
   return canvas.toDataURL('image/png');
 }
 
+/**
+ * Whether this engine actually renders `url()` inside `backdrop-filter`.
+ *
+ * `CSS.supports` is not enough on its own: Safari parses the declaration and
+ * reports true, then ignores the filter. So the engine has to be identified.
+ *
+ * `userAgentData.brands` is consulted first because it names the engine rather
+ * than the disguise. Device emulation — DevTools' device toolbar, Playwright's
+ * device descriptors — rewrites the UA string to an iOS one while leaving the
+ * Chromium brands in place, so UA sniffing alone switched the effect off for
+ * anyone inspecting the site in mobile view. Real Safari and Firefox don't
+ * implement the API at all, so they fall through to the string check and stay
+ * excluded.
+ */
 export function supportsLiquidGlass() {
   if (supportCache !== null) return supportCache;
   if (typeof window === 'undefined' || !window.CSS?.supports) return false;
+
+  const renders =
+    window.CSS.supports('backdrop-filter', 'url(#liquid-probe)') ||
+    window.CSS.supports('-webkit-backdrop-filter', 'url(#liquid-probe)');
+
+  const brands = window.navigator.userAgentData?.brands;
+  if (Array.isArray(brands) && brands.length) {
+    const isChromium = brands.some(({ brand }) =>
+      /chromium|google chrome|microsoft edge|opera/i.test(brand || '')
+    );
+    supportCache = isChromium && renders;
+    return supportCache;
+  }
 
   const ua = window.navigator.userAgent;
   const isSafari = /^((?!chrome|chromium|android).)*safari/i.test(ua);
   const isFirefox = /firefox/i.test(ua);
 
-  supportCache =
-    !isSafari &&
-    !isFirefox &&
-    (window.CSS.supports('backdrop-filter', 'url(#liquid-probe)') ||
-      window.CSS.supports('-webkit-backdrop-filter', 'url(#liquid-probe)'));
-
+  supportCache = !isSafari && !isFirefox && renders;
   return supportCache;
 }
 
@@ -351,13 +373,20 @@ export function attachLiquidGlass(element, options = {}) {
     const brightness = options.brightness ?? 1.05;
     const saturate = options.saturate ?? 1.5;
 
+    // The filter reference goes out as a custom property, and brightness and
+    // saturation are composed through overridable ones. That lets a stylesheet
+    // retune the backdrop — e.g. darkening it over a light section for contrast
+    // — instead of having to hide it behind an opaque fill, which is the one
+    // thing that actually destroys the refraction.
+    element.style.setProperty('--liquid-glass-ref', `url(#${currentId})`);
+
     // Any blur goes before the displacement so the rim refracts already-softened
     // backdrop; at 0 it's dropped entirely and the glass stays optically clear.
     const value = [
-      `brightness(${brightness})`,
-      `saturate(${saturate})`,
+      `var(--liquid-glass-brightness, brightness(${brightness}))`,
+      `var(--liquid-glass-saturate, saturate(${saturate}))`,
       blur > 0 ? `blur(${blur}px)` : null,
-      `url(#${currentId})`,
+      'var(--liquid-glass-ref)',
     ]
       .filter(Boolean)
       .join(' ');
@@ -397,6 +426,7 @@ export function attachLiquidGlass(element, options = {}) {
     if (currentId) releaseFilter(currentId);
     currentId = null;
 
+    element.style.removeProperty('--liquid-glass-ref');
     element.style.backdropFilter = previousBackdrop;
     element.style.webkitBackdropFilter = previousWebkit;
     element.classList.remove('is-liquid-glass');

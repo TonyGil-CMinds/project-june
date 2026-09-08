@@ -51,6 +51,7 @@ export default function LanguageSwitcher() {
       <button
         ref={btnRef}
         className="lang-btn css-glass"
+        data-nav-adaptive
         data-liquid-chromatic="0.18"
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
@@ -72,6 +73,7 @@ export default function LanguageSwitcher() {
       <div
         ref={dropdownRef}
         className="lang-dropdown css-glass"
+        data-nav-adaptive
         role="listbox"
         style={{ visibility: 'hidden', opacity: 0 }}
       >

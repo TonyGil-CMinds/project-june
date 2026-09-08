@@ -13,6 +13,7 @@ import Footer from './Footer.jsx';
 import ViewportFrame from './ViewportFrame.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
 import LiquidGlassLayer from './LiquidGlassLayer.jsx';
+import AdaptiveContrastLayer from './AdaptiveContrastLayer.jsx';
 import SeoMetadata from './SeoMetadata.jsx';
 import { FrameToggleContext } from './FrameContext.jsx';
 import { LanguageProvider } from '../contexts/LanguageContext.jsx';
@@ -125,6 +126,7 @@ export default function AppShell({ children }) {
         </main>
 
         <LiquidGlassLayer />
+        <AdaptiveContrastLayer />
 
         <SpeedInsights />
         <Analytics />
