@@ -636,21 +636,30 @@
    CEIBA — "Únete a la comunidad" bottom sheet
    (src/components/CeibaJoinSheet.jsx)
    ══════════════════════════════════════════ */
+/* No `touch-action: none` here: on html/body it also blocks touch panning in
+   every descendant, which stopped the form itself from scrolling on mobile.
+   The lock lives on the overlay instead, which is the surface that must not
+   scroll; the sheet's own scroller opts back in with `touch-action: pan-y`. */
 html.ceiba-join-is-open,
 html.ceiba-join-is-open body {
   overflow: hidden;
-  touch-action: none;
+  overscroll-behavior: none;
 }
 
 .ceiba-join-root {
   position: fixed;
   inset: 0;
+  /* dvh, so the sheet is anchored to the visible bottom rather than to the
+     layout viewport that sits behind mobile browser toolbars. */
+  height: 100dvh;
   z-index: 9990;
 }
 
 .ceiba-join-overlay {
   position: absolute;
   inset: 0;
+  /* Swallows page panning behind the sheet without touching the sheet itself. */
+  touch-action: none;
   background: rgba(8, 11, 9, 0.62);
   backdrop-filter: blur(10px) saturate(120%);
   -webkit-backdrop-filter: blur(10px) saturate(120%);
@@ -719,7 +728,11 @@ html.ceiba-join-is-open body {
 .ceiba-join-viewport {
   overflow-y: auto;
   overflow-x: hidden;
+  /* Explicit so the form scrolls on touch, and only vertically — horizontal
+     panning would fight the sheet's drag-to-dismiss. */
+  touch-action: pan-y;
   overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   /* Load-bearing: without a reserved gutter, the scrollbar appearing as the
      height animates narrows the content, which rewraps taller, which remeasures
      bigger, which hides the scrollbar again — the height never settles. */

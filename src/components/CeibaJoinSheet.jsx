@@ -67,17 +67,51 @@ export default function CeibaJoinSheet({ open, onClose }) {
   const dragControls = useDragControls();
   const [contentRef, contentHeight] = useMeasuredHeight([open, view, fieldErrors, formError, lang]);
   const [maxHeight, setMaxHeight] = useState(null);
+  const [bottomInset, setBottomInset] = useState(0);
 
   useEffect(() => {
     setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
 
-  // Leaves room for the grab handle and the sheet's bottom margin.
+  /**
+   * Caps the panel to the height that is actually visible, leaving room for the
+   * grab handle and the sheet's bottom margin.
+   *
+   * `visualViewport.height`, not `window.innerHeight`: on mobile innerHeight
+   * includes the strip behind the browser's dynamic toolbars, so the cap came
+   * out too generous — the panel then matched its full content height, leaving
+   * scrollHeight === clientHeight (nothing to scroll) with the last fields
+   * sitting under the browser chrome. The same applies, harder, when the
+   * on-screen keyboard opens.
+   */
   useEffect(() => {
-    const measure = () => setMaxHeight(window.innerHeight - 96);
+    const vv = window.visualViewport;
+
+    const measure = () => {
+      const visible = vv ? vv.height : window.innerHeight;
+      setMaxHeight(Math.max(240, Math.round(visible) - 96));
+
+      // How much of the layout viewport is covered from the bottom — the
+      // on-screen keyboard, mostly. The sheet is anchored to the layout
+      // viewport, so without this offset it sits behind the keyboard and the
+      // lower fields stay unreachable however much you scroll.
+      const covered = vv ? window.innerHeight - (vv.height + vv.offsetTop) : 0;
+      setBottomInset(Math.max(0, Math.round(covered)));
+    };
+
     measure();
+
+    vv?.addEventListener('resize', measure);
+    vv?.addEventListener('scroll', measure);
     window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+    window.addEventListener('orientationchange', measure);
+
+    return () => {
+      vv?.removeEventListener('resize', measure);
+      vv?.removeEventListener('scroll', measure);
+      window.removeEventListener('resize', measure);
+      window.removeEventListener('orientationchange', measure);
+    };
   }, []);
 
   // Reset on open, not on a timer after close: a timed reset races the exit
@@ -191,6 +225,10 @@ export default function CeibaJoinSheet({ open, onClose }) {
           <motion.div
             className="ceiba-join-sheet"
             ref={panelRef}
+            // `bottom`, not a transform: framer-motion owns the transform for
+            // the slide-up and the drag, so lifting the sheet above the
+            // keyboard has to use a property it doesn't touch.
+            style={{ bottom: bottomInset }}
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
@@ -235,6 +273,7 @@ export default function CeibaJoinSheet({ open, onClose }) {
 
             <motion.div
               className="ceiba-join-viewport"
+              data-lenis-prevent
               animate={
                 contentHeight != null
                   ? { height: maxHeight ? Math.min(contentHeight, maxHeight) : contentHeight }
