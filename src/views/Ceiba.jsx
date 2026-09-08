@@ -6,6 +6,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import CeibaJoinSheet from '../components/CeibaJoinSheet.jsx';
+import CeibaJourney from '../components/CeibaJourney.jsx';
+import { ceibaAbout } from '../data/ceiba-about.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -121,7 +123,8 @@ const podcastLinks = [
 
 export default function Ceiba() {
   const rootRef = useRef(null);
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const about = ceibaAbout[lang];
   const [joinOpen, setJoinOpen] = useState(false);
   const [isMember, setIsMember] = useState(false);
 
@@ -153,6 +156,14 @@ export default function Ceiba() {
   const logoClickCountRef = useRef(0);
   const ceibaAudioRef = useRef(null);
 
+  // Expanded copy changes the position of the gallery pin and later reveals.
+  const refreshContentLayout = () => ScrollTrigger.refresh();
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(refreshContentLayout);
+    return () => cancelAnimationFrame(frame);
+  }, [lang]);
+
   useEffect(() => {
     if (!rootRef.current) return;
 
@@ -161,6 +172,7 @@ export default function Ceiba() {
 
     const ctx = gsap.context(() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
 
       if (!reduceMotion) {
         gsap.fromTo(
@@ -507,6 +519,10 @@ export default function Ceiba() {
       </section>
 
 
+      {/* The immersive scroll journey replaces the static about/practice
+          sections: same copy from ceiba-about.js, five 100vh scenes. */}
+      <CeibaJourney onJoin={() => setJoinOpen(true)} isMember={isMember} />
+
       {/* ════════════ GALLERY + MARQUEES ════════════ */}
       <section className="ceiba-gallery" data-nav-contrast="light">
 
@@ -548,20 +564,25 @@ export default function Ceiba() {
       </section>
 
       {/* ════════════ INFO / SUMMIT SECTION ════════════ */}
-      <section className="ceiba-info" data-nav-contrast="light">
+      <section className="ceiba-info" data-nav-contrast="light" aria-labelledby="ceiba-origin-title">
         <div className="ceiba-info-inner">
           <div className="ceiba-info-logo" onClick={handleLogoClick} role="button" tabIndex={0} aria-label="CEIBA logo" onKeyDown={e => e.key === 'Enter' && handleLogoClick()}>
             <img ref={logoImgRef} src="/assets/CEIBA/Logos - Dark.svg" alt="CEIBA — Cumbre de Innovación e Inversión para la Biodiversidad" />
           </div>
-          <p className="ceiba-info-sub">{t.ceiba.infoSub}</p>
+          <h2 id="ceiba-origin-title" className="ceiba-info-sub">{about.originTitle}</h2>
           <div className="ceiba-info-divider" />
           <div className="ceiba-info-text">
-            <p>{t.ceiba.infoText}</p>
+            <p>{about.origin}</p>
           </div>
           <a href="/galeriaceiba" target="_self" rel="noreferrer" className="btn-glass ceiba-info-btn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polygon points="5,3 19,12 5,21" /></svg>
             {t.ceiba.infoButton}
           </a>
+          <details className="ceiba-ecosystem" onToggle={refreshContentLayout}>
+            <summary>{about.ecosystemTitle}</summary>
+            <p>{about.ecosystem}</p>
+            <p>{about.committee}</p>
+          </details>
         </div>
       </section>
 

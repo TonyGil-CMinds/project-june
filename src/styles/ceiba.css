@@ -143,6 +143,168 @@
 .ceiba-mobile-line { display: inline; }
 
 
+/* Community content: reuse CEIBA's cream, forest and lime identity. */
+.ceiba-about,
+.ceiba-practice {
+  margin: 0;
+  padding: clamp(64px, 8vw, 120px) clamp(22px, 5vw, 80px);
+}
+.ceiba-about {
+  background: #F4F0BE;
+  color: #192C0A;
+}
+.ceiba-about-inner { max-width: 1200px; margin-inline: auto; }
+.ceiba-section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-bottom: 28px;
+}
+.ceiba-about-intro,
+.ceiba-about-diversity {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(28px, 6vw, 96px);
+}
+.ceiba-about h2,
+.ceiba-practice h2 {
+  font-family: var(--font-body);
+  font-size: clamp(2.25rem, 4.2vw, 4rem);
+  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+.ceiba-about h2 { max-width: 15ch; }
+.ceiba-about-copy p,
+.ceiba-practice-intro,
+.ceiba-pillar-content p,
+.ceiba-community-invite p,
+.ceiba-ecosystem p {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  max-width: 68ch;
+}
+.ceiba-about-copy p + p { margin-top: 20px; }
+.ceiba-about-diversity {
+  margin-top: clamp(40px, 5vw, 72px);
+  padding-top: clamp(32px, 4vw, 56px);
+  border-top: 1px solid rgba(25, 44, 10, 0.22);
+}
+.ceiba-about-diversity h3,
+.ceiba-community-invite h3 {
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.2;
+  font-weight: 600;
+  text-wrap: balance;
+}
+.ceiba-about-diversity h3 { max-width: 20ch; }
+.ceiba-practice { background: #192C0A; color: #F4F0BE; }
+.ceiba-practice .ceiba-section-label { color: #C8E632; }
+.ceiba-practice-intro { margin-top: 24px; }
+.ceiba-pillars { margin-top: clamp(36px, 5vw, 64px); }
+.ceiba-pillar { border-top: 1px solid rgba(244, 240, 190, 0.25); }
+.ceiba-pillar:last-child { border-bottom: 1px solid rgba(244, 240, 190, 0.25); }
+.ceiba-pillar summary {
+  display: grid;
+  grid-template-columns: 32px minmax(180px, 0.85fr) 1fr 28px;
+  align-items: center;
+  gap: 24px;
+  padding-block: 28px;
+  cursor: pointer;
+  list-style: none;
+}
+.ceiba-pillar summary::-webkit-details-marker { display: none; }
+.ceiba-pillar summary h3 {
+  font-family: var(--font-body);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  line-height: 1.15;
+  font-weight: 500;
+  color: #C8E632;
+}
+.ceiba-pillar-number { font-size: 0.8rem; color: #C8E632; }
+.ceiba-pillar-summary { font-size: 1rem; line-height: 1.5; }
+.ceiba-pillar-toggle { position: relative; width: 24px; height: 24px; }
+.ceiba-pillar-toggle::before,
+.ceiba-pillar-toggle::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+  left: 3px;
+  top: 11px;
+  width: 18px;
+  height: 2px;
+}
+.ceiba-pillar-toggle::after { transform: rotate(90deg); transition: transform 0.2s ease-out; }
+.ceiba-pillar[open] .ceiba-pillar-toggle::after { transform: rotate(0); }
+.ceiba-pillar-content { padding: 0 52px 36px 56px; }
+.ceiba-pillar-item {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.85fr) 1fr;
+  gap: 8px 24px;
+  padding-block: 20px;
+}
+.ceiba-pillar-item + .ceiba-pillar-item { border-top: 1px solid rgba(244, 240, 190, 0.12); }
+.ceiba-pillar-item h4 { font-size: 1.125rem; line-height: 1.5; font-weight: 600; }
+.ceiba-pillar-note { grid-column: 2; color: #C8E632; }
+.ceiba-community-invite {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 56px;
+}
+.ceiba-community-invite p { margin-top: 12px; max-width: 52ch; }
+.ceiba-community-cta {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 18px 28px;
+  min-height: 56px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: #C8E632;
+  color: #192C0A;
+  font: 600 1rem var(--font-body);
+  cursor: pointer;
+  transition: background 0.2s ease-out;
+}
+.ceiba-community-cta:hover { background: #EBFF57; }
+.ceiba-pillar summary:hover h3 { color: #EBFF57; }
+.ceiba-pillar summary:focus-visible,
+.ceiba-community-cta:focus-visible,
+.ceiba-ecosystem summary:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+.ceiba-ecosystem {
+  width: 100%;
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(25, 44, 10, 0.22);
+  text-align: left;
+  color: #192C0A;
+}
+.ceiba-ecosystem summary { cursor: pointer; font-weight: 600; padding-block: 12px; }
+.ceiba-ecosystem p { margin-top: 20px; }
+@media (max-width: 768px) {
+  .ceiba-about-intro, .ceiba-about-diversity { grid-template-columns: 1fr; }
+  .ceiba-about h2 { max-width: 20ch; }
+  .ceiba-pillar summary { grid-template-columns: 24px 1fr 24px; gap: 10px 16px; padding-block: 24px; }
+  .ceiba-pillar-summary { grid-column: 2; grid-row: 2; }
+  .ceiba-pillar-toggle { grid-column: 3; grid-row: 1; }
+  .ceiba-pillar-content { padding: 0 0 24px; }
+  .ceiba-pillar-item { grid-template-columns: 1fr; gap: 8px; }
+  .ceiba-pillar-note { grid-column: 1; }
+  .ceiba-community-invite { align-items: stretch; flex-direction: column; }
+  .ceiba-community-cta { align-self: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ceiba-pillar-toggle::after { transition: none; }
+}
+
 /* ── CEIBA GALLERY + MARQUEES ── */
 .ceiba-gallery {
   position: relative;
@@ -630,13 +792,13 @@
 }
 
 /* ══════════════════════════════════════════
-   CEIBA — "Únete a la comunidad" bottom sheet
+   CEIBA — staged registration
    (src/components/CeibaJoinSheet.jsx)
+
+   White panel on purpose: it is the one place on the site that asks the visitor
+   to type, and the dark glass made long forms hard to read. Centred card with a
+   photo column on desktop, bottom sheet on phones — same markup.
    ══════════════════════════════════════════ */
-/* No `touch-action: none` here: on html/body it also blocks touch panning in
-   every descendant, which stopped the form itself from scrolling on mobile.
-   The lock lives on the overlay instead, which is the surface that must not
-   scroll; the sheet's own scroller opts back in with `touch-action: pan-y`. */
 html.ceiba-join-is-open,
 html.ceiba-join-is-open body {
   overflow: hidden;
@@ -646,8 +808,6 @@ html.ceiba-join-is-open body {
 .ceiba-join-root {
   position: fixed;
   inset: 0;
-  /* dvh, so the sheet is anchored to the visible bottom rather than to the
-     layout viewport that sits behind mobile browser toolbars. */
   height: 100dvh;
   z-index: 9990;
 }
@@ -657,7 +817,7 @@ html.ceiba-join-is-open body {
   inset: 0;
   /* Swallows page panning behind the sheet without touching the sheet itself. */
   touch-action: none;
-  background: rgba(8, 11, 9, 0.62);
+  background: rgba(8, 11, 9, 0.66);
   backdrop-filter: blur(10px) saturate(120%);
   -webkit-backdrop-filter: blur(10px) saturate(120%);
 }
@@ -669,14 +829,12 @@ html.ceiba-join-is-open body {
      inline `transform` for the slide-up and drag, which would wipe it out. */
   left: 0;
   right: 0;
-  width: min(520px, calc(100% - 24px));
+  width: min(1020px, calc(100% - 24px));
   margin: 0 auto 12px;
-  border-radius: 34px;
-  background: linear-gradient(180deg, rgba(24, 30, 24, 0.94), rgba(16, 21, 17, 0.97));
-  border: 1px solid hsla(0, 0%, 100%, 0.12);
-  box-shadow:
-    inset 0 1px 0 hsla(0, 0%, 100%, 0.14),
-    0 -10px 60px rgba(0, 0, 0, 0.55);
+  border-radius: 32px;
+  background: #ffffff;
+  color: #16210f;
+  box-shadow: 0 -10px 70px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   will-change: transform;
 }
@@ -696,7 +854,7 @@ html.ceiba-join-is-open body {
   width: 42px;
   height: 4px;
   border-radius: 999px;
-  background: hsla(0, 0%, 100%, 0.2);
+  background: rgba(22, 33, 15, 0.18);
 }
 
 .ceiba-join-close {
@@ -704,24 +862,25 @@ html.ceiba-join-is-open body {
   top: 18px;
   right: 20px;
   z-index: 3;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   border-radius: 50%;
-  background: hsla(0, 0%, 100%, 0.08);
-  color: var(--text-secondary);
+  background: rgba(22, 33, 15, 0.07);
+  color: #3d5227;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
-.ceiba-join-close:hover { background: hsla(0, 0%, 100%, 0.14); color: var(--text-primary); }
+.ceiba-join-close:hover { background: rgba(22, 33, 15, 0.14); color: #16210f; }
 .ceiba-join-close:active { transform: scale(0.88); }
 
-/* Height is animated by framer-motion as the view swaps. It's capped to the
-   viewport in JS, so tall content (the 5-field form on a short screen) scrolls
-   here instead of running off the bottom of the sheet. */
+.ceiba-join-body { display: grid; grid-template-columns: minmax(0, 1fr); }
+
+/* Height is animated by framer-motion as steps swap. It is capped to the
+   viewport in JS, so a tall step scrolls here instead of running off. */
 .ceiba-join-viewport {
   overflow-y: auto;
   overflow-x: hidden;
@@ -737,75 +896,257 @@ html.ceiba-join-is-open body {
 }
 
 .ceiba-join-form,
-.ceiba-join-success { padding: 20px 26px 26px; }
+.ceiba-join-success { padding: 14px 28px 28px; }
 
-.ceiba-join-header { margin-bottom: 20px; padding-right: 40px; }
+.ceiba-join-header { margin-bottom: 16px; padding-right: 44px; }
+
+.ceiba-join-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #5d7a34;
+}
+.ceiba-join-step-count { margin-left: auto; opacity: 0.6; }
 
 .ceiba-join-title {
-  font-family: var(--font-display);
-  font-size: 1.16rem;
+  font-family: var(--font-body);
+  font-size: clamp(1.24rem, 2vw, 1.6rem);
   font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #16210f;
 }
 
 .ceiba-join-subtitle {
   margin-top: 7px;
   font-family: var(--font-body);
-  font-size: 0.84rem;
+  font-size: 0.88rem;
   line-height: 1.5;
-  color: var(--text-muted);
+  color: #5c6b4f;
 }
 
-.ceiba-join-fields { display: flex; flex-direction: column; gap: 13px; }
+/* ── Step progress ── */
+.ceiba-join-progress {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  list-style: none;
+}
+.ceiba-join-progress li {
+  height: 4px;
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(22, 33, 15, 0.1);
+  transition: background 0.3s var(--ease-out);
+}
+.ceiba-join-progress li.is-done { background: #A3BA1F; }
+.ceiba-join-progress li.is-current { background: #C8E632; }
 
-.ceiba-join-field { display: flex; flex-direction: column; gap: 6px; }
+.ceiba-join-fields { display: flex; flex-direction: column; gap: 15px; }
+
+.ceiba-join-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+}
 
 .ceiba-join-label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 0;
   font-family: var(--font-body);
   font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: #4c5c3c;
+}
+.ceiba-join-label-hint {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #7d8b6d;
 }
 
 .ceiba-join-input {
   width: 100%;
   padding: 12px 14px;
   border-radius: var(--radius-sm);
-  border: 1px solid hsla(0, 0%, 100%, 0.1);
-  background: hsla(0, 0%, 100%, 0.045);
-  color: var(--text-primary);
+  border: 1px solid rgba(22, 33, 15, 0.16);
+  background: #fbfcf7;
+  color: #16210f;
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.45;
   transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
 }
-.ceiba-join-input::placeholder { color: var(--text-faint); }
+.ceiba-join-input::placeholder { color: #9aa78c; }
 .ceiba-join-input:focus {
   outline: none;
-  border-color: var(--accent);
-  background: hsla(0, 0%, 100%, 0.07);
-  box-shadow: 0 0 0 3px rgba(200, 230, 50, 0.14);
+  border-color: #A3BA1F;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(163, 186, 31, 0.2);
 }
 .ceiba-join-input:disabled { opacity: 0.55; cursor: not-allowed; }
+.ceiba-join-form textarea.ceiba-join-input { resize: vertical; min-height: 104px; }
 
-.ceiba-join-field.is-textarea .ceiba-join-input { resize: vertical; min-height: 84px; }
-
-.ceiba-join-field.is-invalid .ceiba-join-input { border-color: #e8734a; }
+.ceiba-join-field.is-invalid .ceiba-join-input { border-color: #c9502a; }
 .ceiba-join-field-error,
 .ceiba-join-error {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: #f0906b;
+  font-size: 0.76rem;
+  color: #b8461f;
 }
 .ceiba-join-error { margin-top: 14px; }
 
-.ceiba-join-submit {
-  margin-top: 18px;
+/* ── Country search ── */
+.ceiba-join-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ceiba-join-search > svg {
+  position: absolute;
+  left: 12px;
+  color: #7d8b6d;
+  pointer-events: none;
+}
+.ceiba-join-search .ceiba-join-input { padding-left: 36px; }
+.ceiba-join-chosen {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  max-width: 44%;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  background: #eef3d8;
+  color: #38491f;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ceiba-join-country-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 188px;
+  margin-top: 2px;
+  padding: 4px;
+  border: 1px solid rgba(22, 33, 15, 0.12);
+  border-radius: var(--radius-sm);
+  background: #fbfcf7;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+}
+.ceiba-join-country {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #26331b;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.16s;
+}
+.ceiba-join-country:hover { background: rgba(163, 186, 31, 0.16); }
+.ceiba-join-country.is-selected { background: #dfe9b4; font-weight: 700; }
+.ceiba-join-country .fi { flex-shrink: 0; width: 1.4em; line-height: 1em; border-radius: 3px; }
+.ceiba-join-country-empty {
+  padding: 12px;
+  font-size: 0.84rem;
+  color: #7d8b6d;
+  text-align: center;
+}
+
+/* ── Chips (age range, sectors) ── */
+.ceiba-join-choices { gap: 9px; }
+.ceiba-join-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.ceiba-join-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 14px;
+  border: 1px solid rgba(22, 33, 15, 0.16);
+  border-radius: var(--radius-pill);
+  background: #fbfcf7;
+  color: #33422a;
+  font-family: var(--font-body);
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+/* The native control stays in the DOM for keyboard and screen readers; the
+   label is the visible chip. */
+.ceiba-join-chip input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.ceiba-join-chip:hover { background: #f0f4e2; }
+.ceiba-join-chip.is-selected {
+  background: #16210f;
+  border-color: #16210f;
+  color: #EBFF57;
+}
+.ceiba-join-chip.is-disabled { opacity: 0.4; cursor: not-allowed; }
+.ceiba-join-chip:has(input:focus-visible) {
+  outline: 2px solid #A3BA1F;
+  outline-offset: 2px;
+}
+
+/* ── Actions ── */
+.ceiba-join-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.ceiba-join-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid rgba(22, 33, 15, 0.18);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: #3d5227;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.ceiba-join-back:hover:not(:disabled) { background: rgba(22, 33, 15, 0.06); }
+.ceiba-join-back:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ceiba-join-submit {
+  flex: 1;
   min-height: 48px;
   display: inline-flex;
   align-items: center;
@@ -813,57 +1154,17 @@ html.ceiba-join-is-open body {
   gap: 9px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: #101511;
+  background: #16210f;
+  color: #EBFF57;
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.24s, transform 0.18s, opacity 0.2s;
 }
-.ceiba-join-submit:hover:not(:disabled) { background: var(--accent-soft); }
-.ceiba-join-submit:active:not(:disabled) { transform: scale(0.975); }
-.ceiba-join-submit:disabled { opacity: 0.6; cursor: progress; }
-
-.ceiba-join-note {
-  margin-top: 12px;
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  line-height: 1.5;
-  text-align: center;
-  color: var(--text-faint);
-}
-
-.ceiba-join-success { text-align: center; padding-top: 30px; }
-.ceiba-join-success .ceiba-join-subtitle { margin-inline: auto; max-width: 34ch; }
-
-.ceiba-join-success-mark {
-  width: 58px;
-  height: 58px;
-  margin: 0 auto 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: rgba(200, 230, 50, 0.14);
-  border: 1px solid rgba(200, 230, 50, 0.35);
-  color: var(--accent);
-}
-
-@media (max-width: 520px) {
-  .ceiba-join-sheet {
-    width: calc(100% - 16px);
-    margin-bottom: 8px;
-    border-radius: 28px;
-  }
-  .ceiba-join-form,
-  .ceiba-join-success { padding: 18px 18px 22px; }
-  .ceiba-join-title { font-size: 1.06rem; }
-  /* 16px keeps iOS from zooming the viewport on focus. */
-  .ceiba-join-input { font-size: 16px; }
-}
-
-/* ── Submit progress ── */
+.ceiba-join-submit:hover:not(:disabled) { background: #26331b; }
+.ceiba-join-submit:active:not(:disabled) { transform: scale(0.985); }
+.ceiba-join-submit:disabled { opacity: 0.72; }
 .ceiba-join-submit.is-submitting {
   /* Not `progress`: the pointer is over a button that is doing work, and
      `wait` is what users read as "the app is busy". */
@@ -871,18 +1172,15 @@ html.ceiba-join-is-open body {
 }
 
 .ceiba-join-spinner {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   flex-shrink: 0;
   border-radius: 50%;
-  border: 2px solid rgba(16, 21, 17, 0.25);
-  border-top-color: #101511;
+  border: 2px solid rgba(235, 255, 87, 0.3);
+  border-top-color: #EBFF57;
   animation: ceiba-join-spin 0.7s linear infinite;
 }
-
-@keyframes ceiba-join-spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes ceiba-join-spin { to { transform: rotate(360deg); } }
 
 /* Visible only to screen readers — the spinner covers sighted users. */
 .ceiba-join-status {
@@ -895,6 +1193,90 @@ html.ceiba-join-is-open body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.ceiba-join-note {
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  text-align: center;
+  color: #8b9a7b;
+}
+
+.ceiba-join-success { text-align: center; padding-top: 34px; }
+.ceiba-join-success .ceiba-join-subtitle { margin-inline: auto; max-width: 36ch; }
+.ceiba-join-success .ceiba-join-submit { margin-top: 22px; }
+.ceiba-join-success-mark {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eef3d8;
+  border: 1px solid #C8E632;
+  color: #4c6b13;
+}
+
+/* ── Photo column ── */
+.ceiba-join-media { display: none; }
+
+@media (min-width: 900px) {
+  .ceiba-join-root { display: flex; align-items: center; justify-content: center; }
+  .ceiba-join-sheet {
+    position: relative;
+    bottom: auto !important;   /* keyboard inset is a phone concern only */
+    margin: 0;
+    border-radius: 28px;
+  }
+  .ceiba-join-grabber { display: none; }
+  .ceiba-join-body { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); }
+  .ceiba-join-form,
+  .ceiba-join-success { padding: 34px 34px 30px; }
+  .ceiba-join-header { padding-right: 0; }
+
+  .ceiba-join-media {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: #16210f;
+  }
+  .ceiba-join-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .ceiba-join-media-caption {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 16px 20px;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F4F0BE;
+    background: linear-gradient(180deg, transparent, rgba(10, 16, 6, 0.78));
+  }
+}
+
+@media (max-width: 520px) {
+  .ceiba-join-sheet {
+    width: calc(100% - 16px);
+    margin-bottom: 8px;
+    border-radius: 26px;
+  }
+  .ceiba-join-form,
+  .ceiba-join-success { padding: 12px 18px 22px; }
+  .ceiba-join-title { font-size: 1.14rem; }
+  /* 16px keeps iOS from zooming the viewport on focus. */
+  .ceiba-join-input { font-size: 16px; }
+  .ceiba-join-actions { flex-wrap: wrap; }
+  .ceiba-join-back { flex: 1; justify-content: center; }
 }
 
 /* ── Hero CTA once this browser has registered ──
@@ -964,4 +1346,289 @@ html.ceiba-join-is-open body {
     animation: none;
     background: linear-gradient(135deg, var(--accent), rgba(200, 230, 50, 0.25));
   }
+}
+
+/* ══════════════════════════════════════════
+   CEIBA JOURNEY — scroll-driven immersive scenes
+   (src/components/CeibaJourney.jsx)
+
+   Two layouts from one markup. On desktop the rail is pinned and dragged
+   sideways by ScrollTrigger, so scenes are 100vw columns and the animated
+   background lives on the root. On mobile the rail is a plain column of 100vh
+   sections, each painting its own background, and the vine runs vertically.
+   ══════════════════════════════════════════ */
+.ceiba-journey {
+  position: relative;
+  background: #F4F0BE;
+  /* Interpolated per frame by GSAP in horizontal mode; the transition covers
+     the vertical mode, where it only changes per section. */
+  transition: background-color 0.4s linear;
+}
+.ceiba-journey.is-horizontal {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.ceiba-journey-rail { position: relative; }
+.ceiba-journey.is-horizontal .ceiba-journey-rail {
+  display: flex;
+  width: max-content;
+  height: 100vh;
+  will-change: transform;
+}
+
+.ceiba-scene {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 88px);
+  padding: clamp(88px, 10vh, 132px) clamp(22px, 5vw, 80px) clamp(96px, 12vh, 140px);
+  background: var(--scene-bg);
+  color: #192C0A;
+}
+.ceiba-journey.is-horizontal .ceiba-scene {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  /* The root carries the interpolated colour in this mode. */
+  background: transparent;
+}
+.ceiba-scene.is-dark { color: #F4F0BE; }
+
+.ceiba-scene-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 62ch;
+}
+
+.ceiba-scene-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4a6b22;
+}
+.ceiba-scene.is-dark .ceiba-scene-eyebrow { color: #C8E632; }
+.ceiba-scene-index { margin-left: auto; opacity: 0.55; letter-spacing: 0.08em; }
+
+.ceiba-scene h2 {
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  line-height: 1.06;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  max-width: 20ch;
+}
+
+.ceiba-scene-intro { display: flex; flex-direction: column; gap: 14px; }
+.ceiba-scene-intro p,
+.ceiba-scene-lead {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
+  line-height: 1.65;
+  max-width: 54ch;
+}
+.ceiba-scene-lead { font-weight: 600; }
+
+.ceiba-scene-points {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 4px;
+  width: 100%;
+}
+.ceiba-scene-point {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 14px;
+  padding-top: 14px;
+  /* A hairline hint, not a divider competing with the text. */
+  border-top: 1px solid rgba(25, 44, 10, 0.18);
+}
+.ceiba-scene.is-dark .ceiba-scene-point { border-top-color: rgba(244, 240, 190, 0.2); }
+.ceiba-scene-point > svg {
+  width: 34px;
+  height: 34px;
+  padding: 6px;
+  border-radius: 50%;
+  color: #4a6b22;
+  background: rgba(25, 44, 10, 0.08);
+}
+.ceiba-scene.is-dark .ceiba-scene-point > svg {
+  color: #C8E632;
+  background: rgba(200, 230, 50, 0.12);
+}
+.ceiba-scene-point h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+.ceiba-scene-point p { font-size: 0.9rem; line-height: 1.55; opacity: 0.86; }
+.ceiba-scene-note { margin-top: 6px; font-size: 0.82rem; color: #C8E632; }
+.ceiba-scene:not(.is-dark) .ceiba-scene-note { color: #4a6b22; }
+
+.ceiba-scene .ceiba-community-cta { margin-top: 10px; gap: 12px; }
+
+/* ── Photography ── */
+.ceiba-scene-photo {
+  position: relative;
+  margin: 0;
+  height: min(62vh, 560px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 40px 80px -40px rgba(12, 20, 6, 0.55);
+}
+.ceiba-scene-photo img { width: 100%; height: 100%; object-fit: cover; }
+.ceiba-scene-photo figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #F4F0BE;
+  background: linear-gradient(180deg, transparent, rgba(10, 16, 6, 0.72));
+}
+
+/* ── The vine that paints itself along the scroll ── */
+.ceiba-vine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.ceiba-vine path {
+  fill: none;
+  stroke: #C8E632;
+  /* Scaled by the viewBox (≈1.6x across, 0.9x down), so this renders roughly
+     2.5–4px. Deliberately NOT `vector-effect: non-scaling-stroke`: that makes
+     the browser measure the dash pattern in screen pixels while
+     getTotalLength() reports viewBox units, and under this viewBox's
+     non-uniform stretch the two disagree enough that the drawn segment sits
+     off-screen — the line simply never appeared. */
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px rgba(200, 230, 50, 0.45));
+}
+/* Only one orientation is ever live, and GSAP animates the matching one. */
+.ceiba-vine-horizontal { display: none; }
+.ceiba-journey.is-horizontal .ceiba-vine-horizontal { display: block; }
+.ceiba-journey.is-horizontal .ceiba-vine-vertical { display: none; }
+
+/* ── Scene nav ── */
+.ceiba-journey-nav {
+  position: absolute;
+  left: clamp(22px, 5vw, 80px);
+  bottom: clamp(26px, 4vh, 44px);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-family: var(--font-body);
+}
+.ceiba-journey-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-right: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  color: #192C0A;
+}
+.ceiba-journey-nav button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border: 1px solid rgba(25, 44, 10, 0.22);
+  border-radius: var(--radius-pill);
+  background: rgba(25, 44, 10, 0.05);
+  color: #192C0A;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
+    color 0.22s var(--ease-out);
+}
+.ceiba-journey-nav button span { font-size: 0.64rem; opacity: 0.55; }
+.ceiba-journey-nav button:hover { background: rgba(25, 44, 10, 0.11); }
+.ceiba-journey-nav button[aria-current="true"] {
+  background: #192C0A;
+  border-color: #192C0A;
+  color: #F4F0BE;
+}
+.ceiba-journey-nav button[aria-current="true"] span { opacity: 0.7; }
+
+/* Past the midpoint the interpolated background is dark, so the nav inverts. */
+.ceiba-journey-nav.on-dark .ceiba-journey-hint { color: #F4F0BE; }
+.ceiba-journey-nav.on-dark button {
+  border-color: rgba(244, 240, 190, 0.28);
+  background: rgba(244, 240, 190, 0.08);
+  color: #F4F0BE;
+}
+.ceiba-journey-nav.on-dark button:hover { background: rgba(244, 240, 190, 0.16); }
+.ceiba-journey-nav.on-dark button[aria-current="true"] {
+  background: #C8E632;
+  border-color: #C8E632;
+  color: #192C0A;
+}
+
+.ceiba-journey-nav button:focus-visible,
+.ceiba-scene .ceiba-community-cta:focus-visible {
+  outline: 2px solid #C8E632;
+  outline-offset: 3px;
+}
+
+/* SplitText masks lines by wrapping them; keep descenders from being clipped. */
+.ceiba-scene [data-split] { padding-bottom: 0.08em; }
+
+@media (max-width: 1099px) {
+  .ceiba-scene {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 28px;
+    padding: clamp(72px, 9vh, 104px) clamp(22px, 5vw, 48px);
+  }
+  .ceiba-scene-photo { height: min(38vh, 320px); order: -1; }
+  .ceiba-journey-nav {
+    position: static;
+    padding: 0 clamp(22px, 5vw, 48px) 40px;
+  }
+  /* Clears the fixed bottom nav pill, which the copy otherwise runs underneath
+     and shows through the glass. */
+  .ceiba-scene { padding-bottom: 132px; }
+  /* The rail's own background would double up with each section's. */
+  .ceiba-journey { background: transparent; }
+}
+
+@media (max-width: 560px) {
+  .ceiba-scene { padding-inline: 20px; }
+  .ceiba-scene h2 { font-size: clamp(1.85rem, 8vw, 2.4rem); }
+  .ceiba-scene-index { display: none; }
+  .ceiba-journey-nav button { padding: 6px 11px; font-size: 0.7rem; }
 }

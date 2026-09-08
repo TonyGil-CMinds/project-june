@@ -73,6 +73,22 @@ Prisma 7 differs from v6 in ways worth knowing before editing:
 
 Local development: `npx prisma dev` starts a Prisma Postgres server and prints a **standard `postgres://` URL**, which works with `adapter-pg` as-is. Put it in `.env` (gitignored) along with `SHADOW_DATABASE_URL`.
 
+### CEIBA journey — the scroll-driven scenes
+
+`components/CeibaJourney.jsx` replaces what used to be static about/practice sections. Five 100vh scenes built from `data/ceiba-about.js`, with copy, `CeibaIcon` bullets and a photo from `data/ceiba-photos.js` each.
+
+One markup, two layouts via `gsap.matchMedia()`: on desktop the rail is pinned and dragged sideways (scenes become 100vw columns, the interpolated background lives on the root); on phones it degrades to a plain column of sections, each painting its own `--scene-bg`. Reduced motion gets the column too. Scenes 0–1 carry `data-nav-contrast="light"` so the adaptive nav inverts over them — that works in both layouts because the probe checks x bounds, so off-screen scenes don't match.
+
+`SplitText` is imported from `gsap/SplitText` — fine, GSAP 3.13+ ships all plugins in the public package (3.15 here). The rest of the site still uses `split-type`.
+
+**The vine gotcha:** the SVG that paints itself on scroll must *not* have `vector-effect: non-scaling-stroke`. With it, the browser measures the dash pattern in screen pixels while `getTotalLength()` reports viewBox units, and under this viewBox's non-uniform `preserveAspectRatio="none"` stretch the two disagree enough that the drawn segment sits off-screen — the line never appears at all.
+
+### CEIBA registration — staged form
+
+`components/CeibaJoinSheet.jsx` is a four-step white form (who you are → where → context → why), a centred card with a photo slideshow on desktop and a bottom sheet on phones. Each step validates only its own fields client-side, mirroring the API's rules; a 422 sends the user back to the earliest step that has a problem.
+
+Fields beyond the original five: `country` (searchable, flags via `flag-icons` — its CSS is imported in `app/layout.jsx` per this project's convention), `sectors` (multi-select, Postgres `text[]`, max 6) and `ageRange` (bracket ids). Options live in `data/ceiba-form-options.js` and `data/countries.js` (generated with `Intl.DisplayNames`); the API validates choices against those same lists so a tampered payload can't reach the database. `country` and `ageRange` are nullable in the schema because the rows that predate them genuinely have no answer.
+
 ### Liquid glass is applied automatically, not per component
 
 `src/lib/liquidGlass.js` is the engine: it paints an R/G displacement map from the signed distance field of an element's own rounded-rect geometry, then drives `backdrop-filter: … url(#filter)` through `feDisplacementMap` — three passes at slightly different scales for chromatic aberration. Filters are cached by geometry and reference-counted in one shared `<svg id="liquid-glass-defs">`, so a row of identically sized buttons costs one map and one filter.
@@ -162,7 +178,7 @@ See `.env.example`; secrets live in `.env.local` (gitignored).
 
 ## Things to Know Before Editing
 
-- Liquid-glass surfaces are fragile to their ancestors: an `opacity` below 1, or any `filter`, on the element or an ancestor makes it a backdrop root and the refraction (and blur) silently vanish. GSAP tweens that touch `filter` on a glass surface should `clearProps: 'filter'` — `LanguageSwitcher.jsx` does.
+- Liquid-glass surfaces are fragile to their ancestors: an `opacity` below 1, any `filter`, **or `will-change: opacity`** on the element or an ancestor makes it a backdrop root and the refraction (and blur) silently vanish. That last one is not hypothetical — `will-change: transform, opacity` on `.nav-pill-cell` is why the mobile nav had no liquid glass at all, and the hint had to be narrowed to `transform` alone (the opacity transition still runs; will-change is only a hint). GSAP tweens that touch `filter` on a glass surface should `clearProps: 'filter'` — `LanguageSwitcher.jsx` does.
 - Changing a shared class name in `base.css` can silently break GSAP selectors in views — grep for the class across `src/views/` and `src/components/` before renaming.
 - Gallery source images are gitignored (`public/assets/CEIBA/galería CEIBA 2025/`, `*.mp4`). The committed manifest is the source of truth in production; rerun the generator script if the local folder changes.
 - `NATURADESIGN.md` is a longer Spanish design/architecture guide. Its "Estado vigente" section still holds for design decisions, but its file-layout sections describe the pre-Next.js Vite structure (`src/pages/`, `App.jsx`, `main.jsx`, `vite.config.js`) and are stale.

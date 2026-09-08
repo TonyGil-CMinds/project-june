@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getPrisma } from '../../../../lib/prisma.js';
+import { countries } from '../../../../data/countries.js';
+import { sectorIds, ageRangeIds } from '../../../../data/ceiba-form-options.js';
 
 /**
  * Sign-ups for the CEIBA community of practice.
@@ -14,6 +16,11 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+const COUNTRY_CODES = new Set(countries.map((entry) => entry.code));
+const SECTOR_IDS = new Set(sectorIds);
+const AGE_RANGE_IDS = new Set(ageRangeIds);
+const MAX_SECTORS = 6;
 
 const FIELDS = {
   name: { min: 2, max: 120 },
@@ -49,6 +56,25 @@ function validate(body) {
   if (!errors.email && !EMAIL_PATTERN.test(values.email)) {
     errors.email = 'invalid';
   }
+
+  // The choice fields are checked against the same option lists the form
+  // renders from, so a tampered payload can't put junk in the database.
+  const country = typeof body?.country === 'string' ? body.country.trim().toLowerCase() : '';
+  if (!country) errors.country = 'required';
+  else if (!COUNTRY_CODES.has(country)) errors.country = 'invalid';
+  else values.country = country;
+
+  const ageRange = typeof body?.ageRange === 'string' ? body.ageRange.trim() : '';
+  if (!ageRange) errors.ageRange = 'required';
+  else if (!AGE_RANGE_IDS.has(ageRange)) errors.ageRange = 'invalid';
+  else values.ageRange = ageRange;
+
+  const rawSectors = Array.isArray(body?.sectors) ? body.sectors : [];
+  // De-duplicated: the UI can't produce repeats, but a payload can.
+  const sectors = [...new Set(rawSectors.filter((id) => SECTOR_IDS.has(id)))];
+  if (!sectors.length) errors.sectors = 'required';
+  else if (sectors.length > MAX_SECTORS) errors.sectors = 'tooMany';
+  else values.sectors = sectors;
 
   return {
     values: { ...values, email: values.email?.toLowerCase() },

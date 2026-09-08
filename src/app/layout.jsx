@@ -2,6 +2,10 @@ import AppShell from '../components/AppShell.jsx';
 import '../styles/base.css';
 import '../styles/home.css';
 import '../styles/emprendimientos.css';
+// Flag sprites for the country picker in the CEIBA registration form. Imported
+// here with the rest of the stylesheets, per this project's convention that all
+// CSS is loaded from the layout rather than from components.
+import 'flag-icons/css/flag-icons.min.css';
 import '../styles/ceiba.css';
 import '../styles/studio.css';
 import '../styles/ecos.css';

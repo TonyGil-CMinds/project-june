@@ -18,6 +18,16 @@ model CeibaRegistration {
   position     String
   /// Why they want to join the CEIBA community — free text, so no length cap.
   motivation   String
+  /// ISO 3166-1 alpha-2, lowercased — matches src/data/countries.js.
+  /// Nullable because the two rows that predate this field genuinely have no
+  /// answer; backfilling a sentinel would be inventing data. The API requires
+  /// it for every new submission.
+  country      String?
+  /// Multi-select, so a list rather than one value. Postgres text[] keeps it
+  /// queryable (`has`, `hasSome`) instead of burying it in JSON.
+  sectors      String[]
+  /// A bracket id from src/data/age-ranges.js, not a number: we ask for a range.
+  ageRange     String?
   /// Which language the form was submitted in, for follow-up.
   locale       String   @default("es")
   /// timestamptz, not plain timestamp: reporting on LAC local time against a

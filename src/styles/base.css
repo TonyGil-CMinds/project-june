@@ -1094,7 +1094,11 @@ a.footer-legal-link:hover {
   .nav-pill-cell {
     width: min(100%, 424px);
     flex: 0 1 424px;
-    will-change: transform, opacity;
+    /* `opacity` deliberately NOT hinted here: will-change on opacity makes this
+       a backdrop root, which silently kills the pill's backdrop-filter — that
+       is why the mobile nav had no liquid glass at all. The opacity transition
+       below still runs; will-change is only a hint. */
+    will-change: transform;
     transition:
       transform 0.58s cubic-bezier(0.16, 1, 0.3, 1),
       opacity 0.32s var(--ease-out);
