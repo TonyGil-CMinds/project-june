@@ -1536,72 +1536,109 @@ html.ceiba-join-is-open body {
 .ceiba-journey.is-horizontal .ceiba-vine-horizontal { display: block; }
 .ceiba-journey.is-horizontal .ceiba-vine-vertical { display: none; }
 
-/* ── Scene nav ── */
-.ceiba-journey-nav {
+/* ── Scene nav (src/components/CeibaSceneNav.jsx) ──
+   Pill rail: every item keeps its icon, the active one springs its label open.
+   Widths are animated by framer-motion, so nothing here sets them. */
+.ceiba-scene-nav {
   position: absolute;
   left: clamp(22px, 5vw, 80px);
   bottom: clamp(26px, 4vh, 44px);
   z-index: 4;
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid rgba(25, 44, 10, 0.16);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 18px 44px -22px rgba(12, 20, 6, 0.4);
   font-family: var(--font-body);
 }
-.ceiba-journey-hint {
+
+.ceiba-scene-nav-hint {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  margin-right: 6px;
-  font-size: 0.68rem;
+  gap: 6px;
+  padding: 0 10px 0 8px;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.6;
-  color: #192C0A;
+  white-space: nowrap;
+  color: #4a6b22;
+  opacity: 0.75;
 }
-.ceiba-journey-nav button {
+
+.ceiba-scene-nav-item {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 7px 14px;
-  border: 1px solid rgba(25, 44, 10, 0.22);
+  height: 40px;
+  padding: 0 11px;
+  border: 0;
   border-radius: var(--radius-pill);
-  background: rgba(25, 44, 10, 0.05);
-  color: #192C0A;
-  font-size: 0.74rem;
-  font-weight: 600;
+  background: transparent;
+  color: #4a6b22;
   cursor: pointer;
-  transition: background 0.22s var(--ease-out), border-color 0.22s var(--ease-out),
-    color 0.22s var(--ease-out);
+  transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
 }
-.ceiba-journey-nav button span { font-size: 0.64rem; opacity: 0.55; }
-.ceiba-journey-nav button:hover { background: rgba(25, 44, 10, 0.11); }
-.ceiba-journey-nav button[aria-current="true"] {
+.ceiba-scene-nav-item:hover { background: rgba(25, 44, 10, 0.08); }
+.ceiba-scene-nav-item.is-active {
   background: #192C0A;
-  border-color: #192C0A;
-  color: #F4F0BE;
+  color: #EBFF57;
 }
-.ceiba-journey-nav button[aria-current="true"] span { opacity: 0.7; }
+.ceiba-scene-nav-item:focus-visible {
+  outline: 2px solid #4a6b22;
+  outline-offset: 2px;
+}
 
-/* Past the midpoint the interpolated background is dark, so the nav inverts. */
-.ceiba-journey-nav.on-dark .ceiba-journey-hint { color: #F4F0BE; }
-.ceiba-journey-nav.on-dark button {
-  border-color: rgba(244, 240, 190, 0.28);
-  background: rgba(244, 240, 190, 0.08);
-  color: #F4F0BE;
+/* framer-motion animates the width; overflow hidden is what makes it read as
+   the label sliding open rather than popping. */
+.ceiba-scene-nav-label {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.ceiba-journey-nav.on-dark button:hover { background: rgba(244, 240, 190, 0.16); }
-.ceiba-journey-nav.on-dark button[aria-current="true"] {
+.ceiba-scene-nav-label > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  user-select: none;
+}
+.ceiba-scene-nav-label b { font-size: 0.64rem; font-weight: 700; opacity: 0.6; }
+
+/* Past the journey's midpoint the interpolated background is dark. */
+.ceiba-scene-nav.on-dark {
+  border-color: rgba(244, 240, 190, 0.24);
+  background: rgba(16, 26, 10, 0.5);
+}
+.ceiba-scene-nav.on-dark .ceiba-scene-nav-hint { color: #C8E632; }
+.ceiba-scene-nav.on-dark .ceiba-scene-nav-item { color: #d7e8a8; }
+.ceiba-scene-nav.on-dark .ceiba-scene-nav-item:hover { background: rgba(244, 240, 190, 0.14); }
+.ceiba-scene-nav.on-dark .ceiba-scene-nav-item.is-active {
   background: #C8E632;
-  border-color: #C8E632;
   color: #192C0A;
 }
+.ceiba-scene-nav.on-dark .ceiba-scene-nav-item:focus-visible { outline-color: #C8E632; }
 
-.ceiba-journey-nav button:focus-visible,
-.ceiba-scene .ceiba-community-cta:focus-visible {
-  outline: 2px solid #C8E632;
-  outline-offset: 3px;
+@media (max-width: 1099px) {
+  .ceiba-scene-nav {
+    position: static;
+    margin: 0 clamp(22px, 5vw, 48px) 40px;
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  /* The hint is the first thing to go: five icons plus a label already fill a
+     phone's width. */
+  .ceiba-scene-nav-hint { display: none; }
+  .ceiba-scene-nav { gap: 2px; padding: 5px; }
+  .ceiba-scene-nav-item { padding: 0 9px; height: 38px; }
 }
 
 /* SplitText masks lines by wrapping them; keep descenders from being clipped. */
@@ -1615,10 +1652,6 @@ html.ceiba-join-is-open body {
     padding: clamp(72px, 9vh, 104px) clamp(22px, 5vw, 48px);
   }
   .ceiba-scene-photo { height: min(38vh, 320px); order: -1; }
-  .ceiba-journey-nav {
-    position: static;
-    padding: 0 clamp(22px, 5vw, 48px) 40px;
-  }
   /* Clears the fixed bottom nav pill, which the copy otherwise runs underneath
      and shows through the glass. */
   .ceiba-scene { padding-bottom: 132px; }
@@ -1630,5 +1663,4 @@ html.ceiba-join-is-open body {
   .ceiba-scene { padding-inline: 20px; }
   .ceiba-scene h2 { font-size: clamp(1.85rem, 8vw, 2.4rem); }
   .ceiba-scene-index { display: none; }
-  .ceiba-journey-nav button { padding: 6px 11px; font-size: 0.7rem; }
 }

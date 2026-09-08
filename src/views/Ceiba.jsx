@@ -121,7 +121,7 @@ const podcastLinks = [
   },
 ];
 
-export default function Ceiba() {
+export default function Ceiba({ journeyPhotos }) {
   const rootRef = useRef(null);
   const { t, lang } = useLanguage();
   const about = ceibaAbout[lang];
@@ -521,7 +521,7 @@ export default function Ceiba() {
 
       {/* The immersive scroll journey replaces the static about/practice
           sections: same copy from ceiba-about.js, five 100vh scenes. */}
-      <CeibaJourney onJoin={() => setJoinOpen(true)} isMember={isMember} />
+      <CeibaJourney onJoin={() => setJoinOpen(true)} isMember={isMember} photos={journeyPhotos} />
 
       {/* ════════════ GALLERY + MARQUEES ════════════ */}
       <section className="ceiba-gallery" data-nav-contrast="light">

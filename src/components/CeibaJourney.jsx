@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect, useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -8,16 +8,25 @@ import { useLanguage } from '../contexts/LanguageContext.jsx';
 import { ceibaAbout } from '../data/ceiba-about.js';
 import { ceibaPhotos } from '../data/ceiba-photos.js';
 import CeibaIcon from './CeibaIcon.jsx';
+import CeibaSceneNav from './CeibaSceneNav.jsx';
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 const colors = ['#F4F0BE', '#e4e9ce', '#192C0A', '#243e1b', '#10271e'];
 const icons = ['leaf', 'people', 'book', 'connect', 'sprout'];
 
-export default function CeibaJourney({ onJoin, isMember }) {
+export default function CeibaJourney({ onJoin, isMember, photos }) {
   const { t, lang } = useLanguage();
   const copy = ceibaAbout[lang];
+  // Server-supplied gallery photography; the import is the fresh-clone fallback.
+  const scenePhotos = photos?.length ? photos : ceibaPhotos;
   const rootRef = useRef(null);
   const scrollRef = useRef(null);
+  const [activeScene, setActiveScene] = useState(0);
+  const [navOnDark, setNavOnDark] = useState(false);
+  // The ScrollTrigger callback runs every frame; these keep setState to the
+  // frames where the value actually changes.
+  const lastScene = useRef(0);
+  const lastOnDark = useRef(false);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -42,10 +51,10 @@ export default function CeibaJourney({ onJoin, isMember }) {
               const position = self.progress * (panels.length - 1);
               const index = Math.min(Math.floor(position), panels.length - 2);
               gsap.set(root, { backgroundColor: gsap.utils.interpolate(colors[index], colors[index + 1], position - index) });
-              root.querySelectorAll('.ceiba-journey-nav button').forEach((button, i) => {
-                button.setAttribute('aria-current', String(i === Math.round(position)));
-              });
-              root.querySelector('.ceiba-journey-nav').classList.toggle('on-dark', position > 1.4);
+              const scene = Math.round(position);
+              if (scene !== lastScene.current) { lastScene.current = scene; setActiveScene(scene); }
+              const dark = position > 1.4;
+              if (dark !== lastOnDark.current) { lastOnDark.current = dark; setNavOnDark(dark); }
             },
           },
         });
@@ -106,7 +115,7 @@ export default function CeibaJourney({ onJoin, isMember }) {
         </svg>
         {[0, 1, 2, 3, 4].map(index => {
           const pillar = copy.pillars[index - 2];
-          const photo = ceibaPhotos[index];
+          const photo = scenePhotos[index % scenePhotos.length];
           return (
             <section
               className={`ceiba-scene ceiba-scene-${index} ${index > 1 ? 'is-dark' : ''}`}
@@ -142,10 +151,14 @@ export default function CeibaJourney({ onJoin, isMember }) {
           );
         })}
       </div>
-      <nav className="ceiba-journey-nav" aria-label={lang === 'es' ? 'Explora la comunidad' : 'Explore the community'}>
-        <span className="ceiba-journey-hint">{lang === 'es' ? 'Sigue explorando' : 'Keep exploring'} <CeibaIcon name="arrow" size={16} /></span>
-        {titles.map((title, index) => <button key={title} type="button" onClick={() => goTo(index)} aria-current={index === 0 ? 'true' : 'false'}><span>0{index + 1}</span>{title}</button>)}
-      </nav>
+      <CeibaSceneNav
+        items={titles.map((title, index) => ({ title, icon: icons[index] }))}
+        activeIndex={activeScene}
+        onSelect={goTo}
+        onDark={navOnDark}
+        hint={lang === 'es' ? 'Sigue explorando' : 'Keep exploring'}
+        label={lang === 'es' ? 'Explora la comunidad' : 'Explore the community'}
+      />
     </div>
   );
 }

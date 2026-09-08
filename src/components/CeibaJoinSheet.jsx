@@ -110,6 +110,7 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
   const [reduceMotion, setReduceMotion] = useState(false);
   const [countryQuery, setCountryQuery] = useState('');
   const [slide, setSlide] = useState(0);
+  const [isWide, setIsWide] = useState(false);
 
   const panelRef = useRef(null);
   const firstFieldRef = useRef(null);
@@ -126,6 +127,23 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
 
   useEffect(() => {
     setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }, []);
+
+  /**
+   * Which layout is live, because the two need different exits.
+   *
+   * `y: '100%'` reads correctly for the bottom-anchored sheet, but the desktop
+   * card is centred vertically — translating it down by its own height leaves
+   * it sitting in the lower half of the screen when AnimatePresence unmounts,
+   * so the dismissal visibly cut off. The wide layout fades and scales instead.
+   * Matches the 900px breakpoint in ceiba.css.
+   */
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 900px)');
+    const sync = () => setIsWide(query.matches);
+    sync();
+    query.addEventListener('change', sync);
+    return () => query.removeEventListener('change', sync);
   }, []);
 
   /**
@@ -330,7 +348,23 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
 
   if (typeof document === 'undefined') return null;
 
-  const transition = reduceMotion ? { duration: 0 } : { duration: 0.42, ease: EASE };
+  const sheetMotion = reduceMotion
+    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 }, transition: { duration: 0 } }
+    : isWide
+      ? {
+          initial: { opacity: 0, scale: 0.97, y: 14 },
+          animate: { opacity: 1, scale: 1, y: 0 },
+          exit: { opacity: 0, scale: 0.97, y: 14 },
+          transition: { duration: 0.3, ease: EASE },
+        }
+      : {
+          initial: { y: '100%' },
+          animate: { y: 0 },
+          exit: { y: '100%' },
+          transition: { duration: 0.42, ease: EASE },
+        };
+  // Matched to the sheet so the overlay never clears before the card does.
+  const overlayDuration = reduceMotion ? 0 : isWide ? 0.3 : 0.42;
   const viewTransition = reduceMotion ? { duration: 0 } : { duration: 0.27, ease: VIEW_EASE };
   const errorFor = (field) =>
     fieldErrors[field] ? copy.fieldErrors[fieldErrors[field]] || copy.fieldErrors.invalid : null;
@@ -368,7 +402,7 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: 'easeOut' }}
+            transition={{ duration: overlayDuration, ease: 'easeOut' }}
             onClick={onClose}
           />
 
@@ -382,11 +416,13 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={transition}
-            drag={reduceMotion ? false : 'y'}
+            initial={sheetMotion.initial}
+            animate={sheetMotion.animate}
+            exit={sheetMotion.exit}
+            transition={sheetMotion.transition}
+            // Drag-to-dismiss belongs to the phone sheet; the desktop card has
+            // nowhere to be dragged to.
+            drag={reduceMotion || isWide ? false : 'y'}
             dragControls={dragControls}
             // Drag only starts from the grab handle: the form scrolls
             // internally, and a sheet-wide drag listener would hijack that.

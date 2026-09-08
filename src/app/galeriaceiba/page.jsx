@@ -7,7 +7,9 @@ const galleryRoot = path.join(process.cwd(), 'public', 'assets', 'CEIBA', 'galer
 const publicRoot = path.join(process.cwd(), 'public');
 const imageExtensions = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif']);
 const collator = new Intl.Collator('es', { numeric: true, sensitivity: 'base' });
-const remoteGalleryBaseUrl = process.env.CEIBA_GALLERY_BASE_URL?.replace(/\/$/, '');
+// `.trim()` is load-bearing: .env.example shipped this value with a leading
+// space, and a space inside the URL breaks every gallery image silently.
+const remoteGalleryBaseUrl = process.env.CEIBA_GALLERY_BASE_URL?.trim().replace(/\/$/, '');
 const useCloudflareResizing = process.env.CEIBA_GALLERY_USE_CLOUDFLARE_RESIZING === 'true';
 
 const dummyImages = [

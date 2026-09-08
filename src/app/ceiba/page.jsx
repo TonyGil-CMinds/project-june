@@ -1,4 +1,5 @@
 import Ceiba from '../../views/Ceiba.jsx';
+import { getJourneyPhotos } from '../../lib/ceibaJourneyPhotos.js';
 
 export const metadata = {
   title: 'CEIBA',
@@ -20,5 +21,6 @@ export const metadata = {
 };
 
 export default function Page() {
-  return <Ceiba />;
+  // Built here, not in the view: CEIBA_GALLERY_BASE_URL is server-only.
+  return <Ceiba journeyPhotos={getJourneyPhotos()} />;
 }
