@@ -935,8 +935,7 @@ a.footer-legal-link:hover {
 }
 
 .hitos-video-is-open .lang-switcher,
-.home-video-is-open .lang-switcher,
-.ceiba-video-is-open .lang-switcher {
+.home-video-is-open .lang-switcher {
   transform: translateY(-22px);
   opacity: 0;
   pointer-events: none;

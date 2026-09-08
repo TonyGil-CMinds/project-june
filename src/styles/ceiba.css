@@ -3,15 +3,7 @@
    ══════════════════════════════════════════ */
 
 /* ── CEIBA HERO ── */
-html.ceiba-video-is-open {
-  overflow: hidden;
-}
 
-html.ceiba-video-is-open .glass-nav {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-18px);
-}
 
 .ceiba-hero {
   position: relative;
@@ -150,65 +142,6 @@ html.ceiba-video-is-open .glass-nav {
 }
 .ceiba-mobile-line { display: inline; }
 
-.ceiba-video-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 500;
-  opacity: 0;
-  visibility: hidden;
-  background: rgba(8, 11, 9, 0);
-  cursor: zoom-out;
-}
-.ceiba-video-panel {
-  position: fixed;
-  z-index: 501;
-  overflow: hidden;
-  background: #050706;
-  box-shadow: 0 26px 90px rgba(0, 0, 0, 0.48);
-  transform: translateZ(0);
-  will-change: top, left, width, height, border-radius;
-  cursor: default;
-}
-.ceiba-video-frame {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: #050706;
-}
-.ceiba-video-close {
-  position: absolute;
-  top: max(18px, env(safe-area-inset-top));
-  right: max(18px, env(safe-area-inset-right));
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  border-radius: 50%;
-  color: var(--text-primary);
-  background: rgba(8, 11, 9, 0.48);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  cursor: pointer;
-  transition:
-    color 0.24s var(--ease-out),
-    border-color 0.24s var(--ease-out),
-    background-color 0.24s var(--ease-out),
-    transform 0.24s var(--ease-out);
-}
-.ceiba-video-close:hover {
-  color: var(--accent);
-  border-color: rgba(200, 230, 50, 0.56);
-  background: rgba(8, 11, 9, 0.68);
-  transform: scale(1.05);
-}
-.ceiba-video-close:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-}
 
 /* ── CEIBA GALLERY + MARQUEES ── */
 .ceiba-gallery {
@@ -652,20 +585,6 @@ html.ceiba-video-is-open .glass-nav {
     font-weight: 700;
     background: var(--glass-strong-bg);
   }
-  .ceiba-video-overlay {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .ceiba-video-panel {
-    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.5);
-  }
-  .ceiba-video-close {
-    top: 10px;
-    right: 10px;
-    width: 38px;
-    height: 38px;
-  }
   .ceiba-bottom-center {
     position: absolute;
     left: 50%;
@@ -711,4 +630,225 @@ html.ceiba-video-is-open .glass-nav {
   }
   .ceiba-info-sub { overflow-wrap: anywhere; }
   .ceiba-shapes-track { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ══════════════════════════════════════════
+   CEIBA — "Únete a la comunidad" bottom sheet
+   (src/components/CeibaJoinSheet.jsx)
+   ══════════════════════════════════════════ */
+html.ceiba-join-is-open,
+html.ceiba-join-is-open body {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.ceiba-join-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+}
+
+.ceiba-join-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 11, 9, 0.62);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+.ceiba-join-sheet {
+  position: absolute;
+  bottom: 0;
+  /* Centred with auto margins, NOT translateX(-50%): framer-motion writes the
+     inline `transform` for the slide-up and drag, which would wipe it out. */
+  left: 0;
+  right: 0;
+  width: min(520px, calc(100% - 24px));
+  margin: 0 auto 12px;
+  border-radius: 34px;
+  background: linear-gradient(180deg, rgba(24, 30, 24, 0.94), rgba(16, 21, 17, 0.97));
+  border: 1px solid hsla(0, 0%, 100%, 0.12);
+  box-shadow:
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.14),
+    0 -10px 60px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* Generous hit area so the drag-to-dismiss handle is usable on touch. */
+.ceiba-join-grabber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding-top: 8px;
+  cursor: grab;
+  touch-action: none;
+}
+.ceiba-join-grabber:active { cursor: grabbing; }
+.ceiba-join-grabber-bar {
+  width: 42px;
+  height: 4px;
+  border-radius: 999px;
+  background: hsla(0, 0%, 100%, 0.2);
+}
+
+.ceiba-join-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: hsla(0, 0%, 100%, 0.08);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.ceiba-join-close:hover { background: hsla(0, 0%, 100%, 0.14); color: var(--text-primary); }
+.ceiba-join-close:active { transform: scale(0.88); }
+
+/* Height is animated by framer-motion as the view swaps. It's capped to the
+   viewport in JS, so tall content (the 5-field form on a short screen) scrolls
+   here instead of running off the bottom of the sheet. */
+.ceiba-join-viewport {
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  /* Load-bearing: without a reserved gutter, the scrollbar appearing as the
+     height animates narrows the content, which rewraps taller, which remeasures
+     bigger, which hides the scrollbar again — the height never settles. */
+  scrollbar-gutter: stable;
+}
+
+.ceiba-join-form,
+.ceiba-join-success { padding: 20px 26px 26px; }
+
+.ceiba-join-header { margin-bottom: 20px; padding-right: 40px; }
+
+.ceiba-join-title {
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.ceiba-join-subtitle {
+  margin-top: 7px;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.ceiba-join-fields { display: flex; flex-direction: column; gap: 13px; }
+
+.ceiba-join-field { display: flex; flex-direction: column; gap: 6px; }
+
+.ceiba-join-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.ceiba-join-input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid hsla(0, 0%, 100%, 0.1);
+  background: hsla(0, 0%, 100%, 0.045);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.ceiba-join-input::placeholder { color: var(--text-faint); }
+.ceiba-join-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: hsla(0, 0%, 100%, 0.07);
+  box-shadow: 0 0 0 3px rgba(200, 230, 50, 0.14);
+}
+.ceiba-join-input:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.ceiba-join-field.is-textarea .ceiba-join-input { resize: vertical; min-height: 84px; }
+
+.ceiba-join-field.is-invalid .ceiba-join-input { border-color: #e8734a; }
+.ceiba-join-field-error,
+.ceiba-join-error {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #f0906b;
+}
+.ceiba-join-error { margin-top: 14px; }
+
+.ceiba-join-submit {
+  margin-top: 18px;
+  width: 100%;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #101511;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.24s, transform 0.18s, opacity 0.2s;
+}
+.ceiba-join-submit:hover:not(:disabled) { background: var(--accent-soft); }
+.ceiba-join-submit:active:not(:disabled) { transform: scale(0.975); }
+.ceiba-join-submit:disabled { opacity: 0.6; cursor: progress; }
+
+.ceiba-join-note {
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--text-faint);
+}
+
+.ceiba-join-success { text-align: center; padding-top: 30px; }
+.ceiba-join-success .ceiba-join-subtitle { margin-inline: auto; max-width: 34ch; }
+
+.ceiba-join-success-mark {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(200, 230, 50, 0.14);
+  border: 1px solid rgba(200, 230, 50, 0.35);
+  color: var(--accent);
+}
+
+@media (max-width: 520px) {
+  .ceiba-join-sheet {
+    width: calc(100% - 16px);
+    margin-bottom: 8px;
+    border-radius: 28px;
+  }
+  .ceiba-join-form,
+  .ceiba-join-success { padding: 18px 18px 22px; }
+  .ceiba-join-title { font-size: 1.06rem; }
+  /* 16px keeps iOS from zooming the viewport on focus. */
+  .ceiba-join-input { font-size: 16px; }
 }

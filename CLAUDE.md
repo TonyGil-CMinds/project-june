@@ -9,8 +9,15 @@ npm run dev       # next dev
 npm run build     # next build
 npm run start     # next start (serve the production build)
 
+npx prisma dev    # local Prisma Postgres server — prints the DATABASE_URL to use
+npm run db:migrate  # prisma migrate dev  (create + apply a migration locally)
+npm run db:deploy   # prisma migrate deploy  (apply migrations in production)
+npm run db:studio   # prisma studio
+
 node scripts/generate-ceiba-gallery-manifest.mjs   # regenerate src/data/ceiba-gallery-manifest.json
 ```
+
+`postinstall` runs `prisma generate`, so the client is rebuilt on every install.
 
 There is no test runner, linter, or type-check script. `typescript` and `@types/*` are present only so Next can typecheck JSX ambiently — the codebase is plain JSX, no `.ts`/`.tsx`.
 
@@ -49,6 +56,22 @@ Routes: `/`, `/emprendimientos`, `/ceiba`, `/studio`, `/ecos`, `/hitos`, `/links
 - `<div key={pathname} className="route-view">` forces a remount of the view per route
 
 `FrameContext.jsx` exposes `useFrameToggle()` so a view (only Emprendimientos) can show/hide the animated `ViewportFrame` border.
+
+### Database (Prisma 7 + Postgres) — one dynamic route in an otherwise static site
+
+Added for the CEIBA community sign-up form. Everything else still prerenders; `/api/ceiba/registro` is the only `ƒ` route.
+
+Prisma 7 differs from v6 in ways worth knowing before editing:
+- The datasource URL lives in **`prisma.config.ts`**, not in `schema.prisma`.
+- The generator is `prisma-client` (not `prisma-client-js`) and **requires an explicit `output`** — here `src/generated/prisma`, gitignored. It emits **TypeScript**, so plain `node` can't import it; only bundled code (Next) or `tsx` can.
+- A SQL **driver adapter is required**: `@prisma/adapter-pg` + `pg`, wired in `src/lib/prisma.js`.
+- `prisma install` also drops a **`prisma7.config.ts`, which the CLI loads in preference to `prisma.config.ts`**. Keep only one, or you will edit a file the CLI ignores.
+- `prisma.config.ts` deliberately uses `process.env.DATABASE_URL` rather than `env()` from `prisma/config`: that helper *throws* when the variable is missing, and `postinstall` runs `prisma generate`, so a fresh clone without `.env` would fail `npm install`.
+- `import 'dotenv/config'` in that file is load-bearing — the Prisma CLI reads `.env` but not Next's `.env.local`.
+
+`src/lib/prisma.js` exports `getPrisma()`, lazy on purpose: a top-level client would throw at import time during `next build` when `DATABASE_URL` is absent.
+
+Local development: `npx prisma dev` starts a Prisma Postgres server and prints a **standard `postgres://` URL**, which works with `adapter-pg` as-is. Put it in `.env` (gitignored) along with `SHADOW_DATABASE_URL`.
 
 ### Liquid glass is applied automatically, not per component
 

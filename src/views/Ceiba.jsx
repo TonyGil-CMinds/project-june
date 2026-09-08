@@ -1,11 +1,11 @@
 'use client';
 
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { cleanupGsapRoute } from '../utils/cleanupGsapRoute.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
+import CeibaJoinSheet from '../components/CeibaJoinSheet.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -120,13 +120,7 @@ const podcastLinks = [
 export default function Ceiba() {
   const rootRef = useRef(null);
   const { t } = useLanguage();
-  const recapCtaRef = useRef(null);
-  const videoOverlayRef = useRef(null);
-  const videoPanelRef = useRef(null);
-  const videoFrameRef = useRef(null);
-  const videoOriginRef = useRef(null);
-  const [videoMounted, setVideoMounted] = useState(false);
-  const [videoClosing, setVideoClosing] = useState(false);
+  const [joinOpen, setJoinOpen] = useState(false);
   const logoImgRef = useRef(null);
   const burstLayerRef = useRef(null);
   const logoClickCountRef = useRef(0);
@@ -312,136 +306,7 @@ export default function Ceiba() {
     };
   }, []);
 
-  useEffect(() => {
-    if (!videoMounted) return undefined;
 
-    const overlay = videoOverlayRef.current;
-    const panel = videoPanelRef.current;
-    const frame = videoFrameRef.current;
-    const origin = videoOriginRef.current || recapCtaRef.current?.getBoundingClientRect();
-    if (!overlay || !panel || !origin) return undefined;
-
-    const getTargetRect = () => {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const isPortraitMobile = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
-
-      if (!isPortraitMobile) {
-        return { top: 0, left: 0, width: vw, height: vh, radius: 0 };
-      }
-
-      const gutter = 20;
-      const maxWidth = vw - gutter * 2;
-      const maxHeight = Math.min(vh - 128, maxWidth * 9 / 16);
-      let width = Math.min(maxWidth, maxHeight * 16 / 9);
-      let height = width * 9 / 16;
-
-      if (height > maxHeight) {
-        height = maxHeight;
-        width = height * 16 / 9;
-      }
-
-      return {
-        top: (vh - height) / 2,
-        left: (vw - width) / 2,
-        width,
-        height,
-        radius: 20,
-      };
-    };
-
-    const target = getTargetRect();
-    document.documentElement.classList.add('ceiba-video-is-open');
-
-    gsap.set(overlay, { autoAlpha: 1 });
-    gsap.set(panel, {
-      top: origin.top,
-      left: origin.left,
-      width: origin.width,
-      height: origin.height,
-      borderRadius: 999,
-    });
-    gsap.set(frame, { autoAlpha: 0, scale: 1.04 });
-
-    const tl = gsap.timeline({ defaults: { ease: 'power4.inOut' } });
-    tl.fromTo(overlay, { backgroundColor: 'rgba(8, 11, 9, 0)' }, { backgroundColor: 'rgba(8, 11, 9, 0.82)', duration: 0.55 }, 0)
-      .to(panel, {
-        top: target.top,
-        left: target.left,
-        width: target.width,
-        height: target.height,
-        borderRadius: target.radius,
-        duration: 0.86,
-      }, 0)
-      .to(frame, { autoAlpha: 1, scale: 1, duration: 0.34, ease: 'power2.out' }, 0.5);
-
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') closeRecapVideo();
-    };
-    const onResize = () => {
-      const nextTarget = getTargetRect();
-      gsap.to(panel, {
-        top: nextTarget.top,
-        left: nextTarget.left,
-        width: nextTarget.width,
-        height: nextTarget.height,
-        borderRadius: nextTarget.radius,
-        duration: 0.42,
-        ease: 'power3.out',
-      });
-    };
-
-    window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('resize', onResize);
-    return () => {
-      tl.kill();
-      window.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('resize', onResize);
-      document.documentElement.classList.remove('ceiba-video-is-open');
-    };
-  }, [videoMounted]);
-
-  const openRecapVideo = (event) => {
-    event.preventDefault();
-    if (videoMounted) return;
-    videoOriginRef.current = recapCtaRef.current?.getBoundingClientRect();
-    setVideoClosing(false);
-    setVideoMounted(true);
-  };
-
-  const closeRecapVideo = () => {
-    if (!videoMounted || videoClosing) return;
-
-    const overlay = videoOverlayRef.current;
-    const panel = videoPanelRef.current;
-    const frame = videoFrameRef.current;
-    const origin = videoOriginRef.current || recapCtaRef.current?.getBoundingClientRect();
-
-    if (!overlay || !panel || !origin) {
-      setVideoMounted(false);
-      return;
-    }
-
-    setVideoClosing(true);
-
-    gsap.timeline({
-      defaults: { ease: 'power3.inOut' },
-      onComplete: () => {
-        setVideoMounted(false);
-        setVideoClosing(false);
-      },
-    })
-      .to(frame, { autoAlpha: 0, scale: 1.02, duration: 0.22, ease: 'power2.out' }, 0)
-      .to(panel, {
-        top: origin.top,
-        left: origin.left,
-        width: origin.width,
-        height: origin.height,
-        borderRadius: 999,
-        duration: 0.62,
-      }, 0)
-      .to(overlay, { backgroundColor: 'rgba(8, 11, 9, 0)', duration: 0.5 }, 0.08);
-  };
 
   const handleLogoClick = () => {
     const img = logoImgRef.current;
@@ -571,15 +436,16 @@ export default function Ceiba() {
                 <span key={i} className="ceiba-mobile-line">{line}{i < t.ceiba.desc.length - 1 ? ' ' : ''}</span>
               ))}
             </p>
-            <a
-              href="https://www.youtube.com/watch?v=gFI3zUEc1fo"
-              ref={recapCtaRef}
-              onClick={openRecapVideo}
+            <button
+              type="button"
+              onClick={() => setJoinOpen(true)}
               className="btn-glass hero-cta-button"
+              aria-haspopup="dialog"
+              aria-expanded={joinOpen}
             >
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9L12 2Z" /></svg>
               {t.ceiba.heroCta}
-            </a>
+            </button>
           </div>
 
           <div className="ceiba-bottom-center">
@@ -591,33 +457,6 @@ export default function Ceiba() {
         </div>
       </section>
 
-      {videoMounted && createPortal(
-        <div
-          className="ceiba-video-overlay"
-          ref={videoOverlayRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label={t.ceiba.videoLabel}
-          onClick={closeRecapVideo}
-        >
-          <div className="ceiba-video-panel" ref={videoPanelRef} onClick={(event) => event.stopPropagation()}>
-            <iframe
-              ref={videoFrameRef}
-              className="ceiba-video-frame"
-              src="https://www.youtube.com/embed/gFI3zUEc1fo?autoplay=1&rel=0&playsinline=1"
-              title="CEIBA 2025 recap"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-            <button className="ceiba-video-close" type="button" onClick={closeRecapVideo} aria-label={t.common.closeVideo}>
-              <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
-              </svg>
-            </button>
-          </div>
-        </div>,
-        document.body,
-      )}
 
       {/* ════════════ GALLERY + MARQUEES ════════════ */}
       <section className="ceiba-gallery">
@@ -714,6 +553,8 @@ export default function Ceiba() {
           </div>
         </div>
       </section>
+
+      <CeibaJoinSheet open={joinOpen} onClose={() => setJoinOpen(false)} />
     </div>
   );
 }

@@ -1,0 +1,28 @@
+// Prisma 7: the datasource URL lives in prisma.config.ts, not here, and the
+// `prisma-client` generator needs an explicit output path.
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+/// Sign-ups from the "Únete a la comunidad de práctica" form on /ceiba.
+model CeibaRegistration {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  organization String
+  position     String
+  /// Why they want to join the CEIBA community — free text, so no length cap.
+  motivation   String
+  /// Which language the form was submitted in, for follow-up.
+  locale       String   @default("es")
+  /// timestamptz, not plain timestamp: reporting on LAC local time against a
+  /// naive column invites off-by-hours errors.
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([createdAt])
+}

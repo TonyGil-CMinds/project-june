@@ -33,3 +33,8 @@ dist-ssr
 public/assets/CEIBA/galería CEIBA 2025/
 .vercel
 .env*.local
+
+/src/generated/prisma
+
+# Prisma generated client
+/src/generated
