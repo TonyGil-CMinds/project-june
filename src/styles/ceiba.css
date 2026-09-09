@@ -1148,6 +1148,11 @@ html.ceiba-join-is-open body {
 .ceiba-join-submit {
   flex: 1;
   min-height: 48px;
+  /* Padding of its own, not just `flex: 1`. In the success view the parent is
+     a plain block, so the flex grow is inert and the button collapsed to the
+     42px of its label — a clipped oval once the pill radius applied. */
+  padding: 0 26px;
+  white-space: nowrap;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1206,7 +1211,13 @@ html.ceiba-join-is-open body {
 
 .ceiba-join-success { text-align: center; padding-top: 34px; }
 .ceiba-join-success .ceiba-join-subtitle { margin-inline: auto; max-width: 36ch; }
-.ceiba-join-success .ceiba-join-submit { margin-top: 22px; }
+/* Standalone here, so it sizes itself and centres rather than inheriting the
+   action row's grow behaviour. */
+.ceiba-join-success .ceiba-join-submit {
+  flex: none;
+  min-width: 200px;
+  margin: 22px auto 0;
+}
 .ceiba-join-success-mark {
   width: 60px;
   height: 60px;
