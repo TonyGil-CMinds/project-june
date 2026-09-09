@@ -1,6 +1,7 @@
 'use client';
 
 import { useLayoutEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
@@ -23,6 +24,7 @@ export default function CeibaJourney({ onJoin, isMember, photos }) {
   const scrollRef = useRef(null);
   const [activeScene, setActiveScene] = useState(0);
   const [navOnDark, setNavOnDark] = useState(false);
+  const [isHorizontal, setIsHorizontal] = useState(false);
   // The ScrollTrigger callback runs every frame; these keep setState to the
   // frames where the value actually changes.
   const lastScene = useRef(0);
@@ -41,6 +43,7 @@ export default function CeibaJourney({ onJoin, isMember, photos }) {
       let horizontal;
       if (desktop) {
         root.classList.add('is-horizontal');
+        setIsHorizontal(true);
         horizontal = gsap.to(rail, {
           x: () => -(rail.scrollWidth - root.clientWidth), ease: 'none',
           scrollTrigger: {
@@ -90,10 +93,62 @@ export default function CeibaJourney({ onJoin, isMember, photos }) {
         splits.forEach(split => split.revert());
         scrollRef.current = null;
         root.classList.remove('is-horizontal');
+        setIsHorizontal(false);
       };
     }, root);
     return () => mm.revert();
   }, [lang]);
+
+  /**
+   * Keeps the scene nav honest in the vertical layout.
+   *
+   * The horizontal layout drives `activeScene` and `navOnDark` from
+   * ScrollTrigger's onUpdate, which never runs on phones — so the nav sat
+   * stuck on scene 1 and, worse, kept its light styling over the dark scenes,
+   * showing up as a grey slab. An IntersectionObserver on the sections gives
+   * the same two values without any of the pinning machinery.
+   */
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root || isHorizontal) return undefined;
+
+    const panels = [...root.querySelectorAll('.ceiba-scene')];
+    if (!panels.length) return undefined;
+
+    /**
+     * Recomputes from every panel on each callback rather than trusting the
+     * `entries` handed in. Reacting only to entries left the nav stuck on scene
+     * 1: once you scroll past the last section — which is exactly where the nav
+     * lives in this layout — nothing crosses a threshold any more, so no
+     * callback ever corrected it. Picking the panel whose middle is nearest the
+     * viewport's middle always has an answer, including past the end.
+     */
+    const sync = () => {
+      const middle = window.innerHeight / 2;
+      let bestIndex = 0;
+      let bestDistance = Infinity;
+
+      panels.forEach((panel, index) => {
+        const rect = panel.getBoundingClientRect();
+        const distance = Math.abs((rect.top + rect.bottom) / 2 - middle);
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          bestIndex = index;
+        }
+      });
+
+      setActiveScene(bestIndex);
+      // Scenes 2..4 are the forest-dark ones (see `colors`).
+      setNavOnDark(bestIndex > 1);
+    };
+
+    const observer = new IntersectionObserver(sync, {
+      threshold: [0, 0.2, 0.4, 0.6, 0.8, 1],
+    });
+
+    panels.forEach((panel) => observer.observe(panel));
+    return () => observer.disconnect();
+  }, [isHorizontal, lang]);
 
   const goTo = index => {
     const trigger = scrollRef.current;
@@ -144,8 +199,20 @@ export default function CeibaJourney({ onJoin, isMember, photos }) {
                 {index === 4 && <button type="button" className="ceiba-community-cta" onClick={onJoin} aria-haspopup="dialog">{isMember ? t.ceiba.joinedCta : copy.joinCta}<CeibaIcon name="arrow" size={20} /></button>}
               </div>
               <figure className="ceiba-scene-photo">
-                <img src={photo.src} alt={photo.alt[lang]} loading="lazy" decoding="async" />
-                <figcaption><span>CEIBA 2025</span><span>{lang === 'es' ? 'Cali, Colombia' : 'Cali, Colombia'}</span></figcaption>
+                {/* next/image, not a bare <img>: the gallery originals are
+                    ~5MB camera JPEGs, and Cloudflare's transform 404s on the
+                    public r2.dev host. `sizes` reflects the real layout — half
+                    the viewport in the horizontal rail, full width stacked. */}
+                <Image
+                  src={photo.src}
+                  alt={photo.alt[lang]}
+                  fill
+                  sizes="(max-width: 1099px) 100vw, 50vw"
+                  quality={78}
+                  priority={index === 0}
+                  className="ceiba-scene-photo-img"
+                />
+                <figcaption><span>CEIBA 2025</span><span>Cali, Colombia</span></figcaption>
               </figure>
             </section>
           );
