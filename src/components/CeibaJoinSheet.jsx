@@ -25,7 +25,7 @@ const EASE = [0.25, 1, 0.5, 1];
 const VIEW_EASE = [0.26, 0.08, 0.25, 1];
 const CLOSE_DRAG_PX = 110;
 const CLOSE_DRAG_VELOCITY = 520;
-const REQUEST_TIMEOUT_MS = 20000;
+const REQUEST_TIMEOUT_MS = 45000;
 const SLIDE_MS = 4200;
 const MAX_SECTORS = 6;
 
@@ -181,6 +181,20 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
     };
   }, []);
 
+  /**
+   * Warms the API as soon as the form opens.
+   *
+   * A cold Prisma client plus a connection to the pooled endpoint measured
+   * 34.5s against 0.17s once warm. Firing it here moves that cost into the
+   * time the person spends filling four steps, instead of onto the submit.
+   */
+  useEffect(() => {
+    if (!open) return;
+    // Fire and forget: the route answers 204 regardless, and a failure here
+    // must not surface — the POST reports properly on its own.
+    fetch('/api/ceiba/registro', { method: 'GET', cache: 'no-store' }).catch(() => {});
+  }, [open]);
+
   // Reset on open, not on a timer after close: a timed reset races the exit
   // animation, so reopening quickly could leave the success view showing.
   useEffect(() => {
@@ -251,15 +265,11 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
     setFormError(null);
   };
 
-  const submit = useCallback(
+  /** One POST attempt. Throws only when the outcome is genuinely unknown. */
+  const postRegistration = useCallback(
     async (payload) => {
-      setSubmitting(true);
-      setFormError(null);
-
-      // Without a ceiling the spinner can spin forever on a stalled request.
       const controller = new AbortController();
       const timeout = window.setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-
       try {
         const response = await fetch('/api/ceiba/registro', {
           method: 'POST',
@@ -267,39 +277,80 @@ export default function CeibaJoinSheet({ open, onClose, onJoined }) {
           body: JSON.stringify({ ...payload, locale: lang }),
           signal: controller.signal,
         });
-        const data = await response.json().catch(() => ({}));
+        return { status: response.status, data: await response.json().catch(() => ({})) };
+      } finally {
+        window.clearTimeout(timeout);
+      }
+    },
+    [lang]
+  );
 
-        if (response.ok) {
-          onJoined?.(payload.email);
-          setDone(true);
-          return;
-        }
+  /**
+   * Sends the registration, and never reports failure when the outcome is
+   * unknown.
+   *
+   * A dropped or timed-out request does not mean the row wasn't written — the
+   * server can commit and then fail to deliver the response. That was really
+   * happening: a cold Prisma connection took 34s, the client aborted at 20s,
+   * the user was told to check their connection, and the registration was in
+   * the database all along.
+   *
+   * So an inconclusive attempt is retried once. Because `email` is unique,
+   * whichever of the two lands first wins and the other comes back 409 — and
+   * either answer means the person is registered. That turns the ambiguous case
+   * into the correct outcome without asking the user to figure anything out.
+   */
+  const submit = useCallback(
+    async (payload) => {
+      setSubmitting(true);
+      setFormError(null);
 
-        if (response.status === 422 && data.fields) {
+      const succeed = () => {
+        onJoined?.(payload.email);
+        setDone(true);
+      };
+
+      const report = ({ status, data }) => {
+        if (status >= 200 && status < 300) return succeed();
+
+        if (status === 422 && data.fields) {
           setFieldErrors(data.fields);
           setFormError(copy.errors.validation);
           // Send the user back to the earliest step that has a problem.
           const bad = STEPS.findIndex((s) => s.fields.some((f) => data.fields[f]));
           if (bad >= 0) setStepIndex(bad);
-          return;
+          return undefined;
         }
-        if (response.status === 409) {
-          // Already registered — still a member, so the page CTA should say so.
+        if (status === 409) {
+          // Already registered — that person is a member either way.
           onJoined?.(payload.email);
           setFieldErrors({ email: 'duplicate' });
           setFormError(copy.errors.duplicate);
           setStepIndex(0);
-          return;
+          return undefined;
         }
         setFormError(copy.errors.server);
-      } catch (error) {
-        setFormError(error?.name === 'AbortError' ? copy.errors.timeout : copy.errors.network);
+        return undefined;
+      };
+
+      try {
+        report(await postRegistration(payload));
+      } catch {
+        try {
+          const retry = await postRegistration(payload);
+          // 409 here means the first attempt did land after all.
+          if (retry.status === 409) return succeed();
+          report(retry);
+        } catch {
+          // Both attempts were inconclusive. Say so honestly instead of
+          // claiming it failed, and point at the one action that resolves it.
+          setFormError(copy.errors.inconclusive);
+        }
       } finally {
-        window.clearTimeout(timeout);
         setSubmitting(false);
       }
     },
-    [lang, copy, onJoined]
+    [copy, onJoined, postRegistration]
   );
 
   const handleNext = (event) => {

@@ -169,6 +169,7 @@ export const translations = {
           duplicate:  'Ya tenemos un registro con ese correo. ¡Nos vemos pronto!',
           server:     'No pudimos guardar tu registro. Inténtalo de nuevo en un momento.',
           network:    'Sin conexión. Revisa tu red e inténtalo de nuevo.',
+          inconclusive: 'No pudimos confirmar tu registro. Es posible que sí se haya guardado: vuelve a enviarlo y te diremos si ya estás registrado. Si el problema sigue, escríbenos a support@naturatech.org.',
           timeout:    'El envío está tardando demasiado. Revisa tu conexión e inténtalo de nuevo.',
         },
         success: {
@@ -460,6 +461,7 @@ export const translations = {
           duplicate:  'We already have a registration with that email. See you soon!',
           server:     "We couldn't save your registration. Please try again in a moment.",
           network:    'No connection. Check your network and try again.',
+          inconclusive: 'We could not confirm your registration. It may well have been saved: submit again and we will tell you if you are already registered. If it keeps failing, write to us at support@naturatech.org.',
           timeout:    'This is taking too long. Check your connection and try again.',
         },
         success: {

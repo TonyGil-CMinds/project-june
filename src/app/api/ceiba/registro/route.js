@@ -83,6 +83,26 @@ function validate(body) {
   };
 }
 
+/**
+ * Warm-up. Opening a Prisma client and connecting to the pooled endpoint costs
+ * tens of seconds on a cold instance — measured at 34.5s locally against 0.17s
+ * once warm — which is long enough that a submit could time out client-side
+ * while the row still got written. The form calls this when it opens, so the
+ * connection is already up by the time someone finishes four steps.
+ */
+export async function GET() {
+  try {
+    const prisma = await getPrisma();
+    await prisma.$queryRaw`SELECT 1`;
+    return new NextResponse(null, { status: 204 });
+  } catch (error) {
+    // A cold-start failure must not surface as a broken form; the POST will
+    // report properly if the database is genuinely unreachable.
+    console.error('[ceiba/registro] warm-up failed', error);
+    return new NextResponse(null, { status: 204 });
+  }
+}
+
 export async function POST(request) {
   let body;
   try {
