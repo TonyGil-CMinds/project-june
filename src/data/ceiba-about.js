@@ -3,9 +3,9 @@
 export const ceibaAbout = {
   es: {
     eyebrow: 'COMUNIDAD DE PRÁCTICA REGIONAL',
-    title: 'Lo que sabemos crece cuando lo compartimos.',
-    intro: 'En América Latina y el Caribe hay personas y organizaciones transformando la relación entre biodiversidad, innovación y economía. Muchas veces trabajan sin conocerse. CEIBA las conecta.',
-    practice: 'Un espacio para compartir lo que funciona, aprender de lo que no y diseñar, implementar, financiar y escalar soluciones que generen valor para la naturaleza, las personas y sus territorios.',
+    title: 'Compartir conocimiento es profundizar el impacto que construimos como comunidad.',
+    intro: 'América Latina y el Caribe se fortalecen con la sabiduría y con los vínculos que tejen su ecosistema: innovación, biodiversidad y economía. Integrar estas dimensiones es el compromiso de CEIBA; conectarlas es la misión colectiva de quienes formamos parte de ella.',
+    practice: 'Juntas y juntos co-diseñamos, implementamos, financiamos y escalamos soluciones para la naturaleza, las personas y sus territorios.',
     diversityTitle: 'Diferentes saberes. Un terreno común.',
     diversity: 'Una comunidad abierta, multicultural, multisectorial y multigeneracional, por diseño. Aquí se encuentran pueblos indígenas y comunidades locales, emprendedores, empresas, ciencia, tecnología, academia, inversionistas, filantropía, sociedad civil, gobiernos y multilaterales.',
     innovation: 'La innovación puede ser una herramienta de inteligencia artificial, un instrumento financiero, una forma de gobernanza, un modelo de negocio, una metodología científica o una solución nacida del conocimiento de un territorio.',
@@ -49,9 +49,9 @@ export const ceibaAbout = {
   },
   en: {
     eyebrow: 'REGIONAL COMMUNITY OF PRACTICE',
-    title: 'What we know grows when we share it.',
-    intro: 'Across Latin America and the Caribbean, people and organizations are transforming the relationship between biodiversity, innovation and the economy. They often work without knowing one another. CEIBA connects them.',
-    practice: 'A space to share what works, learn from what does not, and design, implement, finance and scale solutions that create value for nature, people and their territories.',
+    title: 'Sharing knowledge deepens the impact we build as a community.',
+    intro: 'Latin America and the Caribbean grow stronger through wisdom and the bonds that weave their ecosystem together: innovation, biodiversity and the economy. Integrating these dimensions is CEIBA’s commitment; connecting them is the collective mission of all of us who are part of it.',
+    practice: 'Together, we co-design, implement, finance and scale solutions for nature, people and their territories.',
     diversityTitle: 'Different knowledge. Common ground.',
     diversity: 'Open, multicultural, multisectoral and multigenerational, by design. Indigenous peoples and local communities meet entrepreneurs, businesses, scientists, technologists, academia, investors, philanthropy, civil society, governments and multilateral organizations.',
     innovation: 'Innovation can be an AI tool, a financial instrument, a form of governance, a business model, a scientific methodology or a solution rooted in local knowledge.',
