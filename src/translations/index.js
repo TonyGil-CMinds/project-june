@@ -57,7 +57,7 @@ export const translations = {
       storiesMinimize: 'Minimizar historias destacadas',
       storiesRestore: 'Mostrar historias destacadas',
       stories: [
-        { title: 'Premio',                 subtitle: 'NaturaTech LAC 2026', cta: 'Aprende más',         play: false, href: 'https://500.naturatech.org/premio', img: '/assets/historias/premio-historia.png' },
+        { title: 'Ganadores del Premio',    subtitle: 'NaturaTech LAC 2026', cta: 'Aprende más',         play: false, href: 'https://500.naturatech.org/explorar?coleccion=premio', img: '/assets/historias/premio-historia.png' },
         { title: 'Lola Cabnal en',        subtitle: 'Somos Raíces',       cta: 'Ver Video',           play: true,  href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s', img: '/assets/historias/historia-one.avif' },
         { title: 'Conoce más de',         subtitle: 'Natura 500',         cta: 'Ir a Natura 500',     play: false, href: 'https://500.naturatech.org',                                  img: '/assets/historias/historia-dos.avif' },
         { title: 'Accede a nuestro',      subtitle: 'Canal de Whatsapp',  cta: 'Ir a Canal',          play: false, href: 'https://whatsapp.com/channel/0029Vb7HsgN3mFXwkZzeW71V', img: '/assets/historias/historia-tres.avif' },
@@ -350,7 +350,7 @@ export const translations = {
       storiesMinimize: 'Minimize featured stories',
       storiesRestore: 'Show featured stories',
       stories: [
-        { title: 'NaturaTech LAC',         subtitle: '2026 Prize',         cta: 'Learn more',          play: false, href: 'https://500.naturatech.org/premio', img: '/assets/historias/premio-historia.png' },
+        { title: 'Winners of the',          subtitle: 'NaturaTech LAC 2026 Prize',         cta: 'Learn more',          play: false, href: 'https://500.naturatech.org/explorar?coleccion=premio', img: '/assets/historias/premio-historia.png' },
         { title: 'Lola Cabnal in',        subtitle: 'Somos Raíces',       cta: 'Watch Video',          play: true,  href: 'https://www.youtube.com/watch?v=_Z1tjJn5fo0&t=36s', img: '/assets/historias/historia-one.avif' },
         { title: 'Learn more about',      subtitle: 'Natura 500',         cta: 'Go to Natura 500',     play: false, href: 'https://500.naturatech.org',                                  img: '/assets/historias/historia-dos.avif' },
         { title: 'Join our',              subtitle: 'WhatsApp Channel',   cta: 'Go to Channel',        play: false, href: 'https://whatsapp.com/channel/0029Vb7HsgN3mFXwkZzeW71V', img: '/assets/historias/historia-tres.avif' },
