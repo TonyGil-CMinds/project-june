@@ -10,7 +10,6 @@ const linkItems = [
   { label: 'Regístrate en Natura500', href: 'https://500.naturatech.org', n500: true },
   { label: 'Documento en Ecos', badge: 'Nuevo', href: '/ecos' },
   { label: 'Último lanzamiento en "SOMOS RAÍCES"', href: 'https://www.youtube.com/@NaturaTechLAC/featured' },
-  { label: 'Revive CEIBA 2025', href: '/ceiba' },
 ];
 
 export default function Links() {
@@ -20,7 +19,7 @@ export default function Links() {
         <div className="links-card-marker" aria-hidden="true" />
 
         <header className="links-header">
-          <img className="links-cover" src="/assets/Links/portada-n500.webp" alt="" width="390" height="204" />
+          <img className="links-cover" src="/assets/Links/portada-ceiba-quito-2026.png" alt="CEIBA Quito · 05 OCT 2026 · Ecuador, Quito" width="1302" height="730" />
           <a className="links-logo" href="/" aria-label="Ir a naturatech.org">
             <img src="/assets/images/logo.svg" alt="" width="44" height="40" />
           </a>
