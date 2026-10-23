@@ -63,8 +63,8 @@
 }
 
 .links-cover {
-  width: calc(100% + 70px);
-  margin-inline: -35px;
+  width: 100%;
+  margin-inline: 0;
   height: auto;
   margin-bottom: -23px;
   filter:
@@ -530,8 +530,8 @@
   }
 
   .links-cover {
-    width: calc(100% + 48px);
-    margin-inline: -24px;
+    width: 100%;
+    margin-inline: 0;
     margin-bottom: -16px;
   }
 
