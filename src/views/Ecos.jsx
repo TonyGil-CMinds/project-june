@@ -291,7 +291,7 @@ export default function Ecos() {
 
             <p className="ecos-description">{t.ecos.desc}</p>
 
-            <a href="https://ecos.naturatech.org/" className="btn-glass hero-cta-button ecos-cta-button">
+            <a href="https://ecos.cminds.co" className="btn-glass hero-cta-button ecos-cta-button">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M12 2.5L14.58 9.42L21.5 12L14.58 14.58L12 21.5L9.42 14.58L2.5 12L9.42 9.42L12 2.5Z" />
               </svg>
