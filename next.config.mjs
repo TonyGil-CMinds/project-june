@@ -17,6 +17,24 @@ function galleryHost() {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async redirects() {
+    const legacyPages = [
+      ['/explora', '/explora'],
+      ['/minga-jaguar', '/minga-jaguar'],
+      ['/cop16', '/cop16'],
+      ['/en/premio', '/en/premio'],
+      ['/newsletter', '/newsletter'],
+      ['/swedenxlatam', '/swedenxlatam'],
+      ['/evento-latidos-jaguar', '/eventos-2025/evento-latidos-jaguar'],
+      ['/100', '/100'],
+    ];
+
+    return legacyPages.map(([source, path]) => ({
+      source,
+      destination: `https://naturatechlac.wixstudio.com/main${path}`,
+      permanent: true,
+    }));
+  },
   turbopack: {
     // Pinned so Turbopack never infers the root from a nested lockfile
     // (my-app/package-lock.json), which made it warn on every dev start.
