@@ -14,6 +14,7 @@ import '../styles/privacy-policy.css';
 import '../styles/links.css';
 import '../styles/not-found.css';
 import '../styles/galeria-ceiba.css';
+import '../styles/capital-paciente.css';
 
 const BASE_URL = 'https://naturatech.org';
 

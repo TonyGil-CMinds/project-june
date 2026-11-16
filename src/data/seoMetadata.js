@@ -28,6 +28,9 @@ const descriptions = {
     es: 'Desde 2024 hemos enraizado tecnologia, saberes y un ecosistema vibrante en la region de LAC.',
     en: 'Since 2024, we have rooted technology, knowledge and a vibrant ecosystem across the LAC region.',
   },
+  capitalPaciente: {
+    es: 'Un análisis del radar Natura500 sobre emprendimientos, biodiversidad y la oportunidad de movilizar capital paciente en América Latina y el Caribe.',
+  },
   links: {
     es: 'Links oficiales de NaturaTech LAC.',
     en: 'Official NaturaTech LAC links.',
@@ -54,6 +57,7 @@ const titles = {
     studio: 'Studio | NaturaTech LAC',
     ecos: 'ECOS | NaturaTech LAC',
     hitos: 'Hitos | NaturaTech LAC',
+    capitalPaciente: 'Capital paciente: la oportunidad Natura500 | NaturaTech LAC',
     links: 'Links | NaturaTech LAC',
     gallery: 'Galeria CEIBA 2025 | NaturaTech LAC',
     privacy: 'Aviso de Privacidad | NaturaTech LAC',
@@ -80,6 +84,7 @@ const routeKeys = {
   '/studio': 'studio',
   '/ecos': 'ecos',
   '/hitos': 'hitos',
+  '/capital-paciente': 'capitalPaciente',
   '/links': 'links',
   '/galeriaceiba': 'gallery',
   '/privacy-policy': 'privacy',
@@ -92,15 +97,16 @@ function normalizePath(pathname) {
 }
 
 export function getSeoMetadata(lang, pathname) {
-  const safeLang = lang === 'en' ? 'en' : 'es';
   const key = routeKeys[normalizePath(pathname)] || 'home';
+  const safeLang = key === 'capitalPaciente' ? 'es' : lang === 'en' ? 'en' : 'es';
   const title = titles[safeLang][key];
   const description = descriptions[key][safeLang];
 
   return {
+    lang: safeLang,
     title,
     description,
     locale: safeLang === 'en' ? 'en_US' : 'es_LA',
-    imageAlt: DEFAULT_IMAGE_ALT[safeLang],
+    imageAlt: key === 'capitalPaciente' ? 'Bosque amazónico de ARBIO Perú' : DEFAULT_IMAGE_ALT[safeLang],
   };
 }
