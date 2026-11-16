@@ -26,7 +26,7 @@ export default function SeoMetadata() {
     const metadata = getSeoMetadata(lang, pathname);
 
     document.title = metadata.title;
-    document.documentElement.lang = lang;
+    document.documentElement.lang = metadata.lang;
 
     upsertMeta('meta[name="description"]', {
       name: 'description',

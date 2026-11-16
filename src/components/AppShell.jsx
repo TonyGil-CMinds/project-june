@@ -27,6 +27,7 @@ export default function AppShell({ children }) {
   const isLinksRoute = pathname === '/links';
   const isHitosRoute = pathname === '/hitos';
   const isGalleryRoute = pathname === '/galeriaceiba';
+  const isCapitalPacienteRoute = pathname === '/capital-paciente';
   const lenisRef = useRef(null);
   const isInitialMount = useRef(true);
   const privacyTransitionRef = useRef(null);
@@ -71,7 +72,7 @@ export default function AppShell({ children }) {
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
+      smoothWheel: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       wheelMultiplier: 1,
       touchMultiplier: 1.4,
     });
@@ -114,7 +115,7 @@ export default function AppShell({ children }) {
       <SeoMetadata />
       <FrameToggleContext.Provider value={setFrameVisible}>
         {!isLinksRoute && !isGalleryRoute && <Nav />}
-        {!isLinksRoute && !isHitosRoute && !isGalleryRoute && <LanguageSwitcher />}
+        {!isLinksRoute && !isHitosRoute && !isGalleryRoute && !isCapitalPacienteRoute && <LanguageSwitcher />}
         {!isLinksRoute && !isGalleryRoute && <ViewportFrame visible={frameVisible} />}
         <div ref={privacyTransitionRef} className="privacy-route-transition" aria-hidden="true" />
 
